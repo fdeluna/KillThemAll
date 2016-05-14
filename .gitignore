@@ -21,8 +21,16 @@
 *.la
 *.a
 *.lib
+Release/
+Debug/
 
 # Executables
 *.exe
 *.out
 *.app
+
+# visual
+*.sdf
+*.sln
+*.vcxproj
+*.vcxproj.user

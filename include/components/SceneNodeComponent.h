@@ -1,10 +1,12 @@
 #ifndef SCENENODECOMPONENT_H
 #define SCENENODECOMPONENT_h
 
-#include <Ogre.h>
 #include "Component.h"
+#include "Enum.h"
 
-class SceneNodeComponent : Component{
+#include <Ogre.h>
+
+class SceneNodeComponent : public Component{
 public:
 
 	SceneNodeComponent() :_sceneManager(nullptr), _sceneNode(nullptr){};

@@ -1,6 +1,18 @@
 #include "GameObject.h"
 
 
+GameObject::~GameObject(){
+	if (!_components.empty()){
+
+		for (int i = 0; i < _components.size(); i++){				
+			Component* aux = _components[i];
+			_components.erase(_components.begin() + i);
+			delete aux;
+		}
+	}
+
+}
+
 void GameObject::update(float deltaTime){
 
 	if (!_components.empty()){

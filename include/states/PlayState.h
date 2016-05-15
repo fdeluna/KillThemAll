@@ -1,12 +1,16 @@
 #ifndef PlayState_H
 #define PlayState_H
 
+
+#include "GameState.h"
+#include "MapGenerator.h"
+
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <btBulletDynamicsCommon.h>
-#include "GameState.h"
+
 
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
 {
@@ -42,6 +46,9 @@ private:
 	bool _exitGame;
 
 	CEGUI::OgreRenderer* _renderer;
+
+	MapGenerator* _mapGenerator;
+
 };
 
 #endif

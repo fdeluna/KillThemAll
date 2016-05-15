@@ -14,6 +14,7 @@ public:
 	~Component(){ _gameObject = nullptr; };
 
 	virtual void update(float deltaTime){};
+	
 
 private:
 	GameObject* _gameObject;

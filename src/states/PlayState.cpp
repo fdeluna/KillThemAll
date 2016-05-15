@@ -6,21 +6,38 @@ void PlayState::enter()
 {
 	_root = Ogre::Root::getSingletonPtr();
 
-	if (_root->hasSceneManager("IntroState") && _sceneMgr->hasCamera(
-		"IntroCamera")) {
-		_sceneMgr = _root->getSceneManager("IntroState");
-		//_camera = _sceneMgr->getCamera("IntroCamera");		
+	if (_root->hasSceneManager("PlayState") && _sceneMgr->hasCamera(
+		"PlayState")) {
+		_sceneMgr = _root->getSceneManager("PlayState");
+		_camera = _sceneMgr->getCamera("PlayState");		
 	}
 	else {
-		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "IntroState");
+		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");
 		//Inicializacion de CEGUI
 		_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
 		// set camera
-		_camera = _sceneMgr->createCamera("IntroCamera");
+		_camera = _sceneMgr->createCamera("PlayState");
 	}
 
 	createGUI();
 	_exitGame = false;
+
+
+	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
+	_camera->setNearClipDistance(5);
+	_camera->setFarClipDistance(10000);
+	_camera->setPosition(0,15,10);
+	_camera->lookAt(0, 0, 0);
+
+	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
+	_viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
+
+	
+
+	_mapGenerator = new MapGenerator(_sceneMgr);
+
+	_mapGenerator->GenerateMap();
+
 }
 
 void PlayState::exit() {
@@ -39,6 +56,8 @@ void PlayState::resume() {
 bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
+
+	_mapGenerator->update(evt.timeSinceLastFrame);
 
 	return true;
 }

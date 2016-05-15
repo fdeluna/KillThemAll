@@ -12,4 +12,11 @@ static std::map<Mesh, Ogre::String> MESHES = {
 	{ TILE, "Tile.mesh"}
 };
 
+static int sceneNodeNumber = 0;
+
+static int getSceneNodeNumber(){
+	sceneNodeNumber++;
+	return sceneNodeNumber;
+}
+
 #endif

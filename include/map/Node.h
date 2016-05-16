@@ -15,6 +15,7 @@ public:
 
 	void setWalkable(bool walkable);
 	void setScale(Ogre::Vector3 scale);
+	Ogre::Vector2 getNodePosition(){ return Ogre::Vector2(_sceneNodeComponente->getSceneNode()->getPosition().x, _sceneNodeComponente->getSceneNode()->getPosition().z); };
 	bool isWakable();
 
 private:

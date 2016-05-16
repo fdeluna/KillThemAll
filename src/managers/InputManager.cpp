@@ -384,6 +384,7 @@ int InputManager::getNumOfJoysticks(void) {
 }
 
 bool InputManager::povMoved(const OIS::JoyStickEvent &e, int pov) {
+	std::cout << "POV MOVED" << std::endl;
 	itJoystickListener = mJoystickListeners.begin();
 	itJoystickListenerEnd = mJoystickListeners.end();
 	for (; itJoystickListener != itJoystickListenerEnd; ++itJoystickListener) {
@@ -394,7 +395,7 @@ bool InputManager::povMoved(const OIS::JoyStickEvent &e, int pov) {
 	return true;
 }
 
-bool InputManager::axisMoved(const OIS::JoyStickEvent &e, int axis) {
+bool InputManager::axisMoved(const OIS::JoyStickEvent &e, int axis) {	
 	itJoystickListener = mJoystickListeners.begin();
 	itJoystickListenerEnd = mJoystickListeners.end();
 	for (; itJoystickListener != itJoystickListenerEnd; ++itJoystickListener) {
@@ -406,6 +407,7 @@ bool InputManager::axisMoved(const OIS::JoyStickEvent &e, int axis) {
 }
 
 bool InputManager::sliderMoved(const OIS::JoyStickEvent &e, int sliderID) {
+	std::cout << "SLIDER MOVED" << std::endl;
 	itJoystickListener = mJoystickListeners.begin();
 	itJoystickListenerEnd = mJoystickListeners.end();
 	for (; itJoystickListener != itJoystickListenerEnd; ++itJoystickListener) {
@@ -417,6 +419,7 @@ bool InputManager::sliderMoved(const OIS::JoyStickEvent &e, int sliderID) {
 }
 
 bool InputManager::buttonPressed(const OIS::JoyStickEvent &e, int button) {
+	std::cout << "BUTTON PRESSED" << std::endl;
 	itJoystickListener = mJoystickListeners.begin();
 	itJoystickListenerEnd = mJoystickListeners.end();
 	for (; itJoystickListener != itJoystickListenerEnd; ++itJoystickListener) {
@@ -427,7 +430,8 @@ bool InputManager::buttonPressed(const OIS::JoyStickEvent &e, int button) {
 	return true;
 }
 
-bool InputManager::buttonReleased(const OIS::JoyStickEvent &e, int button) {
+bool InputManager::buttonReleased(const OIS::JoyStickEvent &e, int button) {	
+	std::cout << "BUTTON RELEASED" << std::endl;
 	itJoystickListener = mJoystickListeners.begin();
 	itJoystickListenerEnd = mJoystickListeners.end();
 	for (; itJoystickListener != itJoystickListenerEnd; ++itJoystickListener) {

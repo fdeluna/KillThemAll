@@ -31,7 +31,7 @@ protected:
 
 	Ogre::SceneManager* _sceneManager;
 
-	bool _active;	
+	bool _active = true;	
 	
 	std::vector<Component*> _components;
 

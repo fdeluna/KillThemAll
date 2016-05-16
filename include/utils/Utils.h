@@ -1,0 +1,31 @@
+#ifndef UTILS_H
+#define UTILS_H
+
+#include <vector>
+
+template <typename T>
+static void initBidimensionalVector(std::vector<std::vector<T>> &vector2, int width, int heigh){
+	vector2.resize(width);
+
+	for (int i = 0; i < vector2.size(); i++){		
+		vector2[i].resize(heigh);
+	}
+}
+
+template <typename T>
+static void shuffleArray(std::vector<std::vector<T>> &vector2) {
+	std::srand(std::time(0));	
+
+	for (int i = 0; i < vector2.size(); i++){
+		for (int j = 0; j < vector2[i].size(); j++){
+			int x = rand() % (int)vector2.size();
+			int y = rand() % (int)vector2[i].size();
+			T tempItem = vector2[x][y];
+			vector2[x][y] = vector2[i][j];
+			vector2[i][j] = tempItem;
+
+		}		
+	}	
+}
+
+#endif

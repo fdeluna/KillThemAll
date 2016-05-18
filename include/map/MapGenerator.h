@@ -20,11 +20,11 @@ public:
 private:
 	Ogre::Vector2 _mapSize;
 	Ogre::Vector2 _mapCenter;
+	SceneNodeComponent* _sceneNodeComponent;
 
 	std::vector< std::vector <Node*>> grid;
 
 	bool isMapAccessible(std::vector< std::vector <bool>> obstacleMap, int currentNumberObstacle);
-
 
 };
 

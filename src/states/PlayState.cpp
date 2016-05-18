@@ -26,7 +26,7 @@ void PlayState::enter()
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
 	_camera->setNearClipDistance(5);
 	_camera->setFarClipDistance(10000);
-	_camera->setPosition(0,15,10);
+	_camera->setPosition(0,60,10);
 	_camera->lookAt(0, 0, 0);
 
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);

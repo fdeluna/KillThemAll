@@ -15,9 +15,13 @@ public:
 
 	void setWalkable(bool walkable);
 	void setScale(Ogre::Vector3 scale);
-	Ogre::Vector2 getNodePosition(){ return Ogre::Vector2(_sceneNodeComponente->getSceneNode()->getPosition().x, _sceneNodeComponente->getSceneNode()->getPosition().z); };
-	bool isWakable();
+	void makeObstacle(Ogre::Vector3 scale, Ogre::ColourValue color);
 
+
+	bool isWakable();
+	Ogre::Vector2 getNodePosition(){ return Ogre::Vector2(_sceneNodeComponente->getSceneNode()->getPosition().x, _sceneNodeComponente->getSceneNode()->getPosition().z); };
+	SceneNodeComponent* getSceneNode(){ return _sceneNodeComponente; };
+		
 private:
 	bool _walkable;
 	Ogre::Vector3 _position;

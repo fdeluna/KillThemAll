@@ -13,10 +13,16 @@ void Node::setWalkable(bool walkable){
 
 void Node::setScale(Ogre::Vector3 scale){
 	if (_sceneNodeComponente){
-		_sceneNodeComponente->getSceneNode()->setScale(scale);
+		_sceneNodeComponente->getSceneNode()->setScale(scale);		
 	}
 }
 
 bool Node::isWakable(){
 	return _walkable;
+}
+
+void Node::makeObstacle(Ogre::Vector3 scale, Ogre::ColourValue color){
+	_sceneNodeComponente->getSceneNode()->setScale(scale);
+	_sceneNodeComponente->setDiffuseColor(color);
+	_walkable = false;
 }

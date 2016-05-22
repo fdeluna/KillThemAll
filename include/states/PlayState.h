@@ -45,6 +45,8 @@ private:
 	Ogre::Viewport *_viewport;
 	bool _exitGame;
 
+	float _deltaT = 0;
+
 	CEGUI::OgreRenderer* _renderer;
 
 	MapGenerator* _mapGenerator;

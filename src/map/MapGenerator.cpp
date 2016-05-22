@@ -1,8 +1,7 @@
 #include "MapGenerator.h"
 
-
 void MapGenerator::GenerateMap(){
-	_mapSize = Ogre::Vector2(15, 10);
+	_mapSize = Ogre::Vector2(15, 7);
 	_mapCenter = Ogre::Vector2((int)_mapSize.x / 2, (int)_mapSize.y / 2);
 	
 
@@ -43,11 +42,10 @@ void MapGenerator::GenerateMap(){
 			obstacleMap[(int)coord.x][(int)coord.y] = true;
 			currentNumberObstacules++;
 
-			if (_mapCenter != coord && isMapAccessible(obstacleMap, currentNumberObstacules)){
-				//grid[x][y]->
+			if (_mapCenter != coord && isMapAccessible(obstacleMap, currentNumberObstacules)){				
 				float colourPercent = coord.y / (float)_mapSize.y;
 				Ogre::Math::lerp<Ogre::ColourValue, float>(Ogre::ColourValue::Black, Ogre::ColourValue::Red, colourPercent);
-				grid[x][y]->makeObstacle(Ogre::Vector3(0.5, 5, 0.5), Ogre::Math::lerp<Ogre::ColourValue, float>(Ogre::ColourValue::Blue, Ogre::ColourValue::Green, colourPercent));
+				grid[x][y]->makeObstacle(Ogre::Vector3(0.5, 10, 0.5), Ogre::Math::lerp<Ogre::ColourValue, float>(Ogre::ColourValue::White, Ogre::ColourValue::Blue, colourPercent));
 
 			}
 			else{
@@ -57,8 +55,45 @@ void MapGenerator::GenerateMap(){
 			i++;
 		}
 	}
-	std::cout << "OBSTACLE NUMBER:" << numberObstacules << std::endl;
-	std::cout << "CURRENT OBSTACLE NUMBER:" << currentNumberObstacules << std::endl;
+
+
+	// TODO REFACTOR TO STYLE SELECTION
+	Ogre::Plane plane = createPlane("mapFloor", (int)_mapSize.x, (int)_mapSize.y);
+	SceneNodeComponent* planeNode = new SceneNodeComponent(_sceneManager, "PlaneFloor", "mapFloor", Ogre::Vector3::UNIT_SCALE, Ogre::Vector3(_mapCenter.x, 0, _mapCenter.y));
+	
+	// Render To Texture (MIRROR EFFECT) ------------------------------------
+	Ogre::TexturePtr rttM_texture = Ogre::TextureManager::getSingleton().createManual(
+		"RttMTex", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		Ogre::TEX_TYPE_2D, 2048, 2048, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET);
+
+	Ogre::RenderTexture *rMtex = rttM_texture->getBuffer()->getRenderTarget();
+
+	Ogre::Camera *camM = _sceneManager->createCamera("MirrorCamera");
+	camM->setPosition(_sceneManager->getCamera("PlayState")->getPosition());
+	camM->setOrientation(_sceneManager->getCamera("PlayState")->getOrientation());
+	camM->setAspectRatio(_sceneManager->getCamera("PlayState")->getAspectRatio());
+
+	rMtex->addViewport(camM);
+	rMtex->getViewport(0)->setClearEveryFrame(true);
+	rMtex->getViewport(0)->setBackgroundColour(Ogre::ColourValue::Black);
+	rMtex->getViewport(0)->setOverlaysEnabled(false);
+	rMtex->setAutoUpdated(true);
+
+	Ogre::MaterialPtr mMPtr = Ogre::MaterialManager::getSingleton().create(
+		"RttMMat", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	Ogre::Technique* matMTechnique = mMPtr->createTechnique();
+	matMTechnique->createPass();
+	Ogre::TextureUnitState *t = mMPtr->getTechnique(0)->getPass(0)->createTextureUnitState("tile.png");	
+	t->setScrollAnimation(-0.5, 0);
+	t = mMPtr->getTechnique(0)->getPass(0)->createTextureUnitState("RttMTex");
+	t->setColourOperationEx(Ogre::LBX_BLEND_MANUAL, Ogre::LBS_TEXTURE, Ogre::LBS_CURRENT, Ogre::ColourValue::White, Ogre::ColourValue::White, 0.5);	
+	t->setTextureAddressingMode(Ogre::TextureUnitState::TAM_CLAMP);
+	t->setProjectiveTexturing(true, camM);
+			
+	camM->enableReflection(plane);
+	camM->enableCustomNearClipPlane(plane);
+
+	planeNode->setMaterialName("RttMMat");		
 }
 
 bool MapGenerator::isMapAccessible(std::vector< std::vector <bool>> obstacleMap, int currentNumberObstacle){

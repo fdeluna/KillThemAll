@@ -16,10 +16,11 @@ public:
 	MapGenerator(Ogre::SceneManager* sceneManager) :GameObject(sceneManager){};
 
 	void GenerateMap();
+	Ogre::Vector2 _mapCenter;
 
 private:
 	Ogre::Vector2 _mapSize;
-	Ogre::Vector2 _mapCenter;
+	
 	SceneNodeComponent* _sceneNodeComponent;
 
 	std::vector< std::vector <Node*>> grid;

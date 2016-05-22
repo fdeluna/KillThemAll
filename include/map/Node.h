@@ -19,13 +19,13 @@ public:
 
 
 	bool isWakable();
-	Ogre::Vector2 getNodePosition(){ return Ogre::Vector2(_sceneNodeComponente->getSceneNode()->getPosition().x, _sceneNodeComponente->getSceneNode()->getPosition().z); };
-	SceneNodeComponent* getSceneNode(){ return _sceneNodeComponente; };
+	Ogre::Vector2 getNodePosition(){ return Ogre::Vector2(_sceneNodeComponent->getPosition().x, _sceneNodeComponent->getPosition().z); };
+	SceneNodeComponent* getSceneNode(){ return _sceneNodeComponent; };
 		
 private:
 	bool _walkable;
 	Ogre::Vector3 _position;
-	SceneNodeComponent* _sceneNodeComponente;
+	SceneNodeComponent* _sceneNodeComponent;
 };
 
 #endif

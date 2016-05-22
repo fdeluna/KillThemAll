@@ -1,7 +1,7 @@
 #include "SceneNodeComponent.h"
 
 
-SceneNodeComponent::SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::String mesh, Ogre::Vector3 scale, Ogre::Vector3 position){
+SceneNodeComponent::SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::String name, Ogre::String mesh, Ogre::Vector3 scale, Ogre::Vector3 position){
 
 	_sceneManager = sceneManager;
 
@@ -15,14 +15,13 @@ SceneNodeComponent::SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::S
 
 	_entity = _sceneManager->createEntity(enityName, mesh);
 
-	
+
 	_sceneNode = _sceneManager->createSceneNode(nodeName);
 	_sceneNode->attachObject(_entity);
 
 	_sceneNode->setPosition(position);
 	_sceneNode->setScale(scale);
 
-	
 	_sceneManager->getRootSceneNode()->addChild(_sceneNode);
 }
 
@@ -36,3 +35,8 @@ void SceneNodeComponent::setDiffuseColor(Ogre::ColourValue diffuseColor){
 void SceneNodeComponent::addToRootScene(){
 	_sceneManager->getRootSceneNode()->addChild(_sceneNode);
 }
+
+void SceneNodeComponent::setMaterialName(Ogre::String materialName){
+	_entity->setMaterialName(materialName);
+}
+

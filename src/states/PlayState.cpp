@@ -9,7 +9,7 @@ void PlayState::enter()
 	if (_root->hasSceneManager("PlayState") && _sceneMgr->hasCamera(
 		"PlayState")) {
 		_sceneMgr = _root->getSceneManager("PlayState");
-		_camera = _sceneMgr->getCamera("PlayState");		
+		_camera = _sceneMgr->getCamera("PlayState");
 	}
 	else {
 		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");
@@ -22,27 +22,35 @@ void PlayState::enter()
 	createGUI();
 	_exitGame = false;
 
-
+	// TODO LIGHTS
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
+
+	// TODO REFACTOR TO INIT WAVE
+	_camera->setPosition(Ogre::Vector3(0, 20, 15));
+	_camera->lookAt(Ogre::Vector3(0, 0, 0));
 	_camera->setNearClipDistance(5);
 	_camera->setFarClipDistance(10000);
-	_camera->setPosition(0,60,10);
-	_camera->lookAt(0, 0, 0);
 
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
-	_viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
+	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
+
+	double width = _viewport->getActualWidth();
+	double height = _viewport->getActualHeight();
+	_camera->setAspectRatio(width / height);
+
 
 	
-
 	_mapGenerator = new MapGenerator(_sceneMgr);
-
 	_mapGenerator->GenerateMap();
+
+	_camera->setPosition(_mapGenerator->_mapCenter.x, 15, _mapGenerator->_mapCenter.y - 5);
+	_camera->lookAt(_mapGenerator->_mapCenter.x, 0, _mapGenerator->_mapCenter.y);
 
 }
 
 void PlayState::exit() {
-	
-	
+
+
 }
 
 void PlayState::pause() {
@@ -57,7 +65,21 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
 
+	_deltaT = evt.timeSinceLastFrame;
 	_mapGenerator->update(evt.timeSinceLastFrame);
+
+	Ogre::Vector3 vt(0, 0, 0);     Ogre::Real tSpeed = 20.0;
+
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_ESCAPE)) return false;
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_UP))    vt += Ogre::Vector3(0, 0, -1);
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_DOWN))  vt += Ogre::Vector3(0, 0, 1);
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_LEFT))  vt += Ogre::Vector3(-1, 0, 0);
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_RIGHT)) vt += Ogre::Vector3(1, 0, 0);
+
+	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
+	if (_camera->getPosition().length() < 10.0) {
+		_camera->moveRelative(-vt * evt.timeSinceLastFrame * tSpeed);
+	}
 
 	return true;
 }
@@ -78,6 +100,9 @@ void PlayState::mouseMoved(const OIS::MouseEvent &e)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(
 		e.state.X.rel, e.state.Y.rel);
+
+	_camera->yaw(Ogre::Radian(e.state.X.rel) * _deltaT * -1);
+	_camera->pitch(Ogre::Radian(e.state.Y.rel) * _deltaT * -1);
 }
 
 void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)

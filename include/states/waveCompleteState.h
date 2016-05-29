@@ -1,0 +1,95 @@
+#ifndef WaveCompleteState_H
+#define WaveCompleteState_H
+
+
+#include "GameState.h"
+#include "MapGenerator.h"
+
+#include <Ogre.h>
+#include <OIS/OIS.h>
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
+#include <btBulletDynamicsCommon.h>
+
+
+class WaveCompleteState : public Ogre::Singleton<WaveCompleteState>, public GameState
+{
+public:
+	WaveCompleteState(){};
+	~WaveCompleteState(){};
+	static WaveCompleteState& getSingleton();
+	static WaveCompleteState* getSingletonPtr();
+
+	void enter();
+	void exit();
+	void pause();
+	void resume();
+
+	void keyPressed(const OIS::KeyEvent &e);
+	void keyReleased(const OIS::KeyEvent &e);
+	void mouseMoved(const OIS::MouseEvent &e);
+	void mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id);
+	void mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id);
+
+	bool frameStarted(const Ogre::FrameEvent &e);
+	bool frameEnded(const Ogre::FrameEvent &e);
+
+	CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
+
+	void createGUI();
+
+private:
+	Ogre::Root *_root;
+	Ogre::SceneManager *_sceneMgr;
+	Ogre::Camera *_camera;
+	Ogre::Viewport *_viewport;
+	bool _exitGame;
+
+	CEGUI::OgreRenderer* _renderer;
+
+	MapGenerator* _mapGenerator;
+	// CEGUI
+
+
+	bool quit(const CEGUI::EventArgs &e);
+	bool upgrade(const CEGUI::EventArgs &e);
+	bool ready(const CEGUI::EventArgs &e);
+	bool upgradeWeapon(const CEGUI::EventArgs &e);
+
+	//ANTIGUAS
+	CEGUI::Window* _waveCompleteStateUI;
+	CEGUI::Window* _gameOverUI;
+	CEGUI::Window* _winUI;
+	CEGUI::Window* _exitGameOver;
+	CEGUI::Window* _scoreText;
+	CEGUI::Window* _scoreTextLose;
+	CEGUI::Window* _getReadyText;
+	CEGUI::Window* _scoreTextGUI;
+	CEGUI::Window* _scoreNumberTextGUI;
+	CEGUI::Window* _lifeText;
+	CEGUI::Window*	_nameText;
+	CEGUI::Window*	_nameTextLose;
+	CEGUI::Window* _saveGameOver;
+	CEGUI::Window* _saveWin;
+	CEGUI::Window* _heart1;
+	CEGUI::Window* _heart2;
+	CEGUI::Window* _heart3;
+	CEGUI::Window* _turnText;
+
+	//NUEVAS
+	CEGUI::Window* _ventanaUpgrade;
+	CEGUI::Window* _ventanaWaveComplete;
+	CEGUI::Window* _ready;
+	CEGUI::Window* _upgrade;
+	CEGUI::Window* _upgradeClub;
+	CEGUI::Window* _upgradeGun;
+	CEGUI::Window* _upgradeShotGun;
+
+	CEGUI::Window* _exit;
+	
+	// Time match for cegui GUI
+	float _time = 0;
+
+};
+
+#endif

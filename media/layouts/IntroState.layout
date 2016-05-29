@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="DefaultWindow" >
+        <Property name="Area" value="{{0,1},{0,3},{1,1},{1,3}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+        <Window type="TaharezLook/Button" name="Play" >
+            <Property name="Area" value="{{0,392},{0,648},{0,592},{0,698}}" />
+            <Property name="Text" value="PLAY" />
+            <Property name="HoverImage" value="TaharezLook/BotonHover" />
+            <Property name="NormalImage" value="TaharezLook/Boton" />
+            <Property name="PushedImage" value="TaharezLook/BotonPulsado" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+        </Window>
+        <Window type="TaharezLook/Button" name="Credits" >
+            <Property name="Area" value="{{0,116},{0,650},{0,316},{0,700}}" />
+            <Property name="Text" value="CREDITS" />
+            <Property name="HoverImage" value="TaharezLook/BotonHover" />
+            <Property name="NormalImage" value="TaharezLook/Boton" />
+            <Property name="PushedImage" value="TaharezLook/BotonPulsado" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+        </Window>
+        <Window type="TaharezLook/Button" name="Score" >
+            <Property name="Area" value="{{0,658},{0,647},{0,858},{0,697}}" />
+            <Property name="Text" value="SCORE" />
+            <Property name="HoverImage" value="TaharezLook/BotonHover" />
+            <Property name="NormalImage" value="TaharezLook/Boton" />
+            <Property name="PushedImage" value="TaharezLook/BotonPulsado" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+        </Window>
+        <Window type="TaharezLook/ImageButton" name="VentanaCredits" >
+            <Property name="Area" value="{{0,233},{0,123},{0,761},{0,591}}" />
+            <Property name="Visible" value="false" />
+            <Property name="HoverImage" value="TaharezLook/Ventana" />
+            <Property name="NormalImage" value="TaharezLook/Ventana" />
+            <Property name="PushedImage" value="TaharezLook/Ventana" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            <Window type="TaharezLook/Button" name="AtrasCredits" >
+                <Property name="Area" value="{{0,429},{0,379},{0,485},{0,431}}" />
+                <Property name="HoverImage" value="TaharezLook/Undo" />
+                <Property name="NormalImage" value="TaharezLook/Undo" />
+                <Property name="PushedImage" value="TaharezLook/Undo" />
+                <Property name="DisabledImage" value="TaharezLook/Undo" />
+            </Window>
+        </Window>
+        <Window type="TaharezLook/ImageButton" name="Salir" >
+            <Property name="Area" value="{{0,942},{0,29},{0,992},{0,79}}" />
+            <Property name="HoverImage" value="TaharezLook/SalirHover" />
+            <Property name="NormalImage" value="TaharezLook/Salir" />
+            <Property name="PushedImage" value="TaharezLook/SalirPulsado" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+        </Window>
+        <Window type="TaharezLook/ImageButton" name="VentanaScore" >
+            <Property name="Area" value="{{0,233},{0,123},{0,761},{0,591}}" />
+            <Property name="Visible" value="false" />
+            <Property name="HoverImage" value="TaharezLook/Ventana" />
+            <Property name="NormalImage" value="TaharezLook/Ventana" />
+            <Property name="PushedImage" value="TaharezLook/Ventana" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            <Window type="TaharezLook/Button" name="AtrasScore" >
+                <Property name="Area" value="{{0,429},{0,379},{0,485},{0,431}}" />
+                <Property name="HoverImage" value="TaharezLook/Undo" />
+                <Property name="NormalImage" value="TaharezLook/Undo" />
+                <Property name="PushedImage" value="TaharezLook/Undo" />
+                <Property name="DisabledImage" value="TaharezLook/Undo" />
+            </Window>
+        </Window>
+        <Window type="TaharezLook/ImageButton" name="VentanaInstrucciones" >
+            <Property name="Area" value="{{0,233},{0,123},{0,761},{0,591}}" />
+            <Property name="Visible" value="false" />
+            <Property name="HoverImage" value="TaharezLook/Ventana" />
+            <Property name="NormalImage" value="TaharezLook/Ventana" />
+            <Property name="PushedImage" value="TaharezLook/Ventana" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            <Window type="TaharezLook/Button" name="AtrasInstrucciones" >
+                <Property name="Area" value="{{0,429},{0,379},{0,485},{0,431}}" />
+                <Property name="HoverImage" value="TaharezLook/Undo" />
+                <Property name="NormalImage" value="TaharezLook/Undo" />
+                <Property name="PushedImage" value="TaharezLook/Undo" />
+                <Property name="DisabledImage" value="TaharezLook/Undo" />
+            </Window>
+            <Window type="TaharezLook/Label" name="LabelInstrucciones" >
+                <Property name="Area" value="{{0,52},{0,64},{0,492},{0,365}}" />
+                <Property name="Text" value="Esto son las instrucciones" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            </Window>
+        </Window>
+        <Window type="TaharezLook/ImageButton" name="Instrucciones" >
+            <Property name="Area" value="{{0,38},{0,35},{0,88},{0,85}}" />
+            <Property name="HoverImage" value="TaharezLook/Instrucciones" />
+            <Property name="NormalImage" value="TaharezLook/Instrucciones" />
+            <Property name="PushedImage" value="TaharezLook/Instrucciones" />
+            <Property name="DisabledImage" value="TaharezLook/Instrucciones" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+        </Window>
+    </Window>
+</GUILayout>

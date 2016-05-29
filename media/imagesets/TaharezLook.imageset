@@ -1,0 +1,30 @@
+<Imageset autoScaled="true" imagefile="TaharezLook.png" name="TaharezLook" nativeHorzRes="1280" nativeVertRes="720" version="2">
+    <Image height="128" name="VentanaLetras" width="441" xPos="563" yPos="737" />
+    <Image height="394" name="Ventana" width="394" xPos="98" yPos="716" />
+    <Image height="52" name="Boton" width="246" xPos="376" yPos="195" />
+    <Image height="56" name="BotonHover" width="252" xPos="373" yPos="253" />
+    <Image height="52" name="BotonPulsado" width="246" xPos="376" yPos="315" />
+    <Image height="48" name="Boton2" width="148" xPos="1286" yPos="234" />
+    <Image height="48" name="Boton2Pulsado" width="148" xPos="1286" yPos="284" />
+    <Image height="48" name="Circulo" width="49" xPos="1546" yPos="170" />
+    <Image height="128" name="HUDVIDAFULL" width="486" xPos="726" yPos="327" />
+    <Image height="96" name="Salir" width="96" xPos="1441" yPos="243" />
+    <Image height="96" name="SalirHover" width="96" xPos="1441" yPos="340" />
+    <Image height="96" name="SalirPulsado" width="96" xPos="1441" yPos="437" />
+    <Image height="30" name="CursorPulsado" width="23" xPos="6" yPos="9" />
+    <Image height="32" name="Cursor" width="27" xPos="39" yPos="9" />
+    <Image height="80" name="WeaponShotGun" width="319" xPos="33" yPos="196" />
+    <Image height="80" name="WeaponGun" width="319" xPos="33" yPos="278" />
+    <Image height="80" name="WeaponClub" width="319" xPos="33" yPos="360" />
+    <Image height="96" name="Upgrade" width="96" xPos="1543" yPos="243" />
+    <Image height="96" name="UpgradeHover" width="96" xPos="1543" yPos="340" />
+    <Image height="96" name="UpgradePulsado" width="96" xPos="1543" yPos="437" />
+    <Image height="48" name="IconoClub" width="52" xPos="140" yPos="59" />
+    <Image height="48" name="IconoGun" width="52" xPos="197" yPos="59" />
+    <Image height="48" name="IconoShotGun" width="52" xPos="253" yPos="59" />
+    <Image height="28" name="Next" width="44" xPos="868" yPos="24" />
+    <Image height="29" name="Undo" width="44" xPos="864" yPos="92" />
+    <Image height="28" name="CapsulaVida" width="31" xPos="945" yPos="233" />
+    <Image height="128" name="HUDVIDAFINISH" width="486" xPos="732" yPos="474" />
+    <Image height="48" name="Instrucciones" width="32" xPos="732" yPos="16" />
+</Imageset>

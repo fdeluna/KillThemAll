@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="DefaultWindow" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="TaharezLook/ImageButton" name="VentanaWaveComplete" >
+            <Property name="Area" value="{{0,300},{0,227},{0,710},{0,567}}" />
+            <Property name="HoverImage" value="TaharezLook/Ventana" />
+            <Property name="NormalImage" value="TaharezLook/Ventana" />
+            <Property name="PushedImage" value="TaharezLook/Ventana" />
+            <Property name="DisabledImage" value="TaharezLook/Ventana" />
+            <Window type="TaharezLook/Button" name="Ready" >
+                <Property name="Area" value="{{0,228},{0,166},{0,357},{0,218}}" />
+                <Property name="Text" value="UPGRADE" />
+                <Property name="HoverImage" value="TaharezLook/BotonHover" />
+                <Property name="NormalImage" value="TaharezLook/Boton" />
+                <Property name="PushedImage" value="TaharezLook/BotonPulsado" />
+                <Property name="DisabledImage" value="TaharezLook/Boton" />
+            </Window>
+            <Window type="TaharezLook/Button" name="Upgrade" >
+                <Property name="Area" value="{{0,50},{0,167},{0,185},{0,218}}" />
+                <Property name="Text" value="READY" />
+                <Property name="HoverImage" value="TaharezLook/BotonHover" />
+                <Property name="NormalImage" value="TaharezLook/Boton" />
+                <Property name="PushedImage" value="TaharezLook/BotonPulsado" />
+                <Property name="DisabledImage" value="TaharezLook/Boton" />
+            </Window>
+            <Window type="TaharezLook/Button" name="Salir" >
+                <Property name="Area" value="{{0,154},{0,260},{0,250},{0,292}}" />
+                <Property name="Text" value="EXIT" />
+                <Property name="HoverImage" value="TaharezLook/BotonHover" />
+                <Property name="NormalImage" value="TaharezLook/Boton" />
+                <Property name="PushedImage" value="TaharezLook/BotonPulsado" />
+                <Property name="DisabledImage" value="TaharezLook/Boton" />
+            </Window>
+        </Window>
+        <Window type="TaharezLook/ImageButton" name="VentanaUpgrade" >
+            <Property name="Area" value="{{0,265},{0,196},{0,743},{0,598}}" />
+            <Property name="Visible" value="false" />
+            <Property name="HoverImage" value="TaharezLook/Ventana" />
+            <Property name="NormalImage" value="TaharezLook/Ventana" />
+            <Property name="PushedImage" value="TaharezLook/Ventana" />
+            <Property name="DisabledImage" value="TaharezLook/Ventana" />
+            <Window type="TaharezLook/ImageButton" name="IconoClub" >
+                <Property name="Area" value="{{0,52},{0,74},{0,102},{0,124}}" />
+                <Property name="HoverImage" value="TaharezLook/IconoClub" />
+                <Property name="NormalImage" value="TaharezLook/IconoClub" />
+                <Property name="PushedImage" value="TaharezLook/IconoClub" />
+                <Property name="DisabledImage" value="TaharezLook/IconoClub" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="IconoGun" >
+                <Property name="Area" value="{{0,52},{0,174},{0,102},{0,224}}" />
+                <Property name="HoverImage" value="TaharezLook/IconoGun" />
+                <Property name="NormalImage" value="TaharezLook/IconoGun" />
+                <Property name="PushedImage" value="TaharezLook/IconoGun" />
+                <Property name="DisabledImage" value="TaharezLook/IconoGun" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="IconoShotGun" >
+                <Property name="Area" value="{{0,52},{0,267},{0,102},{0,317}}" />
+                <Property name="HoverImage" value="TaharezLook/IconoShotGun" />
+                <Property name="NormalImage" value="TaharezLook/IconoShotGun" />
+                <Property name="PushedImage" value="TaharezLook/IconoShotGun" />
+                <Property name="DisabledImage" value="TaharezLook/IconoShotGun" />
+            </Window>
+            <Window type="TaharezLook/Label" name="ClubInfo" >
+                <Property name="Area" value="{{0,121},{0,59},{0,376},{0,131}}" />
+                <Property name="Text" value="Stats Club" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            </Window>
+            <Window type="TaharezLook/Label" name="GunInfo" >
+                <Property name="Area" value="{{0,120},{0,157},{0,377},{0,237}}" />
+                <Property name="Text" value="Stats Gun" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            </Window>
+            <Window type="TaharezLook/Label" name="ShotGunInfo" >
+                <Property name="Area" value="{{0,123},{0,260},{0,379},{0,334}}" />
+                <Property name="Text" value="Stats Shotgun" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            </Window>
+            <Window type="TaharezLook/Button" name="UpgradeClub" >
+                <Property name="Area" value="{{0,391},{0,82},{0,433},{0,122}}" />
+                <Property name="HoverImage" value="TaharezLook/UpgradeHover" />
+                <Property name="NormalImage" value="TaharezLook/Upgrade" />
+                <Property name="PushedImage" value="TaharezLook/UpgradePulsado" />
+                <Property name="DisabledImage" value="TaharezLook/Upgrade" />
+            </Window>
+            <Window type="TaharezLook/Button" name="UpgradeGun" >
+                <Property name="Area" value="{{0,391},{0,178},{0,433},{0,218}}" />
+                <Property name="HoverImage" value="TaharezLook/UpgradeHover" />
+                <Property name="NormalImage" value="TaharezLook/Upgrade" />
+                <Property name="PushedImage" value="TaharezLook/UpgradePulsado" />
+                <Property name="DisabledImage" value="TaharezLook/Upgrade" />
+            </Window>
+            <Window type="TaharezLook/Button" name="UpgradeShotGun" >
+                <Property name="Area" value="{{0,390},{0,274},{0,432},{0,314}}" />
+                <Property name="HoverImage" value="TaharezLook/UpgradeHover" />
+                <Property name="NormalImage" value="TaharezLook/Upgrade" />
+                <Property name="PushedImage" value="TaharezLook/UpgradePulsado" />
+                <Property name="DisabledImage" value="TaharezLook/Upgrade" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

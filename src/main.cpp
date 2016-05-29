@@ -15,8 +15,10 @@
 #define UNUSED_VARIABLE(x) (void)x
 
 #include "GameManager.h"
-
-
+#include "PlayState.h"
+#include "IntroState.h"
+#include "WaveCompleteState.h"
+#include "GameOverState.h"
 #include <iostream>
 
 using namespace std;
@@ -24,13 +26,15 @@ using namespace std;
 int main() {
 
 	//-------
-	GameManager* game = new GameManager();	
-
-	
+	GameManager* game = new GameManager();
+	PlayState* playState = new PlayState();
+	IntroState* introState = new IntroState();
+	WaveCompleteState* waveCompleteState = new WaveCompleteState();
+	GameOverState* gameOverState = new GameOverState();
 	try
 	{
 		// Inicializa el juego y transición al primer estado.
-		//game->start(PlayState::getSingletonPtr());
+		game->start(IntroState::getSingletonPtr());
 	}
 	catch (Ogre::Exception& e)
 	{

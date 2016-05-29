@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="DefaultWindow" >
+        <Property name="Area" value="{{0,1},{0,2},{1,1},{1,2}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+        <Window type="TaharezLook/ImageButton" name="HUD" >
+            <Property name="Area" value="{{0,-2},{0,0},{0,472},{0,184}}" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            <Window type="TaharezLook/ImageButton" name="HUDFULL" >
+                <Property name="Area" value="{{0,15},{0,8},{0,454},{0,140}}" />
+                <Property name="HoverImage" value="TaharezLook/HUDVIDAFINISH" />
+                <Property name="NormalImage" value="TaharezLook/HUDVIDAFINISH" />
+                <Property name="PushedImage" value="TaharezLook/HUDVIDAFINISH" />
+                <Property name="DisabledImage" value="TaharezLook/HUDVIDAFINISH" />
+                <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida2" >
+                <Property name="Area" value="{{0,198},{0,18},{0,226},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida5" >
+                <Property name="Area" value="{{0,282},{0,18},{0,310},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida6" >
+                <Property name="Area" value="{{0,310},{0,18},{0,338},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida7" >
+                <Property name="Area" value="{{0,338},{0,18},{0,366},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida8" >
+                <Property name="Area" value="{{0,366},{0,18},{0,395},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida4" >
+                <Property name="Area" value="{{0,254},{0,18},{0,282},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida3" >
+                <Property name="Area" value="{{0,226},{0,18},{0,254},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida1" >
+                <Property name="Area" value="{{0,170},{0,18},{0,198},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+        </Window>
+        <Window type="TaharezLook/ImageButton" name="Weapons" >
+            <Property name="Area" value="{{0,350},{0,648},{0,694},{0,749}}" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            <Window type="TaharezLook/ImageButton" name="WeaponClub" >
+                <Property name="Area" value="{{0,0},{0,0},{0,340},{0,98}}" />
+                <Property name="HoverImage" value="TaharezLook/WeaponClub" />
+                <Property name="NormalImage" value="TaharezLook/WeaponClub" />
+                <Property name="PushedImage" value="TaharezLook/WeaponClub" />
+                <Property name="DisabledImage" value="TaharezLook/WeaponClub" />
+                <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="WeaponGun" >
+                <Property name="Area" value="{{0,0},{0,0},{0,340},{0,98}}" />
+                <Property name="Visible" value="false" />
+                <Property name="HoverImage" value="TaharezLook/WeaponGun" />
+                <Property name="NormalImage" value="TaharezLook/WeaponGun" />
+                <Property name="PushedImage" value="TaharezLook/WeaponGun" />
+                <Property name="DisabledImage" value="TaharezLook/WeaponGun" />
+                <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="WeaponShotGun" >
+                <Property name="Area" value="{{0,0},{0,0},{0,340},{0,98}}" />
+                <Property name="Visible" value="false" />
+                <Property name="HoverImage" value="TaharezLook/WeaponShotGun" />
+                <Property name="NormalImage" value="TaharezLook/WeaponShotGun" />
+                <Property name="PushedImage" value="TaharezLook/WeaponShotGun" />
+                <Property name="DisabledImage" value="TaharezLook/WeaponShotGun" />
+                <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

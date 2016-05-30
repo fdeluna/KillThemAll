@@ -23,7 +23,7 @@ private:
 	Ogre::Vector2 _mapSize;	
 	
 	SceneNodeComponent* planeNode;
-	//RigidBodyComponent* rigidBodyComponent;
+	RigidBodyComponent* rigidBodyComponent;
 	std::vector< std::vector <Node*>> grid;
 
 	bool isMapAccessible(std::vector< std::vector <bool>> obstacleMap, int currentNumberObstacle);

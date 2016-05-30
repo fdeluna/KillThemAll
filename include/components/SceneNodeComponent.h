@@ -14,7 +14,8 @@ public:
 
 	~SceneNodeComponent();	
 
-	
+	void getName(){ std::cout << " SCENE NODE" << std::endl; };
+
 	Ogre::Entity* getEntity(){ return _entity; };
 	Ogre::SceneNode* getSceneNode(){ return _sceneNode; };
 

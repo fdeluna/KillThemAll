@@ -9,8 +9,8 @@ void MapGenerator::GenerateMap(){
 	Ogre::Plane plane = createPlane("mapFloor", _mapSize.x + 0.2, _mapSize.y + 0.2);
 	planeNode = new SceneNodeComponent(_sceneManager, "PlaneFloor", "mapFloor", Ogre::Vector3::UNIT_SCALE, Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
 
-	//rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::MAP_FLOOR, planeNode);
-	//rigidBodyComponent->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
+	rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::MAP_FLOOR, planeNode);
+	rigidBodyComponent->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
 
 	//addComponent(planeNode);
 	//addComponent(rigidBodyComponent);
@@ -117,12 +117,13 @@ void MapGenerator::cleanMap(){
 			for (int j = 0; j < grid.size(); j++){
 				Node* aux = grid[i][j];
 				if (aux){
-					delete aux;
+					aux->clean();
+					//delete aux;
 				}
 			}
 		}
 		//planeNode->clean();
-		//delete rigidBodyComponent;
+		delete rigidBodyComponent;
 		delete planeNode;				
 	}
 	

@@ -4,7 +4,8 @@
 #include "Enum.h"
 #include "GameObject.h"
 #include "SceneNodeComponent.h"
-//#include "RigidBodyComponent.h"
+
+#include "RigidBodyComponent.h"
 
 #include <Ogre.h>
 
@@ -16,6 +17,7 @@ public:
 	Node(Ogre::SceneManager* sceneManager, bool walkable, Ogre::Vector3 position, Ogre::String mesh,Ogre::SceneNode* floor);
 	~Node(){ GameObject::~GameObject(); };
 
+	void clean(){ delete _rigidBodyComponent; delete _sceneNodeComponent; };
 	void setWalkable(bool walkable);
 	void setScale(Ogre::Vector3 scale);
 	void makeObstacle(Ogre::Vector3 scale, Ogre::ColourValue color);
@@ -29,7 +31,7 @@ private:
 	bool _walkable;
 	Ogre::Vector3 _position;
 	SceneNodeComponent* _sceneNodeComponent;
-	//RigidBodyComponent* _rigidBodyComponent;
+	RigidBodyComponent* _rigidBodyComponent;
 };
 
 #endif

@@ -6,8 +6,10 @@ GameObject::~GameObject(){
 		std::cout << _components.size() << std::endl;
 		while (_components.size() > 0 ){
 			Component* aux = _components.back();
-			_components.pop();				
-			delete aux;									
+			_components.pop();
+			if (aux){				
+				//delete aux;
+			}
 		}
 		/*for (int i = 0; i < _components.size(); i++){				
 			Component* aux = _components[i];

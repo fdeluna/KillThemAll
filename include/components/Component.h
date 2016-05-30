@@ -3,6 +3,8 @@
 
 #include "GameObject.h"
 
+#include <iostream>
+
 class GameObject;
 
 class Component
@@ -14,6 +16,8 @@ public:
 	virtual ~Component(){ _gameObject = nullptr; };
 
 	virtual void update(float deltaTime){};	
+
+	virtual void getName(){ std::cout << " COMPONENT" << std::endl; };
 	
 
 private:

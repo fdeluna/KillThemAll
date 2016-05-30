@@ -1,6 +1,5 @@
 #include "SceneNodeComponent.h"
 
-
 SceneNodeComponent::SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::String name, Ogre::String mesh, Ogre::Vector3 scale, Ogre::Vector3 position, Ogre::SceneNode* father){
 
 	_sceneManager = sceneManager;
@@ -21,8 +20,7 @@ SceneNodeComponent::SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::S
 	_sceneNode->setScale(scale);
 
 	if (father){
-		father->addChild(_sceneNode);
-		//_sceneNode->translate(position, Ogre::Node::TS_WORLD);
+		father->addChild(_sceneNode);		
 	}
 	else{
 		_sceneManager->getRootSceneNode()->addChild(_sceneNode);
@@ -32,7 +30,6 @@ SceneNodeComponent::SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::S
 SceneNodeComponent::~SceneNodeComponent(){
 
 	if (_sceneNode) {
-
 		_sceneNode->getParent()->removeChild(_sceneNode);
 		_sceneNode->detachAllObjects();
 		_sceneManager->destroySceneNode(_sceneNode);

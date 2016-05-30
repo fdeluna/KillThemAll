@@ -2,7 +2,6 @@
 #define GAMEOBJECT_H
 
 #include "Component.h"
-#include "RigidBodyComponent.h"
 
 #include <Ogre.h>
 #include <iostream>

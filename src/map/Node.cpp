@@ -1,10 +1,10 @@
 #include "Node.h"
 
-Node::Node(Ogre::SceneManager* sceneManager, bool walkable, Ogre::Vector3 position, Ogre::String mesh) : GameObject(sceneManager), _walkable(walkable), _position(position){
+Node::Node(Ogre::SceneManager* sceneManager, bool walkable, Ogre::Vector3 position, Ogre::String mesh,Ogre::SceneNode* floor) : GameObject(sceneManager), _walkable(walkable), _position(position){
 
-	_sceneNodeComponent = new SceneNodeComponent(_sceneManager,"node",mesh, Ogre::Vector3(0.45, 0.25, 0.45), _position);
+	_sceneNodeComponent = new SceneNodeComponent(_sceneManager,"node",mesh, Ogre::Vector3(0.5, 0.25, 0.5), _position);	
 
-	_components.push_back(_sceneNodeComponent);
+	addComponent(_sceneNodeComponent);
 }
 
 void Node::setWalkable(bool walkable){
@@ -13,7 +13,7 @@ void Node::setWalkable(bool walkable){
 
 void Node::setScale(Ogre::Vector3 scale){
 	if (_sceneNodeComponent){
-		_sceneNodeComponent->setScale(scale);
+		_sceneNodeComponent->getSceneNode()->setScale(scale);		
 	}
 }
 
@@ -22,9 +22,15 @@ bool Node::isWakable(){
 }
 
 void Node::makeObstacle(Ogre::Vector3 scale, Ogre::ColourValue color){
-	Ogre::Vector3 position = _sceneNodeComponent->getPosition();
-	_sceneNodeComponent->setPosition(Ogre::Vector3(position.x, position.y + 0.5, position.z));
-	_sceneNodeComponent->setScale(scale);
+
+
+	Ogre::Vector3 position = _sceneNodeComponent->getSceneNode()->getPosition();	
+	_sceneNodeComponent->getSceneNode()->setScale(scale);
 	_sceneNodeComponent->setDiffuseColor(color);
+
+	//_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::OBSTACLE, _sceneNodeComponent);
+	//_rigidBodyComponent->setWorldPosition(Ogre::Vector3(position.x,0.5,position.z));
+	//addComponent(_rigidBodyComponent);
+		
 	_walkable = false;
 }

@@ -12,6 +12,11 @@ static std::map<Mesh, Ogre::String> MESHES = {
 	{ TILE, "Tile.mesh"}
 };
 
+enum GameObjectType{
+	OBSTACLE,
+	MAP_FLOOR
+};
+
 static int sceneNodeNumber = 0;
 
 static int getSceneNodeNumber(){

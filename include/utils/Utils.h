@@ -29,7 +29,7 @@ static void shuffleArray(std::vector<std::vector<T>> &vector2) {
 	}	
 }
 
-static Ogre::Plane& createPlane(Ogre::String name, int width, int heigh){
+static Ogre::Plane& createPlane(Ogre::String name, Ogre::Real width, Ogre::Real heigh){
 
 	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
 	Ogre::MeshManager::getSingleton().createPlane(name,

@@ -2,6 +2,7 @@
 #define GAMEOBJECT_H
 
 #include "Component.h"
+#include "RigidBodyComponent.h"
 
 #include <Ogre.h>
 #include <iostream>
@@ -19,6 +20,8 @@ public:
 	~GameObject();
 
 	virtual void update(float deltaTime);
+	// TODO
+	virtual void collision(GameObject* gameObject){};
 
 	void addComponent(Component* c);
 	void removeComponent(Component* c);
@@ -33,7 +36,7 @@ protected:
 
 	bool _active = true;	
 	
-	std::vector<Component*> _components;
+	std::queue<Component*> _components;
 
 };
 #endif

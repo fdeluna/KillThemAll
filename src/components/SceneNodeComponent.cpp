@@ -45,21 +45,6 @@ SceneNodeComponent::~SceneNodeComponent(){
 	_sceneManager = nullptr;
 }
 
-void SceneNodeComponent::clean(){
-
-	if (_sceneNode) {
-		_sceneNode->getParent()->removeChild(_sceneNode);
-		_sceneNode->detachAllObjects();
-		_sceneManager->destroySceneNode(_sceneNode);
-		_sceneNode = nullptr;
-	}
-	if (_entity) {
-		_sceneManager->destroyEntity(_entity);
-		_entity = nullptr;
-	}
-	_sceneManager = nullptr;
-}
-
 
 void SceneNodeComponent::setDiffuseColor(Ogre::ColourValue diffuseColor){
 	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("ObstacleMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, true);

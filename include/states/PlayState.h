@@ -4,6 +4,7 @@
 
 #include "GameState.h"
 #include "MapGenerator.h"
+#include "PhysicsManager.h"
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
@@ -50,6 +51,9 @@ private:
 	CEGUI::OgreRenderer* _renderer;
 
 	MapGenerator* _mapGenerator;
+		
+	//MANAGERS
+	PhysicsManager* _physicsManager;
 
 };
 

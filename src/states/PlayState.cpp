@@ -28,7 +28,7 @@ void PlayState::enter()
 	// TODO REFACTOR TO INIT WAVE
 	_camera->setPosition(Ogre::Vector3(0, 20, 15));
 	_camera->lookAt(Ogre::Vector3(0, 0, 0));
-	_camera->setNearClipDistance(5);
+	_camera->setNearClipDistance(1);
 	_camera->setFarClipDistance(10000);
 
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
@@ -38,13 +38,9 @@ void PlayState::enter()
 	double height = _viewport->getActualHeight();
 	_camera->setAspectRatio(width / height);
 
+	_physicsManager = new PhysicsManager(_sceneMgr, true);
+	_mapGenerator = new MapGenerator(_sceneMgr);	
 
-	
-	_mapGenerator = new MapGenerator(_sceneMgr);
-	_mapGenerator->GenerateMap();
-
-	_camera->setPosition(_mapGenerator->_mapCenter.x, 15, _mapGenerator->_mapCenter.y - 5);
-	_camera->lookAt(_mapGenerator->_mapCenter.x, 0, _mapGenerator->_mapCenter.y);
 
 }
 
@@ -66,7 +62,9 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 		evt.timeSinceLastFrame);
 
 	_deltaT = evt.timeSinceLastFrame;
-	_mapGenerator->update(evt.timeSinceLastFrame);
+
+	_physicsManager->updatePhysics(_deltaT);
+	//_mapGenerator->update(_deltaT);
 
 	Ogre::Vector3 vt(0, 0, 0);     Ogre::Real tSpeed = 20.0;
 
@@ -77,9 +75,6 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_RIGHT)) vt += Ogre::Vector3(1, 0, 0);
 
 	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
-	if (_camera->getPosition().length() < 10.0) {
-		_camera->moveRelative(-vt * evt.timeSinceLastFrame * tSpeed);
-	}
 
 	return true;
 }
@@ -88,7 +83,7 @@ bool PlayState::frameEnded(const Ogre::FrameEvent& evt)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
-
+	_physicsManager->updatePhysics(_deltaT);
 
 	if (_exitGame)
 		return false;
@@ -124,6 +119,16 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 
 	if (OIS::KC_ESCAPE == e.key){
 		_exitGame = true;
+	}
+
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){						
+		//_mapGenerator->cleanMap();
+		_mapGenerator->GenerateMap();
+		_camera->setPosition(_mapGenerator->_mapCenter.x, 15, _mapGenerator->_mapCenter.y - 5);
+		_camera->lookAt(_mapGenerator->_mapCenter.x, 0, _mapGenerator->_mapCenter.y);
+	}
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_D)){
+		_mapGenerator->cleanMap();						
 	}
 }
 

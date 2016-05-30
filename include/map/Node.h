@@ -1,16 +1,19 @@
 #ifndef NODE_H
 #define NODE_h
 
-#include <Ogre.h>
-
+#include "Enum.h"
 #include "GameObject.h"
 #include "SceneNodeComponent.h"
+//#include "RigidBodyComponent.h"
+
+#include <Ogre.h>
+
 
 class Node : public GameObject{
 
 public:
 	Node() : _walkable(false), _position(Ogre::Vector3::ZERO){};
-	Node(Ogre::SceneManager* sceneManager, bool walkable, Ogre::Vector3 position, Ogre::String mesh);
+	Node(Ogre::SceneManager* sceneManager, bool walkable, Ogre::Vector3 position, Ogre::String mesh,Ogre::SceneNode* floor);
 	~Node(){ GameObject::~GameObject(); };
 
 	void setWalkable(bool walkable);
@@ -19,13 +22,14 @@ public:
 
 
 	bool isWakable();
-	Ogre::Vector2 getNodePosition(){ return Ogre::Vector2(_sceneNodeComponent->getPosition().x, _sceneNodeComponent->getPosition().z); };
+	Ogre::Vector2 getNodePosition(){ return Ogre::Vector2(_sceneNodeComponent->getSceneNode()->getPosition().x, _sceneNodeComponent->getSceneNode()->getPosition().z); };
 	SceneNodeComponent* getSceneNode(){ return _sceneNodeComponent; };
 		
 private:
 	bool _walkable;
 	Ogre::Vector3 _position;
 	SceneNodeComponent* _sceneNodeComponent;
+	//RigidBodyComponent* _rigidBodyComponent;
 };
 
 #endif

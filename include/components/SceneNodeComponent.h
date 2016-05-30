@@ -12,8 +12,7 @@ public:
 	SceneNodeComponent() :_sceneManager(nullptr), _sceneNode(nullptr), _entity(nullptr){};
 	SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::String name, Ogre::String mesh, Ogre::Vector3 scale, Ogre::Vector3 position, Ogre::SceneNode* father = nullptr);
 
-	~SceneNodeComponent();
-	virtual void clean();
+	~SceneNodeComponent();	
 
 	
 	Ogre::Entity* getEntity(){ return _entity; };

@@ -11,9 +11,9 @@ public:
 	Component() : _gameObject(nullptr){};
 	Component(GameObject* gameObject) : _gameObject(gameObject){};
 
-	~Component(){ _gameObject = nullptr; };
+	virtual ~Component(){ _gameObject = nullptr; };
 
-	virtual void update(float deltaTime){};
+	virtual void update(float deltaTime){};	
 	
 
 private:

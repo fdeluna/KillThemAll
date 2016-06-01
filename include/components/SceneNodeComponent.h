@@ -13,9 +13,7 @@ public:
 	SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::String name, Ogre::String mesh, Ogre::Vector3 scale, Ogre::Vector3 position, Ogre::SceneNode* father = nullptr);
 
 	~SceneNodeComponent();	
-
-	void getName(){ std::cout << " SCENE NODE" << std::endl; };
-
+	
 	Ogre::Entity* getEntity(){ return _entity; };
 	Ogre::SceneNode* getSceneNode(){ return _sceneNode; };
 

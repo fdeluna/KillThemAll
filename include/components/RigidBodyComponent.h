@@ -19,9 +19,7 @@ public:
 	~RigidBodyComponent();
 
 	void setWorldPosition(Ogre::Vector3 position);
-
-	void getName(){ std::cout << " RIGID" << std::endl; };
-
+	
 private:
 	OgreBulletDynamics::RigidBody *_rigidBody;
 	OgreBulletCollisions::CollisionShape *_shape;

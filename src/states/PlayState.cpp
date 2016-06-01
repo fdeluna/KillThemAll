@@ -9,7 +9,7 @@ void PlayState::enter()
 	if (_root->hasSceneManager("PlayState") && _sceneMgr->hasCamera(
 		"PlayState")) {
 		_sceneMgr = _root->getSceneManager("PlayState");
-		_camera = _sceneMgr->getCamera("PlayState");		
+		_camera = _sceneMgr->getCamera("PlayState");
 	}
 	else {
 		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");
@@ -22,28 +22,30 @@ void PlayState::enter()
 	createGUI();
 	_exitGame = false;
 
-
+	// TODO LIGHTS
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
-	_camera->setNearClipDistance(5);
+
+	// TODO REFACTOR TO INIT WAVE
+	_camera->setPosition(Ogre::Vector3(0, 20, 15));
+	_camera->lookAt(Ogre::Vector3(0, 0, 0));
+	_camera->setNearClipDistance(1);
 	_camera->setFarClipDistance(10000);
-	_camera->setPosition(0,15,10);
-	_camera->lookAt(0, 0, 0);
 
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
-	_viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
+	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
 
-	
+	double width = _viewport->getActualWidth();
+	double height = _viewport->getActualHeight();
+	_camera->setAspectRatio(width / height);
 
-	_mapGenerator = new MapGenerator(_sceneMgr);
+	_physicsManager = new PhysicsManager(_sceneMgr, true);
+	_mapGenerator = new MapGenerator(_sceneMgr);	
 
-	_mapGenerator->GenerateMap();
 
 }
 
 void PlayState::exit() {
-	
-	//_sceneMgr->clearScene();
-	//_root->getAutoCreatedWindow()->removeAllViewports();
+
 
 }
 
@@ -59,7 +61,20 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
 
-	_mapGenerator->update(evt.timeSinceLastFrame);
+	_deltaT = evt.timeSinceLastFrame;
+
+	_physicsManager->updatePhysics(_deltaT);
+	//_mapGenerator->update(_deltaT);
+
+	Ogre::Vector3 vt(0, 0, 0);     Ogre::Real tSpeed = 20.0;
+
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_ESCAPE)) return false;
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_UP))    vt += Ogre::Vector3(0, 0, -1);
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_DOWN))  vt += Ogre::Vector3(0, 0, 1);
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_LEFT))  vt += Ogre::Vector3(-1, 0, 0);
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_RIGHT)) vt += Ogre::Vector3(1, 0, 0);
+
+	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
 
 	return true;
 }
@@ -68,7 +83,7 @@ bool PlayState::frameEnded(const Ogre::FrameEvent& evt)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
-
+	_physicsManager->updatePhysics(_deltaT);
 
 	if (_exitGame)
 		return false;
@@ -80,6 +95,9 @@ void PlayState::mouseMoved(const OIS::MouseEvent &e)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(
 		e.state.X.rel, e.state.Y.rel);
+
+	_camera->yaw(Ogre::Radian(e.state.X.rel) * _deltaT * -1);
+	_camera->pitch(Ogre::Radian(e.state.Y.rel) * _deltaT * -1);
 }
 
 void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
@@ -107,6 +125,13 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_exitGame = true;
 	}
 
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){
+		//_mapGenerator->cleanMap();
+		_mapGenerator->GenerateMap();
+		_camera->setPosition(_mapGenerator->_mapCenter.x, 15, _mapGenerator->_mapCenter.y - 5);
+		_camera->lookAt(_mapGenerator->_mapCenter.x, 0, _mapGenerator->_mapCenter.y);		
+	}
+
 	if (OIS::KC_8 == e.key){
 		CEGUI::WindowManager::getSingleton().destroyAllWindows();
 		changeState(WaveCompleteState::getSingletonPtr());
@@ -129,12 +154,11 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_hudWeaponsGun->setVisible(true);
 		_hudWeaponsShotGun->setVisible(false);
 	}
-	if (OIS::KC_3 == e.key){
 
-		_hudWeaponsClub->setVisible(false);
-		_hudWeaponsGun->setVisible(false);
-		_hudWeaponsShotGun->setVisible(true);
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_D)){
+		_mapGenerator->cleanMap();
 	}
+	
 }
 
 void PlayState::keyReleased(const OIS::KeyEvent &e)
@@ -154,6 +178,7 @@ PlayState& PlayState::getSingleton()
 	assert(msSingleton);
 	return *msSingleton;
 }
+
 CEGUI::MouseButton PlayState::convertMouseButton(OIS::MouseButtonID id)
 {
 	CEGUI::MouseButton ceguiId;
@@ -173,50 +198,6 @@ CEGUI::MouseButton PlayState::convertMouseButton(OIS::MouseButtonID id)
 	return ceguiId;
 }
 
-
-bool PlayState::quit(const CEGUI::EventArgs &e)
-{
-	_exitGame = true;
-	return true;
-}
-
-bool PlayState::save(const CEGUI::EventArgs &e)
-{
-	//ReadScores
-
-	std::ofstream _scoresTXT;
-	_scoresTXT.open("scores.txt", std::ofstream::app);
-
-	std::stringstream txt;
-	/*
-	if (winBool){
-		if (_nameText->getText().size() == 0){
-			txt << "___" << _nameText->getText() << " / " << pacMan->getScore() << "\n";
-		}
-		else if (_nameText->getText().size() == 1){
-			txt << "__" << _nameText->getText() << " / " << pacMan->getScore() << "\n";
-		}
-		else if (_nameText->getText().size() == 2){
-			txt << "_" << _nameText->getText() << " / " << pacMan->getScore() << "\n";
-		}
-		else{
-			txt << _nameText->getText() << " / " << pacMan->getScore() << "\n";
-		}
-
-
-	}
-	else{
-		txt << _nameTextLose->getText() << " / " << pacMan->getScore() << "\n";
-
-	}
-
-	_scoresTXT << txt.str();
-
-
-	changeState(IntroState::getSingletonPtr());
-	*/
-	return true;
-}
 
 void PlayState::createGUI()
 {
@@ -258,14 +239,13 @@ void PlayState::createGUI()
 	_getReadyText->setText("GET READY");
 	_saveWin = _winUI->getChild("Save");
 	_saveWin->subscribeEvent(CEGUI::PushButton::EventClicked,
-		CEGUI::Event::Subscriber(&PlayState::save, this));
+	CEGUI::Event::Subscriber(&PlayState::save, this));
 	_saveGameOver = _gameOverUI->getChild("Exit");
 	_saveGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
-		CEGUI::Event::Subscriber(&PlayState::save, this));
+	CEGUI::Event::Subscriber(&PlayState::save, this));
 	_heart1 = playStateUI->getChild("1heart");
 	_heart2 = playStateUI->getChild("2heart");
 	_heart3 = playStateUI->getChild("3heart");
-
 	_winUI->setVisible(false);
 	_gameOverUI->setVisible(false);
 	*/
@@ -278,10 +258,8 @@ void PlayState::createGUI()
 	CEGUI::Event::Subscriber(&PlayState::retry, this));
 	_exitGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
 	CEGUI::Event::Subscriber(&PlayState::quit, this));
-
 	_save->subscribeEvent(CEGUI::PushButton::EventClicked,
 	CEGUI::Event::Subscriber(&PlayState::save, this));
-
 	_winUI->setVisible(false);
 	_pauseUI->setVisible(false);
 	_gameOverUI->setVisible(false);

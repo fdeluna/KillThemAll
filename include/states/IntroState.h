@@ -8,6 +8,7 @@
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include "GameState.h"
 #include "MapGenerator.h"
+#include "PhysicsManager.h"
 
 class IntroState : public Ogre::Singleton<IntroState>, public GameState
 {
@@ -81,6 +82,7 @@ protected:
 
 private:
 	MapGenerator* _mapGenerator;
+	PhysicsManager* _physicsManager;
 };
 
 #endif

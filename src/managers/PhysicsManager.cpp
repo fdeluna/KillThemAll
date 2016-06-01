@@ -1,0 +1,50 @@
+#include "PhysicsManager.h"
+
+template<> PhysicsManager* Ogre::Singleton<PhysicsManager>::msSingleton = 0;
+
+PhysicsManager::PhysicsManager(Ogre::SceneManager* sceneManager, bool debug) : _sceneManager(sceneManager), _debug(debug) {
+
+	// Creacion del modulo de debug visual de Bullet
+	_debugDrawer = new OgreBulletCollisions::DebugDrawer();
+	_debugDrawer->setDrawWireframe(true);
+	Ogre::SceneNode *debugNode = _sceneManager->getRootSceneNode()->createChildSceneNode("debugNode", Ogre::Vector3::ZERO);
+	debugNode->attachObject(static_cast <Ogre::SimpleRenderable *>(_debugDrawer));
+
+	// Creacion del mundo (definicion de limites y gravedad)
+	Ogre::AxisAlignedBox worldBounds = Ogre::AxisAlignedBox(
+		Ogre::Vector3(-10000, -10000, -10000),
+		Ogre::Vector3(10000, 10000, 10000));
+	Ogre::Vector3 gravity = Ogre::Vector3(0, 0, 0);
+
+	_world = new OgreBulletDynamics::DynamicsWorld(_sceneManager, worldBounds, gravity);
+	_world->setDebugDrawer(_debugDrawer);
+	_world->setShowDebugShapes(_debug);	
+}
+
+PhysicsManager::~PhysicsManager() {
+	if (_debugDrawer) {
+		delete _debugDrawer;
+		_world->setDebugDrawer(nullptr);
+	}
+
+	if (_world) {
+		delete _world;
+	}
+}
+
+
+void PhysicsManager::updatePhysics(Ogre::Real deltaTime) {
+	_world->stepSimulation(deltaTime);
+	//checkCollisions();
+}
+
+
+
+PhysicsManager* PhysicsManager::getSingletonPtr() {
+	return msSingleton;
+}
+
+PhysicsManager& PhysicsManager::getSingleton() {
+	assert(msSingleton);
+	return *msSingleton;
+}

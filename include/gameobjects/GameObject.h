@@ -16,9 +16,11 @@ public:
 	GameObject(): _sceneManager(nullptr){};
 	GameObject(Ogre::SceneManager* sceneManager) : _sceneManager(sceneManager){};
 
-	~GameObject();
+	virtual ~GameObject(){ _components.clear(); };
 
 	virtual void update(float deltaTime);
+	// TODO
+	virtual void collision(GameObject* gameObject){};
 
 	void addComponent(Component* c);
 	void removeComponent(Component* c);
@@ -31,7 +33,7 @@ protected:
 
 	Ogre::SceneManager* _sceneManager;
 
-	bool _active;	
+	bool _active = true;	
 	
 	std::vector<Component*> _components;
 

@@ -3,15 +3,19 @@
 
 
 #include "GameState.h"
+#include "WaveCompleteState.h"
+#include "GameOverState.h"
 #include "MapGenerator.h"
+#include "PhysicsManager.h"
+
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <btBulletDynamicsCommon.h>
-#include "WaveCompleteState.h"
-#include "GameOverState.h"
+
+
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
 {
 public:
@@ -45,9 +49,15 @@ private:
 	Ogre::Viewport *_viewport;
 	bool _exitGame;
 
+	float _deltaT = 0;
+
 	CEGUI::OgreRenderer* _renderer;
 
+
+	PhysicsManager* _physicsManager;
 	MapGenerator* _mapGenerator;
+
+
 	// CEGUI
 
 

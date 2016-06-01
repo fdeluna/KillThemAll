@@ -36,6 +36,7 @@ IntroState::enter()
 	//CEGUI
 	createGUI();
 
+	_physicsManager = new PhysicsManager(_sceneMgr, true);
 	_mapGenerator = new MapGenerator(_sceneMgr);
 	_mapGenerator->GenerateMap();
 }

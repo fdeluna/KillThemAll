@@ -16,7 +16,7 @@ public:
 	GameObject(): _sceneManager(nullptr){};
 	GameObject(Ogre::SceneManager* sceneManager) : _sceneManager(sceneManager){};
 
-	~GameObject();
+	virtual ~GameObject(){ _components.clear(); };
 
 	virtual void update(float deltaTime);
 	// TODO
@@ -35,7 +35,7 @@ protected:
 
 	bool _active = true;	
 	
-	std::queue<Component*> _components;
+	std::vector<Component*> _components;
 
 };
 #endif

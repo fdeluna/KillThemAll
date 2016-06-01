@@ -116,9 +116,8 @@ void MapGenerator::cleanMap(){
 		for (int i = 0; i < grid.size(); i++){
 			for (int j = 0; j < grid.size(); j++){
 				Node* aux = grid[i][j];
-				if (aux){
-					aux->clean();
-					//delete aux;
+				if (aux){					
+					delete aux;
 				}
 			}
 		}

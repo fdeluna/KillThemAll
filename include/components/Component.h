@@ -13,7 +13,7 @@ public:
 	Component() : _gameObject(nullptr){};
 	Component(GameObject* gameObject) : _gameObject(gameObject){};
 
-	virtual ~Component(){ _gameObject = nullptr; };
+	~Component(){ _gameObject = nullptr; };
 
 	virtual void update(float deltaTime){};	
 

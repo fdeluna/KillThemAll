@@ -15,9 +15,8 @@ class Node : public GameObject{
 public:
 	Node() : _walkable(false), _position(Ogre::Vector3::ZERO){};
 	Node(Ogre::SceneManager* sceneManager, bool walkable, Ogre::Vector3 position, Ogre::String mesh,Ogre::SceneNode* floor);
-	~Node(){ GameObject::~GameObject(); };
-
-	void clean(){ delete _rigidBodyComponent; delete _sceneNodeComponent; };
+	~Node();
+	
 	void setWalkable(bool walkable);
 	void setScale(Ogre::Vector3 scale);
 	void makeObstacle(Ogre::Vector3 scale, Ogre::ColourValue color);

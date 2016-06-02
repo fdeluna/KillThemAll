@@ -34,8 +34,7 @@ void Node::makeObstacle(Ogre::Vector3 scale, Ogre::ColourValue color){
 	_sceneNodeComponent->getSceneNode()->setScale(scale);
 	_sceneNodeComponent->setDiffuseColor(color);
 
-	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::OBSTACLE, _sceneNodeComponent);
-	_rigidBodyComponent->setWorldPosition(Ogre::Vector3(position.x, 0.5, position.z));
+	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::OBSTACLE, _sceneNodeComponent);	
 	addComponent(_rigidBodyComponent);
 
 	_walkable = false;

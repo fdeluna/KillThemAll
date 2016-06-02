@@ -14,7 +14,7 @@ PhysicsManager::PhysicsManager(Ogre::SceneManager* sceneManager, bool debug) : _
 	Ogre::AxisAlignedBox worldBounds = Ogre::AxisAlignedBox(
 		Ogre::Vector3(-10000, -10000, -10000),
 		Ogre::Vector3(10000, 10000, 10000));
-	Ogre::Vector3 gravity = Ogre::Vector3(0, 0, 0);
+	Ogre::Vector3 gravity = Ogre::Vector3(0, -15, 0);
 
 	_world = new OgreBulletDynamics::DynamicsWorld(_sceneManager, worldBounds, gravity);
 	_world->setDebugDrawer(_debugDrawer);

@@ -45,8 +45,12 @@ void PlayState::enter()
 }
 
 void PlayState::exit() {
+	_mapGenerator->cleanMap();
+	delete _mapGenerator;
+	delete _physicsManager;
 
-
+	_sceneMgr->clearScene();
+	
 }
 
 void PlayState::pause() {
@@ -75,6 +79,10 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_RIGHT)) vt += Ogre::Vector3(1, 0, 0);
 
 	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
+
+	if(_player){
+		_player->update(_deltaT);
+	}
 
 	return true;
 }
@@ -128,6 +136,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){
 		//_mapGenerator->cleanMap();
 		_mapGenerator->GenerateMap();
+		_player = new Player(_sceneMgr, Ogre::Vector3(_mapGenerator->_mapCenter.x, 5, _mapGenerator->_mapCenter.y), MESHES[Mesh::PLAYERM]);
 		_camera->setPosition(_mapGenerator->_mapCenter.x, 15, _mapGenerator->_mapCenter.y - 5);
 		_camera->lookAt(_mapGenerator->_mapCenter.x, 0, _mapGenerator->_mapCenter.y);		
 	}

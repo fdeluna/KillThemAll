@@ -18,7 +18,11 @@ public:
 	RigidBodyComponent(GameObject* gameObject, GameObjectType type, SceneNodeComponent* sceneNodeComponent);
 	~RigidBodyComponent();
 
+
+	OgreBulletDynamics::RigidBody* getRigidBody(){ return _rigidBody;};
 	void setWorldPosition(Ogre::Vector3 position);
+	
+
 	
 private:
 	OgreBulletDynamics::RigidBody *_rigidBody;

@@ -5,16 +5,19 @@
 #include <Ogre.h>
 
 enum Mesh{
-	TILE
+	TILE,
+	PLAYERM
 };
 
 static std::map<Mesh, Ogre::String> MESHES = {
-	{ TILE, "Tile.mesh"}
+	{ Mesh::TILE, "Tile.mesh" },
+	{ Mesh::PLAYERM, "Cube.001.mesh" }
 };
 
 enum GameObjectType{
 	OBSTACLE,
-	MAP_FLOOR
+	MAP_FLOOR,
+	PLAYER
 };
 
 static int sceneNodeNumber = 0;

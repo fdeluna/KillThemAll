@@ -7,6 +7,7 @@
 #include "GameOverState.h"
 #include "MapGenerator.h"
 #include "PhysicsManager.h"
+#include "Player.h"
 
 
 #include <Ogre.h>
@@ -56,6 +57,7 @@ private:
 
 	PhysicsManager* _physicsManager;
 	MapGenerator* _mapGenerator;
+	Player* _player;
 
 
 	// CEGUI

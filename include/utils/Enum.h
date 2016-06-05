@@ -17,6 +17,7 @@ static std::map<Mesh, Ogre::String> MESHES = {
 enum GameObjectType{
 	OBSTACLE,
 	MAP_FLOOR,
+	HELL,
 	PLAYER
 };
 

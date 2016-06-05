@@ -12,7 +12,7 @@ void PlayState::enter()
 		_camera = _sceneMgr->getCamera("PlayState");
 	}
 	else {
-		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");
+		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");		
 		//Inicializacion de CEGUI
 		//_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
 		// set camera
@@ -31,7 +31,7 @@ void PlayState::enter()
 	_camera->setNearClipDistance(1);
 	_camera->setFarClipDistance(10000);
 
-	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
+	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);		
 	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
 
 	double width = _viewport->getActualWidth();
@@ -104,8 +104,8 @@ void PlayState::mouseMoved(const OIS::MouseEvent &e)
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(
 		e.state.X.rel, e.state.Y.rel);
 
-	_camera->yaw(Ogre::Radian(e.state.X.rel) * _deltaT * -1);
-	_camera->pitch(Ogre::Radian(e.state.Y.rel) * _deltaT * -1);
+	//_camera->yaw(Ogre::Radian(e.state.X.rel) * _deltaT * -1);
+	//_camera->pitch(Ogre::Radian(e.state.Y.rel) * _deltaT * -1);
 }
 
 void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
@@ -133,8 +133,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_exitGame = true;
 	}
 
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){
-		//_mapGenerator->cleanMap();
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){		
 		_mapGenerator->GenerateMap();
 		_player = new Player(_sceneMgr, Ogre::Vector3(_mapGenerator->_mapCenter.x, 5, _mapGenerator->_mapCenter.y), MESHES[Mesh::PLAYERM]);
 		_camera->setPosition(_mapGenerator->_mapCenter.x, 15, _mapGenerator->_mapCenter.y - 5);
@@ -164,8 +163,9 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_hudWeaponsShotGun->setVisible(false);
 	}
 
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_D)){
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_R)){
 		_mapGenerator->cleanMap();
+		delete _player;
 	}
 	
 }

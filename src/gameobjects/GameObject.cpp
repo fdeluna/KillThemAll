@@ -5,7 +5,6 @@ void GameObject::update(float deltaTime){
 
 	if (!_components.empty()){		
 		for (Component* c : _components){
-			c->getName();
 			c->update(deltaTime);
 		}
 	}

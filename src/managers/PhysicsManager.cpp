@@ -18,7 +18,7 @@ PhysicsManager::PhysicsManager(Ogre::SceneManager* sceneManager, bool debug) : _
 
 	_world = new OgreBulletDynamics::DynamicsWorld(_sceneManager, worldBounds, gravity);
 	_world->setDebugDrawer(_debugDrawer);
-	_world->setShowDebugShapes(_debug);	
+	_world->setShowDebugShapes(_debug);
 }
 
 PhysicsManager::~PhysicsManager() {
@@ -32,9 +32,24 @@ PhysicsManager::~PhysicsManager() {
 	}
 }
 
+Ogre::Vector3& PhysicsManager::getMouseWorldPosition(float x, float y){
+
+	Ogre::Camera* cam = _sceneManager->getCamera("PlayState");
+	Ogre::Ray ray = cam->getCameraToViewportRay(x, y);	
+	Ogre::Vector3 position;
+
+	OgreBulletCollisions::CollisionClosestRayResultCallback cQuery = OgreBulletCollisions::CollisionClosestRayResultCallback(ray, _world, 10000);
+	_world->launchRay(cQuery);
+
+	if (cQuery.doesCollide()) {		
+		position = cQuery.getCollisionPoint();
+	}
+	return position;
+}
+
 
 void PhysicsManager::updatePhysics(Ogre::Real deltaTime) {
-	_world->stepSimulation(deltaTime);
+	_world->stepSimulation(deltaTime, 50);
 	//checkCollisions();
 }
 

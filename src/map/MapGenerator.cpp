@@ -5,12 +5,18 @@ void MapGenerator::GenerateMap(){
 	_mapCenter = Ogre::Vector2(_mapSize.x / 2, _mapSize.y / 2);
 
 
+
+	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[Mesh::TILE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
+	RigidBodyComponent* hellBody = new RigidBodyComponent((GameObject*)this, GameObjectType::HELL, hell);
+	hell->setMaterialName("Ground");
+
 	// TODO REFACTOR TO STYLE SELECTION
 	Ogre::Plane plane = createPlane("mapFloor", _mapSize.x + 0.2, _mapSize.y + 0.2);
 	planeNode = new SceneNodeComponent(_sceneManager, "PlaneFloor", "mapFloor", Ogre::Vector3::UNIT_SCALE, Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
 
 	rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::MAP_FLOOR, planeNode);
 	rigidBodyComponent->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
+	planeNode->setMaterialName("Ground");
 
 	//addComponent(planeNode);
 	//addComponent(rigidBodyComponent);
@@ -53,8 +59,7 @@ void MapGenerator::GenerateMap(){
 		camM->enableReflection(plane);
 		camM->enableCustomNearClipPlane(plane);
 
-	planeNode->setMaterialName("RttMMat");*/
-	planeNode->setMaterialName("Ground"); 
+	planeNode->setMaterialName("RttMMat");*/	 
 
 
 	// MAP GENERATION

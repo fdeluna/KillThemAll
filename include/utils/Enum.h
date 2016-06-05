@@ -6,19 +6,26 @@
 
 enum Mesh{
 	TILE,
-	PLAYERM
+	PLAYERM,
+	ENEMYFIGHTER,
+	BOSS
 };
 
 static std::map<Mesh, Ogre::String> MESHES = {
 	{ Mesh::TILE, "Tile.mesh" },
-	{ Mesh::PLAYERM, "Cube.001.mesh" }
+	{ Mesh::PLAYERM, "Cube.001.mesh" },
+	{ Mesh::ENEMYFIGHTER, "Robot.mesh" },
+	{ Mesh::BOSS, "Cylinder.mesh"}
 };
+
 
 enum GameObjectType{
 	OBSTACLE,
 	MAP_FLOOR,
+	HELL,
 	PLAYER
 };
+
 
 static int sceneNodeNumber = 0;
 

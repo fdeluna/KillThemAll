@@ -30,7 +30,8 @@ bool Node::isWakable(){
 void Node::makeObstacle(Ogre::Vector3 scale, Ogre::ColourValue color){
 
 
-	Ogre::Vector3 position = _sceneNodeComponent->getSceneNode()->getPosition();
+	Ogre::Vector3 position = _sceneNodeComponent->getSceneNode()->getPosition() + Ogre::Vector3(0,0.5,0);
+	_sceneNodeComponent->getSceneNode()->setPosition(position);
 	_sceneNodeComponent->getSceneNode()->setScale(scale);
 	_sceneNodeComponent->setDiffuseColor(color);
 

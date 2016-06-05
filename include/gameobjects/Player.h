@@ -4,7 +4,7 @@
 #include "GameObject.h"
 #include "SceneNodeComponent.h"
 #include "RigidBodyComponent.h"
-//#include "PlayerInputComponent.h"
+#include "PlayerInputComponent.h"
 
 class Player : public GameObject{
 
@@ -16,7 +16,7 @@ public:
 private:
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
-	//PlayerInputComponent* _playerInput;
+	PlayerInputComponent* _playerInput;
 };
 
 #endif

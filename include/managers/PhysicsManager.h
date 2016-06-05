@@ -6,6 +6,7 @@
 
 #include <Ogre.h>
 #include <OgreBulletDynamicsRigidBody.h>
+#include "OgreBulletCollisionsRay.h"
 
 class PhysicsManager : public Ogre::Singleton<PhysicsManager> {
 
@@ -15,10 +16,14 @@ public:
 	~PhysicsManager();
 
 	void updatePhysics(Ogre::Real deltaTime);
+
 	OgreBulletDynamics::DynamicsWorld* getWorld(){ return _world; };
+	Ogre::Vector3& getMouseWorldPosition(float x, float y);
 
 	static PhysicsManager& getSingleton();
 	static PhysicsManager* getSingletonPtr();
+
+	
 
 private:
 

@@ -1,8 +1,14 @@
 ﻿#include "EnemyFighter.h"
 
 
-EnemyFighter::EnemyFighter(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh) : Enemy()
+EnemyFighter::EnemyFighter(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh) : GameObject(sceneManager)
 {
+
+	_sceneNodeComponent = new SceneNodeComponent(_sceneManager, "EnemyFighter", mesh, Ogre::Vector3(0.5, 0.25, 0.5), position);
+	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::PLAYER, _sceneNodeComponent);
+	addComponent(_rigidBodyComponent);
+
+	addComponent(_sceneNodeComponent);
 
 	//Base Stats
 	level = 1; 
@@ -16,8 +22,11 @@ EnemyFighter::EnemyFighter(Ogre::SceneManager* sceneManager, Ogre::Vector3 posit
 	timeStun = 0.0f;
 	stunMax = 1.0f;
 	//Initial effects
-	AudioController::getSingletonPtr()->playAudio(Audio::SPAWN);
+	//AudioController::getSingletonPtr()->playAudio(Audio::SPAWN);
 	//Particulas creacion
+	anim = _sceneNodeComponent->getEntity()->getAnimationState("my_animation");
+	anim->setLoop(true);
+	anim->setEnabled(true);
 }
 
 
@@ -27,6 +36,7 @@ void EnemyFighter::levelUp(){
 	level++;
 	//Particulas de subida de nivel si da tiempo
 	//if el level al que suben les da un incremento de stats importande como el 10 y el 15
+	
 	//pueden emitir una particula mas exagerada
 	switch (level){
 
@@ -52,7 +62,8 @@ void EnemyFighter::levelUp(){
 
 void EnemyFighter::update(const Ogre::FrameEvent& evt){
 	
-
+	anim->addTime(evt.timeSinceLastFrame);
+	/*
 	//CONDICIONES DE ESTADOS
 	if (life <= 0){
 
@@ -119,7 +130,7 @@ void EnemyFighter::update(const Ogre::FrameEvent& evt){
 
 
 
-
+	*/
 
 }
 

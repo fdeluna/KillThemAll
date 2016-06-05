@@ -1,0 +1,104 @@
+<scene exported_by="luis" formatVersion="1.0.1" export_time="1465153927.9457514" previous_export_time="0" >
+  <nodes >
+    <node name="CameraTarget" >
+      <position z="-0.000000" y="1.546484" x="0.128163" />
+      <rotation qy="0.000000" qx="0.000000" qz="-0.000000" qw="1.000000" />
+      <scale z="0.723316" y="0.723316" x="0.723316" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <node name="Camera" >
+        <position z="4.388576" y="4.071950" x="-2.582441" />
+        <rotation qy="-0.231739" qx="0.509154" qz="0.144563" qw="0.816187" />
+        <scale z="0.723316" y="0.723316" x="0.723316" />
+        <game >
+          <sensors />
+          <actuators />
+        </game>
+        <camera projectionType="perspective" fov="0.8575560548920329" name="Camera.001" >
+          <clipping near="0.10000000149011612" farPlaneDist="100.0" far="100.0" nearPlaneDist="0.10000000149011612" />
+        </camera>
+        <node name="Light.Cool" >
+          <position z="-4.174616" y="-7.790100" x="-10.740789" />
+          <rotation qy="-0.293564" qx="0.038252" qz="0.701445" qw="0.648330" />
+          <scale z="1.000000" y="1.000000" x="1.000000" />
+          <game >
+            <sensors />
+            <actuators />
+          </game>
+          <light type="spot" powerScale="0.919318675994873" name="Light.Cool" >
+            <position z="-5.129288" y="4.306183" x="-5.835152" />
+            <lightAttenuation quadratic="0.0" constant="1.0" range="5000" linear="0.03333335240683057" />
+            <direction z="0.707" y="-0.707" x="-0.011" />
+            <spotLightRange falloff="1.0" inner="1.112647370642442" outer="1.3089969158172607" />
+            <colourDiffuse b="1.0" r="0.6166707277297974" g="0.643120527267456" />
+          </light>
+        </node>
+        <node name="Light.Main" >
+          <position z="0.000001" y="-0.000000" x="0.000000" />
+          <rotation qy="-0.000000" qx="0.000000" qz="-0.000000" qw="1.000000" />
+          <scale z="1.000000" y="1.000000" x="1.000000" />
+          <game >
+            <sensors />
+            <actuators />
+          </game>
+          <light type="spot" powerScale="1.399999976158142" name="Light.Main" shadow="true" >
+            <position z="4.388576" y="4.071950" x="-2.582441" />
+            <lightAttenuation quadratic="0.0" constant="1.0" range="5000" linear="0.03333335240683057" />
+            <direction z="0.636" y="-0.764" x="0.109" />
+            <spotLightRange falloff="1.0" inner="1.112647370642442" outer="1.3089969158172607" />
+            <colourDiffuse b="1.0" r="1.0" g="1.0" />
+            <colourSpecular b="1.0" r="1.0" g="1.0" />
+            <colourShadow b="1.0" r="1.0" g="1.0" />
+          </light>
+        </node>
+        <node name="Light.Rim" >
+          <position z="-1.515663" y="-27.110851" x="0.240939" />
+          <rotation qy="0.039453" qx="0.002721" qz="-0.999199" qw="0.006162" />
+          <scale z="2.053854" y="2.053854" x="2.053854" />
+          <game >
+            <sensors />
+            <actuators />
+          </game>
+        </node>
+        <node name="Light.Warm" >
+          <position z="-2.975572" y="-5.341084" x="10.523444" />
+          <rotation qy="0.262156" qx="0.040340" qz="-0.618677" qw="0.739517" />
+          <scale z="1.000000" y="1.000000" x="1.000000" />
+          <game >
+            <sensors />
+            <actuators />
+          </game>
+          <light type="spot" powerScale="0.800000011920929" name="Light.Warm" >
+            <position z="4.631269" y="4.306184" x="6.214298" />
+            <lightAttenuation quadratic="0.0" constant="1.0" range="5000" linear="0.03333335240683057" />
+            <direction z="0.686" y="-0.724" x="0.068" />
+            <spotLightRange falloff="1.0" inner="1.112647370642442" outer="1.3089969158172607" />
+            <colourDiffuse b="0.6097919940948486" r="1.0" g="0.8231122493743896" />
+          </light>
+        </node>
+      </node>
+    </node>
+    <node name="Robot" >
+      <position z="-0.000000" y="0.000000" x="0.000000" />
+      <rotation qy="0.000000" qx="0.000000" qz="-0.000000" qw="1.000000" />
+      <scale z="1.000000" y="1.000000" x="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <entity damping_trans="0.03999999910593033" lock_trans_x="False" inertia_tensor="0.4000000059604645" physics_type="STATIC" lock_rot_x="False" lock_rot_z="False" damping_rot="0.10000000149011612" friction_y="1.0" anisotropic_friction="False" lock_trans_y="False" mass_radius="1.0" friction_z="1.0" mass="1.0" lock_rot_y="False" ghost="False" velocity_max="0.0" lock_trans_z="False" name="Robot" actor="False" meshFile="Robot.mesh" velocity_min="0.0" friction_x="1.0" />
+    </node>
+  </nodes>
+  <externals >
+    <item type="material" >
+      <file name="/home/luis/Escritorio/FINALES/65819_SAP-1__Sapper_Bot_Mark_1/ExportEnemy2/Bot.001.material" />
+    </item>
+  </externals>
+  <environment >
+    <colourDiffuse b="0.08865560591220856" r="0.4507858157157898" g="0.2874408960342407" />
+    <colourBackground b="0.08865560591220856" r="0.4507858157157898" g="0.2874408960342407" />
+    <colourAmbient b="0.0" r="0.0" g="0.0" />
+  </environment>
+</scene>

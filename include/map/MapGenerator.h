@@ -19,6 +19,7 @@ public:
 	void GenerateMap();
 	void cleanMap();
 	Ogre::Vector2 _mapCenter;
+	SceneNodeComponent* getSceneNodeComponent(){ return planeNode; };
 private:
 	Ogre::Vector2 _mapSize;	
 	

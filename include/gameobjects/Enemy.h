@@ -10,8 +10,7 @@
 class Enemy : public GameObject{
 
 public:
-	Enemy() : _sceneNodeComponent(nullptr), _rigidBodyComponent(nullptr){};
-	Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
+	Enemy(){};
 	//~Enemy();
 
 	void update(const Ogre::FrameEvent& evt);
@@ -50,8 +49,7 @@ public:
 
 protected:
 
-	SceneNodeComponent* _sceneNodeComponent;
-	RigidBodyComponent* _rigidBodyComponent;
+	
 	//Variables
 	int life;//vida del enemigo
 	float speed;//velocidad de movimiento del enemigo

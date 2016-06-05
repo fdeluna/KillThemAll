@@ -156,7 +156,7 @@ GameManager::frameStarted
 {
 	_inputMgr->capture();
 	if (_inputMgr->getNumOfJoysticks()){
-		std::cout << _inputMgr->getNumOfJoysticks() << std::endl;
+		//_inputMgr->getJoystick()->		
 	}
 	return _states.top()->frameStarted(evt);
 }

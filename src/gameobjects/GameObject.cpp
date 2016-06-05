@@ -1,31 +1,18 @@
 #include "GameObject.h"
 
 
-GameObject::~GameObject(){
-	if (!_components.empty()){
-
-		for (int i = 0; i < _components.size(); i++){				
-			Component* aux = _components[i];
-			_components.erase(_components.begin() + i);
-			delete aux;
-		}
-	}
-
-}
-
 void GameObject::update(float deltaTime){
 
-	if (!_components.empty()){
-
+	if (!_components.empty()){		
 		for (Component* c : _components){
+			c->getName();
 			c->update(deltaTime);
 		}
 	}
 }
 
 
-void GameObject::addComponent(Component* c){
-
+void GameObject::addComponent(Component* c){	
 	_components.push_back(c);
 }
 

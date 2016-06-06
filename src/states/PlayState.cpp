@@ -141,11 +141,17 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	}
 
 	if (OIS::KC_8 == e.key){
+		_map->cleanMap();
+		delete _player;
+		_player = nullptr;
 		CEGUI::WindowManager::getSingleton().destroyAllWindows();
 		changeState(WaveCompleteState::getSingletonPtr());
 	}
 
 	if (OIS::KC_9 == e.key){
+		_map->cleanMap();
+		delete _player;
+		_player = nullptr;
 		CEGUI::WindowManager::getSingleton().destroyAllWindows();
 		changeState(GameOverState::getSingletonPtr());
 	}

@@ -5,7 +5,7 @@
 #include "GameState.h"
 #include "WaveCompleteState.h"
 #include "GameOverState.h"
-#include "MapGenerator.h"
+#include "Map.h"
 #include "PhysicsManager.h"
 #include "Player.h"
 
@@ -56,7 +56,7 @@ private:
 
 
 	PhysicsManager* _physicsManager;
-	MapGenerator* _mapGenerator;
+	Map* _map;
 	Player* _player;
 
 

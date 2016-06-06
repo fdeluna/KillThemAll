@@ -7,7 +7,7 @@
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include "GameState.h"
-#include "MapGenerator.h"
+#include "Map.h"
 #include "PhysicsManager.h"
 
 class IntroState : public Ogre::Singleton<IntroState>, public GameState
@@ -81,7 +81,7 @@ protected:
 	CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
 
 private:
-	MapGenerator* _mapGenerator;
+	Map* _Map;
 	PhysicsManager* _physicsManager;
 };
 

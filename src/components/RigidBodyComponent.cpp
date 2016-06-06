@@ -84,8 +84,8 @@ void RigidBodyComponent::translate(Ogre::Vector3 direction){
 }
 
 void RigidBodyComponent::rotate(Ogre::Vector3 dest){
-		
-	Ogre::Vector3 mDirection = dest - getPosition();     // B-A = A->B (see vector questions above)
+			
+	Ogre::Vector3 mDirection = dest - getPosition();     
 	Ogre::Vector3 src = getPosition() * Ogre::Vector3::UNIT_X;      // Orientation from initial direction
 	src.y = 0;                                                    // Ignore pitch difference angle
 	mDirection.y = 0;

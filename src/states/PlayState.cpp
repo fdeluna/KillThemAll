@@ -39,14 +39,14 @@ void PlayState::enter()
 	_camera->setAspectRatio(width / height);
 
 	_physicsManager = new PhysicsManager(_sceneMgr, true);
-	_mapGenerator = new MapGenerator(_sceneMgr);	
+	_map = new Map(_sceneMgr);
 
 
 }
 
 void PlayState::exit() {
-	_mapGenerator->cleanMap();
-	delete _mapGenerator;
+	_map->cleanMap();
+	delete _map;
 	delete _physicsManager;
 
 	_sceneMgr->clearScene();
@@ -68,7 +68,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	_deltaT = evt.timeSinceLastFrame;
 
 	_physicsManager->updatePhysics(_deltaT);
-	//_mapGenerator->update(_deltaT);
+	//_Map->update(_deltaT);
 
 	Ogre::Vector3 vt(0, 0, 0);     Ogre::Real tSpeed = 20.0;
 
@@ -134,10 +134,10 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	}
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){		
-		_mapGenerator->GenerateMap();
-		_player = new Player(_sceneMgr, Ogre::Vector3(_mapGenerator->_mapCenter.x, 5, _mapGenerator->_mapCenter.y), MESHES[Mesh::PLAYERM]);
-		_camera->setPosition(_mapGenerator->_mapCenter.x, 15, _mapGenerator->_mapCenter.y - 5);
-		_camera->lookAt(_mapGenerator->_mapCenter.x, 0, _mapGenerator->_mapCenter.y);		
+		_map->GenerateMap();
+		_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 5, _map->_mapCenter.y), MESHES[Mesh::PLAYERM]);
+		_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
+		_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
 	}
 
 	if (OIS::KC_8 == e.key){
@@ -164,8 +164,9 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	}
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_R)){
-		_mapGenerator->cleanMap();
+		_map->cleanMap();
 		delete _player;
+		_player = nullptr;
 	}
 	
 }

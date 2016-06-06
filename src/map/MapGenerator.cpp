@@ -68,7 +68,7 @@ void MapGenerator::GenerateMap(){
 		for (int y = 0; y < _mapSize.y; y++){
 			Ogre::Vector3 position(x, 0, y);
 			//Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], planeNode->getSceneNode());
-			Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], nullptr);
+			Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], planeNode->getSceneNode());
 			gridRow.push_back(aux);
 		}
 		grid.push_back(gridRow);

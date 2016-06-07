@@ -133,6 +133,13 @@ void Map::cleanMap(){
 	grid.clear();
 }
 
+
+Node* Map::nodeFromWorldPoint(Ogre::Vector3 worldPosition){
+
+
+	return nullptr;
+}
+
 bool Map::isMapAccessible(std::vector< std::vector <bool>> obstacleMap, int currentNumberObstacle){
 
 	std::vector< std::vector <bool>> visitedNodes;

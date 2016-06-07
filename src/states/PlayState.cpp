@@ -82,7 +82,13 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	if(_player){
 		_player->update(_deltaT);
+		if (_map){
+			_map->nodeFromWorldPoint(_player->position);
+		}
 	}
+
+	
+	
 
 	return true;
 }
@@ -138,6 +144,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 5, _map->_mapCenter.y), MESHES[Mesh::PLAYERM]);
 		_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
 		_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
+		_map->nodeFromWorldPoint(_player->position);
 	}
 
 	if (OIS::KC_8 == e.key){

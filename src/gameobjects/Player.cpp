@@ -8,6 +8,8 @@ Player::Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::S
 	addComponent(_sceneNodeComponent);
 	addComponent(_rigidBodyComponent);
 	addComponent(_playerInput);
+
+	position = _rigidBodyComponent->getPosition();
 }
 
 Player::~Player(){

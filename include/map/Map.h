@@ -20,10 +20,12 @@ public:
 	void cleanMap();
 
 	Ogre::Vector2 _mapCenter;
-
+	
 	std::vector< std::vector <Node*>> getGrid(){ return grid; };
+	Node* nodeFromWorldPoint(Ogre::Vector3 worldPosition);
 
 private:
+
 	Ogre::Vector2 _mapSize;
 
 	SceneNodeComponent* planeNode;

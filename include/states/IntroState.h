@@ -81,7 +81,7 @@ protected:
 	CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
 
 private:
-	Map* _Map;
+	Map* _map;
 	PhysicsManager* _physicsManager;
 };
 

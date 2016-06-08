@@ -20,7 +20,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 		_shape = trimeshConverter->createConvex();
 		break;
 	case PLAYER:
-		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5, 1, Ogre::Vector3::UNIT_Y);
+		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5,0.5, Ogre::Vector3::UNIT_Y);
 		break;
 	}
 

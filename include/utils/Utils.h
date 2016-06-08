@@ -28,6 +28,10 @@ static void shuffleArray(std::vector<std::vector<T>> &vector2) {
 		}		
 	}	
 }
+static bool  nodeGreaterThan(Node* a, Node* b){
+
+	return a->getTotalCost() > b->getTotalCost();
+}
 
 static Ogre::Plane& createPlane(Ogre::String name, Ogre::Real width, Ogre::Real heigh){
 
@@ -38,6 +42,4 @@ static Ogre::Plane& createPlane(Ogre::String name, Ogre::Real width, Ogre::Real 
 
 	return plane;
 }
-
-
 #endif

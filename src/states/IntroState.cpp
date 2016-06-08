@@ -37,8 +37,8 @@ IntroState::enter()
 	createGUI();
 
 	_physicsManager = new PhysicsManager(_sceneMgr, true);
-	_Map = new Map(_sceneMgr);
-	_Map->GenerateMap();
+	_map = new Map(_sceneMgr);
+	_map->GenerateMap();
 }
 
 void
@@ -66,7 +66,7 @@ IntroState::frameStarted
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		_timeSinceLastFrame);
 
-	_Map->update(evt.timeSinceLastFrame);
+	_map->update(evt.timeSinceLastFrame);
 
 	
 	return true;

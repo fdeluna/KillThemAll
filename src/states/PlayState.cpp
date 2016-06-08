@@ -12,7 +12,7 @@ void PlayState::enter()
 		_camera = _sceneMgr->getCamera("PlayState");
 	}
 	else {
-		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");		
+		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");
 		//Inicializacion de CEGUI
 		//_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
 		// set camera
@@ -31,7 +31,7 @@ void PlayState::enter()
 	_camera->setNearClipDistance(1);
 	_camera->setFarClipDistance(10000);
 
-	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);		
+	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
 	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
 
 	double width = _viewport->getActualWidth();
@@ -50,7 +50,7 @@ void PlayState::exit() {
 	delete _physicsManager;
 
 	_sceneMgr->clearScene();
-	
+
 }
 
 void PlayState::pause() {
@@ -80,8 +80,30 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
 
-	if(_player){
+	if (_player){
 		_player->update(_deltaT);
+		timer += _deltaT;
+		if (timer >= 1){
+			timer = 0;
+			
+			// TODO ASYNC
+			//auto f = std::async(std::launch::async, &(_pathFinder->FindPath), (_player2->getPosition()), (_player2->getPosition()));
+			//f.get();
+
+		/*	_pathFinder->FindPath(_player2->getPosition(),_player2->getPosition());			
+			_pathFinder->FindPath(_player2->getPosition(), _player->getPosition());
+			_pathFinder->FindPath(_player2->getPosition(), _player->getPosition());
+			_pathFinder->FindPath(_player2->getPosition(), _player->getPosition());
+			_pathFinder->FindPath(_player2->getPosition(), _player->getPosition());
+			_pathFinder->FindPath(_player2->getPosition(), _player->getPosition());
+			_pathFinder->FindPath(_player2->getPosition(), _player->getPosition());
+			_pathFinder->FindPath(_player2->getPosition(), _player->getPosition());
+			_pathFinder->FindPath(_player2->getPosition(), _player->getPosition());
+			_pathFinder->FindPath(_player2->getPosition(), _player->getPosition());*/
+		}
+		//_map->nodeFromWorldPosition(Ogre::Vector3(7.5, 1, 5));
+		//_pathFinder->FindPath(Ogre::Vector3(7.5, 1, 5), _player->getPosition());
+		if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_F)) _pathFinder->FindPath(_player->getPosition(), _player->getPosition());
 	}
 
 	return true;
@@ -103,7 +125,6 @@ void PlayState::mouseMoved(const OIS::MouseEvent &e)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(
 		e.state.X.rel, e.state.Y.rel);
-
 	//_camera->yaw(Ogre::Radian(e.state.X.rel) * _deltaT * -1);
 	//_camera->pitch(Ogre::Radian(e.state.Y.rel) * _deltaT * -1);
 }
@@ -133,11 +154,14 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_exitGame = true;
 	}
 
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){		
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){
 		_map->GenerateMap();
-		_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 5, _map->_mapCenter.y), MESHES[Mesh::PLAYERM]);
+		_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[Mesh::PLAYERM]);
+		_player2 = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[Mesh::PLAYERM]);
 		_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
 		_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
+		_pathFinder = new PathFinder(_map);
+		
 	}
 
 	if (OIS::KC_8 == e.key){
@@ -151,6 +175,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	if (OIS::KC_9 == e.key){
 		_map->cleanMap();
 		delete _player;
+		delete _player2;
 		_player = nullptr;
 		CEGUI::WindowManager::getSingleton().destroyAllWindows();
 		changeState(GameOverState::getSingletonPtr());
@@ -169,12 +194,15 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_hudWeaponsShotGun->setVisible(false);
 	}
 
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_R)){
+	if (OIS::KC_R == e.key){
 		_map->cleanMap();
 		delete _player;
+		delete _player2;
 		_player = nullptr;
 	}
-	
+
+	if (OIS::KC_F == e.key) _pathFinder->FindPath(_player2->getPosition(), _player->getPosition());
+
 }
 
 void PlayState::keyReleased(const OIS::KeyEvent &e)

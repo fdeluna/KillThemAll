@@ -1,7 +1,7 @@
 #include "Map.h"
 
 void Map::GenerateMap(){
-	_mapSize = Ogre::Vector2(10, 10);
+	_mapSize = Ogre::Vector2(15, 10);
 	_mapCenter = Ogre::Vector2(_mapSize.x / 2, _mapSize.y / 2);
 
 
@@ -59,7 +59,7 @@ void Map::GenerateMap(){
 		camM->enableReflection(plane);
 		camM->enableCustomNearClipPlane(plane);
 
-	planeNode->setMaterialName("RttMMat");*/	 
+		planeNode->setMaterialName("RttMMat");*/
 
 
 	// MAP GENERATION
@@ -68,7 +68,7 @@ void Map::GenerateMap(){
 		for (int y = 0; y < _mapSize.y; y++){
 			Ogre::Vector3 position(x, 0, y);
 			//Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], planeNode->getSceneNode());
-			Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], planeNode->getSceneNode(),x,y);
+			Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], planeNode->getSceneNode(), x, y);
 			gridRow.push_back(aux);
 		}
 		grid.push_back(gridRow);
@@ -116,21 +116,67 @@ void Map::GenerateMap(){
 
 void Map::cleanMap(){
 	_mapSize = Ogre::Vector2();
-	_mapCenter = Ogre::Vector2();			
+	_mapCenter = Ogre::Vector2();
 	if (!grid.empty()){
 		for (int i = 0; i < grid.size(); i++){
-			for (int j = 0; j < grid.size(); j++){
+			for (int j = 0; j < grid[i].size(); j++){
 				Node* aux = grid[i][j];
-				if (aux){					
+				if (aux){
 					delete aux;
 				}
 			}
-		}		
+		}
 		delete rigidBodyComponent;
-		delete planeNode;				
+		delete planeNode;
 	}
-	
+
 	grid.clear();
+}
+
+
+Node* Map::nodeFromWorldPosition(Ogre::Vector3 position){
+
+	Node* node = nullptr;
+	float distanceFromPlayer = 1;
+
+	for (int x = 0; x < grid.size(); x++){
+		for (int y = 0; y < grid[x].size(); y++){
+			if (node && node->isWakable()){
+				float distanceAux = position.distance(grid[x][y]->getSceneNode()->getSceneNode()->getPosition());
+				if (distanceAux < distanceFromPlayer){
+					node = grid[x][y];
+					distanceFromPlayer = distanceAux;
+				}
+			}
+			else{
+				//distanceFromPlayer = position.distance(grid[x][y]->getSceneNode()->getSceneNode()->getPosition());
+				node = node = grid[x][y];
+			}
+		}
+	}
+
+	if (node){
+		//node->getSceneNode()->setDiffuseColor(Ogre::ColourValue::Blue);
+	}
+	return node;
+}
+
+std::vector<Node*> Map::getNeighbours(Node* node){
+	std::vector<Node*> neighbours;
+
+	for (int x = -1; x <= 1; x++){
+		for (int y = -1; y <= 1; y++){
+			if (x == 0 || y == 0){
+				int gridX = node->getGridX() + x;
+				int gridY = node->getGridY() + y;
+
+				if (gridX >= 0 && gridX < _mapSize.x && gridY >= 0 && gridY < _mapSize.y){
+					neighbours.push_back(grid[gridX][gridY]);
+				}
+			}
+		}
+	}
+	return neighbours;
 }
 
 bool Map::isMapAccessible(std::vector< std::vector <bool>> obstacleMap, int currentNumberObstacle){

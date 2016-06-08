@@ -29,13 +29,5 @@ void PlayerInputComponent::lookAt(float deltaTime){
 
 	Ogre::Vector3 mousePosition = PhysicsManager::getSingletonPtr()->getMouseWorldPosition(x, y);
 	
-	_playerBody->rotate(Ogre::Vector3(mousePosition.x, 1 , mousePosition.z));
-
-
-	// TODO SEGUIR POR AQUÍ MAÑANA
-	/*Ogre::Vector3 lookAt();
-	_inputManager->getMouse()->getMouseState().X.
-	std::cout << "MOUSE X " << _inputManager->getMouse()->getMouseState().X.rel << std::endl;
-	std::cout << "MOUSE Y " << _inputManager->getMouse()->getMouseState().Y.rel << std::endl;*/
-
+	_playerBody->rotate(Ogre::Vector3(mousePosition.x, 1 , mousePosition.z));	
 }

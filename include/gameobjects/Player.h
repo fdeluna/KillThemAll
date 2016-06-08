@@ -13,6 +13,9 @@ public:
 	Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
 	~Player();
 	
+
+	Ogre::Vector3 getPosition(){ return _rigidBodyComponent->getPosition(); };
+
 private:
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;

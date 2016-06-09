@@ -20,10 +20,10 @@ std::vector<Node*> PathFinder::FindPath(Ogre::Vector3 origin, Ogre::Vector3 dest
 				currentNode = openSet[i];
 			}
 		}*/
-
+		
+		std::cout << "CURRENT NODE X: " << currentNode->getGridX() << "CURRENT NODE Y: " << currentNode->getGridY() << std::endl;
 		openSet.erase(std::remove(openSet.begin(), openSet.end(), currentNode), openSet.end());		
 		closeSet.push_back(currentNode);
-
 		
 		if (currentNode == targetNode){			
 			Node* endNode = targetNode;
@@ -36,29 +36,26 @@ std::vector<Node*> PathFinder::FindPath(Ogre::Vector3 origin, Ogre::Vector3 dest
 			return path;
 		}
 		
-		for (Node* neighbour : _currentMap->getNeighbours(currentNode)){			
+		for (Node* neighbour : _currentMap->getNeighbours(currentNode)){						
 			if (neighbour->isWakable() && std::find(closeSet.begin(), closeSet.end(), neighbour) == closeSet.end()){
+				
+				int movementCostToNeighbour = currentNode->getG() + getDistance(currentNode, neighbour);
+				
+				if (movementCostToNeighbour < neighbour->getG() || std::find(openSet.begin(), openSet.end(), neighbour) == openSet.end()){
+					neighbour->setG(movementCostToNeighbour);
+					neighbour->setH(getDistance(neighbour, targetNode));					
+					neighbour->setParent(currentNode);					
 
-				int movementCostToNeighbour = currentNode->getSCost() + getDistance(currentNode, neighbour);
-
-				if (movementCostToNeighbour < neighbour->getSCost() || std::find(openSet.begin(), openSet.end(), neighbour) == openSet.end()){
-					neighbour->setScost(movementCostToNeighbour);
-					neighbour->setDcost(getDistance(neighbour, targetNode));					
-					neighbour->setParent(currentNode);
-
-					if (std::find(openSet.begin(), openSet.end(), neighbour) == openSet.end()){						
+					if (std::find(openSet.begin(), openSet.end(), neighbour) == openSet.end()){
+						
 						openSet.push_back(neighbour);
-						std::sort(openSet.begin(), openSet.end(), nodeGreaterThan);
+						std::sort(openSet.begin(), openSet.end(), nodeLesserThan);
 					}
 				}
 			}
 		}
 	}
 }
-
-
-
-
 
 int PathFinder::getDistance(Node* nodeA, Node* nodeB){
 
@@ -67,11 +64,13 @@ int PathFinder::getDistance(Node* nodeA, Node* nodeB){
 	int distanceX = Ogre::Math::Abs(nodeA->getGridX() - nodeB->getGridX());
 	int distanceY = Ogre::Math::Abs(nodeA->getGridY() - nodeB->getGridY());
 
+	//return 10 * (distanceX + distanceY);
+
 	if (distanceX > distanceY){
-		distance = 14 * distanceY + 10 * (distanceX - distanceY);
+		distance = 10 * distanceY + 10 * (distanceX - distanceY);
 	}
 	else{
-		distance = 14 * distanceX + 10 * (distanceY - distanceX);
+		distance = 10 * distanceX + 10 * (distanceY - distanceX);
 	}
 
 	return distance;

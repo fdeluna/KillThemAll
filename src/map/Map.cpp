@@ -1,7 +1,7 @@
 #include "Map.h"
 
 void Map::GenerateMap(){
-	_mapSize = Ogre::Vector2(15, 10);
+	_mapSize = Ogre::Vector2(30, 30);
 	_mapCenter = Ogre::Vector2(_mapSize.x / 2, _mapSize.y / 2);
 
 
@@ -81,8 +81,9 @@ void Map::GenerateMap(){
 	std::vector< std::vector <Node*>> shuffledgrid = grid;
 	std::srand(std::time(0));
 	int currentNumberObstacules = 0;
-	int maxNumberObstacules = _mapSize.x * _mapSize.y * 0.5;
-	int minNumberObstacules = _mapSize.x * _mapSize.y * 0.3;
+
+	int maxNumberObstacules = _mapSize.x * _mapSize.y * 0.3;
+	int minNumberObstacules = _mapSize.x * _mapSize.y * 0.25;
 	int numberObstacules = rand() % (maxNumberObstacules - minNumberObstacules) + minNumberObstacules;
 
 	initBidimensionalVector(obstacleMap, (int)_mapSize.x, (int)_mapSize.y);
@@ -166,12 +167,14 @@ std::vector<Node*> Map::getNeighbours(Node* node){
 
 	for (int x = -1; x <= 1; x++){
 		for (int y = -1; y <= 1; y++){
-			if (x == 0 || y == 0){
+			if ((x == 0 && y != 0) || (y == 0 && x != 0)){
 				int gridX = node->getGridX() + x;
 				int gridY = node->getGridY() + y;
 
 				if (gridX >= 0 && gridX < _mapSize.x && gridY >= 0 && gridY < _mapSize.y){
-					neighbours.push_back(grid[gridX][gridY]);
+					if (grid[gridX][gridY]->isWakable()){
+						neighbours.push_back(grid[gridX][gridY]);
+					}
 				}
 			}
 		}

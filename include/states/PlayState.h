@@ -63,6 +63,14 @@ private:
 	Player* _player;
 	// TODO DELETE TO TEST A*
 	Player* _player2;
+	std::vector<Node*> path;
+	bool async = false;
+	bool start = false;
+	std::future<std::vector<Node*>> fut;
+	std::future<std::vector<Node*>> fut1;
+	std::future<std::vector<Node*>> fut2;
+	std::future<std::vector<Node*>> fut3;
+	std::future<std::vector<Node*>> fut4;
 
 
 	// CEGUI

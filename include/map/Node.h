@@ -28,16 +28,16 @@ public:
 	Ogre::Vector2 getNodePosition(){ return Ogre::Vector2(_sceneNodeComponent->getSceneNode()->getPosition().x, _sceneNodeComponent->getSceneNode()->getPosition().z); };
 	SceneNodeComponent* getSceneNode(){ return _sceneNodeComponent; };
 
-	int getTotalCost(){ return _sCost + _dCost; };
+	int getTotalCost(){ return _g + _h; };
 
 	int getGridX(){ return _gridX; };
 	int getGridY(){ return _gridY; };
 
-	int getSCost(){ return _sCost; };
-	int getDcost(){ return _dCost; };
+	int getG(){ return _g; };
+	int getH(){ return _h; };
 
-	void setScost(int sCost){ _sCost = sCost; };
-	void setDcost(int dCost){ _dCost = dCost; };
+	void setG(int g){ _g = g; };
+	void setH(int h){ _h = h; };
 
 	void  setParent(Node* parent){ _parent = parent; };
 	Node* getParent() { return _parent; };
@@ -51,8 +51,8 @@ private:
 	RigidBodyComponent* _rigidBodyComponent;
 	int _gridX;
 	int _gridY;
-	int _sCost; // distance from starting node
-	int _dCost; // distance form destination node
+	int _g; // distance from starting node
+	int _h; // distance form destination node
 
 	Node* _parent;
 };

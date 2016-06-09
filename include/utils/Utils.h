@@ -28,9 +28,25 @@ static void shuffleArray(std::vector<std::vector<T>> &vector2) {
 		}		
 	}	
 }
-static bool  nodeGreaterThan(Node* a, Node* b){
+static bool  nodeLesserThan(Node* a, Node* b){
 
-	return a->getTotalCost() > b->getTotalCost();
+	/*bool result = false;
+
+	if (a->getTotalCost() > b->getTotalCost()){
+		result = true;
+	}
+	else if (a->getTotalCost() == b->getTotalCost()){
+		float distanceA = a->getSceneNode()->getSceneNode()->getPosition().distance(position);
+		float distanceB = b->getSceneNode()->getSceneNode()->getPosition().distance(position);
+
+		if (distanceA < distanceB) {
+
+		}
+
+	}*/
+
+
+	return a->getTotalCost() < b->getTotalCost();
 }
 
 static Ogre::Plane& createPlane(Ogre::String name, Ogre::Real width, Ogre::Real heigh){

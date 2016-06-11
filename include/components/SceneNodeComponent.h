@@ -16,6 +16,7 @@ public:
 	
 	Ogre::Entity* getEntity(){ return _entity; };
 	Ogre::SceneNode* getSceneNode(){ return _sceneNode; };
+	Ogre::SceneManager* getSceneManager(){ return _sceneManager; };
 
 	void addChild(Ogre::SceneNode* child){ _sceneNode->addChild(child); };
 	void setDiffuseColor(Ogre::ColourValue diffuseColor);

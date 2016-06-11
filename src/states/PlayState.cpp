@@ -19,17 +19,13 @@ void PlayState::enter()
 		_camera = _sceneMgr->createCamera("PlayState");
 	}
 
-	createGUI();
+	
 	_exitGame = false;
 
 	// TODO LIGHTS
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
 
-	// TODO REFACTOR TO INIT WAVE
-	_camera->setPosition(Ogre::Vector3(0, 20, 15));
-	_camera->lookAt(Ogre::Vector3(0, 0, 0));
-	_camera->setNearClipDistance(1);
-	_camera->setFarClipDistance(10000);
+	
 
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);		
 	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
@@ -39,14 +35,30 @@ void PlayState::enter()
 	_camera->setAspectRatio(width / height);
 
 	_physicsManager = new PhysicsManager(_sceneMgr, true);
-	_mapGenerator = new MapGenerator(_sceneMgr);	
+	_map = new Map(_sceneMgr);
 
+	createGUI();
+
+	// TODO REFACTOR TO INIT WAVE
+	_camera->setPosition(Ogre::Vector3(0, 20, 40));
+	_camera->lookAt(Ogre::Vector3(0, 0, -100));
+	_camera->setNearClipDistance(1);
+	_camera->setFarClipDistance(10000);
+
+	_map->GenerateMap();
+	_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 5, _map->_mapCenter.y), MESHES[Mesh1::BOSS]);
+	//_bullet = new Bullet(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x + 10, 5, _map->_mapCenter.y), MESHES[Mesh::BULLET]);
+	_gun = new Gun(_player->getSceneNodeComponent()->getSceneManager(), Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition()), MESHES[Mesh1::ENEMYFIGHTER]);
+
+
+	_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
+	_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
 
 }
 
 void PlayState::exit() {
-	_mapGenerator->cleanMap();
-	delete _mapGenerator;
+	_map->cleanMap();
+	delete _map;
 	delete _physicsManager;
 
 	_sceneMgr->clearScene();
@@ -66,9 +78,11 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 		evt.timeSinceLastFrame);
 
 	_deltaT = evt.timeSinceLastFrame;
-
+	_gun->getSceneNodeComponent()->getSceneNode()->setPosition(Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, _player->getSceneNodeComponent()->getSceneNode()->getPosition().y+3, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z));
 	_physicsManager->updatePhysics(_deltaT);
-	//_mapGenerator->update(_deltaT);
+
+
+	//_Map->update(_deltaT);
 
 	Ogre::Vector3 vt(0, 0, 0);     Ogre::Real tSpeed = 20.0;
 
@@ -134,18 +148,29 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	}
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){		
-		_mapGenerator->GenerateMap();
-		_player = new Player(_sceneMgr, Ogre::Vector3(_mapGenerator->_mapCenter.x, 5, _mapGenerator->_mapCenter.y), MESHES[Mesh::PLAYERM]);
-		_camera->setPosition(_mapGenerator->_mapCenter.x, 15, _mapGenerator->_mapCenter.y - 5);
-		_camera->lookAt(_mapGenerator->_mapCenter.x, 0, _mapGenerator->_mapCenter.y);		
+		
+
+		
+
+	}
+
+	if (OIS::KC_E == e.key){
+		_gun->shoot(_player->getPlayerInputComponent()->getMousePositionWeapon(), Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, _player->getSceneNodeComponent()->getSceneNode()->getPosition().y + 3, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z));
+		
 	}
 
 	if (OIS::KC_8 == e.key){
+		_map->cleanMap();
+		delete _player;
+		_player = nullptr;
 		CEGUI::WindowManager::getSingleton().destroyAllWindows();
 		changeState(WaveCompleteState::getSingletonPtr());
 	}
 
 	if (OIS::KC_9 == e.key){
+		_map->cleanMap();
+		delete _player;
+		_player = nullptr;
 		CEGUI::WindowManager::getSingleton().destroyAllWindows();
 		changeState(GameOverState::getSingletonPtr());
 	}
@@ -164,8 +189,9 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	}
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_R)){
-		_mapGenerator->cleanMap();
+		_map->cleanMap();
 		delete _player;
+		_player = nullptr;
 	}
 	
 }
@@ -212,6 +238,7 @@ void PlayState::createGUI()
 {
 
 
+
 	CEGUI::Scheme::setDefaultResourceGroup("Schemes");
 	CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
 	CEGUI::Font::setDefaultResourceGroup("Fonts");
@@ -220,7 +247,6 @@ void PlayState::createGUI()
 	CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage(
 		"TaharezLook/Cursor");
-
 	// load all the fonts 
 	CEGUI::FontManager::getSingleton().createAll("*.font", "Fonts");
 

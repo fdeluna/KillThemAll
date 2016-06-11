@@ -25,7 +25,9 @@ EnemyFighter::EnemyFighter(Ogre::SceneManager* sceneManager, Ogre::Vector3 posit
 	//AudioController::getSingletonPtr()->playAudio(Audio::SPAWN);
 	//Particulas creacion
 	anim = _sceneNodeComponent->getEntity()->getAnimationState("my_animation");
-	anim->setLoop(true);
+	anim->setTimePosition(4);
+	anim->setLength(8);
+	//anim->setLoop(true);
 	anim->setEnabled(true);
 }
 

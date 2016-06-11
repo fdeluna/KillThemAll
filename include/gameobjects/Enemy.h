@@ -3,16 +3,16 @@
 
 //#include <Ogre.h>
 
-#include "GameObject.h"
 #include "SceneNodeComponent.h"
 #include "RigidBodyComponent.h"
 #include "AudioController.h"
-class Enemy : public GameObject{
+class Enemy{
 
 public:
-	Enemy(){};
+	Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
+	Enemy();
 	//~Enemy();
-
+	
 	void update(const Ogre::FrameEvent& evt);
 
 	void setScale(Ogre::Vector3 scale);
@@ -49,7 +49,6 @@ public:
 
 protected:
 
-	
 	//Variables
 	int life;//vida del enemigo
 	float speed;//velocidad de movimiento del enemigo

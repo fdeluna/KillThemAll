@@ -2,16 +2,15 @@
 #define ENEMYFIGHTER_h
 
 
-//#include "Enemy.h"
+#include "Enemy.h"
+#include "GameObject.h" 
 #include "Enum.h"
-#include "GameObject.h"
-#include "SceneNodeComponent.h"
-#include "RigidBodyComponent.h"
 #include "AudioController.h"
 class EnemyFighter : public GameObject{
 
 public:
 	EnemyFighter() : _sceneNodeComponent(nullptr), _rigidBodyComponent(nullptr){};
+	
 	EnemyFighter(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
 	//~EnemyFighter();
 
@@ -51,6 +50,7 @@ public:
 	void setCollisionWithPlayer(bool collision){ enemyCollisionPlayer = collision; };
 
 protected:
+	
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
 

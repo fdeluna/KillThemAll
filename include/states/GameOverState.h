@@ -3,7 +3,7 @@
 
 
 #include "GameState.h"
-#include "MapGenerator.h"
+#include "Map.h"
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
@@ -47,7 +47,7 @@ private:
 
 	CEGUI::OgreRenderer* _renderer;
 
-	MapGenerator* _mapGenerator;
+	Map* _Map;
 	// CEGUI
 
 

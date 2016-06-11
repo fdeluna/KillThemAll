@@ -22,6 +22,9 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 	case PLAYER:
 		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5, 1, Ogre::Vector3::UNIT_Y);
 		break;
+	case BULLETR:
+		_shape = new OgreBulletCollisions::SphereCollisionShape(Ogre::Real(0.2));
+		break;
 	}
 
 	Ogre::String rigidName(_sceneNodeComponent->getSceneNode()->getName());
@@ -84,14 +87,22 @@ void RigidBodyComponent::translate(Ogre::Vector3 direction){
 }
 
 void RigidBodyComponent::rotate(Ogre::Vector3 dest){
+			
+	Ogre::Vector3 mDirection = dest - getPosition();     
+	Ogre::Vector3 src = getPosition() * Ogre::Vector3::UNIT_X;      // Orientation from initial direction
+	src.y = 0;                                                    // Ignore pitch difference angle
+	mDirection.y = 0;
+	src.normalise();
+	Ogre::Real mDistance = mDirection.normalise();                     // Both vectors modified so renormalize them
 
-	Ogre::Vector3 source = getPosition();
-	Ogre::Vector3 direcction = (dest - source).normalisedCopy();
+	if ((1.0f + src.dotProduct(mDirection)) < 0.0001f)            // Work around 180 degree quaternion rotation quirk                         
+	{
+		_sceneNodeComponent->getSceneNode()->yaw(Ogre::Degree(90));
+	}
+	else
+	{
+		Ogre::Quaternion quat = src.getRotationTo(mDirection);
+		_sceneNodeComponent->getSceneNode()->rotate(quat);
 
-	Ogre::Radian angle = source.angleBetween(direcction);
-	
-	;
-	std::cout << "CROSS" << source.normalisedCopy().crossProduct(dest.normalisedCopy()) << std::endl;
-
-	//return Quaternion.CreateFromAxisAngle(rotAxis, rotAngle);
+	}
 }

@@ -1,5 +1,5 @@
-#ifndef MAPGENERATOR_H
-#define MAPGENERATOR_H
+#ifndef Map_H
+#define Map_H
 
 #include "GameObject.h"
 #include "Node.h"
@@ -9,20 +9,23 @@
 #include <Ogre.h>
 #include <random>
 
-class MapGenerator : public GameObject{
+class Map : public GameObject{
 
 public:
 
-	MapGenerator(Ogre::SceneManager* sceneManager) :GameObject(sceneManager){};
-	~MapGenerator(){ cleanMap();  GameObject::~GameObject(); };
+	Map(Ogre::SceneManager* sceneManager) :GameObject(sceneManager){};
+	~Map(){ cleanMap();  GameObject::~GameObject(); };
 
 	void GenerateMap();
 	void cleanMap();
+
 	Ogre::Vector2 _mapCenter;
-	SceneNodeComponent* getSceneNodeComponent(){ return planeNode; };
+
+	std::vector< std::vector <Node*>> getGrid(){ return grid; };
+
 private:
-	Ogre::Vector2 _mapSize;	
-	
+	Ogre::Vector2 _mapSize;
+
 	SceneNodeComponent* planeNode;
 	RigidBodyComponent* rigidBodyComponent;
 	std::vector< std::vector <Node*>> grid;

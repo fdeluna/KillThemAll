@@ -2,20 +2,13 @@
 #ifndef IntroState_H
 #define IntroState_H
 
-#include "GameState.h"
-#include "WaveCompleteState.h"
-#include "GameOverState.h"
-#include "MapGenerator.h"
-#include "PhysicsManager.h"
-#include "EnemyFighter.h"
-#include "Player.h"
-
-
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
-#include <btBulletDynamicsCommon.h>
+#include "GameState.h"
+#include "Map.h"
+#include "PhysicsManager.h"
 
 class IntroState : public Ogre::Singleton<IntroState>, public GameState
 {
@@ -50,8 +43,6 @@ protected:
 
 	bool _exitGame;
 
-	EnemyFighter* enemy;
-	Player* player;
 	//PARA CEGUI
 	CEGUI::OgreRenderer* renderer;
 	CEGUI::Window* introStateUI;
@@ -90,7 +81,7 @@ protected:
 	CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
 
 private:
-	MapGenerator* _mapGenerator;
+	Map* _Map;
 	PhysicsManager* _physicsManager;
 };
 

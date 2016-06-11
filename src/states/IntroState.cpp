@@ -29,21 +29,16 @@ IntroState::enter()
 	_camera->setNearClipDistance(5);
 	_camera->setFarClipDistance(10000);
 	_camera->setPosition(0, 15, 10);
-	
+	_camera->lookAt(0, 0, 0);
 
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
 	_viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
-
 	//CEGUI
 	createGUI();
 
-	_physicsManager = new PhysicsManager(_sceneMgr, true);
-	_mapGenerator = new MapGenerator(_sceneMgr);
-	_mapGenerator->GenerateMap();
-	_camera->lookAt(_mapGenerator->_mapCenter.x, 0, _mapGenerator->_mapCenter.y);
-	enemy = new EnemyFighter(_sceneMgr, Ogre::Vector3(_mapGenerator->_mapCenter.x, 5, _mapGenerator->_mapCenter.y), MESHES[Mesh::ENEMYFIGHTER]);
-	//player = new Player(_sceneMgr, Ogre::Vector3(_mapGenerator->_mapCenter.x, 5, _mapGenerator->_mapCenter.y), MESHES[Mesh::ENEMYFIGHTER]);
-
+	//_physicsManager = new PhysicsManager(_sceneMgr, true);
+	//_Map = new Map(_sceneMgr);
+	//_Map->GenerateMap();
 }
 
 void
@@ -67,13 +62,11 @@ bool
 IntroState::frameStarted
 (const Ogre::FrameEvent& evt)
 {
-	enemy->update(evt);
 	_timeSinceLastFrame = evt.timeSinceLastFrame;
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		_timeSinceLastFrame);
 
-	_mapGenerator->update(evt.timeSinceLastFrame);
-//	_mapGenerator->getSceneNodeComponent()->getSceneNode()->yaw(Ogre::Degree(4));
+	//_Map->update(evt.timeSinceLastFrame);
 
 	
 	return true;
@@ -188,9 +181,10 @@ IntroState::getSingleton()
 
 bool IntroState::play(const CEGUI::EventArgs &e) {
 
+	//_Map->cleanMap();
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
 	changeState(PlayState::getSingletonPtr());
-
+	
 	return true;
 }
 bool IntroState::quit(const CEGUI::EventArgs &e) {

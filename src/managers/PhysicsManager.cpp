@@ -2,8 +2,9 @@
 
 template<> PhysicsManager* Ogre::Singleton<PhysicsManager>::msSingleton = 0;
 
-PhysicsManager::PhysicsManager(Ogre::SceneManager* sceneManager, bool debug) : _sceneManager(sceneManager), _debug(debug) {
 
+PhysicsManager::PhysicsManager(Ogre::SceneManager* sceneManager, bool debug) : _sceneManager(sceneManager), _debug(debug) {
+	
 	// Creacion del modulo de debug visual de Bullet
 	_debugDrawer = new OgreBulletCollisions::DebugDrawer();
 	_debugDrawer->setDrawWireframe(true);
@@ -19,6 +20,7 @@ PhysicsManager::PhysicsManager(Ogre::SceneManager* sceneManager, bool debug) : _
 	_world = new OgreBulletDynamics::DynamicsWorld(_sceneManager, worldBounds, gravity);
 	_world->setDebugDrawer(_debugDrawer);
 	_world->setShowDebugShapes(_debug);
+	
 }
 
 PhysicsManager::~PhysicsManager() {

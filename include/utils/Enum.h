@@ -4,18 +4,20 @@
 #include <map>
 #include <Ogre.h>
 
-enum Mesh{
+enum Mesh1{
 	TILE,
 	PLAYERM,
 	ENEMYFIGHTER,
-	BOSS
+	BOSS,
+	PLAYERP
 };
 
-static std::map<Mesh, Ogre::String> MESHES = {
-	{ Mesh::TILE, "Tile.mesh" },
-	{ Mesh::PLAYERM, "Cube.001.mesh" },
-	{ Mesh::ENEMYFIGHTER, "Robot.mesh" },
-	{ Mesh::BOSS, "Cylinder.mesh"}
+static std::map<Mesh1, Ogre::String> MESHES = {
+	{ Mesh1::TILE, "Tile.mesh" },
+	{ Mesh1::PLAYERM, "Cube.001.mesh" },
+	{ Mesh1::ENEMYFIGHTER, "Robot.mesh" },
+	{ Mesh1::BOSS, "Cylinder.mesh"},
+	{ Mesh1::PLAYERP, "glavni_lik.mesh" }
 };
 
 
@@ -23,7 +25,8 @@ enum GameObjectType{
 	OBSTACLE,
 	MAP_FLOOR,
 	HELL,
-	PLAYER
+	PLAYER,
+	BULLETR
 };
 
 

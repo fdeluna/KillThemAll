@@ -5,10 +5,11 @@
 #include "GameState.h"
 #include "WaveCompleteState.h"
 #include "GameOverState.h"
-#include "MapGenerator.h"
+#include "Map.h"
 #include "PhysicsManager.h"
 #include "Player.h"
-
+#include "Gun.h"
+#include "InputManager.h"
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
@@ -51,14 +52,14 @@ private:
 	bool _exitGame;
 
 	float _deltaT = 0;
-
+	InputManager* _inputManager;
 	CEGUI::OgreRenderer* _renderer;
 
 
 	PhysicsManager* _physicsManager;
-	MapGenerator* _mapGenerator;
+	Map* _map;
 	Player* _player;
-
+	Gun* _gun;
 
 	// CEGUI
 

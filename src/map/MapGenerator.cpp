@@ -1,12 +1,12 @@
-#include "MapGenerator.h"
+#include "Map.h"
 
-void MapGenerator::GenerateMap(){
+void Map::GenerateMap(){
 	_mapSize = Ogre::Vector2(10, 10);
 	_mapCenter = Ogre::Vector2(_mapSize.x / 2, _mapSize.y / 2);
 
 
 
-	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[Mesh::TILE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
+	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[Mesh1::TILE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
 	RigidBodyComponent* hellBody = new RigidBodyComponent((GameObject*)this, GameObjectType::HELL, hell);
 	hell->setMaterialName("Ground");
 
@@ -67,9 +67,8 @@ void MapGenerator::GenerateMap(){
 	for (int x = 0; x < _mapSize.x; x++){
 		for (int y = 0; y < _mapSize.y; y++){
 			Ogre::Vector3 position(x, 0, y);
-			Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], planeNode->getSceneNode());
-			//Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], nullptr);
-			
+			//Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], planeNode->getSceneNode());
+			Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh1::TILE], planeNode->getSceneNode(),x,y);
 			gridRow.push_back(aux);
 		}
 		grid.push_back(gridRow);
@@ -115,7 +114,7 @@ void MapGenerator::GenerateMap(){
 	}
 }
 
-void MapGenerator::cleanMap(){
+void Map::cleanMap(){
 	_mapSize = Ogre::Vector2();
 	_mapCenter = Ogre::Vector2();			
 	if (!grid.empty()){
@@ -134,7 +133,7 @@ void MapGenerator::cleanMap(){
 	grid.clear();
 }
 
-bool MapGenerator::isMapAccessible(std::vector< std::vector <bool>> obstacleMap, int currentNumberObstacle){
+bool Map::isMapAccessible(std::vector< std::vector <bool>> obstacleMap, int currentNumberObstacle){
 
 	std::vector< std::vector <bool>> visitedNodes;
 	initBidimensionalVector(visitedNodes, (int)_mapSize.x, (int)_mapSize.y);

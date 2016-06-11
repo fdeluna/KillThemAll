@@ -21,10 +21,12 @@ public:
 
 	void getName(){ std::cout << "PLAYER INPUT" << std::endl; };
 
+	Ogre::Vector3 getMousePositionWeapon(){ return positionMouseForWaeapon; };
 private:	
 	Ogre::SceneManager* _sceneManager;
 	RigidBodyComponent* _playerBody;	
 	InputManager* _inputManager;	
+	Ogre::Vector3 positionMouseForWaeapon;
 	float _speed = 5;
 };
 

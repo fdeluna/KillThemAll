@@ -61,6 +61,10 @@ protected:
 	CEGUI::Window* _atrasCredits;
 	CEGUI::Window* _atrasScores;
 	CEGUI::Window* _atrasInstrucciones;
+	CEGUI::Window* _control;
+	CEGUI::Window* _tutorial;
+	CEGUI::Window* _controlText;
+	CEGUI::Window* _tutorialText;
 
 	bool _play;
 	bool _highscore;
@@ -75,6 +79,8 @@ protected:
 	bool credits(const CEGUI::EventArgs &e);
 	bool instrucciones(const CEGUI::EventArgs &e);
 	bool atras(const CEGUI::EventArgs &e);
+	bool control(const CEGUI::EventArgs &e);
+	bool tutorial(const CEGUI::EventArgs &e);
 
 
 	void createGUI();

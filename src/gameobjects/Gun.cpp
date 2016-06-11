@@ -1,21 +1,21 @@
 #include "Gun.h"
 
 
-Gun::Gun(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh) : GameObject(sceneManager), Weapon()
+Gun::Gun(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh) :Player()
 {
-	_sceneNodeComponent = new SceneNodeComponent(_sceneManager, "Bullet", mesh, Ogre::Vector3(0.5, 0.25, 0.5), position);
-	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::BULLETR, _sceneNodeComponent);
-	addComponent(_sceneNodeComponent);
-	addComponent(_rigidBodyComponent);
-
+	_sceneNodeComponentGun = new SceneNodeComponent(_sceneManager, "Gun", mesh, Ogre::Vector3(0.5, 0.25, 0.5), position);
+	_rigidBodyComponentGun = new RigidBodyComponent((GameObject*)this, GameObjectType::BULLET, _sceneNodeComponentGun);
+	addComponent(_sceneNodeComponentGun);
+	addComponent(_rigidBodyComponentGun);
+	_sceneNodeComponent->getSceneNode()->addChild(_sceneNodeComponentGun->getSceneNode());
 }
 
 
 Gun::~Gun()
 {
-	delete _rigidBodyComponent;
-	delete _sceneNodeComponent;
-	GameObject::~GameObject();
+	delete _rigidBodyComponentGun;
+	delete _sceneNodeComponentGun;
+	Player::~Player();
 }
 
 void Gun::update(const Ogre::FrameEvent& evt){

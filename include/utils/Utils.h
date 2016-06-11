@@ -38,6 +38,11 @@ static Ogre::Plane& createPlane(Ogre::String name, Ogre::Real width, Ogre::Real 
 
 	return plane;
 }
+static int ogreNameNumber;
 
+static void getOgreName(Ogre::String &name){
+	ogreNameNumber++;
+	name.append(Ogre::StringConverter::toString(ogreNameNumber));
+}
 
 #endif

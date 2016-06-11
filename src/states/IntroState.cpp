@@ -287,6 +287,21 @@ bool IntroState::atras(const CEGUI::EventArgs &e) {
 	return true;
 }
 
+bool IntroState::control(const CEGUI::EventArgs &e) {
+
+	_controlText->setVisible(true);
+	_tutorialText->setVisible(false);
+	return true;
+}
+
+bool IntroState::tutorial(const CEGUI::EventArgs &e) {
+
+	_controlText->setVisible(false);
+	_tutorialText->setVisible(true);
+
+	return true;
+}
+
 void IntroState::createGUI() {
 
 	//CEGUI	
@@ -330,6 +345,17 @@ void IntroState::createGUI() {
 	fondoCredits = introStateUI->getChild("VentanaCredits");
 	fondoScore = introStateUI->getChild("VentanaScore");
 	fondoInstrucciones = introStateUI->getChild("VentanaInstrucciones");
+	fondoInstrucciones->setVisible(false);
+	_controlText = fondoInstrucciones->getChild("LabelInstrucciones");
+	_controlText->setVisible(true);
+	_tutorialText = fondoInstrucciones->getChild("LabelTutorial");
+	_tutorialText->setVisible(false);
+	_control = fondoInstrucciones->getChild("Control");
+	_control->subscribeEvent(CEGUI::PushButton::EventClicked,
+		CEGUI::Event::Subscriber(&IntroState::control, this));
+	_tutorial = fondoInstrucciones->getChild("Tutorial");
+	_tutorial->subscribeEvent(CEGUI::PushButton::EventClicked,
+		CEGUI::Event::Subscriber(&IntroState::tutorial, this));
 
 	_atrasInstrucciones = fondoInstrucciones->getChild("AtrasInstrucciones");
 	_atrasInstrucciones->subscribeEvent(CEGUI::PushButton::EventClicked,

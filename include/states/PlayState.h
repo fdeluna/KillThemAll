@@ -66,6 +66,8 @@ private:
 
 	bool quit(const CEGUI::EventArgs &e);
 	bool save(const CEGUI::EventArgs &e);
+	void hudLife();
+
 	
 	//ANTIGUAS
 	CEGUI::Window* playStateUI;
@@ -82,9 +84,16 @@ private:
 	CEGUI::Window*	_nameTextLose;
 	CEGUI::Window* _saveGameOver;
 	CEGUI::Window* _saveWin;
-	CEGUI::Window* _heart1;
-	CEGUI::Window* _heart2;
-	CEGUI::Window* _heart3;
+
+	CEGUI::Window* _vida1;
+	CEGUI::Window* _vida2;
+	CEGUI::Window* _vida3;
+	CEGUI::Window* _vida4;
+	CEGUI::Window* _vida5;
+	CEGUI::Window* _vida6;
+	CEGUI::Window* _vida7;
+	CEGUI::Window* _vida8;
+
 	CEGUI::Window* _turnText;
 	 
 	//NUEVAS

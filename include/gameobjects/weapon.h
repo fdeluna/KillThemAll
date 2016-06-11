@@ -1,7 +1,7 @@
 #ifndef Weapon_H
 #define Weapon_H
 
-#include "GameObject.h"
+
 #include "AudioController.h"
 #include "Bullet.h"
 #include "SceneNodeComponent.h"
@@ -10,7 +10,7 @@
 
 using namespace Ogre;
 
-class Weapon : Player
+class Weapon 
 {
 public:
 

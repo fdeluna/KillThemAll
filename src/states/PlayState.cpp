@@ -48,7 +48,7 @@ void PlayState::enter()
 	_map->GenerateMap();
 	_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 5, _map->_mapCenter.y), MESHES[Mesh1::BOSS]);
 	//_bullet = new Bullet(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x + 10, 5, _map->_mapCenter.y), MESHES[Mesh::BULLET]);
-	_gun = new Gun(_player->getSceneNodeComponent()->getSceneManager(), Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition()), MESHES[Mesh1::ENEMYFIGHTER]);
+	//_gun = new Gun(_player->getSceneNodeComponent()->getSceneManager(), Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition()), MESHES[Mesh1::ENEMYFIGHTER]);
 
 
 	_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
@@ -78,9 +78,20 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 		evt.timeSinceLastFrame);
 
 	_deltaT = evt.timeSinceLastFrame;
-	_gun->getSceneNodeComponent()->getSceneNode()->setPosition(Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, _player->getSceneNodeComponent()->getSceneNode()->getPosition().y+3, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z));
+	//_gun->getSceneNodeComponent()->getSceneNode()->setPosition(Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, _player->getSceneNodeComponent()->getSceneNode()->getPosition().y+3, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z));
 	_physicsManager->updatePhysics(_deltaT);
-
+	
+	if (_player->die()){
+	
+		_map->cleanMap();
+		delete _player;
+		_player = nullptr;
+		CEGUI::WindowManager::getSingleton().destroyAllWindows();
+		changeState(GameOverState::getSingletonPtr());
+	
+	}
+	
+	
 
 	//_Map->update(_deltaT);
 
@@ -127,7 +138,7 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(
 		convertMouseButton(id));
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setImage(
-		"TaharezLook/CursorPulsado");
+		"TaharezLook/Mirilla");
 }
 
 void PlayState::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
@@ -135,7 +146,7 @@ void PlayState::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(
 		convertMouseButton(id));
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setImage(
-		"TaharezLook/Cursor");
+		"TaharezLook/Mirilla");
 }
 
 void PlayState::keyPressed(const OIS::KeyEvent &e)
@@ -155,7 +166,12 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	}
 
 	if (OIS::KC_E == e.key){
-		_gun->shoot(_player->getPlayerInputComponent()->getMousePositionWeapon(), Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, _player->getSceneNodeComponent()->getSceneNode()->getPosition().y + 3, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z));
+	//	_gun->shoot(_player->getPlayerInputComponent()->getMousePositionWeapon(), Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, _player->getSceneNodeComponent()->getSceneNode()->getPosition().y + 3, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z));
+		
+		
+		_player->hitted(1);
+		std::cout << "--------------------------------" <<_player->getLife() << std::endl;
+		hudLife();
 		
 	}
 
@@ -233,7 +249,86 @@ CEGUI::MouseButton PlayState::convertMouseButton(OIS::MouseButtonID id)
 	return ceguiId;
 }
 
+void PlayState::hudLife()
+{
+	if (_player->getLife() < 2){
 
+
+		_vida1->setVisible(true);
+		_vida2->setVisible(false);
+		_vida3->setVisible(false);
+		_vida4->setVisible(false);
+		_vida5->setVisible(false);
+		_vida6->setVisible(false);
+		_vida7->setVisible(false);
+		_vida8->setVisible(false);
+	}
+	else if (_player->getLife() < 3){
+		_vida1->setVisible(true);
+		_vida2->setVisible(true);
+		_vida3->setVisible(false);
+		_vida4->setVisible(false);
+		_vida5->setVisible(false);
+		_vida6->setVisible(false);
+		_vida7->setVisible(false);
+		_vida8->setVisible(false);
+	}
+	else if (_player->getLife() < 4){
+		_vida1->setVisible(true);
+		_vida2->setVisible(true);
+		_vida3->setVisible(true);
+		_vida4->setVisible(false);
+		_vida5->setVisible(false);
+		_vida6->setVisible(false);
+		_vida7->setVisible(false);
+		_vida8->setVisible(false);
+	}
+	else if (_player->getLife() < 5){
+		_vida1->setVisible(true);
+		_vida2->setVisible(true);
+		_vida3->setVisible(true);
+		_vida4->setVisible(true);
+		_vida5->setVisible(false);
+		_vida6->setVisible(false);
+		_vida7->setVisible(false);
+		_vida8->setVisible(false);
+	}
+	else if (_player->getLife() < 6){
+		_vida1->setVisible(true);
+		_vida2->setVisible(true);
+		_vida3->setVisible(true);
+		_vida4->setVisible(true);
+		_vida5->setVisible(true);
+		_vida6->setVisible(false);
+		_vida7->setVisible(false);
+		_vida8->setVisible(false);
+	}
+	else if (_player->getLife() < 7){
+		_vida1->setVisible(true);
+		_vida2->setVisible(true);
+		_vida3->setVisible(true);
+		_vida4->setVisible(true);
+		_vida5->setVisible(true);
+		_vida6->setVisible(true);
+		_vida7->setVisible(false);
+		_vida8->setVisible(false);
+	}
+	else{
+		_vida1->setVisible(true);
+		_vida2->setVisible(true);
+		_vida3->setVisible(true);
+		_vida4->setVisible(true);
+		_vida5->setVisible(true);
+		_vida6->setVisible(true);
+		_vida7->setVisible(true);
+		_vida8->setVisible(false);
+	
+	}
+
+
+
+	
+}
 void PlayState::createGUI()
 {
 
@@ -246,7 +341,7 @@ void PlayState::createGUI()
 	CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
 	CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage(
-		"TaharezLook/Cursor");
+		"TaharezLook/Mirilla");
 	// load all the fonts 
 	CEGUI::FontManager::getSingleton().createAll("*.font", "Fonts");
 
@@ -256,7 +351,7 @@ void PlayState::createGUI()
 
 	//Config Window	
 	playStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
-		"playLayout.layout");
+		"PlayState.layout");
 
 
 
@@ -302,6 +397,24 @@ void PlayState::createGUI()
 
 	_hud = playStateUI->getChild("HUD");
 	_hudLife = _hud->getChild("HUDFULL");
+	_vida1 = _hud->getChild("Vida1");
+	_vida2 = _hud->getChild("Vida2");
+	_vida3 = _hud->getChild("Vida3");
+	_vida4 = _hud->getChild("Vida4");
+	_vida5 = _hud->getChild("Vida5");
+	_vida6 = _hud->getChild("Vida6");
+	_vida7 = _hud->getChild("Vida7");
+	_vida8 = _hud->getChild("Vida8");
+	_hudLife->setVisible(true);
+	_vida1->setVisible(true);
+	_vida2->setVisible(true);
+	_vida3->setVisible(true);
+	_vida4->setVisible(true);
+	_vida5->setVisible(true);
+	_vida6->setVisible(true);
+	_vida7->setVisible(true);
+	_vida8->setVisible(true);
+
 	_hudWeapons = playStateUI->getChild("Weapons");
 	_hudWeaponsClub = _hudWeapons->getChild("WeaponClub");
 	_hudWeaponsClub->setVisible(true);

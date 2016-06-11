@@ -27,4 +27,5 @@
     <Image height="28" name="CapsulaVida" width="31" xPos="945" yPos="233" />
     <Image height="128" name="HUDVIDAFINISH" width="486" xPos="732" yPos="474" />
     <Image height="48" name="Instrucciones" width="32" xPos="732" yPos="16" />
+    <Image height="44" name="Mirilla" width="44" xPos="931" yPos="11" />
 </Imageset>

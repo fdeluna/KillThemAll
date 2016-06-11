@@ -43,6 +43,18 @@
                 <Property name="PushedImage" value="TaharezLook/Undo" />
                 <Property name="DisabledImage" value="TaharezLook/Undo" />
             </Window>
+            <Window type="TaharezLook/Label" name="LabelCreditsFer" >
+                <Property name="Area" value="{{0,72},{0,92},{0,470},{0,183}}" />
+                <Property name="Text" value="Fernando de Luna Romero" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="WordWrapCentreAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="LabelCreditsLuis" >
+                <Property name="Area" value="{{0,75},{0,213},{0,473},{0,304}}" />
+                <Property name="Text" value="Luis Hernandez Hernandez" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="WordWrapCentreAligned" />
+            </Window>
         </Window>
         <Window type="TaharezLook/ImageButton" name="Salir" >
             <Property name="Area" value="{{0,942},{0,29},{0,992},{0,79}}" />
@@ -67,23 +79,57 @@
             </Window>
         </Window>
         <Window type="TaharezLook/ImageButton" name="VentanaInstrucciones" >
-            <Property name="Area" value="{{0,233},{0,123},{0,761},{0,591}}" />
+            <Property name="Area" value="{{0,162},{0,39},{0,814},{0,639}}" />
             <Property name="Visible" value="false" />
             <Property name="HoverImage" value="TaharezLook/Ventana" />
             <Property name="NormalImage" value="TaharezLook/Ventana" />
             <Property name="PushedImage" value="TaharezLook/Ventana" />
             <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
             <Window type="TaharezLook/Button" name="AtrasInstrucciones" >
-                <Property name="Area" value="{{0,429},{0,379},{0,485},{0,431}}" />
+                <Property name="Area" value="{{0,508},{0,468},{0,564},{0,520}}" />
                 <Property name="HoverImage" value="TaharezLook/Undo" />
                 <Property name="NormalImage" value="TaharezLook/Undo" />
                 <Property name="PushedImage" value="TaharezLook/Undo" />
                 <Property name="DisabledImage" value="TaharezLook/Undo" />
             </Window>
             <Window type="TaharezLook/Label" name="LabelInstrucciones" >
-                <Property name="Area" value="{{0,52},{0,64},{0,492},{0,365}}" />
-                <Property name="Text" value="Esto son las instrucciones" />
+                <Property name="Area" value="{{0,57},{0,53},{0,596},{0,372}}" />
+                <Property name="Text" >W,A,S,D: move
+E: next weapon
+Q: previous weapon
+1,2,3: weapon 1,2 or 3
+         mouse move: direction player          
+mouse click left: shoot 
+mouse click right: secondary action
+</Property>
                 <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="WordWrapCentreAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="LabelTutorial" >
+                <Property name="Area" value="{{0,63},{0,56},{0,594},{0,401}}" />
+                <Property name="Text" >Move your character with w.a.s.d and try to evade enemies, you can kill enemies with your left mouse button. If you want use other weapon you can switch between 3 differents weapons with E and Q, or with numeric selection. 
+
+When you kill all enemies of one wave the map will be reset, when you complete five waves, one boss will be appeared and the generic enemies will level up. The next time that you fight with the boss this will be stronger. 
+</Property>
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="WordWrapCentreAligned" />
+                <Property name="VertFormatting" value="TopAligned" />
+            </Window>
+            <Window type="TaharezLook/Button" name="Control" >
+                <Property name="Area" value="{{0,130},{0,415},{0,262},{0,472}}" />
+                <Property name="Text" value="CONTROL" />
+                <Property name="HoverImage" value="TaharezLook/BotonHover" />
+                <Property name="NormalImage" value="TaharezLook/Boton" />
+                <Property name="PushedImage" value="TaharezLook/BotonPulsado" />
+                <Property name="DisabledImage" value="TaharezLook/Boton" />
+            </Window>
+            <Window type="TaharezLook/Button" name="Tutorial" >
+                <Property name="Area" value="{{0,356},{0,415},{0,488},{0,472}}" />
+                <Property name="Text" value="TUTORIAL" />
+                <Property name="HoverImage" value="TaharezLook/BotonHover" />
+                <Property name="NormalImage" value="TaharezLook/Boton" />
+                <Property name="PushedImage" value="TaharezLook/BotonPulsado" />
+                <Property name="DisabledImage" value="TaharezLook/Boton" />
             </Window>
         </Window>
         <Window type="TaharezLook/ImageButton" name="Instrucciones" >

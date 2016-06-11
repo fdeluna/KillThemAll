@@ -3,7 +3,7 @@
 
 #include "Component.h"
 #include "Enum.h"
-
+#include "Utils.h"
 #include <Ogre.h>
 
 class SceneNodeComponent : public Component{

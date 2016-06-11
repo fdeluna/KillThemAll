@@ -10,8 +10,27 @@ Player::Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::S
 	addComponent(_playerInput);
 }
 
+
 Player::~Player(){
 	delete _rigidBodyComponent;
 	delete _sceneNodeComponent;
 	GameObject::~GameObject();
 }
+
+bool Player::die(){
+
+	
+	if(life <= 0){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+void Player::hitted(int damage){
+
+	life = life - damage;
+
+}
+

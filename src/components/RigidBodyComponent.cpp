@@ -22,7 +22,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 	case PLAYER:
 		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5, 1, Ogre::Vector3::UNIT_Y);
 		break;
-	case BULLETR:
+	case BULLET:
 		_shape = new OgreBulletCollisions::SphereCollisionShape(Ogre::Real(0.2));
 		break;
 	}

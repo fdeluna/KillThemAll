@@ -54,6 +54,8 @@ void PlayState::enter()
 	_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
 	_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
 
+	WaveManager::getSingletonPtr()->setTimeGame(150.0);
+
 }
 
 void PlayState::exit() {
@@ -78,11 +80,18 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 		evt.timeSinceLastFrame);
 
 	_deltaT = evt.timeSinceLastFrame;
+
+	//Resume Game
+	timeGame = timeGame + _deltaT;
+
 	//_gun->getSceneNodeComponent()->getSceneNode()->setPosition(Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, _player->getSceneNodeComponent()->getSceneNode()->getPosition().y+3, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z));
 	_physicsManager->updatePhysics(_deltaT);
 	
 	if (_player->die()){
 	
+		WaveManager::getSingletonPtr()->setTimeGame(timeGame);
+		WaveManager::getSingletonPtr()->setLevelPlayer(_player->getLevel());
+		WaveManager::getSingletonPtr()->setCountPots(_player->getPotionsCount());
 		_map->cleanMap();
 		delete _player;
 		_player = nullptr;
@@ -139,6 +148,12 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 		convertMouseButton(id));
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setImage(
 		"TaharezLook/Mirilla");
+	//Use pots
+	if (_hudWeaponsShotGun->isVisible()){
+	
+		_player->potion();
+		hudLife();
+	}
 }
 
 void PlayState::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
@@ -202,6 +217,16 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_hudWeaponsClub->setVisible(false);
 		_hudWeaponsGun->setVisible(true);
 		_hudWeaponsShotGun->setVisible(false);
+	}
+	if (OIS::KC_3 == e.key){
+
+		_hudWeaponsClub->setVisible(false);
+		_hudWeaponsGun->setVisible(false);
+		_hudWeaponsShotGun->setVisible(true);
+	}
+	if (OIS::KC_4 == e.key){
+
+		_player->levelUp();
 	}
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_R)){
@@ -313,7 +338,7 @@ void PlayState::hudLife()
 		_vida7->setVisible(false);
 		_vida8->setVisible(false);
 	}
-	else{
+	else if (_player->getLife() < 8){
 		_vida1->setVisible(true);
 		_vida2->setVisible(true);
 		_vida3->setVisible(true);
@@ -322,7 +347,18 @@ void PlayState::hudLife()
 		_vida6->setVisible(true);
 		_vida7->setVisible(true);
 		_vida8->setVisible(false);
+		
 	
+	}
+	else{
+		_vida1->setVisible(true);
+		_vida2->setVisible(true);
+		_vida3->setVisible(true);
+		_vida4->setVisible(true);
+		_vida5->setVisible(true);
+		_vida6->setVisible(true);
+		_vida7->setVisible(true);
+		_vida8->setVisible(true);
 	}
 
 

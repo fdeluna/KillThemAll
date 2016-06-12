@@ -17,6 +17,8 @@ void PlayerInputComponent::move(float deltaTime){
 
 	_playerBody->translate(vectorDirection * _speed * deltaTime);
 
+	
+
 }
 
 void PlayerInputComponent::lookAt(float deltaTime){

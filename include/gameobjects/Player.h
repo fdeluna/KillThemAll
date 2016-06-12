@@ -6,6 +6,7 @@
 #include "RigidBodyComponent.h"
 #include "PlayerInputComponent.h"
 #include "Enum.h"
+#include "WaveManager.h"
 
 class Player : public GameObject{
 
@@ -19,7 +20,7 @@ public:
 	bool die();
 	void hitted(int damage);
 	void levelUp();
-
+	void potion();
 
 
 	//GETTERS/SETTERS
@@ -29,6 +30,11 @@ public:
 
 	int getLife(){ return life; };
 	int setLife(int hp){ life = hp; };
+	int getLevel(){ return level; };
+	int setLevel(int levelPlayer){ level = levelPlayer; };
+	int getPotions(){ return numPots; };
+	int setPotions(int pots){ numPots = pots; };
+	int getPotionsCount(){ return countPots; };
 
 protected:
 	SceneNodeComponent* _sceneNodeComponent;
@@ -37,7 +43,9 @@ protected:
 
 	int lifeMax = 8;
 	int life = 8;
-	
+	int level = 1;
+	int numPots = 1;
+	int countPots = 0;
 };
 
 #endif

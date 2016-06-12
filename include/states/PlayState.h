@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Gun.h"
 #include "InputManager.h"
+#include "WaveManager.h"
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
@@ -61,6 +62,8 @@ private:
 	Player* _player;
 	Gun* _gun;
 
+	//Game resume
+	float timeGame = 0;
 	// CEGUI
 
 

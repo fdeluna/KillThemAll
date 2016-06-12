@@ -19,6 +19,7 @@
 #include "IntroState.h"
 #include "WaveCompleteState.h"
 #include "GameOverState.h"
+#include "WaveManager.h"
 #include <iostream>
 
 using namespace std;
@@ -31,6 +32,7 @@ int main() {
 	IntroState* introState = new IntroState();
 	WaveCompleteState* waveCompleteState = new WaveCompleteState();
 	GameOverState* gameOverState = new GameOverState();
+	WaveManager* waveManager = new WaveManager();
 	try
 	{
 		// Inicializa el juego y transición al primer estado.

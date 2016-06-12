@@ -84,6 +84,12 @@ private:
 	CEGUI::Window* _upgradeClub;
 	CEGUI::Window* _upgradeGun;
 	CEGUI::Window* _upgradeShotGun;
+	CEGUI::Window* _timeGame;
+	CEGUI::Window* _level;
+	CEGUI::Window* _enemies;
+	CEGUI::Window* _boss;
+	CEGUI::Window* _bullets;
+	CEGUI::Window* _pots;
 
 	CEGUI::Window* _exit;
 	float sizeX = 0.15;

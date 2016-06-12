@@ -261,11 +261,43 @@ void GameOverState::createGUI()
 	_exit = _ventanaGameOver->getChild("Exit");
 	_exit->subscribeEvent(CEGUI::PushButton::EventClicked,
 		CEGUI::Event::Subscriber(&GameOverState::quit, this));
+
+	_timeGame = _ventanaGameOver->getChild("Tiempo");
+	std::stringstream timeGame;
+	timeGame << WaveManager::getSingletonPtr()->timeGame();
+	_timeGame->setText(timeGame.str());
+
+	_level = _ventanaGameOver->getChild("Nivel");
+	std::stringstream level;
+	level << WaveManager::getSingletonPtr()->levelPlayer();
+	_level->setText(level.str());
+
+	_enemies = _ventanaGameOver->getChild("Enemigos");
+	std::stringstream enemies;
+	enemies << WaveManager::getSingletonPtr()->countEnemies();
+	_enemies->setText(enemies.str());
+
+	_boss = _ventanaGameOver->getChild("Boss");
+	std::stringstream boss;
+	boss << WaveManager::getSingletonPtr()->countBoss();
+	_boss->setText(boss.str());
+
+	_bullets = _ventanaGameOver->getChild("Balas");
+	std::stringstream bullets;
+	bullets << WaveManager::getSingletonPtr()->countBullets();
+	_bullets->setText(bullets.str());
+
+	_pots = _ventanaGameOver->getChild("Pociones");
+	std::stringstream pots;
+	pots << WaveManager::getSingletonPtr()->countPots();
+	_pots->setText(pots.str());
+
+
 	//_ventanaGameOver->setXPosition(CEGUI::UDim(0.50,0));
 	
 	//Test scale real time animation
 	//_ventanaGameOver->setSize(CEGUI::USize(CEGUI::UDim(sizeX, 0), CEGUI::UDim(0.05, 0)));
-
+	
 	sheet->addChild(_GameOverStateUI);
 
 

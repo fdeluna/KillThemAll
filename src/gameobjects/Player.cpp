@@ -34,3 +34,27 @@ void Player::hitted(int damage){
 
 }
 
+void Player::potion(){
+
+	if (numPots > 0){
+		life = lifeMax;
+		numPots--;
+		//Resume Game
+		countPots++;
+	}
+
+}
+
+void Player::levelUp(){
+
+	level++;
+	switch (level){
+	
+	case 10:
+		numPots = 2;
+	default:
+		numPots = 1;
+	}
+	
+
+}

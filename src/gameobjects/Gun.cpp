@@ -25,12 +25,7 @@ void Gun::update(const Ogre::FrameEvent& evt){
 
 void Gun::upgrade(){
 
-	switch(level){
 	
-	case 1:
-		break;
-	}
-
 
 }
 void Gun::shoot(Ogre::Vector3 direction, Ogre::Vector3 position){

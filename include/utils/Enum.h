@@ -18,7 +18,8 @@ enum GameObjectType{
 	OBSTACLE,
 	MAP_FLOOR,
 	HELL,
-	PLAYER
+	PLAYER,
+	ENEMY
 };
 
 static int sceneNodeNumber = 0;

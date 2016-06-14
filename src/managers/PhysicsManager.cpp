@@ -53,6 +53,29 @@ void PhysicsManager::updatePhysics(Ogre::Real deltaTime) {
 	//checkCollisions();
 }
 
+void PhysicsManager::checkCollisions() {
+	btCollisionWorld *bulletWorld = _world->getBulletCollisionWorld();
+	int numManifolds = bulletWorld->getDispatcher()->getNumManifolds();
+	for (int i = 0; i < numManifolds; i++) {
+		btPersistentManifold *contactManifold = bulletWorld->getDispatcher()->getManifoldByIndexInternal(i);
+		int numContacts = contactManifold->getNumContacts();
+		if (numContacts > 0) {
+			btCollisionObject *obA = (btCollisionObject*)(contactManifold->getBody0());
+			btCollisionObject *obB = (btCollisionObject*)(contactManifold->getBody1());
+			GameObject *gA = (GameObject*)obA->getUserPointer();
+			GameObject *gB = (GameObject*)obB->getUserPointer();
+
+			if (gA) {
+				gA->collision(gB);
+			}
+
+			if (gB) {
+				gB->collision(gA);
+			}
+		}
+	}
+}
+
 
 
 PhysicsManager* PhysicsManager::getSingletonPtr() {

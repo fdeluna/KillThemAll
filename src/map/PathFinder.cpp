@@ -1,55 +1,52 @@
 #include "PathFinder.h"
 
-std::vector<Node*> PathFinder::FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny){
+template<> PathFinder* Ogre::Singleton<PathFinder>::msSingleton = 0;
+
+void PathFinder::FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny, std::vector<Node*>& path){
 
 	Node* startNode = _currentMap->nodeFromWorldPosition(origin);
 	Node* targetNode = _currentMap->nodeFromWorldPosition(destiny);
+	if (startNode && targetNode){
+		std::vector<Node*> openSet;
+		std::vector<Node*> closeSet;
 
-	std::vector<Node*> openSet;
-	std::vector<Node*> closeSet;
-	std::vector<Node*> path;
+		//path.clear();
 
-	std::list<Node*> list;
+		openSet.push_back(startNode);
+		std::make_heap(openSet.begin(), openSet.end());
 
-	openSet.push_back(startNode);
 
-	while (openSet.size() > 0){
-		Node* currentNode = openSet[0];		
-		/*for (int i = 0; i < openSet.size(); i++){
-			if (openSet[i]->getTotalCost() < currentNode->getTotalCost() || openSet[i]->getTotalCost() == currentNode->getTotalCost() && openSet[i]->getDcost() < currentNode->getDcost()){
-				currentNode = openSet[i];
+		while (openSet.size() > 0 && path.size() <= 0){
+			Node* currentNode = openSet[0];
+
+			openSet.erase(std::remove(openSet.begin(), openSet.end(), currentNode), openSet.end());
+			closeSet.push_back(currentNode);
+
+			if (currentNode == targetNode){
+				Node* endNode = targetNode;
+				while (endNode != startNode){
+					path.push_back(endNode);
+					//endNode->getSceneNode()->setDiffuseColor(Ogre::ColourValue::White);				
+					endNode = endNode->getParent();
+				}
+				std::reverse(path.begin(), path.end());
 			}
-		}*/
-		
-		std::cout << "CURRENT NODE X: " << currentNode->getGridX() << "CURRENT NODE Y: " << currentNode->getGridY() << std::endl;
-		openSet.erase(std::remove(openSet.begin(), openSet.end(), currentNode), openSet.end());		
-		closeSet.push_back(currentNode);
-		
-		if (currentNode == targetNode){			
-			Node* endNode = targetNode;
-			while (endNode != startNode){
-				path.push_back(endNode);
-				endNode->getSceneNode()->setDiffuseColor(Ogre::ColourValue::White);				
-				endNode = endNode->getParent();
-			}
-			std::reverse(path.begin(), path.end());			
-			return path;
-		}
-		
-		for (Node* neighbour : _currentMap->getNeighbours(currentNode)){						
-			if (neighbour->isWakable() && std::find(closeSet.begin(), closeSet.end(), neighbour) == closeSet.end()){
-				
-				int movementCostToNeighbour = currentNode->getG() + getDistance(currentNode, neighbour);
-				
-				if (movementCostToNeighbour < neighbour->getG() || std::find(openSet.begin(), openSet.end(), neighbour) == openSet.end()){
-					neighbour->setG(movementCostToNeighbour);
-					neighbour->setH(getDistance(neighbour, targetNode));					
-					neighbour->setParent(currentNode);					
+			if (path.size() <= 0){
+				for (Node* neighbour : _currentMap->getNeighbours(currentNode)){
+					if (neighbour->isWakable() && std::find(closeSet.begin(), closeSet.end(), neighbour) == closeSet.end()){
 
-					if (std::find(openSet.begin(), openSet.end(), neighbour) == openSet.end()){
-						
-						openSet.push_back(neighbour);
-						std::sort(openSet.begin(), openSet.end(), nodeLesserThan);
+						int movementCostToNeighbour = currentNode->getG() + getDistance(currentNode, neighbour);
+
+						if (movementCostToNeighbour < neighbour->getG() || std::find(openSet.begin(), openSet.end(), neighbour) == openSet.end()){
+							neighbour->setG(movementCostToNeighbour);
+							neighbour->setH(getDistance(neighbour, targetNode));
+							neighbour->setParent(currentNode);
+
+							if (std::find(openSet.begin(), openSet.end(), neighbour) == openSet.end()){
+								openSet.push_back(neighbour);
+								std::sort(openSet.begin(), openSet.end(), nodeLesserThan);
+							}
+						}
 					}
 				}
 			}
@@ -74,4 +71,14 @@ int PathFinder::getDistance(Node* nodeA, Node* nodeB){
 	}
 
 	return distance;
+}
+
+
+PathFinder* PathFinder::getSingletonPtr() {
+	return msSingleton;
+}
+
+PathFinder& PathFinder::getSingleton() {
+	assert(msSingleton);
+	return *msSingleton;
 }

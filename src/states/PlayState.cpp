@@ -81,60 +81,16 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
 
 	if (_player){
-		_player->update(_deltaT);
-
+		_player->update(_deltaT);		
+		_map->nodeFromWorldPosition(_player->getPosition());
 		timer += _deltaT;
+	}
 
-		//if (start){			
-		//	if (async){
-		//		fut = std::async(std::launch::async, &PathFinder::FindPath, _pathFinder, _player2->getPosition(), _player->getPosition());
-		//		fut1 = std::async(std::launch::async, &PathFinder::FindPath, _pathFinder, _player2->getPosition(), _player->getPosition());
-		//		fut2 = std::async(std::launch::async, &PathFinder::FindPath, _pathFinder, _player2->getPosition(), _player->getPosition());
-		//		fut3 = std::async(std::launch::async, &PathFinder::FindPath, _pathFinder, _player2->getPosition(), _player->getPosition());
-		//		fut4 = std::async(std::launch::async, &PathFinder::FindPath, _pathFinder, _player2->getPosition(), _player->getPosition());
-		//		async = false;
-		//	}
-		//	
-		//	try{
-		//		if (fut.wait_for(std::chrono::seconds(0)) == std::future_status::ready){
-		//			path = fut.get();
-		//			std::cout << path.size() << std::endl;
-		//			/async = true;
-		//		}
-		//		if (fut1.wait_for(std::chrono::seconds(0)) == std::future_status::ready){
-		//			path = fut.get();
-		//			std::cout << path.size() << std::endl;
-		//			//async = true;
-		//		}
-		//		if (fut2.wait_for(std::chrono::seconds(0)) == std::future_status::ready){
-		//			path = fut.get();
-		//			std::cout << path.size() << std::endl;
-		//			//async = true;
-		//		}
-		//		if (fut3.wait_for(std::chrono::seconds(0)) == std::future_status::ready){
-		//			path = fut.get();
-		//			std::cout << path.size() << std::endl;
-		//			//async = true;
-		//		}
-		//		if (fut4.wait_for(std::chrono::seconds(0)) == std::future_status::ready){
-		//			path = fut.get();
-		//			std::cout << path.size() << std::endl;
-		//			//async = true;
-		//		}
-		//	}catch (std::exception e)
-		//	{
-		//		std::cout << "EXCEPTION";
-		//	}
-		//}
-
-
-		//if (path.size() <= 0){
-		//	timer = 0;
-		//	// TODO ASYNC			
-		//	path = fut.get();			
-		//}	
-		//std::cout << path.size() << std::endl;
-
+	if (enemies.size() > 0){				
+		for (Enemy* e : enemies){
+			e->update(_deltaT);
+		}
+		//_enemy->update(_deltaT);
 	}
 
 	return true;
@@ -188,13 +144,17 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){
 		_map->GenerateMap();
 		_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[Mesh::PLAYERM]);
-		_player2 = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[Mesh::PLAYERM]);
 		_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
 		_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
 		_pathFinder = new PathFinder(_map);
-		async = false;
 		start = false;
 	}
+
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_E)){
+		_enemy = new Enemy(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[Mesh::PLAYERM], _player);
+		enemies.push_back(_enemy);
+	}
+
 
 	if (OIS::KC_8 == e.key){
 		_map->cleanMap();
@@ -230,6 +190,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_map->cleanMap();
 		delete _player;
 		delete _player2;
+		delete _enemy;
 		_player = nullptr;
 	}
 

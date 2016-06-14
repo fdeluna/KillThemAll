@@ -6,15 +6,16 @@
 
 #include <Ogre.h>
 
-class PathFinder{
+class PathFinder : public Ogre::Singleton<PathFinder>{
 
 public:
 	PathFinder();
 	PathFinder(Map* map):_currentMap(map){};
+	
+	void FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny, std::vector<Node*>& path);
 
-
-	//std::vector<Node*> FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny);
-	std::vector<Node*> FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny);
+	static PathFinder& getSingleton();
+	static PathFinder* getSingletonPtr();
 
 
 private:

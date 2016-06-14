@@ -1,7 +1,7 @@
 #include "Map.h"
 
 void Map::GenerateMap(){
-	_mapSize = Ogre::Vector2(30, 30);
+	_mapSize = Ogre::Vector2(25, 25);
 	_mapCenter = Ogre::Vector2(_mapSize.x / 2, _mapSize.y / 2);
 
 
@@ -82,8 +82,8 @@ void Map::GenerateMap(){
 	std::srand(std::time(0));
 	int currentNumberObstacules = 0;
 
-	int maxNumberObstacules = _mapSize.x * _mapSize.y * 0.3;
-	int minNumberObstacules = _mapSize.x * _mapSize.y * 0.25;
+	int maxNumberObstacules = _mapSize.x * _mapSize.y * 0.25;
+	int minNumberObstacules = _mapSize.x * _mapSize.y * 0.15;
 	int numberObstacules = rand() % (maxNumberObstacules - minNumberObstacules) + minNumberObstacules;
 
 	initBidimensionalVector(obstacleMap, (int)_mapSize.x, (int)_mapSize.y);
@@ -138,27 +138,20 @@ void Map::cleanMap(){
 Node* Map::nodeFromWorldPosition(Ogre::Vector3 position){
 
 	Node* node = nullptr;
-	float distanceFromPlayer = 1;
-
+	float distanceFromNode = 1;
+	position = Ogre::Vector3(position.x, 0, position.z);
 	for (int x = 0; x < grid.size(); x++){
 		for (int y = 0; y < grid[x].size(); y++){
-			if (node && node->isWakable()){
-				float distanceAux = position.distance(grid[x][y]->getSceneNode()->getSceneNode()->getPosition());
-				if (distanceAux < distanceFromPlayer){
+			if (grid[x][y]->isWakable()){
+				Ogre::Vector3 nodePosition(grid[x][y]->getSceneNode()->getSceneNode()->getPosition().x, 0, grid[x][y]->getSceneNode()->getSceneNode()->getPosition().z);
+				float distanceAux = position.distance(nodePosition);				
+				if (distanceAux < distanceFromNode){
 					node = grid[x][y];
-					distanceFromPlayer = distanceAux;
+					distanceFromNode = distanceAux;
 				}
 			}
-			else{
-				//distanceFromPlayer = position.distance(grid[x][y]->getSceneNode()->getSceneNode()->getPosition());
-				node = node = grid[x][y];
-			}
 		}
-	}
-
-	if (node){
-		//node->getSceneNode()->setDiffuseColor(Ogre::ColourValue::Blue);
-	}
+	}	
 	return node;
 }
 

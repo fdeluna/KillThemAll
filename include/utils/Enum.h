@@ -15,12 +15,18 @@ static std::map<Mesh, Ogre::String> MESHES = {
 };
 
 enum GameObjectType{
-	OBSTACLE,
-	MAP_FLOOR,
-	HELL,
-	PLAYER,
-	ENEMY
+	OBSTACLE = 1,
+	MAP_FLOOR = 2,
+	HELL = 4,
+	PLAYER = 8,
+	ENEMY = 16
 };
+
+static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY;
+static const short enemy_collides_with = PLAYER | OBSTACLE | MAP_FLOOR | HELL;
+static const short obstacle_collides_with = PLAYER | ENEMY;
+static const short map_floor_collides_with = PLAYER | ENEMY;
+static const short hell_collides_with = PLAYER | ENEMY;
 
 static int sceneNodeNumber = 0;
 

@@ -9,10 +9,9 @@
 class Player : public GameObject{
 
 public:
-	Player() : _sceneNodeComponent(nullptr), _rigidBodyComponent(nullptr){};
+	Player() : _sceneNodeComponent(nullptr), _rigidBodyComponent(nullptr), _playerInput(nullptr){};
 	Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
 	~Player();
-	
 
 	Ogre::Vector3 getPosition(){ return _rigidBodyComponent->getPosition(); };
 

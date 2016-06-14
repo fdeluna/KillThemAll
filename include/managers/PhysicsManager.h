@@ -15,16 +15,15 @@ public:
 	PhysicsManager(Ogre::SceneManager* sceneManager,bool debug);
 	~PhysicsManager();
 
-	void updatePhysics(Ogre::Real deltaTime);
-
 	OgreBulletDynamics::DynamicsWorld* getWorld(){ return _world; };
 	Ogre::Vector3& getMouseWorldPosition(float x, float y);
 
+	void updatePhysics(Ogre::Real deltaTime);
+	void checkCollisions();
+
 	static PhysicsManager& getSingleton();
 	static PhysicsManager* getSingletonPtr();
-
 	
-
 private:
 
 	bool _debug;

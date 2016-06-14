@@ -9,6 +9,7 @@
 #include "PhysicsManager.h"
 #include "PathFinder.h"
 #include "Player.h"
+#include "Enemy.h"
 
 #include <future>
 #include <algorithm>
@@ -61,6 +62,9 @@ private:
 	PhysicsManager* _physicsManager;
 	Map* _map;
 	Player* _player;
+	Enemy* _enemy;
+	std::vector<Enemy*> enemies;
+
 	// TODO DELETE TO TEST A*
 	Player* _player2;
 	std::vector<Node*> path;

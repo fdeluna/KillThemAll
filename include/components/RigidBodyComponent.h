@@ -29,9 +29,7 @@ public:
 	void setWorldOrientation(Ogre::Quaternion orientation);
 	void translate(Ogre::Vector3 position);
 	void rotate(Ogre::Vector3 dest);
-	
-
-	
+		
 private:
 	SceneNodeComponent* _sceneNodeComponent;
 	OgreBulletDynamics::RigidBody *_rigidBody;

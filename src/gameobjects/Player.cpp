@@ -13,5 +13,6 @@ Player::Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::S
 Player::~Player(){
 	delete _rigidBodyComponent;
 	delete _sceneNodeComponent;
+	delete _playerInput;
 	GameObject::~GameObject();
 }

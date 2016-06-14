@@ -3,7 +3,7 @@
 void PlayerInputComponent::update(float deltaTime){
 
 	move(deltaTime);
-	lookAt(deltaTime);
+	lookAt();
 }
 
 
@@ -20,7 +20,7 @@ void PlayerInputComponent::move(float deltaTime){
 
 }
 
-void PlayerInputComponent::lookAt(float deltaTime){
+void PlayerInputComponent::lookAt(){
 
 	OIS::MouseState e = _inputManager->getMouse()->getMouseState();
 

@@ -6,7 +6,7 @@ SceneNodeComponent::SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::S
 
 	Ogre::String enityName("SceneComponentEntity");
 	enityName.append(Ogre::StringConverter::toString(getSceneNodeNumber()));
-	enityName.append(mesh);
+	enityName.append(mesh);	
 
 	Ogre::String nodeName("SceneComponentNode");
 	nodeName.append(Ogre::StringConverter::toString(getSceneNodeNumber()));

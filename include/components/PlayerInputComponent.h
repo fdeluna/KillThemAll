@@ -17,10 +17,8 @@ public:
 	void update(float deltaTime);
 
 	void move(float deltaTime);
-	void lookAt(float deltaTime);
-
-	void getName(){ std::cout << "PLAYER INPUT" << std::endl; };
-
+	void lookAt();
+	
 private:	
 	Ogre::SceneManager* _sceneManager;
 	RigidBodyComponent* _playerBody;	

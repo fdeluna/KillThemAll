@@ -2,6 +2,7 @@
 #define GAMEOBJECT_H
 
 #include "Component.h"
+#include "Enum.h"
 
 #include <Ogre.h>
 #include <iostream>
@@ -19,23 +20,25 @@ public:
 	virtual ~GameObject(){ _components.clear(); };
 
 	virtual void update(float deltaTime);
-	// TODO
+	
 	virtual void collision(GameObject* gameObject){};
 
 	void addComponent(Component* c);
 	void removeComponent(Component* c);
 	void clearComponents();
+	GameObjectType getType(){ return _type; };
 
 	bool isActive(){ return _active; };
 	void setActive(bool active){ _active = active; };
+	
 
 protected:
 
 	Ogre::SceneManager* _sceneManager;
-
-	bool _active = true;	
-	
+	bool _active = true;		
 	std::vector<Component*> _components;
+	GameObjectType _type;
+
 
 };
 #endif

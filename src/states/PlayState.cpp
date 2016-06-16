@@ -81,16 +81,22 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
 
 	if (_player){
-		_player->update(_deltaT);		
+		_player->update(_deltaT);
 		_map->nodeFromWorldPosition(_player->getPosition());
 		timer += _deltaT;
 	}
 
-	if (enemies.size() > 0){				
-		for (Enemy* e : enemies){
-			e->update(_deltaT);
+	if (enemies.size() > 0){
+		for (int i = 0; i < enemies.size(); i++){
+			if (enemies[i] && enemies[i]->isActive()){
+				enemies[i]->update(_deltaT);
+			}
+			else{
+				Enemy* aux = enemies[i];
+				enemies.erase(enemies.begin() + i);
+				delete aux;
+			}
 		}
-		//_enemy->update(_deltaT);
 	}
 
 	return true;
@@ -147,11 +153,10 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
 		_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
 		_pathFinder = new PathFinder(_map);
-		start = false;
 	}
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_E)){
-		_enemy = new Enemy(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[Mesh::PLAYERM], _player);
+		_enemy = new EnemyFighter(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[Mesh::PLAYERM], _player);
 		enemies.push_back(_enemy);
 	}
 
@@ -167,7 +172,6 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	if (OIS::KC_9 == e.key){
 		_map->cleanMap();
 		delete _player;
-		delete _player2;
 		_player = nullptr;
 		CEGUI::WindowManager::getSingleton().destroyAllWindows();
 		changeState(GameOverState::getSingletonPtr());
@@ -189,13 +193,13 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	if (OIS::KC_R == e.key){
 		_map->cleanMap();
 		delete _player;
-		delete _player2;
 		delete _enemy;
 		_player = nullptr;
 	}
 
-	if (OIS::KC_F == e.key) start = true; async = true; path.clear();
-
+	if (OIS::KC_K == e.key){
+		delete _enemy;
+	}
 }
 
 void PlayState::keyReleased(const OIS::KeyEvent &e)

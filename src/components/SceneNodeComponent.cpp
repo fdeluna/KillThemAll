@@ -27,8 +27,7 @@ SceneNodeComponent::SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::S
 	}
 }
 
-SceneNodeComponent::~SceneNodeComponent(){
-
+SceneNodeComponent::~SceneNodeComponent(){		
 	if (_sceneNode) {
 		_sceneNode->getParent()->removeChild(_sceneNode);
 		_sceneNode->detachAllObjects();

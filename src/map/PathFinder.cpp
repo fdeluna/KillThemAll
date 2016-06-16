@@ -25,8 +25,7 @@ void PathFinder::FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny, std::vect
 			if (currentNode == targetNode){
 				Node* endNode = targetNode;
 				while (endNode != startNode){
-					path.push_back(endNode);
-					//endNode->getSceneNode()->setDiffuseColor(Ogre::ColourValue::White);				
+					path.push_back(endNode);					
 					endNode = endNode->getParent();
 				}
 				std::reverse(path.begin(), path.end());

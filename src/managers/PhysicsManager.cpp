@@ -35,13 +35,13 @@ PhysicsManager::~PhysicsManager() {
 Ogre::Vector3& PhysicsManager::getMouseWorldPosition(float x, float y){
 
 	Ogre::Camera* cam = _sceneManager->getCamera("PlayState");
-	Ogre::Ray ray = cam->getCameraToViewportRay(x, y);	
+	Ogre::Ray ray = cam->getCameraToViewportRay(x, y);
 	Ogre::Vector3 position;
 
 	OgreBulletCollisions::CollisionClosestRayResultCallback cQuery = OgreBulletCollisions::CollisionClosestRayResultCallback(ray, _world, 10000);
 	_world->launchRay(cQuery);
 
-	if (cQuery.doesCollide()) {		
+	if (cQuery.doesCollide()) {
 		position = cQuery.getCollisionPoint();
 	}
 	return position;
@@ -50,7 +50,7 @@ Ogre::Vector3& PhysicsManager::getMouseWorldPosition(float x, float y){
 
 void PhysicsManager::updatePhysics(Ogre::Real deltaTime) {
 	_world->stepSimulation(deltaTime, 50);
-	//checkCollisions();
+	checkCollisions();
 }
 
 void PhysicsManager::checkCollisions() {
@@ -65,11 +65,11 @@ void PhysicsManager::checkCollisions() {
 			GameObject *gA = (GameObject*)obA->getUserPointer();
 			GameObject *gB = (GameObject*)obB->getUserPointer();
 
-			if (gA) {
+			if (gA && gA->isActive()) {
 				gA->collision(gB);
 			}
 
-			if (gB) {
+			if (gB && gB->isActive()) {
 				gB->collision(gA);
 			}
 		}

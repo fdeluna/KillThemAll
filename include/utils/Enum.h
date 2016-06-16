@@ -22,6 +22,16 @@ enum GameObjectType{
 	ENEMY = 16
 };
 
+
+enum class EnemyState
+{
+	ATTACK,
+	MOVE,
+	DIE,
+	HITTED
+
+};
+
 static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY;
 static const short enemy_collides_with = PLAYER | OBSTACLE | MAP_FLOOR | HELL;
 static const short obstacle_collides_with = PLAYER | ENEMY;

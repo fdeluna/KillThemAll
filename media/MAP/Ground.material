@@ -1,0 +1,31 @@
+material Ground
+{
+	receive_shadows on
+	technique
+	{
+		pass
+		{
+			ambient 0.75 0.75 0.75
+			diffuse 1 1 1 1
+			
+			texture_unit
+			{
+				texture Tile.png
+			}
+		}
+	}
+}
+
+material DarkSlateGray
+  {
+    technique
+    {
+      pass
+      {
+        texture_unit
+        {
+          colour_op_ex source1 src_manual src_current 0 0 0
+        }
+      } 
+    }
+  }

@@ -1,0 +1,35 @@
+// CuerpoEnemyFigther genrated by blender2ogre 0.6.0
+
+material CuerpoEnemyFigther 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass CuerpoEnemyFigther
+        {
+            ambient 0.005638000089675188 0.17886100709438324 0.0 1.0
+            diffuse 0.005638000089675188 0.17886100709438324 0.0 1.0
+            specular 0.0026370000559836626 0.009018000215291977 0.0012169999536126852 1.0 12.0
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}

@@ -1,0 +1,74 @@
+<scene formatVersion="1.0.1" exported_by="luish" export_time="1466267220.365454" previous_export_time="1466265833.9861524" >
+  <nodes >
+    <node name="Camera.001" >
+      <position x="-7.001197" z="9.138428" y="-0.555476" />
+      <rotation qz="0.209064" qw="0.646631" qy="-0.190855" qx="0.708332" />
+      <scale x="1.000000" z="1.000000" y="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <camera projectionType="perspective" fov="0.8575560548920329" name="Camera.002" >
+        <clipping farPlaneDist="100.0" far="100.0" nearPlaneDist="0.10000000149011612" near="0.10000000149011612" />
+      </camera>
+    </node>
+    <node name="Sun.001" >
+      <position x="0.000000" z="7.101933" y="0.173149" />
+      <rotation qz="0.360225" qw="0.739894" qy="0.268478" qx="0.500714" />
+      <scale x="1.000000" z="1.000000" y="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+    </node>
+    <node name="Camera" >
+      <position x="0.570335" z="17.725386" y="-0.139728" />
+      <rotation qz="0.128051" qw="0.695414" qy="0.128052" qx="0.695417" />
+      <scale x="1.000000" z="1.000000" y="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <camera projectionType="perspective" fov="0.6108652712230666" name="Camera.001" >
+        <clipping farPlaneDist="100.0" far="100.0" nearPlaneDist="0.10000000149011612" near="0.10000000149011612" />
+      </camera>
+    </node>
+    <node name="Sun" >
+      <position x="0.000000" z="7.101933" y="0.173149" />
+      <rotation qz="-0.000000" qw="0.673123" qy="0.000000" qx="0.739531" />
+      <scale x="1.000000" z="1.000000" y="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <light shadow="true" powerScale="1.0" name="Sun" type="directional" >
+        <position x="0.000000" z="7.101933" y="0.173149" />
+        <lightAttenuation constant="1.0" linear="0.04" quadratic="0.0" range="5000" />
+        <direction x="0.0" z="0.996" y="0.094" />
+        <colourDiffuse g="1.0" r="1.0" b="1.0" />
+        <colourSpecular g="1.0" r="1.0" b="1.0" />
+        <colourShadow g="1.0" r="1.0" b="1.0" />
+      </light>
+    </node>
+    <node name="Revolver" >
+      <position x="0.000000" z="0.000000" y="0.000000" />
+      <rotation qz="0.000000" qw="1.000000" qy="-0.000000" qx="0.000000" />
+      <scale x="1.000000" z="1.000000" y="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <entity lock_rot_y="False" lock_rot_x="False" inertia_tensor="0.4000000059604645" damping_trans="0.03999999910593033" mass="1.0" friction_z="1.0" lock_rot_z="False" ghost="False" friction_x="1.0" lock_trans_z="False" anisotropic_friction="False" mass_radius="1.0" lock_trans_y="False" name="Revolver" velocity_max="0.0" friction_y="1.0" lock_trans_x="False" velocity_min="0.0" meshFile="Revolver.mesh" physics_type="STATIC" actor="False" damping_rot="0.10000000149011612" />
+    </node>
+  </nodes>
+  <externals >
+    <item type="material" >
+      <file name="C:\Users\luish\Desktop\EXPORTSKILL\REVOLVER\Material_008.material" />
+    </item>
+  </externals>
+  <environment >
+    <colourAmbient g="0.0" r="0.0" b="0.0" />
+    <colourDiffuse g="0.02909925952553749" r="0.02909925952553749" b="0.02909925952553749" />
+    <colourBackground g="0.02909925952553749" r="0.02909925952553749" b="0.02909925952553749" />
+  </environment>
+</scene>

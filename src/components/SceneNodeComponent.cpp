@@ -56,30 +56,6 @@ void SceneNodeComponent::setDiffuseColor(Ogre::ColourValue diffuseColor){
 
 }
 
-SceneNodeComponent::~SceneNodeComponent(){		
-	if (_sceneNode) {
-		_sceneNode->getParent()->removeChild(_sceneNode);
-		_sceneNode->detachAllObjects();
-		_sceneManager->destroySceneNode(_sceneNode);
-		_sceneNode = nullptr;
-	}
-	if (_entity) {
-		_sceneManager->destroyEntity(_entity);
-		_entity = nullptr;
-	}
-	_sceneManager = nullptr;
-}
-
-
-void SceneNodeComponent::setDiffuseColor(Ogre::ColourValue diffuseColor){
-	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("ObstacleMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, true);
-	Ogre::Pass *pass = material->getTechnique(0)->getPass(0);
-	pass->setAmbient(diffuseColor);
-	_entity->setMaterial(material);
-	//_entity->setMaterialName("Ground");
-
-}
-
 void SceneNodeComponent::setMaterialName(Ogre::String materialName){
 	_entity->setMaterialName(materialName);
 }

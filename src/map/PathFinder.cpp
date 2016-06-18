@@ -43,7 +43,7 @@ void PathFinder::FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny, std::vect
 
 							if (std::find(openSet.begin(), openSet.end(), neighbour) == openSet.end()){
 								openSet.push_back(neighbour);
-								std::sort(openSet.begin(), openSet.end(), nodeLesserThan);
+								std::sort(openSet.begin(), openSet.end(), lesserNode);
 							}
 						}
 					}
@@ -70,6 +70,11 @@ int PathFinder::getDistance(Node* nodeA, Node* nodeB){
 	}
 
 	return distance;
+}
+
+bool PathFinder::lesserNode(Node* a, Node* b)
+{
+	return a->getTotalCost() < b->getTotalCost();
 }
 
 

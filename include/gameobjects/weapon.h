@@ -10,7 +10,7 @@
 
 using namespace Ogre;
 
-class Weapon 
+class Weapon
 {
 public:
 
@@ -20,10 +20,10 @@ public:
 	//DESTRUCTOR
 	//~Weapon();
 
-	 //void update(const Ogre::FrameEvent& evt);
+	//void update(const Ogre::FrameEvent& evt);
 
 	void shoot(Ogre::Vector3 direction, Ogre::Vector3 position);
-	
+
 	void upgrade();
 	//GETTERS/SETTERS
 	int getMaxAmmo();
@@ -50,7 +50,7 @@ protected:
 	std::vector<Bullet*> bullets;
 
 	//CONTROL
-	
+
 	//EFFECTS	
 	//Sound sound
 	//Particles....

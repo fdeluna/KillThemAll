@@ -12,10 +12,24 @@ class Player : public GameObject{
 
 public:
 	Player() : _sceneNodeComponent(nullptr), _rigidBodyComponent(nullptr), _playerInput(nullptr){};
-	Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
+	Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String 
+		
+		);
 	~Player();
 
 	Ogre::Vector3 getPosition(){ return _rigidBodyComponent->getPosition(); };
+
+	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponent; };
+	PlayerInputComponent* getPlayerInputComponent(){ return _playerInput; };
+	
+
+	int getLife(){ return life; };
+	int setLife(int hp){ life = hp; };
+	int getLevel(){ return level; };
+	int setLevel(int levelPlayer){ level = levelPlayer; };
+	int getPotions(){ return numPots; };
+	int setPotions(int pots){ numPots = pots; };
+	int getPotionsCount(){ return countPots; };
 
 private:
 	SceneNodeComponent* _sceneNodeComponent;
@@ -27,15 +41,7 @@ private:
 	int level = 1;
 	int numPots = 1;
 	int countPots = 0;
-	
-	int getLife(){ return life; };
-	int setLife(int hp){ life = hp; };
-	int getLevel(){ return level; };
-	int setLevel(int levelPlayer){ level = levelPlayer; };
-	int getPotions(){ return numPots; };
-	int setPotions(int pots){ numPots = pots; };
-	int getPotionsCount(){ return countPots; };
-	
+			
 		//FUNTIONS
 	bool die();
 	void hitted(int damage);

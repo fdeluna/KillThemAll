@@ -58,7 +58,7 @@ protected:
 	bool canAttack = true;
 	bool canMove = true;
 	bool killed;//Indica si esta muerto
-	bool hitted;//Indica si ha sido daniado
+	bool isHitted;//Indica si ha sido daniado
 	
 	bool attackDistance();	
 

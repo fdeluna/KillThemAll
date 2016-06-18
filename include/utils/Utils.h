@@ -4,18 +4,19 @@
 #include <vector>
 #include <Ogre.h>
 
+
 template <typename T>
 static void initBidimensionalVector(std::vector<std::vector<T>> &vector2, int width, int heigh){
 	vector2.resize(width);
 
-	for (int i = 0; i < vector2.size(); i++){		
+	for (int i = 0; i < vector2.size(); i++){
 		vector2[i].resize(heigh);
 	}
 }
 
 template <typename T>
 static void shuffleArray(std::vector<std::vector<T>> &vector2) {
-	std::srand(std::time(0));	
+	std::srand(std::time(0));
 
 	for (int i = 0; i < vector2.size(); i++){
 		for (int j = 0; j < vector2[i].size(); j++){
@@ -25,28 +26,8 @@ static void shuffleArray(std::vector<std::vector<T>> &vector2) {
 			vector2[x][y] = vector2[i][j];
 			vector2[i][j] = tempItem;
 
-		}		
-	}	
-}
-static bool  nodeLesserThan(Node* a, Node* b){
-
-	/*bool result = false;
-
-	if (a->getTotalCost() > b->getTotalCost()){
-		result = true;
-	}
-	else if (a->getTotalCost() == b->getTotalCost()){
-		float distanceA = a->getSceneNode()->getSceneNode()->getPosition().distance(position);
-		float distanceB = b->getSceneNode()->getSceneNode()->getPosition().distance(position);
-
-		if (distanceA < distanceB) {
-
 		}
-
-	}*/
-
-
-	return a->getTotalCost() < b->getTotalCost();
+	}
 }
 
 static Ogre::Plane& createPlane(Ogre::String name, Ogre::Real width, Ogre::Real heigh){
@@ -58,6 +39,16 @@ static Ogre::Plane& createPlane(Ogre::String name, Ogre::Real width, Ogre::Real 
 
 	return plane;
 }
+
+static Ogre::Vector3 lerp(Ogre::Vector3 &srcLocation, Ogre::Vector3 &destLocation, Ogre::Real Time)
+{
+	Ogre::Vector3 mDest;
+	mDest.x = srcLocation.x + (destLocation.x - srcLocation.x) * Time;
+	mDest.y = srcLocation.y + (destLocation.y - srcLocation.y) * Time;
+	mDest.z = srcLocation.z + (destLocation.z - srcLocation.z) * Time;
+	return mDest;
+}
+
 static int ogreNameNumber;
 
 static void getOgreName(Ogre::String &name){

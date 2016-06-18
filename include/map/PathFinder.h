@@ -21,6 +21,8 @@ public:
 private:
 	Map* _currentMap;
 	int PathFinder::getDistance(Node* nodeA, Node* nodeB);
+
+	static bool  lesserNode(Node* a, Node* b);	
 };
 
 

@@ -31,8 +31,7 @@ private:
 	Node* _currentNode;
 
 	std::vector<Node*> currentPath;
-	std::vector<Node*> newPath;		
-
+	std::vector<Node*> newPath;	
 };
 
 #endif

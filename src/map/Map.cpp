@@ -6,12 +6,12 @@ void Map::GenerateMap(){
 
 
 
-	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[Mesh::TILE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
+	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[MeshName::TILE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
 	RigidBodyComponent* hellBody = new RigidBodyComponent((GameObject*)this, GameObjectType::HELL, hell);
 	hell->setMaterialName("Ground");
 
 	// TODO REFACTOR TO STYLE SELECTION
-	Ogre::Plane plane = createPlane("mapFloor", _mapSize.x + 0.2, _mapSize.y + 0.2);
+	Ogre::Plane plane = createPlane("mapFloor", _mapSize.x + 0.2, _mapSize.y + 0.2);	
 	planeNode = new SceneNodeComponent(_sceneManager, "PlaneFloor", "mapFloor", Ogre::Vector3::UNIT_SCALE, Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
 
 	rigidBodyComponent = new RigidBodyComponent(nullptr, GameObjectType::MAP_FLOOR, planeNode);
@@ -67,7 +67,7 @@ void Map::GenerateMap(){
 	for (int x = 0; x < _mapSize.x; x++){
 		for (int y = 0; y < _mapSize.y; y++){
 			Ogre::Vector3 position(x, 0, y);			
-			Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], planeNode->getSceneNode(), x, y);
+			Node* aux = new Node(_sceneManager, true, position, MESHES[MeshName::TILE], planeNode->getSceneNode(), x, y);
 			gridRow.push_back(aux);
 		}
 		grid.push_back(gridRow);

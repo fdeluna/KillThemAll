@@ -4,7 +4,6 @@
 #include "Enum.h"
 #include "GameObject.h"
 #include "SceneNodeComponent.h"
-
 #include "RigidBodyComponent.h"
 
 #include <Ogre.h>

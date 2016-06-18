@@ -4,7 +4,7 @@
 #include <map>
 #include <Ogre.h>
 
-enum Mesh1{
+enum MeshName{
 	TILE,
 	PLAYERM,
 	ENEMYFIGHTER,
@@ -14,14 +14,14 @@ enum Mesh1{
 	REVOLVER
 };
 
-static std::map<Mesh1, Ogre::String> MESHES = {
-	{ Mesh1::TILE, "Tile.mesh" },
-	{ Mesh1::PLAYERM, "Cube.001.mesh" },
-	{ Mesh1::ENEMYFIGHTER, "EnemyFighter.mesh" },
-	{ Mesh1::BOSS, "Cylinder.mesh"},
-	{ Mesh1::PLAYERP, "EnemyFighter.mesh" },
-	{ Mesh1::BULLETP, "Bullet.mesh" },
-	{ Mesh1::REVOLVER, "Revolver.mesh" }
+static std::map<MeshName, Ogre::String> MESHES = {
+	{ MeshName::TILE, "Tile.mesh" },
+	{ MeshName::PLAYERM, "Cube.001.mesh" },
+	{ MeshName::ENEMYFIGHTER, "EnemyFighter.mesh" },
+	{ MeshName::BOSS, "Cylinder.mesh" },
+	{ MeshName::PLAYERP, "EnemyFighter.mesh" },
+	{ MeshName::BULLETP, "Bullet.mesh" },
+	{ MeshName::REVOLVER, "Revolver.mesh" }
 };
 
 
@@ -39,7 +39,8 @@ enum GameObjectType{
 	MAP_FLOOR = 2,
 	HELL = 4,
 	PLAYER = 8,
-	ENEMY = 16
+	ENEMY = 16,
+	BULLET = 32
 };
 
 static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY;

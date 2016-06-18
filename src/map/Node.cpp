@@ -6,9 +6,6 @@ Node::Node(Ogre::SceneManager* sceneManager, bool walkable, Ogre::Vector3 positi
 	addComponent(_sceneNodeComponent);
 }
 
-	addComponent(_sceneNodeComponent);
-}
-
 Node::~Node(){
 	delete _rigidBodyComponent;
 	delete _sceneNodeComponent;

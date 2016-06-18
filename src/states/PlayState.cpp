@@ -12,15 +12,14 @@ void PlayState::enter()
 		_camera = _sceneMgr->getCamera("PlayState");
 	}
 	else {
-		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");		
+		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");
 		_camera = _sceneMgr->createCamera("PlayState");
 	}
 
-	
+
 	createGUI();
 	_exitGame = false;
 
-	// TODO LIGHTS
 	// TODO LIGHTS
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
 
@@ -34,7 +33,7 @@ void PlayState::enter()
 	light->setDirection(Ogre::Vector3(1, -1, -3));
 	_sceneMgr->getRootSceneNode()->attachObject(light);
 
-	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);		
+	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
 	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
 
 	double width = _viewport->getActualWidth();
@@ -50,14 +49,15 @@ void PlayState::enter()
 	_camera->setNearClipDistance(1);
 	_camera->setFarClipDistance(10000);
 
-	_map->GenerateMap();
-	_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 5, _map->_mapCenter.y), MESHES[Mesh1::PLAYERP]);
-	//_bullet = new Bullet(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x + 10, 5, _map->_mapCenter.y), MESHES[Mesh::BULLET]);
-	Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x+15,
-		_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
-		_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
-	_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[Mesh1::REVOLVER]);
-	//std::cout << Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition()) << "***************"<< std::endl;
+
+	// TODO MOVE TO PLAYER
+	//_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 5, _map->_mapCenter.y), MESHES[MeshName::PLAYERP]);
+	////_bullet = new Bullet(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x + 10, 5, _map->_mapCenter.y), MESHES[MeshName::BULLET]);
+	//Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x+15,
+	//	_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
+	//	_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
+	//_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[MeshName::REVOLVER]);
+	////std::cout << Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition()) << "***************"<< std::endl;
 
 	_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
 	_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
@@ -67,11 +67,10 @@ void PlayState::enter()
 }
 
 void PlayState::exit() {
-	_map->cleanMap();
+	delete _pathFinder;
+	_map->cleanMap();	
 	delete _map;
 	delete _physicsManager;
-
-	
 	_player = nullptr;
 
 	if (enemies.size() > 0){
@@ -81,11 +80,7 @@ void PlayState::exit() {
 			delete aux;
 		}
 	}
-	delete _pathFinder;
-	delete _map;
-	delete _physicsManager;
 	_sceneMgr->clearScene();
-	
 }
 
 void PlayState::pause() {
@@ -116,13 +111,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
 
 	if (_player){
-		_player->update(_deltaT);
-		if (!_player->isActive()){
-			_map->nodeFromWorldPosition(_player->getPosition());
-		}
-	}
-	else{
-		changeState(GameOverState::getSingletonPtr());
+		_player->update(_deltaT);		
 	}
 
 	if (enemies.size() > 0){
@@ -137,9 +126,6 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 			}
 		}
 	}
-		_player->update(_deltaT);
-	}
-
 	return true;
 }
 
@@ -172,12 +158,12 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 		"TaharezLook/Mirilla");
 	//Use pots
 	if (_hudWeaponsShotGun->isVisible()){
-	
-		_player->potion();
+
+		//_player->potion();
 		hudLife();
 	}
 	else if (_hudWeaponsClub->isVisible()){
-		_gun->shoot();
+		//_gun->shoot();
 	}
 }
 
@@ -200,20 +186,18 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){
 		_map->GenerateMap();
-		_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[Mesh::PLAYERM]);
+		_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[MeshName::PLAYERM]);
 		_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
 		_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
 		_pathFinder = new PathFinder(_map);
 	}
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_E)){
-		_enemy = new EnemyFighter(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[Mesh::PLAYERM], _player);
+		_enemy = new EnemyFighter(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[MeshName::PLAYERM], _player);
 		enemies.push_back(_enemy);
 	}
 
 
-		
-	}
 
 	if (OIS::KC_8 == e.key){
 		_map->cleanMap();
@@ -262,16 +246,16 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	}
 	if (OIS::KC_4 == e.key){
 
-		_player->levelUp();
+		//_player->levelUp();
 	}
-
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_R)){
 		_map->cleanMap();
 		delete _player;
 		_player = nullptr;
 	}
-	
+
 }
+
 
 void PlayState::keyReleased(const OIS::KeyEvent &e)
 {
@@ -313,7 +297,6 @@ CEGUI::MouseButton PlayState::convertMouseButton(OIS::MouseButtonID id)
 void PlayState::hudLife()
 {
 	if (_player->getLife() < 2){
-
 
 		_vida1->setVisible(true);
 		_vida2->setVisible(false);
@@ -383,8 +366,8 @@ void PlayState::hudLife()
 		_vida6->setVisible(true);
 		_vida7->setVisible(true);
 		_vida8->setVisible(false);
-		
-	
+
+
 	}
 	else{
 		_vida1->setVisible(true);
@@ -399,7 +382,7 @@ void PlayState::hudLife()
 
 
 
-	
+
 }
 void PlayState::createGUI()
 {

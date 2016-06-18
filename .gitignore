@@ -34,4 +34,5 @@ Debug/
 *.sln
 *.vcxproj
 *.vcxproj.user
+*.opensdf
 *.ini

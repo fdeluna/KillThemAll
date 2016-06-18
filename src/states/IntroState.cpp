@@ -37,8 +37,8 @@ IntroState::enter()
 	createGUI();
 
 	//_physicsManager = new PhysicsManager(_sceneMgr, true);
-	//_Map = new Map(_sceneMgr);
-	//_Map->GenerateMap();
+	//_map = new Map(_sceneMgr);
+	//_map->GenerateMap();
 }
 
 void
@@ -65,10 +65,7 @@ IntroState::frameStarted
 	_timeSinceLastFrame = evt.timeSinceLastFrame;
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		_timeSinceLastFrame);
-
-	//_Map->update(evt.timeSinceLastFrame);
-
-	
+		
 	return true;
 }
 
@@ -103,8 +100,7 @@ IntroState::keyPressed
 		exitButton->setVisible(true);
 		playButton->setVisible(true);
 		highscoreButton->setVisible(true);
-		creditsButton->setVisible(true);
-		//pacmanTittle->setVisible(true);
+		creditsButton->setVisible(true);		
 		fondoCredits->setVisible(false);
 		fondoScore->setVisible(false);
 		_credits = false;
@@ -116,8 +112,7 @@ IntroState::keyPressed
 		exitButton->setVisible(true);
 		playButton->setVisible(true);
 		highscoreButton->setVisible(true);
-		creditsButton->setVisible(true);
-		//pacmanTittle->setVisible(true);
+		creditsButton->setVisible(true);	
 		fondoCredits->setVisible(false);
 		fondoScore->setVisible(false);
 		_highscore = false;
@@ -200,8 +195,7 @@ bool IntroState::highscore(const CEGUI::EventArgs &e) {
 	exitButton->setVisible(false);
 	playButton->setVisible(false);
 	highscoreButton->setVisible(false);
-	creditsButton->setVisible(false);
-	//pacmanTittle->setVisible(false);
+	creditsButton->setVisible(false);	
 	fondoCredits->setVisible(false);
 	fondoScore->setVisible(true);
 	fondoInstrucciones->setVisible(false);

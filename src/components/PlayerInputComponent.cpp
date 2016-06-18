@@ -3,7 +3,7 @@
 void PlayerInputComponent::update(float deltaTime){
 
 	move(deltaTime);
-	lookAt(deltaTime);
+	lookAt();
 }
 
 
@@ -17,11 +17,10 @@ void PlayerInputComponent::move(float deltaTime){
 
 	_playerBody->translate(vectorDirection * _speed * deltaTime);
 
-	
 
 }
 
-void PlayerInputComponent::lookAt(float deltaTime){
+void PlayerInputComponent::lookAt(){
 
 	OIS::MouseState e = _inputManager->getMouse()->getMouseState();
 
@@ -29,16 +28,6 @@ void PlayerInputComponent::lookAt(float deltaTime){
 	float y = e.Y.abs / (float)Ogre::Root::getSingletonPtr()->getAutoCreatedWindow()->getHeight();
 
 	Ogre::Vector3 mousePosition = PhysicsManager::getSingletonPtr()->getMouseWorldPosition(x, y);
-	positionMouseForWaeapon = mousePosition;
-
-	_playerBody->rotate(Ogre::Vector3(mousePosition.x, 1 , mousePosition.z));
-
-	positionMouseForWaeapon = Ogre::Vector3(mousePosition.x, 1, mousePosition.z);
-
-	// TODO SEGUIR POR AQU?MAÑANA
-	/*Ogre::Vector3 lookAt();
-	_inputManager->getMouse()->getMouseState().X.
-	std::cout << "MOUSE X " << _inputManager->getMouse()->getMouseState().X.rel << std::endl;
-	std::cout << "MOUSE Y " << _inputManager->getMouse()->getMouseState().Y.rel << std::endl;*/
-
+	
+	_playerBody->rotate(Ogre::Vector3(mousePosition.x, 1 , mousePosition.z));	
 }

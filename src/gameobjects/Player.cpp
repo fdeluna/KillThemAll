@@ -9,15 +9,16 @@ Player::Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::S
 	//_sceneNodeComponent->getSceneNode()->roll(Ogre::Degree(90));
 	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::PLAYER, _sceneNodeComponent);
 	_playerInput = new PlayerInputComponent(_rigidBodyComponent, _sceneManager);
+	_type = GameObjectType::PLAYER;
 	addComponent(_sceneNodeComponent);
 	addComponent(_rigidBodyComponent);
 	addComponent(_playerInput);
 }
 
-
 Player::~Player(){
 	delete _rigidBodyComponent;
 	delete _sceneNodeComponent;
+	delete _playerInput;
 	GameObject::~GameObject();
 }
 

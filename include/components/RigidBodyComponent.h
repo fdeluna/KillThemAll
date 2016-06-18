@@ -11,8 +11,6 @@
 #include <Shapes/OgreBulletCollisionsCapsuleShape.h>
 #include <Utils/OgreBulletCollisionsMeshToShapeConverter.h>
 
-#include <Shapes/OgreBulletCollisionsSphereShape.h>
-
 
 
 class RigidBodyComponent : public Component{
@@ -31,9 +29,7 @@ public:
 	void setWorldOrientation(Ogre::Quaternion orientation);
 	void translate(Ogre::Vector3 position);
 	void rotate(Ogre::Vector3 dest);
-	
-
-	
+		
 private:
 	SceneNodeComponent* _sceneNodeComponent;
 	OgreBulletDynamics::RigidBody *_rigidBody;

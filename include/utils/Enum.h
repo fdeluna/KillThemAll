@@ -22,17 +22,31 @@ static std::map<Mesh1, Ogre::String> MESHES = {
 	{ Mesh1::PLAYERP, "EnemyFighter.mesh" },
 	{ Mesh1::BULLETP, "Bullet.mesh" },
 	{ Mesh1::REVOLVER, "Revolver.mesh" }
-
 };
 
+
+enum class EnemyState
+{
+	ATTACK,
+	MOVE,
+	DIE,
+	HITTED
+
+};
 
 enum GameObjectType{
-	OBSTACLE,
-	MAP_FLOOR,
-	HELL,
-	PLAYER,
-	BULLET
+	OBSTACLE = 1,
+	MAP_FLOOR = 2,
+	HELL = 4,
+	PLAYER = 8,
+	ENEMY = 16
 };
+
+static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY;
+static const short enemy_collides_with = PLAYER | OBSTACLE | MAP_FLOOR | HELL;
+static const short obstacle_collides_with = PLAYER | ENEMY | MAP_FLOOR;
+static const short map_floor_collides_with = PLAYER | ENEMY | MAP_FLOOR;
+static const short hell_collides_with = PLAYER | ENEMY;
 
 
 static int sceneNodeNumber = 0;
@@ -87,15 +101,6 @@ static std::map<AttackVelocity, float> ATTACKVELOCITIES = {
 	{ AttackVelocity::SLOW, 1.5f },
 	{ AttackVelocity::NORMAL, 2.0f },
 	{ AttackVelocity::FAST, 2.5f }
-
-};
-
-enum class EnemyState
-{
-	ATTACK,
-	MOVE,
-	DIE,
-	HITTED
 
 };
 

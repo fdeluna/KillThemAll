@@ -18,10 +18,14 @@ public:
 
 	void GenerateMap();
 	void cleanMap();
-
+	void collision(GameObject* gameObject);
 	Ogre::Vector2 _mapCenter;
 
-	std::vector< std::vector <Node*>> getGrid(){ return grid; };
+	Node* nodeFromWorldPosition(Ogre::Vector3 position);
+	std::vector<Node*> getNeighbours(Node* node);
+
+	std::vector<std::vector <Node*>> getGrid(){ return grid; };
+
 
 private:
 	Ogre::Vector2 _mapSize;

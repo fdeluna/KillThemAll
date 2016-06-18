@@ -7,11 +7,13 @@
 #include "GameOverState.h"
 #include "Map.h"
 #include "PhysicsManager.h"
+#include "PathFinder.h"
 #include "Player.h"
-#include "Gun.h"
-#include "InputManager.h"
+#include "EnemyFighter.h"
 #include "WaveManager.h"
 
+#include <future>
+#include <algorithm>
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include <CEGUI/CEGUI.h>
@@ -53,19 +55,21 @@ private:
 	bool _exitGame;
 
 	float _deltaT = 0;
-	InputManager* _inputManager;
+
 	CEGUI::OgreRenderer* _renderer;
 
+	float timer = 0;
 
 	PhysicsManager* _physicsManager;
 	Map* _map;
 	Player* _player;
-	Gun* _gun;
+	Enemy* _enemy;
+	std::vector<Enemy*> enemies;
 
-	//Game resume
-	float timeGame = 0;
+
 	// CEGUI
 
+	PathFinder* _pathFinder;
 
 	bool quit(const CEGUI::EventArgs &e);
 	bool save(const CEGUI::EventArgs &e);

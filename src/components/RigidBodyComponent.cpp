@@ -7,42 +7,44 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 
 	OgreBulletCollisions::StaticMeshToShapeConverter *trimeshConverter = NULL;
 
+	Ogre::String rigidName(_sceneNodeComponent->getSceneNode()->getName());
+	rigidName.append("RigidBody");
+	PhysicsManager* physicsMgr = PhysicsManager::getSingletonPtr();
+	
 	switch (type)
 	{
 	case OBSTACLE:
 		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(0.5, 0.5, 0.5));
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld());
 		break;
 	case HELL:
 		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(20, 0.5, 20));
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, hell_collides_with);
 		break;
 	case MAP_FLOOR:
 		trimeshConverter = new OgreBulletCollisions::StaticMeshToShapeConverter(_sceneNodeComponent->getEntity());
 		_shape = trimeshConverter->createConvex();
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld());
 		break;
 	case PLAYER:
-		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5, 1, Ogre::Vector3::UNIT_Y);
+		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5, 0.5, Ogre::Vector3::UNIT_Y);
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, player_collides_with);
 		break;
-	case BULLET:
-		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(0.2, 0.2, 0.2));
+	case ENEMY:
+		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5,0.5, Ogre::Vector3::UNIT_Y);
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, enemy_collides_with);
 		break;
 	}
-
-	Ogre::String rigidName(_sceneNodeComponent->getSceneNode()->getName());
-	rigidName.append("RigidBody");
-	PhysicsManager* physicsMgr = PhysicsManager::getSingletonPtr();
+	
 
 
-	_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld());
-
-
-	if (type != GameObjectType::PLAYER && type != GameObjectType::BULLET){
-		_rigidBody->setStaticShape(_shape, 0.01, 1, position, orientation);
-		_rigidBody->setGravity(Ogre::Vector3::ZERO);
-	}
-	else{
+	if (type == GameObjectType::PLAYER || type == GameObjectType::ENEMY){
 		_rigidBody->setShape(_sceneNodeComponent->getSceneNode(), _shape, 0.01, 1, 100.0, position, orientation);
 		//_rigidBody->getBulletRigidBody()->setLinearFactor(btVector3(0, 0, 0));
 		_rigidBody->getBulletRigidBody()->setAngularFactor(btVector3(0, 0, 0));
+	}else{
+		_rigidBody->setStaticShape(_shape, 0.01, 1, position, orientation);
+		_rigidBody->setGravity(Ogre::Vector3::ZERO);
 	}
 
 	_rigidBody->disableDeactivation();

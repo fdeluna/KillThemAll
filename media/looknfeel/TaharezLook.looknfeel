@@ -64,12 +64,7 @@
                 <HorzFormatProperty name="HorzLabelFormatting" />
             </TextComponent>
         </ImagerySection>
-        <ImagerySection name="normal">
-            <FrameComponent>
-                <Image component="LeftEdge" name="TaharezLook/ButtonLeftNormal" />
-                <Image component="RightEdge" name="TaharezLook/ButtonRightNormal" />
-                <Image component="Background" name="TaharezLook/ButtonMiddleNormal" />
-            </FrameComponent>
+        <ImagerySection name="normal">            
             <ImageryComponent>
                 <ImageProperty name="NormalImage" />
                 <VertFormatProperty name="VertImageFormatting" />
@@ -77,10 +72,7 @@
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="hover">
-            <FrameComponent>
-                <Image component="LeftEdge" name="TaharezLook/ButtonLeftHighlight" />
-                <Image component="RightEdge" name="TaharezLook/ButtonRightHighlight" />
-                <Image component="Background" name="TaharezLook/ButtonMiddleHighlight" />
+            <FrameComponent>                
             </FrameComponent>
             <ImageryComponent>
                 <ImageProperty name="HoverImage" />
@@ -89,10 +81,7 @@
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="pushed">
-            <FrameComponent>
-                <Image component="LeftEdge" name="TaharezLook/ButtonLeftPushed" />
-                <Image component="RightEdge" name="TaharezLook/ButtonRightPushed" />
-                <Image component="Background" name="TaharezLook/ButtonMiddlePushed" />
+            <FrameComponent>                
             </FrameComponent>
             <ImageryComponent>
                 <ImageProperty name="PushedImage" />
@@ -101,10 +90,7 @@
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="disabled">
-            <FrameComponent>
-                <Image component="LeftEdge" name="TaharezLook/ButtonLeftNormal" />
-                <Image component="RightEdge" name="TaharezLook/ButtonRightNormal" />
-                <Image component="Background" name="TaharezLook/ButtonMiddleNormal" />
+            <FrameComponent>                
             </FrameComponent>
             <ImageryComponent>
                 <ImageProperty name="DisabledImage" />
@@ -171,8 +157,7 @@
             <TextComponent>
                 <Area>
                     <Dim type="LeftEdge" >
-                        <OperatorDim op="Add">
-                            <ImageDim name="TaharezLook/RadioButtonNormal" dimension="Width"/>
+                        <OperatorDim op="Add">                            
                             <AbsoluteDim value="3" />
                         </OperatorDim>
                     </Dim>
@@ -182,22 +167,19 @@
             </TextComponent>
         </ImagerySection>
         <ImagerySection name="normal">
-            <ImageryComponent>
-                <Image name="TaharezLook/RadioButtonNormal" />
+            <ImageryComponent>                
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="LeftAligned" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="hover">
-            <ImageryComponent>
-                <Image name="TaharezLook/RadioButtonHover" />
+            <ImageryComponent>                
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="LeftAligned" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="select_mark">
             <ImageryComponent>
-                <Image name="TaharezLook/RadioButtonMark" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="LeftAligned" />
             </ImageryComponent>
@@ -288,21 +270,18 @@
         </ImagerySection>
         <ImagerySection name="normal">
             <ImageryComponent>
-                <Image name="TaharezLook/CheckboxNormal" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="LeftAligned" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="hover">
             <ImageryComponent>
-                <Image name="TaharezLook/CheckboxHover" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="LeftAligned" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="select_mark">
             <ImageryComponent>
-                <Image name="TaharezLook/CheckboxMark" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="LeftAligned" />
             </ImageryComponent>
@@ -388,9 +367,6 @@
         </NamedArea>
         <ImagerySection name="container_normal">
             <FrameComponent>
-                <Image component="LeftEdge" name="TaharezLook/EditBoxLeft" />
-                <Image component="RightEdge" name="TaharezLook/EditBoxRight" />
-                <Image component="Background" name="TaharezLook/EditBoxMiddle" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="selection">
@@ -401,7 +377,6 @@
                     <Dim type="RightEdge" ><UnifiedDim scale="1.0" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge" ><UnifiedDim scale="1.0" type="BottomEdge" /></Dim>
                 </Area>
-                <Image name="TaharezLook/TextSelectionBrush" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -414,7 +389,6 @@
                     <Dim type="Width" ><ImageDim name="TaharezLook/EditBoxCaret" dimension="Width" /></Dim>
                     <Dim type="BottomEdge" ><UnifiedDim scale="1.0" type="BottomEdge" /></Dim>
                 </Area>
-                <Image name="TaharezLook/EditBoxCaret" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -463,7 +437,6 @@
         <Property name="Size" value="{{0, 256}, {0, 32}}" />
         <ImagerySection name="main">
             <ImageryComponent>
-                <Image name="TaharezLook/NewTitlebarLeft" />
                 <VertFormat type="Stretched" />
             </ImageryComponent>
             <ImageryComponent>
@@ -478,7 +451,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/NewTitlebarRight" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="RightAligned" />
             </ImageryComponent>
@@ -491,12 +463,10 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/SysAreaMiddle" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="RightAligned" />
             </ImageryComponent>
             <ImageryComponent>
-                <Image name="TaharezLook/SysAreaRight" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="RightAligned" />
             </ImageryComponent>
@@ -516,7 +486,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/NewTitlebarMiddle" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -657,11 +626,6 @@
                 <Area>
                     <Dim type="TopEdge" ><WidgetDim widget="__auto_titlebar__" dimension="BottomEdge" /></Dim>
                 </Area>
-                <Image component="BottomLeftCorner" name="TaharezLook/WindowBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/WindowBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/WindowLeftEdge" />
-                <Image component="RightEdge" name="TaharezLook/WindowRightEdge" />
-                <Image component="BottomEdge" name="TaharezLook/WindowBottomEdge" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -680,7 +644,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/GenericBrush" />
                 <ColourProperty name="ClientAreaColour" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
@@ -688,13 +651,6 @@
         </ImagerySection>
         <ImagerySection name="notitle_frame">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/WindowTopLeft" />
-                <Image component="TopRightCorner" name="TaharezLook/WindowTopRight" />
-                <Image component="BottomLeftCorner" name="TaharezLook/WindowBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/WindowBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/WindowLeftEdge" />
-                <Image component="RightEdge" name="TaharezLook/WindowRightEdge" />
-                <Image component="BottomEdge" name="TaharezLook/WindowBottomEdge" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -713,7 +669,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/GenericBrush" />
                 <ColourProperty name="ClientAreaColour" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
@@ -724,7 +679,6 @@
                 <Area>
                     <Dim type="TopEdge" ><WidgetDim widget="__auto_titlebar__" dimension="Height" /></Dim>
                 </Area>
-                <Image name="TaharezLook/GenericBrush" />
                 <ColourProperty name="ClientAreaColour" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
@@ -732,7 +686,6 @@
         </ImagerySection>
         <ImagerySection name="notitle_noframe_client_area">
             <ImageryComponent>
-                <Image name="TaharezLook/GenericBrush" />
                 <ColourProperty name="ClientAreaColour" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
@@ -863,14 +816,6 @@
                         <AbsoluteDim value="11" />
                     </Dim>
                 </Area>
-                <Image component="TopLeftCorner" name="TaharezLook/StaticTopLeft" />
-                <Image component="TopRightCorner" name="TaharezLook/StaticTopRight" />
-                <Image component="BottomLeftCorner" name="TaharezLook/StaticBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/StaticBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/StaticLeft" />
-                <Image component="TopEdge" name="TaharezLook/StaticTop" />
-                <Image component="RightEdge" name="TaharezLook/StaticRight" />
-                <Image component="BottomEdge" name="TaharezLook/StaticBottom" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </FrameComponent>
@@ -888,7 +833,6 @@
                         <FontDim type="LineSpacing" />
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/StaticBackdrop" />
                 <ColourRectProperty name="BackgroundTextColours" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
@@ -942,15 +886,11 @@
         </NamedArea>
         <ImagerySection name="frame">
             <FrameComponent>
-                <Image component="LeftEdge" name="TaharezLook/ProgressBarLeft" />
-                <Image component="RightEdge" name="TaharezLook/ProgressBarRight" />
-                <Image component="Background" name="TaharezLook/ProgressBarMiddle" />
                 <HorzFormat type="Tiled" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="progress_lights" >
             <ImageryComponent>
-                <Image name="TaharezLook/ProgressBarLitSegment" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Tiled" />
             </ImageryComponent>
@@ -1003,9 +943,6 @@
         </NamedArea>
         <ImagerySection name="frame">
             <FrameComponent>
-                <Image component="LeftEdge" name="TaharezLook/AltProgressLeft" />
-                <Image component="RightEdge" name="TaharezLook/AltProgressRight" />
-                <Image component="Background" name="TaharezLook/AltProgressMiddle" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="progress_lights" >
@@ -1014,7 +951,6 @@
                     <Dim type="LeftEdge" ><UnifiedDim scale="0" type="LeftEdge" /></Dim>
                     <Dim type="Width" ><UnifiedDim scale="0.1" type="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/AltProgressLight1" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Tiled" />
             </ImageryComponent>
@@ -1023,7 +959,6 @@
                     <Dim type="LeftEdge" ><UnifiedDim scale="0.1" type="LeftEdge" /></Dim>
                     <Dim type="Width" ><UnifiedDim scale="0.1" type="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/AltProgressLight2" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Tiled" />
             </ImageryComponent>
@@ -1032,7 +967,6 @@
                     <Dim type="LeftEdge" ><UnifiedDim scale="0.2" type="LeftEdge" /></Dim>
                     <Dim type="Width" ><UnifiedDim scale="0.1" type="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/AltProgressLight3" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Tiled" />
             </ImageryComponent>
@@ -1041,7 +975,6 @@
                     <Dim type="LeftEdge" ><UnifiedDim scale="0.3" type="LeftEdge" /></Dim>
                     <Dim type="Width" ><UnifiedDim scale="0.1" type="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/AltProgressLight4" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Tiled" />
             </ImageryComponent>
@@ -1050,7 +983,6 @@
                     <Dim type="LeftEdge" ><UnifiedDim scale="0.4" type="LeftEdge" /></Dim>
                     <Dim type="Width" ><UnifiedDim scale="0.1" type="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/AltProgressLight5" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Tiled" />
             </ImageryComponent>
@@ -1059,7 +991,6 @@
                     <Dim type="LeftEdge" ><UnifiedDim scale="0.5" type="LeftEdge" /></Dim>
                     <Dim type="Width" ><UnifiedDim scale="0.1" type="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/AltProgressLight6" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Tiled" />
             </ImageryComponent>
@@ -1068,7 +999,6 @@
                     <Dim type="LeftEdge" ><UnifiedDim scale="0.6" type="LeftEdge" /></Dim>
                     <Dim type="Width" ><UnifiedDim scale="0.1" type="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/AltProgressLight7" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Tiled" />
             </ImageryComponent>
@@ -1077,7 +1007,6 @@
                     <Dim type="LeftEdge" ><UnifiedDim scale="0.7" type="LeftEdge" /></Dim>
                     <Dim type="Width" ><UnifiedDim scale="0.1" type="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/AltProgressLight8" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Tiled" />
             </ImageryComponent>
@@ -1086,7 +1015,6 @@
                     <Dim type="LeftEdge" ><UnifiedDim scale="0.8" type="LeftEdge" /></Dim>
                     <Dim type="Width" ><UnifiedDim scale="0.1" type="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/AltProgressLight9" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Tiled" />
             </ImageryComponent>
@@ -1095,7 +1023,6 @@
                     <Dim type="LeftEdge" ><UnifiedDim scale="0.9" type="LeftEdge" /></Dim>
                     <Dim type="Width" ><UnifiedDim scale="0.1" type="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/AltProgressLight10" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Tiled" />
             </ImageryComponent>
@@ -1141,7 +1068,6 @@
                     <Dim type="TopEdge" ><UnifiedDim scale="0.5" type="TopEdge" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="0.5" type="Height" /></Dim>
                 </Area>
-                <Image name="TaharezLook/TextSelectionBrush" />
                 <Colours topLeft="FF00FF00" topRight="FF00FF00" bottomLeft="FF00FF00" bottomRight="FF00FF00" />
                 <VertFormat type="Tiled" />
                 <HorzFormat type="Stretched" />
@@ -1151,7 +1077,6 @@
                     <Dim type="TopEdge" ><UnifiedDim scale="0.2" type="TopEdge" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="0.3" type="Height" /></Dim>
                 </Area>
-                <Image name="TaharezLook/TextSelectionBrush" />
                 <Colours topLeft="FFFFFF00" topRight="FFFFFF00" bottomLeft="FFFFFF00" bottomRight="FFFFFF00" />
                 <VertFormat type="Tiled" />
                 <HorzFormat type="Stretched" />
@@ -1161,7 +1086,6 @@
                     <Dim type="TopEdge" ><UnifiedDim scale="0" type="TopEdge" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="0.2" type="Height" /></Dim>
                 </Area>
-                <Image name="TaharezLook/TextSelectionBrush" />
                 <Colours topLeft="FFFF0000" topRight="FFFF0000" bottomLeft="FFFF0000" bottomRight="FFFF0000" />
                 <VertFormat type="Tiled" />
                 <HorzFormat type="Stretched" />
@@ -1195,14 +1119,12 @@
         <Property name="MouseInputPropagationEnabled" value="true" />
         <ImagerySection name="normal">
             <ImageryComponent>
-                <Image name="TaharezLook/VertSliderThumbNormal" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="hover">
             <ImageryComponent>
-                <Image name="TaharezLook/VertSliderThumbHover" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -1253,7 +1175,6 @@
                     <Dim type="LeftEdge" ><AbsoluteDim value="3" /></Dim>
                     <Dim type="Width" ><UnifiedDim scale="1.0" offset="-6" type="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/VertSliderBody" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -1283,16 +1204,10 @@
         <Property name="Size" value="{{0, 48}, {0, 16}}" />
         <ImagerySection name="normal">
             <FrameComponent>
-                <Image component="LeftEdge" name="TaharezLook/MiniHorzScrollThumbLeftNormal" />
-                <Image component="RightEdge" name="TaharezLook/MiniHorzScrollThumbRightNormal" />
-                <Image component="Background" name="TaharezLook/MiniHorzScrollThumbMiddleNormal" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="hover">
             <FrameComponent>
-                <Image component="LeftEdge" name="TaharezLook/MiniHorzScrollThumbLeftHover" />
-                <Image component="RightEdge" name="TaharezLook/MiniHorzScrollThumbRightHover" />
-                <Image component="Background" name="TaharezLook/MiniHorzScrollThumbMiddleHover" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Normal">
@@ -1371,7 +1286,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/MiniHorzScrollBarSegment" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -1401,16 +1315,10 @@
         <Property name="Size" value="{{0, 16}, {0, 48}}" />
         <ImagerySection name="normal">
             <FrameComponent>
-                <Image component="TopEdge" name="TaharezLook/MiniVertScrollThumbTopNormal" />
-                <Image component="BottomEdge" name="TaharezLook/MiniVertScrollThumbBottomNormal" />
-                <Image component="Background" name="TaharezLook/MiniVertScrollThumbMiddleNormal" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="hover">
             <FrameComponent>
-                <Image component="TopEdge" name="TaharezLook/MiniVertScrollThumbTopHover" />
-                <Image component="BottomEdge" name="TaharezLook/MiniVertScrollThumbBottomHover" />
-                <Image component="Background" name="TaharezLook/MiniVertScrollThumbMiddleHover" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Normal">
@@ -1490,7 +1398,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/MiniVertScrollBarSegment" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="CentreAligned" />
             </ImageryComponent>
@@ -1604,15 +1511,6 @@
         </Child>
         <ImagerySection name="main">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/ListboxTopLeft" />
-                <Image component="TopRightCorner" name="TaharezLook/ListboxTopRight" />
-                <Image component="BottomLeftCorner" name="TaharezLook/ListboxBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/ListboxBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/ListboxLeft" />
-                <Image component="RightEdge" name="TaharezLook/ListboxRight" />
-                <Image component="TopEdge" name="TaharezLook/ListboxTop" />
-                <Image component="BottomEdge" name="TaharezLook/ListboxBottom" />
-                <Image component="Background" name="TaharezLook/ListboxBackdrop" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -1724,15 +1622,6 @@
         </Child>
         <ImagerySection name="main">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/ComboboxListTopLeft" />
-                <Image component="TopRightCorner" name="TaharezLook/ComboboxListTopRight" />
-                <Image component="BottomLeftCorner" name="TaharezLook/ComboboxListBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/ComboboxListBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/ComboboxListLeft" />
-                <Image component="RightEdge" name="TaharezLook/ComboboxListRight" />
-                <Image component="TopEdge" name="TaharezLook/ComboboxListTop" />
-                <Image component="BottomEdge" name="TaharezLook/ComboboxListBottom" />
-                <Image component="Background" name="TaharezLook/ComboboxListBackdrop" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -1771,13 +1660,10 @@
         </NamedArea>
         <ImagerySection name="container_normal">
             <FrameComponent>
-                <Image component="LeftEdge" name="TaharezLook/ComboboxEditLeft" />
-                <Image component="Background" name="TaharezLook/ComboboxEditMiddle" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="selection">
             <ImageryComponent>
-                <Image name="TaharezLook/TextSelectionBrush" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -1787,7 +1673,6 @@
                 <Area>
                     <Dim type="Width" ><ImageDim name="TaharezLook/EditBoxCaret" dimension="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/EditBoxCaret" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -1921,14 +1806,6 @@
     <WidgetLook name="TaharezLook/StaticShared">
         <ImagerySection name="frame">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/StaticTopLeft" />
-                <Image component="TopRightCorner" name="TaharezLook/StaticTopRight" />
-                <Image component="BottomLeftCorner" name="TaharezLook/StaticBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/StaticBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/StaticLeft" />
-                <Image component="RightEdge" name="TaharezLook/StaticRight" />
-                <Image component="TopEdge" name="TaharezLook/StaticTop" />
-                <Image component="BottomEdge" name="TaharezLook/StaticBottom" />
                 <ColourRectProperty name="FrameColours" />
             </FrameComponent>
         </ImagerySection>
@@ -1950,7 +1827,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/StaticBackdrop" />
                 <!--<ColourRectProperty name="BackgroundColours" />-->
                 <Colours topLeft="FFFFFFFF" topRight="FFFFFFFF" bottomLeft="FFFFFFFF" bottomRight="FFFFFFFF" />
                 <VertFormat type="Stretched" />
@@ -1959,7 +1835,6 @@
         </ImagerySection>
         <ImagerySection name="background_noframe">
             <ImageryComponent>
-                <Image name="TaharezLook/StaticBackdrop" />
                 <!--<ColourRectProperty name="BackgroundColours" />-->
                 <Colours topLeft="FFFFFFFF" topRight="FFFFFFFF" bottomLeft="FFFFFFFF" bottomRight="FFFFFFFF" />
                 <VertFormat type="Stretched" />
@@ -2256,7 +2131,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/HeaderBarBackdropNormal" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -2271,21 +2145,18 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/HeaderBarBackdropHover" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="splitter_normal">
             <ImageryComponent>
-                <Image name="TaharezLook/HeaderBarSplitterNormal" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="RightAligned" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="splitter_hover">
             <ImageryComponent>
-                <Image name="TaharezLook/HeaderBarSplitterHover" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="RightAligned" />
             </ImageryComponent>
@@ -2298,7 +2169,6 @@
                     <Dim type="Width" ><ImageDim name="TaharezLook/HeaderBarSortUp" dimension="Width" /></Dim>
                     <Dim type="Height" ><ImageDim name="TaharezLook/HeaderBarSortUp" dimension="Height" /></Dim>
                 </Area>
-                <Image name="TaharezLook/HeaderBarSortDown" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="descend_icon">
@@ -2309,7 +2179,6 @@
                     <Dim type="Width" ><ImageDim name="TaharezLook/HeaderBarSortDown" dimension="Width" /></Dim>
                     <Dim type="Height" ><ImageDim name="TaharezLook/HeaderBarSortDown" dimension="Height" /></Dim>
                 </Area>
-                <Image name="TaharezLook/HeaderBarSortUp" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="label">
@@ -2519,15 +2388,6 @@
         </Child>
         <ImagerySection name="main">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/MultiListTopLeft" />
-                <Image component="TopRightCorner" name="TaharezLook/MultiListTopRight" />
-                <Image component="BottomLeftCorner" name="TaharezLook/MultiListBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/MultiListBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/MultiListLeft" />
-                <Image component="RightEdge" name="TaharezLook/MultiListRight" />
-                <Image component="TopEdge" name="TaharezLook/MultiListTop" />
-                <Image component="BottomEdge" name="TaharezLook/MultiListBottom" />
-                <Image component="Background" name="TaharezLook/MultiListBackdrop" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -2645,15 +2505,6 @@
         </Child>
         <ImagerySection name="main">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/MultiLineEditboxTopLeft" />
-                <Image component="TopRightCorner" name="TaharezLook/MultiLineEditboxTopRight" />
-                <Image component="BottomLeftCorner" name="TaharezLook/MultiLineEditboxBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/MultiLineEditboxBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/MultiLineEditboxLeft" />
-                <Image component="RightEdge" name="TaharezLook/MultiLineEditboxRight" />
-                <Image component="TopEdge" name="TaharezLook/MultiLineEditboxTop" />
-                <Image component="BottomEdge" name="TaharezLook/MultiLineEditboxBottom" />
-                <Image component="Background" name="TaharezLook/MultiLineEditboxBackdrop" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="Caret">
@@ -2661,7 +2512,6 @@
                 <Area>
                     <Dim type="Width" ><ImageDim name="TaharezLook/EditBoxCaret" dimension="Width" /></Dim>
                 </Area>
-                <Image name="TaharezLook/EditBoxCaret" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -2713,15 +2563,6 @@
         </NamedArea>
         <ImagerySection name="main">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/TooltipTopLeft" />
-                <Image component="TopRightCorner" name="TaharezLook/TooltipTopRight" />
-                <Image component="BottomLeftCorner" name="TaharezLook/TooltipBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/TooltipBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/TooltipLeftEdge" />
-                <Image component="RightEdge" name="TaharezLook/TooltipRightEdge" />
-                <Image component="TopEdge" name="TaharezLook/TooltipTopEdge" />
-                <Image component="BottomEdge" name="TaharezLook/TooltipBottomEdge" />
-                <Image component="Background" name="TaharezLook/TooltipMiddle" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="label">
@@ -2865,74 +2706,26 @@
         </ImagerySection>
         <ImagerySection name="top_normal">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/TabButtonUpperLeftNormal" />
-                <Image component="TopRightCorner" name="TaharezLook/TabButtonUpperRightNormal" />
-                <Image component="BottomLeftCorner" name="TaharezLook/TabButtonLowerLeftNormal" />
-                <Image component="BottomRightCorner" name="TaharezLook/TabButtonLowerRight2Normal" />
-                <Image component="LeftEdge" name="TaharezLook/TabButtonLeftNormal" />
-                <Image component="RightEdge" name="TaharezLook/TabButtonRightNormal" />
-                <Image component="TopEdge" name="TaharezLook/TabButtonUpperNormal" />
-                <Image component="BottomEdge" name="TaharezLook/TabButtonLowerNormal" />
-                <Image component="Background" name="TaharezLook/TabButtonMiddleNormal" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="bot_normal">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/TabButtonUpperLeft2Normal" />
-                <Image component="TopRightCorner" name="TaharezLook/TabButtonUpperRightNormal" />
-                <Image component="BottomLeftCorner" name="TaharezLook/TabButtonLowerLeftNormal" />
-                <Image component="BottomRightCorner" name="TaharezLook/TabButtonLowerRightNormal" />
-                <Image component="LeftEdge" name="TaharezLook/TabButtonLeftNormal" />
-                <Image component="RightEdge" name="TaharezLook/TabButtonRightNormal" />
-                <Image component="TopEdge" name="TaharezLook/TabButtonUpperNormal" />
-                <Image component="BottomEdge" name="TaharezLook/TabButtonLowerNormal" />
-                <Image component="Background" name="TaharezLook/TabButtonMiddleNormal" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="top_hover">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/TabButtonUpperLeftNormal" />
-                <Image component="TopRightCorner" name="TaharezLook/TabButtonUpperRightNormal" />
-                <Image component="BottomLeftCorner" name="TaharezLook/TabButtonLowerLeftNormal" />
-                <Image component="BottomRightCorner" name="TaharezLook/TabButtonLowerRight2Normal" />
-                <Image component="LeftEdge" name="TaharezLook/TabButtonLeftNormal" />
-                <Image component="RightEdge" name="TaharezLook/TabButtonRightNormal" />
-                <Image component="TopEdge" name="TaharezLook/TabButtonUpperNormal" />
-                <Image component="BottomEdge" name="TaharezLook/TabButtonLowerNormal" />
-                <Image component="Background" name="TaharezLook/TabButtonMiddleNormal" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="bot_hover">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/TabButtonUpperLeft2Normal" />
-                <Image component="TopRightCorner" name="TaharezLook/TabButtonUpperRightNormal" />
-                <Image component="BottomLeftCorner" name="TaharezLook/TabButtonLowerLeftNormal" />
-                <Image component="BottomRightCorner" name="TaharezLook/TabButtonLowerRightNormal" />
-                <Image component="LeftEdge" name="TaharezLook/TabButtonLeftNormal" />
-                <Image component="RightEdge" name="TaharezLook/TabButtonRightNormal" />
-                <Image component="TopEdge" name="TaharezLook/TabButtonUpperNormal" />
-                <Image component="BottomEdge" name="TaharezLook/TabButtonLowerNormal" />
-                <Image component="Background" name="TaharezLook/TabButtonMiddleNormal" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="top_selected">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/TabButtonUpperLeftSelected" />
-                <Image component="TopEdge" name="TaharezLook/TabButtonUpperSelected" />
-                <Image component="TopRightCorner" name="TaharezLook/TabButtonUpperRightSelected" />
-                <Image component="LeftEdge" name="TaharezLook/TabButtonLeftSelected" />
-                <Image component="Background" name="TaharezLook/TabButtonMiddleSelected" />
-                <Image component="RightEdge" name="TaharezLook/TabButtonRightSelected" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="bot_selected">
             <FrameComponent>
-                <Image component="LeftEdge" name="TaharezLook/TabButtonLeftSelected" />
-                <Image component="Background" name="TaharezLook/TabButtonMiddleSelected" />
-                <Image component="RightEdge" name="TaharezLook/TabButtonRightSelected" />
-                <Image component="BottomLeftCorner" name="TaharezLook/TabButtonLowerLeftNormal" />
-                <Image component="BottomEdge" name="TaharezLook/TabButtonLowerNormal" />
-                <Image component="BottomRightCorner" name="TaharezLook/TabButtonLowerRightNormal" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="TopNormal">
@@ -3039,9 +2832,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image component="TopLeftCorner" name="TaharezLook/TabContentPaneUpperLeft" />
-                <Image component="TopEdge" name="TaharezLook/TabContentPaneUpper" />
-                <Image component="TopRightCorner" name="TaharezLook/TabContentPaneUpperRight" />
             </FrameComponent>
             <FrameComponent>
                 <Area>
@@ -3061,9 +2851,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image component="LeftEdge" name="TaharezLook/TabContentPaneLeft" />
-                <Image component="Background" name="TaharezLook/TabContentPaneMiddle" />
-                <Image component="RightEdge" name="TaharezLook/TabContentPaneRight" />
             </FrameComponent>
             <FrameComponent>
                 <Area>
@@ -3077,9 +2864,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image component="BottomLeftCorner" name="TaharezLook/TabContentPaneLowerLeft" />
-                <Image component="BottomEdge" name="TaharezLook/TabContentPaneLower" />
-                <Image component="BottomRightCorner" name="TaharezLook/TabContentPaneLowerRight" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -3114,7 +2898,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image component="TopEdge" name="TaharezLook/TabHorizontalFiller" />
             </FrameComponent>
             <FrameComponent>
                 <Area>
@@ -3147,7 +2930,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image component="BottomEdge" name="TaharezLook/TabHorizontalFiller" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -3346,15 +3128,6 @@
         </ImagerySection>
         <ImagerySection name="frame">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/MenuTopLeft" />
-                <Image component="TopRightCorner" name="TaharezLook/MenuTopRight" />
-                <Image component="BottomLeftCorner" name="TaharezLook/MenuBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/MenuBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/MenuLeft" />
-                <Image component="RightEdge" name="TaharezLook/MenuRight" />
-                <Image component="TopEdge" name="TaharezLook/MenuTop" />
-                <Image component="BottomEdge" name="TaharezLook/MenuBottom" />
-                <Image component="Background" name="TaharezLook/MenuMiddle" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="popup_arrow_right">
@@ -3367,7 +3140,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/PopupMenuArrowRight" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="RightAligned" />
             </ImageryComponent>
@@ -3382,7 +3154,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/PopupMenuArrowLeft" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="RightAligned" />
             </ImageryComponent>
@@ -3518,15 +3289,6 @@
         </NamedArea>
         <ImagerySection name="frame">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/PopupMenuFrameTopLeft" />
-                <Image component="TopRightCorner" name="TaharezLook/PopupMenuFrameTopRight" />
-                <Image component="BottomLeftCorner" name="TaharezLook/PopupMenuFrameBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/PopupMenuFrameBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/PopupMenuFrameLeft" />
-                <Image component="RightEdge" name="TaharezLook/PopupMenuFrameRight" />
-                <Image component="TopEdge" name="TaharezLook/PopupMenuFrameTop" />
-                <Image component="BottomEdge" name="TaharezLook/PopupMenuFrameBottom" />
-                <Image component="Background" name="TaharezLook/PopupMenuMiddle" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -3591,15 +3353,6 @@
         </NamedArea>
         <ImagerySection name="frame">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/PopupMenuFrameTopLeft" />
-                <Image component="TopRightCorner" name="TaharezLook/PopupMenuFrameTopRight" />
-                <Image component="BottomLeftCorner" name="TaharezLook/PopupMenuFrameBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/PopupMenuFrameBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/PopupMenuFrameLeft" />
-                <Image component="RightEdge" name="TaharezLook/PopupMenuFrameRight" />
-                <Image component="TopEdge" name="TaharezLook/PopupMenuFrameTop" />
-                <Image component="BottomEdge" name="TaharezLook/PopupMenuFrameBottom" />
-                <Image component="Background" name="TaharezLook/PopupMenuMiddle" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -3629,14 +3382,12 @@
         <Property name="Size" value="{{0, 10}, {0, 32}}" />
         <ImagerySection name="normal">
             <ImageryComponent>
-                <Image name="TaharezLook/VertScrollThumbNormal" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="hover">
             <ImageryComponent>
-                <Image name="TaharezLook/VertScrollThumbHover" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -3768,9 +3519,6 @@
         </Child>
         <ImagerySection name="main">
             <FrameComponent>
-                <Image component="TopEdge" name="TaharezLook/VertScrollTop" />
-                <Image component="BottomEdge" name="TaharezLook/VertScrollBottom" />
-                <Image component="Background" name="TaharezLook/VertScrollMiddle" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -3798,7 +3546,6 @@
                         </OperatorDim>
                     </Dim>
                 </Area>
-                <Image name="TaharezLook/VertScrollBarSegment" />
                 <VertFormat type="Tiled" />
             </ImageryComponent>
         </ImagerySection>
@@ -3976,15 +3723,6 @@
         </Child>
         <ImagerySection name="main">
             <FrameComponent>
-                <Image component="TopLeftCorner" name="TaharezLook/ListboxTopLeft" />
-                <Image component="TopRightCorner" name="TaharezLook/ListboxTopRight" />
-                <Image component="BottomLeftCorner" name="TaharezLook/ListboxBottomLeft" />
-                <Image component="BottomRightCorner" name="TaharezLook/ListboxBottomRight" />
-                <Image component="LeftEdge" name="TaharezLook/ListboxLeft" />
-                <Image component="RightEdge" name="TaharezLook/ListboxRight" />
-                <Image component="TopEdge" name="TaharezLook/ListboxTop" />
-                <Image component="BottomEdge" name="TaharezLook/ListboxBottom" />
-                <Image component="Background" name="TaharezLook/ListboxBackdrop" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -4120,14 +3858,12 @@
         </Child>
         <ImagerySection name="OpenTreeButton">
             <ImageryComponent>
-                <Image name="TaharezLook/TreeListClosed" />
               <!--  <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" /> -->
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="CloseTreeButton">
             <ImageryComponent>
-                <Image name="TaharezLook/TreeListOpened" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>

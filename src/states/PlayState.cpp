@@ -13,15 +13,14 @@ void PlayState::enter()
 	}
 	else {
 		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");		
-		//Inicializacion de CEGUI
-		//_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
-		// set camera
 		_camera = _sceneMgr->createCamera("PlayState");
 	}
 
 	
+	createGUI();
 	_exitGame = false;
 
+	// TODO LIGHTS
 	// TODO LIGHTS
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
 
@@ -44,8 +43,6 @@ void PlayState::enter()
 
 	_physicsManager = new PhysicsManager(_sceneMgr, true);
 	_map = new Map(_sceneMgr);
-
-	createGUI();
 
 	// TODO REFACTOR TO INIT WAVE
 	_camera->setPosition(Ogre::Vector3(0, 20, 40));
@@ -74,6 +71,19 @@ void PlayState::exit() {
 	delete _map;
 	delete _physicsManager;
 
+	
+	_player = nullptr;
+
+	if (enemies.size() > 0){
+		for (int i = 0; i < enemies.size(); i++){
+			Enemy* aux = enemies[i];
+			enemies.erase(enemies.begin() + i);
+			delete aux;
+		}
+	}
+	delete _pathFinder;
+	delete _map;
+	delete _physicsManager;
 	_sceneMgr->clearScene();
 	
 }
@@ -91,29 +101,8 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 		evt.timeSinceLastFrame);
 
 	_deltaT = evt.timeSinceLastFrame;
-	//std::cout << Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition()) << "***************" << std::endl;
 
-	//Resume Game
-	timeGame = timeGame + _deltaT;
-
-	//_gun->getSceneNodeComponent()->getSceneNode()->setPosition(Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, _player->getSceneNodeComponent()->getSceneNode()->getPosition().y+3, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z));
 	_physicsManager->updatePhysics(_deltaT);
-	
-	if (_player->die()){
-	
-		WaveManager::getSingletonPtr()->setTimeGame(timeGame);
-		WaveManager::getSingletonPtr()->setLevelPlayer(_player->getLevel());
-		WaveManager::getSingletonPtr()->setCountPots(_player->getPotionsCount());
-		_map->cleanMap();
-		delete _player;
-		_player = nullptr;
-		CEGUI::WindowManager::getSingleton().destroyAllWindows();
-		changeState(GameOverState::getSingletonPtr());
-	
-	}
-	
-	
-
 	//_Map->update(_deltaT);
 
 	Ogre::Vector3 vt(0, 0, 0);     Ogre::Real tSpeed = 20.0;
@@ -126,7 +115,28 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
 
-	if(_player){
+	if (_player){
+		_player->update(_deltaT);
+		if (!_player->isActive()){
+			_map->nodeFromWorldPosition(_player->getPosition());
+		}
+	}
+	else{
+		changeState(GameOverState::getSingletonPtr());
+	}
+
+	if (enemies.size() > 0){
+		for (int i = 0; i < enemies.size(); i++){
+			if (enemies[i] && enemies[i]->isActive()){
+				enemies[i]->update(_deltaT);
+			}
+			else{
+				//Enemy* aux = enemies[i];
+				//enemies.erase(enemies.begin() + i);
+				//delete aux;
+			}
+		}
+	}
 		_player->update(_deltaT);
 	}
 
@@ -188,20 +198,20 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_exitGame = true;
 	}
 
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){		
-		
-
-		
-
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){
+		_map->GenerateMap();
+		_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[Mesh::PLAYERM]);
+		_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
+		_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
+		_pathFinder = new PathFinder(_map);
 	}
 
-	if (OIS::KC_E == e.key){
-		
-		
-		
-		_player->hitted(1);
-		std::cout << "--------------------------------" <<_player->getLife() << std::endl;
-		hudLife();
+	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_E)){
+		_enemy = new EnemyFighter(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[Mesh::PLAYERM], _player);
+		enemies.push_back(_enemy);
+	}
+
+
 		
 	}
 
@@ -238,6 +248,17 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_hudWeaponsClub->setVisible(false);
 		_hudWeaponsGun->setVisible(false);
 		_hudWeaponsShotGun->setVisible(true);
+	}
+
+	if (OIS::KC_R == e.key){
+		_map->cleanMap();
+		delete _player;
+		delete _enemy;
+		_player = nullptr;
+	}
+
+	if (OIS::KC_K == e.key){
+		delete _enemy;
 	}
 	if (OIS::KC_4 == e.key){
 

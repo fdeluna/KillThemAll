@@ -1,7 +1,7 @@
 // TileMaterial genrated by blender2ogre 0.6.0
 
-material TileMaterial 
-{
+material TileMaterial
+{ 
      receive_shadows on 
 
     technique

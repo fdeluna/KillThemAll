@@ -18,7 +18,7 @@ public:
 
 	void GenerateMap();
 	void cleanMap();
-
+	void collision(GameObject* gameObject);
 	Ogre::Vector2 _mapCenter;
 
 	Node* nodeFromWorldPosition(Ogre::Vector3 position);

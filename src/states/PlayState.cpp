@@ -12,10 +12,7 @@ void PlayState::enter()
 		_camera = _sceneMgr->getCamera("PlayState");
 	}
 	else {
-		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");
-		//Inicializacion de CEGUI
-		//_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
-		// set camera
+		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");		
 		_camera = _sceneMgr->createCamera("PlayState");
 	}
 
@@ -45,10 +42,21 @@ void PlayState::enter()
 }
 
 void PlayState::exit() {
+
 	_map->cleanMap();
+	delete _player;
+	_player = nullptr;
+
+	if (enemies.size() > 0){
+		for (int i = 0; i < enemies.size(); i++){
+			Enemy* aux = enemies[i];
+			enemies.erase(enemies.begin() + i);
+			delete aux;
+		}
+	}
+	delete _pathFinder;
 	delete _map;
 	delete _physicsManager;
-
 	_sceneMgr->clearScene();
 
 }
@@ -82,8 +90,12 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	if (_player){
 		_player->update(_deltaT);
-		_map->nodeFromWorldPosition(_player->getPosition());
-		timer += _deltaT;
+		if (!_player->isActive()){
+			_map->nodeFromWorldPosition(_player->getPosition());
+		}
+	}
+	else{
+		changeState(GameOverState::getSingletonPtr());
 	}
 
 	if (enemies.size() > 0){

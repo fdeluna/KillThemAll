@@ -35,10 +35,10 @@ PhysicsManager::~PhysicsManager() {
 Ogre::Vector3& PhysicsManager::getMouseWorldPosition(float x, float y){
 
 	Ogre::Camera* cam = _sceneManager->getCamera("PlayState");
-	Ogre::Ray ray = cam->getCameraToViewportRay(x, y);
+	Ogre::Ray ray = cam->getCameraToViewportRay(x, y);	
 	Ogre::Vector3 position;
-
-	OgreBulletCollisions::CollisionClosestRayResultCallback cQuery = OgreBulletCollisions::CollisionClosestRayResultCallback(ray, _world, 10000);
+	
+	OgreBulletCollisions::CollisionClosestRayResultCallback cQuery = OgreBulletCollisions::CollisionClosestRayResultCallback(ray, _world, 10000);	
 	_world->launchRay(cQuery);
 
 	if (cQuery.doesCollide()) {

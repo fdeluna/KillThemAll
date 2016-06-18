@@ -15,7 +15,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 	{
 	case OBSTACLE:
 		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(0.5, 0.5, 0.5));
-		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(),type,obstacle_collides_with);
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld());
 		break;
 	case HELL:
 		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(20, 0.5, 20));
@@ -24,7 +24,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 	case MAP_FLOOR:
 		trimeshConverter = new OgreBulletCollisions::StaticMeshToShapeConverter(_sceneNodeComponent->getEntity());
 		_shape = trimeshConverter->createConvex();
-		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, map_floor_collides_with);
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld());
 		break;
 	case PLAYER:
 		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5, 0.5, Ogre::Vector3::UNIT_Y);

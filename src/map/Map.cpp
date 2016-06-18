@@ -14,7 +14,7 @@ void Map::GenerateMap(){
 	Ogre::Plane plane = createPlane("mapFloor", _mapSize.x + 0.2, _mapSize.y + 0.2);
 	planeNode = new SceneNodeComponent(_sceneManager, "PlaneFloor", "mapFloor", Ogre::Vector3::UNIT_SCALE, Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
 
-	rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::MAP_FLOOR, planeNode);
+	rigidBodyComponent = new RigidBodyComponent(nullptr, GameObjectType::MAP_FLOOR, planeNode);
 	rigidBodyComponent->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
 	planeNode->setMaterialName("Ground");
 
@@ -66,8 +66,7 @@ void Map::GenerateMap(){
 	std::vector<Node*> gridRow;
 	for (int x = 0; x < _mapSize.x; x++){
 		for (int y = 0; y < _mapSize.y; y++){
-			Ogre::Vector3 position(x, 0, y);
-			//Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], planeNode->getSceneNode());
+			Ogre::Vector3 position(x, 0, y);			
 			Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], planeNode->getSceneNode(), x, y);
 			gridRow.push_back(aux);
 		}
@@ -130,8 +129,13 @@ void Map::cleanMap(){
 		delete rigidBodyComponent;
 		delete planeNode;
 	}
-
 	grid.clear();
+}
+
+void Map::collision(GameObject* gameObject){
+	if (gameObject->getType() == GameObjectType::PLAYER || gameObject->getType() == GameObjectType::ENEMY){
+		gameObject->setActive(false);
+	}
 }
 
 

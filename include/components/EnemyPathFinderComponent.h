@@ -17,7 +17,7 @@ public:
 	void update(float deltaTime);
 
 	void move(float deltaTime);
-	void lookAt(Ogre::Vector3 position);
+	void lookAt(float deltaTime);
 
 private:
 

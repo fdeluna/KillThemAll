@@ -25,6 +25,7 @@ void EnemyPathFinderComponent::update(float deltaTime){
 		}
 
 		move(deltaTime);
+		lookAt(deltaTime);
 	}
 }
 
@@ -45,11 +46,11 @@ void EnemyPathFinderComponent::move(float deltaTime){
 	if (_currentNode && _enemyRigidBody){
 		if (_player->getPosition().distance(_enemyRigidBody->getPosition()) >= 2){
 			Ogre::Vector3 direction = _currentNode->getSceneNode()->getSceneNode()->getPosition() - _enemyRigidBody->getPosition();
-			_enemyRigidBody->translate(direction.normalisedCopy() * deltaTime * 3);			
+			_enemyRigidBody->translate(direction.normalisedCopy() * deltaTime * 3);				
 		}		
-	}
+	}	
 }
-void EnemyPathFinderComponent::lookAt(Ogre::Vector3 position){
-
+void EnemyPathFinderComponent::lookAt(float deltaTime){
+	_enemyRigidBody->rotate(Ogre::Vector3(_player->getPosition().x, 1, _player->getPosition().z));
 
 }

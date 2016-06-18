@@ -10,8 +10,12 @@ class PathFinder : public Ogre::Singleton<PathFinder>{
 
 public:
 	PathFinder();
-	PathFinder(Map* map):_currentMap(map){};
-	
+	PathFinder(Map* map) :_currentMap(map){};
+	/*~PathFinder(){
+		_currentMap = nullptr;
+		Ogre::Singleton<PathFinder>::~Singleton();
+	}*/
+
 	void FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny, std::vector<Node*>& path);
 
 	static PathFinder& getSingleton();
@@ -22,7 +26,7 @@ private:
 	Map* _currentMap;
 	int PathFinder::getDistance(Node* nodeA, Node* nodeB);
 
-	static bool  lesserNode(Node* a, Node* b);	
+	static bool  lesserNode(Node* a, Node* b);
 };
 
 

@@ -66,11 +66,10 @@ void PlayState::enter()
 
 }
 
-void PlayState::exit() {
+void PlayState::exit() {	
 	delete _pathFinder;
 	_map->cleanMap();	
-	delete _map;
-	delete _physicsManager;
+	delete _map;	
 	_player = nullptr;
 
 	if (enemies.size() > 0){
@@ -110,7 +109,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
 
-	if (_player){
+	if (_player && _player->isActive()){
 		_player->update(_deltaT);		
 	}
 
@@ -120,9 +119,9 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 				enemies[i]->update(_deltaT);
 			}
 			else{
-				//Enemy* aux = enemies[i];
-				//enemies.erase(enemies.begin() + i);
-				//delete aux;
+				Enemy* aux = enemies[i];
+				enemies.erase(enemies.begin() + i);
+				delete aux;
 			}
 		}
 	}
@@ -193,24 +192,17 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	}
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_E)){
-		_enemy = new EnemyFighter(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[MeshName::PLAYERM], _player);
+		_enemy = new EnemyFighter(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[MeshName::ENEMYFIGHTER], _player);
 		enemies.push_back(_enemy);
 	}
 
 
-
-	if (OIS::KC_8 == e.key){
-		_map->cleanMap();
-		delete _player;
-		_player = nullptr;
+	if (OIS::KC_8 == e.key){		
 		CEGUI::WindowManager::getSingleton().destroyAllWindows();
 		changeState(WaveCompleteState::getSingletonPtr());
 	}
 
-	if (OIS::KC_9 == e.key){
-		_map->cleanMap();
-		delete _player;
-		_player = nullptr;
+	if (OIS::KC_9 == e.key){		
 		CEGUI::WindowManager::getSingleton().destroyAllWindows();
 		changeState(GameOverState::getSingletonPtr());
 	}
@@ -234,11 +226,19 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_hudWeaponsShotGun->setVisible(true);
 	}
 
-	if (OIS::KC_R == e.key){
-		_map->cleanMap();
+	if (OIS::KC_R == e.key){		
 		delete _player;
-		delete _enemy;
+		delete _pathFinder;
+		_map->cleanMap();
 		_player = nullptr;
+
+		if (enemies.size() > 0){
+			for (int i = 0; i < enemies.size(); i++){
+				Enemy* aux = enemies[i];
+				enemies.erase(enemies.begin() + i);
+				delete aux;
+			}
+		}
 	}
 
 	if (OIS::KC_K == e.key){
@@ -247,11 +247,6 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	if (OIS::KC_4 == e.key){
 
 		//_player->levelUp();
-	}
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_R)){
-		_map->cleanMap();
-		delete _player;
-		_player = nullptr;
 	}
 
 }

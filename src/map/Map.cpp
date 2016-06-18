@@ -8,7 +8,7 @@ void Map::GenerateMap(){
 
 	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[MeshName::TILE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
 	RigidBodyComponent* hellBody = new RigidBodyComponent((GameObject*)this, GameObjectType::HELL, hell);
-	hell->setMaterialName("Ground");
+	hell->setMaterialName("DarkSlateGray");
 
 	// TODO REFACTOR TO STYLE SELECTION
 	Ogre::Plane plane = createPlane("mapFloor", _mapSize.x + 0.2, _mapSize.y + 0.2);	
@@ -66,7 +66,7 @@ void Map::GenerateMap(){
 	std::vector<Node*> gridRow;
 	for (int x = 0; x < _mapSize.x; x++){
 		for (int y = 0; y < _mapSize.y; y++){
-			Ogre::Vector3 position(x, 0, y);			
+			Ogre::Vector3 position(x, -0.05, y);			
 			Node* aux = new Node(_sceneManager, true, position, MESHES[MeshName::TILE], planeNode->getSceneNode(), x, y);
 			gridRow.push_back(aux);
 		}

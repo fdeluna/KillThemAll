@@ -50,5 +50,7 @@ bool EnemyFighter::attack(float deltaTime){
 		_attackPosition = Ogre::Vector3::ZERO;
 	}
 
+	_rigidBodyComponent->rotate(Ogre::Vector3(_player->getPosition().x, 1, _player->getPosition().z));
+
 	return attack;
 }

@@ -58,4 +58,13 @@ static Ogre::Plane& createPlane(Ogre::String name, Ogre::Real width, Ogre::Real 
 
 	return plane;
 }
+
+static Ogre::Vector3 lerp(Ogre::Vector3 &srcLocation, Ogre::Vector3 &destLocation, Ogre::Real Time)
+{
+	Ogre::Vector3 mDest;
+	mDest.x = srcLocation.x + (destLocation.x - srcLocation.x) * Time;
+	mDest.y = srcLocation.y + (destLocation.y - srcLocation.y) * Time;
+	mDest.z = srcLocation.z + (destLocation.z - srcLocation.z) * Time;
+	return mDest;
+}
 #endif

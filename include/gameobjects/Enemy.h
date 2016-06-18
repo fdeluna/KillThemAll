@@ -12,8 +12,8 @@ public:
 	Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh,Player* player);
 	virtual ~Enemy();
 
-	void update(float deltaTime);
-	virtual void collision(GameObject* gameObject);
+	virtual void update(float deltaTime);
+	virtual void collision(GameObject* gameObject){};
 
 	Ogre::Vector3 getPosition(){ return _rigidBodyComponent->getPosition(); };
 

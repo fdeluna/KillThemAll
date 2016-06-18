@@ -92,9 +92,9 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 				enemies[i]->update(_deltaT);
 			}
 			else{
-				Enemy* aux = enemies[i];
-				enemies.erase(enemies.begin() + i);
-				delete aux;
+				//Enemy* aux = enemies[i];
+				//enemies.erase(enemies.begin() + i);
+				//delete aux;
 			}
 		}
 	}

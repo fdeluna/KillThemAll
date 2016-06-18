@@ -43,7 +43,7 @@ void EnemyPathFinderComponent::move(float deltaTime){
 	}
 
 	if (_currentNode && _enemyRigidBody){
-		if (_player->getPosition().distance(_enemyRigidBody->getPosition()) >= 1){
+		if (_player->getPosition().distance(_enemyRigidBody->getPosition()) >= 2){
 			Ogre::Vector3 direction = _currentNode->getSceneNode()->getSceneNode()->getPosition() - _enemyRigidBody->getPosition();
 			_enemyRigidBody->translate(direction.normalisedCopy() * deltaTime * 3);			
 		}		

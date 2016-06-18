@@ -29,12 +29,16 @@ public:
 	PlayerInputComponent* getPlayerInputComponent(){ return _playerInput; };
 
 	int getLife(){ return life; };
-	int setLife(int hp){ life = hp; };
+	void setLife(int hp){ life = hp; };
 	int getLevel(){ return level; };
-	int setLevel(int levelPlayer){ level = levelPlayer; };
+	void setLevel(int levelPlayer){ level = levelPlayer; };
 	int getPotions(){ return numPots; };
-	int setPotions(int pots){ numPots = pots; };
+	void setPotions(int pots){ numPots = pots; };
 	int getPotionsCount(){ return countPots; };
+	bool getMineActive(){ return mineActive; };
+	void setMineActive(bool active){ mineActive = active; };
+	int getCountMines(){ return numMines; };
+	void setCountMines(int mines){ numMines = mines; };
 
 protected:
 	SceneNodeComponent* _sceneNodeComponent;
@@ -46,6 +50,10 @@ protected:
 	int level = 1;
 	int numPots = 1;
 	int countPots = 0;
+	int mineActive = false;
+	int numMines = 1;
+	int numMinesLevel = 1;
+
 };
 
 #endif

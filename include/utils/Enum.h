@@ -11,7 +11,8 @@ enum Mesh1{
 	BOSS,
 	PLAYERP,
 	BULLETP,
-	REVOLVER
+	REVOLVER,
+	MINE
 };
 
 static std::map<Mesh1, Ogre::String> MESHES = {
@@ -19,9 +20,10 @@ static std::map<Mesh1, Ogre::String> MESHES = {
 	{ Mesh1::PLAYERM, "Cube.001.mesh" },
 	{ Mesh1::ENEMYFIGHTER, "EnemyFighter.mesh" },
 	{ Mesh1::BOSS, "Cylinder.mesh"},
-	{ Mesh1::PLAYERP, "EnemyFighter.mesh" },
+	{ Mesh1::PLAYERP, "Player.mesh" },
 	{ Mesh1::BULLETP, "Bullet.mesh" },
-	{ Mesh1::REVOLVER, "Revolver.mesh" }
+	{ Mesh1::REVOLVER, "Revolver.mesh" },
+	{ Mesh1::MINE, "Mina.mesh" }
 
 };
 
@@ -31,7 +33,8 @@ enum GameObjectType{
 	MAP_FLOOR,
 	HELL,
 	PLAYER,
-	BULLET
+	BULLET,
+	MINES
 };
 
 

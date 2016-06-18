@@ -25,6 +25,9 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 	case BULLET:
 		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(0.2, 0.2, 0.2));
 		break;
+	case MINES:
+		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(1.5, 1.5, 1.5));
+		break;
 	}
 
 	Ogre::String rigidName(_sceneNodeComponent->getSceneNode()->getName());

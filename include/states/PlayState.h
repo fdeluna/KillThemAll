@@ -9,6 +9,7 @@
 #include "PhysicsManager.h"
 #include "Player.h"
 #include "Gun.h"
+#include "Mine.h"
 #include "InputManager.h"
 #include "WaveManager.h"
 
@@ -61,7 +62,7 @@ private:
 	Map* _map;
 	Player* _player;
 	Gun* _gun;
-
+	Mine* _mine;
 	//Game resume
 	float timeGame = 0;
 	// CEGUI

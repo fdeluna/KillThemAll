@@ -66,7 +66,6 @@ void PlayState::enter()
 	_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
 
 	WaveManager::getSingletonPtr()->setTimeGame(150.0);
-
 }
 
 void PlayState::exit() {
@@ -95,7 +94,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	//Resume Game
 	timeGame = timeGame + _deltaT;
-
+	
 	//_gun->getSceneNodeComponent()->getSceneNode()->setPosition(Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, _player->getSceneNodeComponent()->getSceneNode()->getPosition().y+3, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z));
 	_physicsManager->updatePhysics(_deltaT);
 	
@@ -129,8 +128,10 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	if(_player){
 		_player->update(_deltaT);
 	}
-
-	return true;
+	if (_mine)
+	{
+		_mine->update(evt);
+	}	
 }
 
 bool PlayState::frameEnded(const Ogre::FrameEvent& evt)
@@ -138,7 +139,7 @@ bool PlayState::frameEnded(const Ogre::FrameEvent& evt)
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
 	_physicsManager->updatePhysics(_deltaT);
-
+	
 	if (_exitGame)
 		return false;
 	return true;
@@ -168,6 +169,14 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 	}
 	else if (_hudWeaponsClub->isVisible()){
 		_gun->shoot();
+	}
+	else if (_hudWeaponsGun->isVisible()){
+		Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
+		
+		if (!_player->getMineActive() && _player->getCountMines() > 0){
+			_mine = new Mine(_player, _sceneMgr, Ogre::Vector3(positionMine.x, positionMine.y, positionMine.z), MESHES[Mesh1::MINE]);
+
+		}
 	}
 }
 

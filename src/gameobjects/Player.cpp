@@ -12,6 +12,9 @@ Player::Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::S
 	addComponent(_sceneNodeComponent);
 	addComponent(_rigidBodyComponent);
 	addComponent(_playerInput);
+
+
+	
 }
 
 
@@ -20,6 +23,7 @@ Player::~Player(){
 	delete _sceneNodeComponent;
 	GameObject::~GameObject();
 }
+
 
 bool Player::die(){
 
@@ -52,6 +56,7 @@ void Player::potion(){
 void Player::levelUp(){
 
 	level++;
+	numMines = numMinesLevel;
 	switch (level){
 	
 	case 10:

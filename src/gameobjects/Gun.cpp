@@ -42,7 +42,10 @@ void Gun::shoot(){
 
 	Bullet* bullet = new Bullet(_sceneNodeComponentGun->getSceneManager(), position, MESHES[Mesh1::BULLETP]);
 	bullet->getSceneNodeComponent()->getSceneNode()->setScale(Ogre::Vector3 (0.2, 0.2, 0.2));
+	Ogre::Vector3 rotacion = Ogre::Vector3(_player->getPlayerInputComponent()->getMousePositionWeapon());
+	bullet->getRigidBodyComponent()->rotate(Ogre::Vector3(rotacion.x,1,rotacion.z));
 	directionShoot = direction.normalisedCopy()*20;	//150 
+
 	
 	bullet->getRigidBodyComponent()->getRigidBody()->setLinearVelocity(directionShoot);
 	bullet->getRigidBodyComponent()->getRigidBody()->setGravity(Ogre::Vector3(0,0,0));

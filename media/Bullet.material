@@ -1,17 +1,17 @@
-// BASE genrated by blender2ogre 0.6.0
+// Bullet genrated by blender2ogre 0.6.0
 
-material BASE 
+material Bullet 
 {
     receive_shadows on 
 
     technique
     {
-        pass BASE
+        pass Bullet
         {
-            ambient vertexcolour
-            diffuse vertexcolour
+            ambient 1.0 0.6041886210441589 0.0 1.0
+            diffuse 0.800000011920929 0.4833509040378168 0.0 1.0
             specular 0.5 0.5 0.5 1.0 12.5
-            emissive 0.800000011920929 0.800000011920929 0.800000011920929 1.0
+            emissive 2.0 1.2083772420883179 0.0 1.0
 
             alpha_to_coverage off
             colour_write on
@@ -31,6 +31,5 @@ material BASE
             transparent_sorting on
 
         }
-
     }
 }

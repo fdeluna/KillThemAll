@@ -1,17 +1,17 @@
-// BASE genrated by blender2ogre 0.6.0
+// PlayerSombrero genrated by blender2ogre 0.6.0
 
-material BASE 
+material PlayerSombrero 
 {
     receive_shadows on 
 
     technique
     {
-        pass BASE
+        pass PlayerSombrero
         {
-            ambient vertexcolour
-            diffuse vertexcolour
-            specular 0.5 0.5 0.5 1.0 12.5
-            emissive 0.800000011920929 0.800000011920929 0.800000011920929 1.0
+            ambient 0.1521420031785965 0.05195700004696846 0.01859300024807453 1.0
+            diffuse 0.1521420031785965 0.05195700004696846 0.01859300024807453 1.0
+            specular 0.5 0.5 0.5 1.0 12.25
+            emissive 0.028526795627925372 0.00974199557527905 0.0034862083258110077 1.0
 
             alpha_to_coverage off
             colour_write on
@@ -31,6 +31,5 @@ material BASE
             transparent_sorting on
 
         }
-
     }
 }

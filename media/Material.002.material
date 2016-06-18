@@ -1,17 +1,17 @@
-// BASE genrated by blender2ogre 0.6.0
+// Material.002 genrated by blender2ogre 0.6.0
 
-material BASE 
+material Material.002 
 {
     receive_shadows on 
 
     technique
     {
-        pass BASE
+        pass Material.002
         {
-            ambient vertexcolour
-            diffuse vertexcolour
-            specular 0.5 0.5 0.5 1.0 12.5
-            emissive 0.800000011920929 0.800000011920929 0.800000011920929 1.0
+            ambient 0.6399999856948853 0.0 0.0006699999794363976 1.0
+            diffuse 0.6399999856948853 0.0 0.0006699999794363976 1.0
+            specular 0.31913501024246216 0.0033009999897331 0.006436000112444162 1.0 1.25
+            emissive 1.5999999642372131 0.0 0.0016749999485909939 1.0
 
             alpha_to_coverage off
             colour_write on
@@ -31,6 +31,5 @@ material BASE
             transparent_sorting on
 
         }
-
     }
 }

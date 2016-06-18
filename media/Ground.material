@@ -5,12 +5,12 @@ material Ground
 	{
 		pass
 		{
-			ambient 0.75 0.75 0.75
+			
 			diffuse 1 1 1 1
 			
 			texture_unit
 			{
-				texture tile.png
+				texture RTS_Crate.png
 			}
 		}
 	}
@@ -24,7 +24,8 @@ material DarkSlateGray
       {
         texture_unit
         {
-          colour_op_ex source1 src_manual src_current 0 0 0
+          
+			 texture RTS_Crate.png
         }
       } 
     }

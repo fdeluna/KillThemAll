@@ -1,17 +1,17 @@
-// BASE genrated by blender2ogre 0.6.0
+// PlayerCuerpo genrated by blender2ogre 0.6.0
 
-material BASE 
+material PlayerCuerpo 
 {
     receive_shadows on 
 
     technique
     {
-        pass BASE
+        pass PlayerCuerpo
         {
-            ambient vertexcolour
-            diffuse vertexcolour
-            specular 0.5 0.5 0.5 1.0 12.5
-            emissive 0.800000011920929 0.800000011920929 0.800000011920929 1.0
+            ambient 0.366023987531662 0.28588899970054626 0.0 1.0
+            diffuse 0.366023987531662 0.28588899970054626 0.0 1.0
+            specular 0.17119100689888 0.1240760013461113 0.0 1.0 12.25
+            emissive 0.18758707107933326 0.14651793853534478 0.0 1.0
 
             alpha_to_coverage off
             colour_write on
@@ -31,6 +31,5 @@ material BASE
             transparent_sorting on
 
         }
-
     }
 }

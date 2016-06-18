@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "SceneNodeComponent.h"
 #include "RigidBodyComponent.h"
+#include "Player.h"
 
 class Bullet : public GameObject{
 

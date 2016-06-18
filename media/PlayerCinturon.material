@@ -1,17 +1,17 @@
-// BASE genrated by blender2ogre 0.6.0
+// PlayerCinturon genrated by blender2ogre 0.6.0
 
-material BASE 
+material PlayerCinturon 
 {
     receive_shadows on 
 
     technique
     {
-        pass BASE
+        pass PlayerCinturon
         {
-            ambient vertexcolour
-            diffuse vertexcolour
-            specular 0.5 0.5 0.5 1.0 12.5
-            emissive 0.800000011920929 0.800000011920929 0.800000011920929 1.0
+            ambient 0.08522699773311615 0.028588000684976578 0.003487000009045005 1.0
+            diffuse 0.08522699773311615 0.028588000684976578 0.003487000009045005 1.0
+            specular 0.0 0.0 0.0 1.0 12.25
+            emissive 0.022371524557253775 0.00750416154948319 0.0009153144943316802 1.0
 
             alpha_to_coverage off
             colour_write on
@@ -31,6 +31,5 @@ material BASE
             transparent_sorting on
 
         }
-
     }
 }

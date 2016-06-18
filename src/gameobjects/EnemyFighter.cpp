@@ -5,6 +5,8 @@ EnemyFighter::EnemyFighter(Ogre::SceneManager* sceneManager, Ogre::Vector3 posit
 {
 
 	_sceneNodeComponent = new SceneNodeComponent(_sceneManager, "EnemyFighter", mesh, Ogre::Vector3(0.5, 0.25, 0.5), position);
+	_sceneNodeComponent->getSceneNode()->setScale(Ogre::Vector3(0.15, 0.15, 0.15));
+
 	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::PLAYER, _sceneNodeComponent);
 	addComponent(_rigidBodyComponent);
 

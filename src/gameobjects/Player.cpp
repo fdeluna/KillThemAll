@@ -3,6 +3,10 @@
 Player::Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh) : GameObject(sceneManager){
 
 	_sceneNodeComponent = new SceneNodeComponent(_sceneManager, "Player", mesh, Ogre::Vector3(0.5, 0.25, 0.5), position);
+	
+	_sceneNodeComponent->getSceneNode()->setScale(Ogre::Vector3(0.04,0.04,0.04));
+	//_sceneNodeComponent->getSceneNode()->pitch(Ogre::Degree(90));
+	//_sceneNodeComponent->getSceneNode()->roll(Ogre::Degree(90));
 	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::PLAYER, _sceneNodeComponent);
 	_playerInput = new PlayerInputComponent(_rigidBodyComponent, _sceneManager);
 	addComponent(_sceneNodeComponent);

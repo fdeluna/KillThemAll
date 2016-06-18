@@ -2,19 +2,17 @@
 
 material TileMaterial 
 {
-    receive_shadows on 
+     receive_shadows on 
 
     technique
     {
         pass TileMaterial
         {
-            scene_blend alpha_blend
-			depth_write off
+           
 
             texture_unit
 			{
-				colour_op_ex source1 src_manual src_current 1 0 0
-				alpha_op_ex source1 src_manual src_current 0
+				texture RTS_Crate.png
 			}
         }			
     }

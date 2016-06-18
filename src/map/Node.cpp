@@ -3,7 +3,6 @@
 Node::Node(Ogre::SceneManager* sceneManager, bool walkable, Ogre::Vector3 position, Ogre::String mesh, Ogre::SceneNode* floor, int x, int y) : GameObject(sceneManager), _walkable(walkable), _position(position), _gridX(x), _gridY(y){
 
 	_sceneNodeComponent = new SceneNodeComponent(_sceneManager, "node", mesh, Ogre::Vector3(0.5, 0.25, 0.5), _position);
-
 	addComponent(_sceneNodeComponent);
 }
 

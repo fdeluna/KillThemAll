@@ -1,17 +1,17 @@
-// BASE genrated by blender2ogre 0.6.0
+// OjoEnemyFighter genrated by blender2ogre 0.6.0
 
-material BASE 
+material OjoEnemyFighter 
 {
     receive_shadows on 
 
     technique
     {
-        pass BASE
+        pass OjoEnemyFighter
         {
-            ambient vertexcolour
-            diffuse vertexcolour
-            specular 0.5 0.5 0.5 1.0 12.5
-            emissive 0.800000011920929 0.800000011920929 0.800000011920929 1.0
+            ambient 0.2248069941997528 0.004476000089198351 0.00835500005632639 1.0
+            diffuse 0.2248069941997528 0.004476000089198351 0.00835500005632639 1.0
+            specular 0.5 0.00792699959129095 0.006697000004351139 1.0 12.0
+            emissive 0.5620165743305918 0.011189982081248995 0.020887466277032862 1.0
 
             alpha_to_coverage off
             colour_write on
@@ -31,6 +31,5 @@ material BASE
             transparent_sorting on
 
         }
-
     }
 }

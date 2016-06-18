@@ -34,6 +34,7 @@ void PlayerInputComponent::lookAt(float deltaTime){
 	_playerBody->rotate(Ogre::Vector3(mousePosition.x, 1 , mousePosition.z));
 
 	positionMouseForWaeapon = Ogre::Vector3(mousePosition.x, 1, mousePosition.z);
+
 	// TODO SEGUIR POR AQU?MAÑANA
 	/*Ogre::Vector3 lookAt();
 	_inputManager->getMouse()->getMouseState().X.

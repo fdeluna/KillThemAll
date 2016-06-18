@@ -16,7 +16,7 @@ void Map::GenerateMap(){
 
 	rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::MAP_FLOOR, planeNode);
 	rigidBodyComponent->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
-	planeNode->setMaterialName("Ground");
+	planeNode->setMaterialName("TileMaterialbu");
 
 	//addComponent(planeNode);
 	//addComponent(rigidBodyComponent);
@@ -104,6 +104,7 @@ void Map::GenerateMap(){
 				float colourPercent = coord.y / (float)_mapSize.y;
 				Ogre::Math::lerp<Ogre::ColourValue, float>(Ogre::ColourValue::Black, Ogre::ColourValue::Red, colourPercent);
 				shuffledgrid[x][y]->makeObstacle(Ogre::Vector3(0.5, 10, 0.5), Ogre::Math::lerp<Ogre::ColourValue, float>(Ogre::ColourValue::White, Ogre::ColourValue::Blue, colourPercent));
+				//shuffledgrid[x][y]->getSceneNode()->getEntity()->setMaterialName("TileMaterial");
 			}
 			else{
 				currentNumberObstacules--;

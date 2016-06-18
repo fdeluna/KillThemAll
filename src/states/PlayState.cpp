@@ -25,7 +25,15 @@ void PlayState::enter()
 	// TODO LIGHTS
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
 
-	
+	_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+
+	Ogre::Light* light;
+
+	// Creamos la luz
+	light = _sceneMgr->createLight("LightingNode");
+	light->setType(Ogre::Light::LT_DIRECTIONAL);
+	light->setDirection(Ogre::Vector3(1, -1, -3));
+	_sceneMgr->getRootSceneNode()->attachObject(light);
 
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);		
 	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
@@ -46,10 +54,13 @@ void PlayState::enter()
 	_camera->setFarClipDistance(10000);
 
 	_map->GenerateMap();
-	_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 5, _map->_mapCenter.y), MESHES[Mesh1::BOSS]);
+	_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 5, _map->_mapCenter.y), MESHES[Mesh1::PLAYERP]);
 	//_bullet = new Bullet(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x + 10, 5, _map->_mapCenter.y), MESHES[Mesh::BULLET]);
-	//_gun = new Gun(_player->getSceneNodeComponent()->getSceneManager(), Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition()), MESHES[Mesh1::ENEMYFIGHTER]);
-
+	Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x+15,
+		_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
+		_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
+	_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[Mesh1::REVOLVER]);
+	//std::cout << Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition()) << "***************"<< std::endl;
 
 	_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
 	_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
@@ -80,6 +91,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 		evt.timeSinceLastFrame);
 
 	_deltaT = evt.timeSinceLastFrame;
+	//std::cout << Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition()) << "***************" << std::endl;
 
 	//Resume Game
 	timeGame = timeGame + _deltaT;
@@ -154,6 +166,9 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 		_player->potion();
 		hudLife();
 	}
+	else if (_hudWeaponsClub->isVisible()){
+		_gun->shoot();
+	}
 }
 
 void PlayState::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
@@ -181,7 +196,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	}
 
 	if (OIS::KC_E == e.key){
-	//	_gun->shoot(_player->getPlayerInputComponent()->getMousePositionWeapon(), Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, _player->getSceneNodeComponent()->getSceneNode()->getPosition().y + 3, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z));
+		
 		
 		
 		_player->hitted(1);

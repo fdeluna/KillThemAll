@@ -3,25 +3,26 @@
 
 
 #include "Weapon.h"
+#include "GameObject.h"
 #include "Player.h"
 #include "SceneNodeComponent.h"
 #include "RigidBodyComponent.h"
 
 using namespace Ogre;
 
-class Gun : public Weapon,Player
+class Gun : public Weapon,GameObject
 {
 public:
 
 	//CONSTRUCTOR
 	Gun() : _sceneNodeComponentGun(nullptr), _rigidBodyComponentGun(nullptr){};
-	Gun(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
+	Gun(Player* player,Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
 	//DESTRUCTOR
 	~Gun();
 
 	void update(const Ogre::FrameEvent& evt);
 	void upgrade();
-	void shoot(Ogre::Vector3 direction, Ogre::Vector3 position);
+	void shoot();
 
 	//GETTER/SETTERS
 	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponentGun; };
@@ -31,6 +32,7 @@ protected:
 	SceneNodeComponent* _sceneNodeComponentGun;
 	RigidBodyComponent* _rigidBodyComponentGun;
 	int numBullet;
+	Player* _player;
 };
 
 #endif

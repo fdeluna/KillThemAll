@@ -23,7 +23,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5, 1, Ogre::Vector3::UNIT_Y);
 		break;
 	case BULLET:
-		_shape = new OgreBulletCollisions::SphereCollisionShape(Ogre::Real(0.2));
+		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(0.2, 0.2, 0.2));
 		break;
 	}
 
@@ -35,7 +35,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 	_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld());
 
 
-	if (type != GameObjectType::PLAYER){
+	if (type != GameObjectType::PLAYER && type != GameObjectType::BULLET){
 		_rigidBody->setStaticShape(_shape, 0.01, 1, position, orientation);
 		_rigidBody->setGravity(Ogre::Vector3::ZERO);
 	}

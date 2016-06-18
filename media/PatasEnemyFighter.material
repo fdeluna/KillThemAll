@@ -1,17 +1,17 @@
-// BASE genrated by blender2ogre 0.6.0
+// PatasEnemyFighter genrated by blender2ogre 0.6.0
 
-material BASE 
+material PatasEnemyFighter 
 {
     receive_shadows on 
 
     technique
     {
-        pass BASE
+        pass PatasEnemyFighter
         {
-            ambient vertexcolour
-            diffuse vertexcolour
-            specular 0.5 0.5 0.5 1.0 12.5
-            emissive 0.800000011920929 0.800000011920929 0.800000011920929 1.0
+            ambient 0.02327900007367134 0.018404999747872353 0.01888900063931942 1.0
+            diffuse 0.02327900007367134 0.018404999747872353 0.01888900063931942 1.0
+            specular 0.5 0.5 0.5 1.0 12.0
+            emissive 0.0 0.0 0.0 1.0
 
             alpha_to_coverage off
             colour_write on
@@ -31,6 +31,5 @@ material BASE
             transparent_sorting on
 
         }
-
     }
 }

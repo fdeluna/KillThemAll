@@ -1,0 +1,43 @@
+<scene previous_export_time="0" export_time="1466272395.061944" exported_by="luish" formatVersion="1.0.1" >
+  <nodes >
+    <node name="Mina" >
+      <position y="0.000000" z="-0.000000" x="0.000000" />
+      <rotation qw="1.000000" qz="-0.000000" qx="0.000000" qy="0.000000" />
+      <scale y="1.000000" z="1.000000" x="1.000000" />
+      <user_data value='&lt;bpy id prop: owner="OBMina", name="cycles_visibility", address=0x0000021032EEA518&gt;' name="cycles_visibility" type="IDPropertyGroup" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <entity friction_x="1.0" damping_rot="0.10000000149011612" mass="1.0" lock_trans_x="False" physics_type="STATIC" lock_rot_z="False" damping_trans="0.03999999910593033" actor="False" velocity_max="0.0" inertia_tensor="0.4000000059604645" ghost="False" name="Mina" lock_rot_x="False" lock_trans_z="False" mass_radius="1.0" velocity_min="0.0" friction_y="1.0" friction_z="1.0" lock_trans_y="False" meshFile="Mina.mesh" lock_rot_y="False" anisotropic_friction="False" >
+        <user_data value='&lt;bpy id prop: owner="MEMina", name="ms3d", address=0x0000021032EE2838&gt;' name="ms3d" type="IDPropertyGroup" />
+        <user_data value='&lt;bpy id prop: owner="MEMina", name="cycles", address=0x0000021032EE1368&gt;' name="cycles" type="IDPropertyGroup" />
+      </entity>
+    </node>
+    <node name="Camera" >
+      <position y="19.042362" z="11.740046" x="21.771763" />
+      <rotation qw="0.741997" qz="-0.259169" qx="0.409251" qy="0.463450" />
+      <scale y="1.000000" z="1.000000" x="1.000000" />
+      <game >
+        <sensors />
+        <actuators />
+      </game>
+      <camera fov="0.5033799435163735" name="Camera" projectionType="perspective" >
+        <clipping near="0.10000000149011612" farPlaneDist="100.0" nearPlaneDist="0.10000000149011612" far="100.0" />
+      </camera>
+    </node>
+  </nodes>
+  <externals >
+    <item type="material" >
+      <file name="C:\Users\luish\Desktop\EXPORTSKILL\MINA\Mina.material" />
+    </item>
+    <item type="material" >
+      <file name="C:\Users\luish\Desktop\EXPORTSKILL\MINA\Mina.001.material" />
+    </item>
+  </externals>
+  <environment >
+    <colourDiffuse b="0.05087608844041824" r="0.05087608844041824" g="0.05087608844041824" />
+    <colourAmbient b="0.0" r="0.0" g="0.0" />
+    <colourBackground b="0.05087608844041824" r="0.05087608844041824" g="0.05087608844041824" />
+  </environment>
+</scene>

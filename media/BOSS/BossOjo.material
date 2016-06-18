@@ -1,0 +1,35 @@
+// BossOjo genrated by blender2ogre 0.6.0
+
+material BossOjo 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass BossOjo
+        {
+            ambient 0.6399999856948853 0.006659000180661678 0.0 1.0
+            diffuse 0.6399999856948853 0.006659000180661678 0.0 1.0
+            specular 0.14414800703525543 0.0008880000095814466 0.0008880000095814466 1.0 12.25
+            emissive 0.8960004224777123 0.009322604857051497 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}

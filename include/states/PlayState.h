@@ -60,7 +60,7 @@ private:
 
 	CEGUI::OgreRenderer* _renderer;
 
-	float timer = 0;
+	float _gameOverDelay = 0;
 
 	PhysicsManager* _physicsManager;
 	Map* _map;

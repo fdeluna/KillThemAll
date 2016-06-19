@@ -55,6 +55,7 @@ protected:
 	
 	//Control
 	bool canAttack = true;
+	bool isAttacking = false;
 	bool canMove = true;
 	bool killed;//Indica si esta muerto
 	bool isHitted;//Indica si ha sido daniado

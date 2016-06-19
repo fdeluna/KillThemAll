@@ -1,7 +1,7 @@
 #include "Map.h"
 
 void Map::GenerateMap(){
-	_mapSize = Ogre::Vector2(25, 25);
+	_mapSize = Ogre::Vector2(15, 20);
 	_mapCenter = Ogre::Vector2(_mapSize.x / 2, _mapSize.y / 2);
 
 

@@ -103,10 +103,6 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
 
-	if (_player && _player->isActive()){
-		_player->update(_deltaT);		
-	}
-
 	if (enemies.size() > 0){
 		for (int i = 0; i < enemies.size(); i++){
 			if (enemies[i] && enemies[i]->isActive()){
@@ -119,6 +115,18 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 			}
 		}
 	}
+
+
+	if (_player && _player->isActive()){
+		_player->update(_deltaT);
+		hudLife();
+		if (_player->getLife() <= 0){
+			_gameOverDelay += _deltaT;
+			if (_gameOverDelay >1){
+				changeState(GameOverState::getSingletonPtr());
+			}
+		}
+	}	
 	return true;
 }
 
@@ -126,7 +134,7 @@ bool PlayState::frameEnded(const Ogre::FrameEvent& evt)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
-	_physicsManager->updatePhysics(_deltaT);
+	//_physicsManager->updatePhysics(_deltaT);
 
 	if (_exitGame)
 		return false;

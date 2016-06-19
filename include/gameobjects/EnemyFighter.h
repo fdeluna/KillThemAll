@@ -19,9 +19,8 @@ public:
 
 private:
 
-	
-
 	// ATTACK
+	float _nextAttack= 1;
 	float _attackTime = 0;
 	bool _endAttack = false;
 	Ogre::Vector3 _startPositon = Ogre::Vector3::ZERO;

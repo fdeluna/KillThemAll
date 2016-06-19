@@ -25,7 +25,7 @@ private:
 	RigidBodyComponent* _playerBody;	
 	InputManager* _inputManager;	
 	Ogre::Vector3 positionMouseForWaeapon;
-	float _speed = 5;
+	float _speed = 4;
 };
 
 #endif

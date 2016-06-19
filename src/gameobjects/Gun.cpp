@@ -45,7 +45,7 @@ void Gun::shoot(){
 
 	Bullet* bullet = new Bullet(_sceneNodeComponentGun->getSceneManager(), playerPosition, MESHES[MeshName::BULLETP]);
 	bullet->getSceneNodeComponent()->getSceneNode()->setScale(Ogre::Vector3(0.2, 0.2, 0.2));		
-	bullet->getRigidBodyComponent()->getRigidBody()->setLinearVelocity(directionShoot * 5);
+	bullet->getRigidBodyComponent()->getRigidBody()->setLinearVelocity(directionShoot * 10);
 	bullet->getRigidBodyComponent()->getRigidBody()->setGravity(Ogre::Vector3(0, 0, 0));
 	bullet->getRigidBodyComponent()->rotate(mousePosition);
 	bullets.push_back(bullet);

@@ -10,7 +10,7 @@
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <btBulletDynamicsCommon.h>
-
+#include "AudioController.h"
 
 class GameOverState : public Ogre::Singleton<GameOverState>, public GameState
 {
@@ -43,6 +43,7 @@ private:
 	Ogre::SceneManager *_sceneMgr;
 	Ogre::Camera *_camera;
 	Ogre::Viewport *_viewport;
+	AudioController* audioController;
 	bool _exitGame;
 
 	CEGUI::OgreRenderer* _renderer;

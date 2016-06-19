@@ -20,7 +20,7 @@ public:
 
 	void addChild(Ogre::SceneNode* child){ _sceneNode->addChild(child); };
 	void setDiffuseColor(Ogre::ColourValue diffuseColor);
-	void addToRootScene();
+	//void addToRootScene();
 	void setMaterialName(Ogre::String materialName);
 
 private:

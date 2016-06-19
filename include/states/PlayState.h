@@ -7,17 +7,22 @@
 #include "GameOverState.h"
 #include "Map.h"
 #include "PhysicsManager.h"
+#include "PathFinder.h"
 #include "Player.h"
+#include "Bullet.h"
 #include "Gun.h"
-#include "Mine.h"
-#include "InputManager.h"
+#include "EnemyFighter.h"
 #include "WaveManager.h"
+#include "Mine.h"
 
+#include <future>
+#include <algorithm>
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <btBulletDynamicsCommon.h>
+#include "AudioController.h"
 
 
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
@@ -51,22 +56,29 @@ private:
 	Ogre::SceneManager *_sceneMgr;
 	Ogre::Camera *_camera;
 	Ogre::Viewport *_viewport;
+	AudioController* audioController;
 	bool _exitGame;
 
 	float _deltaT = 0;
-	InputManager* _inputManager;
+
 	CEGUI::OgreRenderer* _renderer;
 
+	float timer = 0;
 
 	PhysicsManager* _physicsManager;
 	Map* _map;
 	Player* _player;
+	Enemy* _enemy;
+	Bullet* _bullet;
 	Gun* _gun;
 	Mine* _mine;
-	//Game resume
-	float timeGame = 0;
+	std::vector<Enemy*> enemies;
+
+
+
 	// CEGUI
 
+	PathFinder* _pathFinder;
 
 	bool quit(const CEGUI::EventArgs &e);
 	bool save(const CEGUI::EventArgs &e);

@@ -6,7 +6,7 @@ SceneNodeComponent::SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::S
 
 	Ogre::String enityName("SceneComponentEntity");
 	enityName.append(Ogre::StringConverter::toString(getSceneNodeNumber()));
-	enityName.append(mesh);
+	enityName.append(mesh);	
 	getOgreName(enityName);
 
 
@@ -15,6 +15,8 @@ SceneNodeComponent::SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::S
 	nodeName.append(mesh);
 	getOgreName(nodeName);
 	_entity = _sceneManager->createEntity(enityName, mesh);
+
+
 
 	_sceneNode = _sceneManager->createSceneNode(nodeName);
 	_sceneNode->attachObject(_entity);
@@ -52,10 +54,6 @@ void SceneNodeComponent::setDiffuseColor(Ogre::ColourValue diffuseColor){
 	_entity->setMaterial(material);
 	//_entity->setMaterialName("Ground");
 
-}
-
-void SceneNodeComponent::addToRootScene(){
-	_sceneManager->getRootSceneNode()->addChild(_sceneNode);
 }
 
 void SceneNodeComponent::setMaterialName(Ogre::String materialName){

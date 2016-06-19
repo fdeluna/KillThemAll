@@ -1,22 +1,22 @@
 #include "Map.h"
 
 void Map::GenerateMap(){
-	_mapSize = Ogre::Vector2(10, 10);
+	_mapSize = Ogre::Vector2(25, 25);
 	_mapCenter = Ogre::Vector2(_mapSize.x / 2, _mapSize.y / 2);
 
 
 
-	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[Mesh1::TILE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
+	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[MeshName::TILE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
 	RigidBodyComponent* hellBody = new RigidBodyComponent((GameObject*)this, GameObjectType::HELL, hell);
-	hell->setMaterialName("Ground");
+	hell->setMaterialName("DarkSlateGray");
 
 	// TODO REFACTOR TO STYLE SELECTION
-	Ogre::Plane plane = createPlane("mapFloor", _mapSize.x + 0.2, _mapSize.y + 0.2);
+	Ogre::Plane plane = createPlane("mapFloor", _mapSize.x + 0.2, _mapSize.y + 0.2);	
 	planeNode = new SceneNodeComponent(_sceneManager, "PlaneFloor", "mapFloor", Ogre::Vector3::UNIT_SCALE, Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
 
-	rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::MAP_FLOOR, planeNode);
+	rigidBodyComponent = new RigidBodyComponent(nullptr, GameObjectType::MAP_FLOOR, planeNode);
 	rigidBodyComponent->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
-	planeNode->setMaterialName("TileMaterialbu");
+	planeNode->setMaterialName("Ground");
 
 	//addComponent(planeNode);
 	//addComponent(rigidBodyComponent);
@@ -59,16 +59,15 @@ void Map::GenerateMap(){
 		camM->enableReflection(plane);
 		camM->enableCustomNearClipPlane(plane);
 
-	planeNode->setMaterialName("RttMMat");*/	 
+		planeNode->setMaterialName("RttMMat");*/
 
 
 	// MAP GENERATION
-	std::vector<Node*> gridRow;
+	std::vector<MapNode*> gridRow;
 	for (int x = 0; x < _mapSize.x; x++){
 		for (int y = 0; y < _mapSize.y; y++){
-			Ogre::Vector3 position(x, 0, y);
-			//Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh::TILE], planeNode->getSceneNode());
-			Node* aux = new Node(_sceneManager, true, position, MESHES[Mesh1::TILE], planeNode->getSceneNode(),x,y);
+			Ogre::Vector3 position(x, -0.05, y);			
+			MapNode* aux = new MapNode(_sceneManager, true, position, MESHES[MeshName::TILE], planeNode->getSceneNode(), x, y);
 			gridRow.push_back(aux);
 		}
 		grid.push_back(gridRow);
@@ -78,11 +77,12 @@ void Map::GenerateMap(){
 
 	std::vector< std::vector <bool>> obstacleMap;
 	std::vector<std::pair<int, int>> randomCoords;
-	std::vector< std::vector <Node*>> shuffledgrid = grid;
+	std::vector< std::vector <MapNode*>> shuffledgrid = grid;
 	std::srand(std::time(0));
 	int currentNumberObstacules = 0;
-	int maxNumberObstacules = _mapSize.x * _mapSize.y * 0.5;
-	int minNumberObstacules = _mapSize.x * _mapSize.y * 0.3;
+
+	int maxNumberObstacules = _mapSize.x * _mapSize.y * 0.25;
+	int minNumberObstacules = _mapSize.x * _mapSize.y * 0.15;
 	int numberObstacules = rand() % (maxNumberObstacules - minNumberObstacules) + minNumberObstacules;
 
 	initBidimensionalVector(obstacleMap, (int)_mapSize.x, (int)_mapSize.y);
@@ -104,7 +104,6 @@ void Map::GenerateMap(){
 				float colourPercent = coord.y / (float)_mapSize.y;
 				Ogre::Math::lerp<Ogre::ColourValue, float>(Ogre::ColourValue::Black, Ogre::ColourValue::Red, colourPercent);
 				shuffledgrid[x][y]->makeObstacle(Ogre::Vector3(0.5, 10, 0.5), Ogre::Math::lerp<Ogre::ColourValue, float>(Ogre::ColourValue::White, Ogre::ColourValue::Blue, colourPercent));
-				//shuffledgrid[x][y]->getSceneNode()->getEntity()->setMaterialName("TileMaterial");
 			}
 			else{
 				currentNumberObstacules--;
@@ -117,21 +116,67 @@ void Map::GenerateMap(){
 
 void Map::cleanMap(){
 	_mapSize = Ogre::Vector2();
-	_mapCenter = Ogre::Vector2();			
+	_mapCenter = Ogre::Vector2();
 	if (!grid.empty()){
 		for (int i = 0; i < grid.size(); i++){
-			for (int j = 0; j < grid.size(); j++){
-				Node* aux = grid[i][j];
-				if (aux){					
+			for (int j = 0; j < grid[i].size(); j++){
+				MapNode* aux = grid[i][j];
+				if (aux){
 					delete aux;
 				}
 			}
-		}		
+		}
 		delete rigidBodyComponent;
-		delete planeNode;				
+		delete planeNode;
 	}
-	
 	grid.clear();
+}
+
+void Map::collision(GameObject* gameObject){
+	if (gameObject->getType() == GameObjectType::PLAYER || gameObject->getType() == GameObjectType::ENEMY){
+		gameObject->setActive(false);
+	}
+}
+
+
+MapNode* Map::nodeFromWorldPosition(Ogre::Vector3 position){
+
+	MapNode* node = nullptr;
+	float distanceFromNode = 1;
+	position = Ogre::Vector3(position.x, 0, position.z);
+	for (int x = 0; x < grid.size(); x++){
+		for (int y = 0; y < grid[x].size(); y++){
+			if (grid[x][y]->isWakable()){
+				Ogre::Vector3 nodePosition(grid[x][y]->getSceneNode()->getSceneNode()->getPosition().x, 0, grid[x][y]->getSceneNode()->getSceneNode()->getPosition().z);
+				float distanceAux = position.distance(nodePosition);				
+				if (distanceAux < distanceFromNode){
+					node = grid[x][y];
+					distanceFromNode = distanceAux;
+				}
+			}
+		}
+	}	
+	return node;
+}
+
+std::vector<MapNode*> Map::getNeighbours(MapNode* node){
+	std::vector<MapNode*> neighbours;
+
+	for (int x = -1; x <= 1; x++){
+		for (int y = -1; y <= 1; y++){
+			if ((x == 0 && y != 0) || (y == 0 && x != 0)){
+				int gridX = node->getGridX() + x;
+				int gridY = node->getGridY() + y;
+
+				if (gridX >= 0 && gridX < _mapSize.x && gridY >= 0 && gridY < _mapSize.y){
+					if (grid[gridX][gridY]->isWakable()){
+						neighbours.push_back(grid[gridX][gridY]);
+					}
+				}
+			}
+		}
+	}
+	return neighbours;
 }
 
 bool Map::isMapAccessible(std::vector< std::vector <bool>> obstacleMap, int currentNumberObstacle){

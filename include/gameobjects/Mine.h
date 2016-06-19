@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "SceneNodeComponent.h"
 #include "RigidBodyComponent.h"
+#include "AudioController.h"
 
 using namespace Ogre;
 
@@ -26,6 +27,7 @@ protected:
 
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
+	AudioController* audioController;
 	int numBullet;
 	Player* _player;
 	float timeExplote = 5;

@@ -23,6 +23,8 @@ void WaveCompleteState::enter()
 	createGUI();
 	_exitGame = false;
 	//_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
+	audioController = AudioController::getSingletonPtr();
+	
 
 }
 
@@ -134,6 +136,8 @@ CEGUI::MouseButton WaveCompleteState::convertMouseButton(OIS::MouseButtonID id)
 
 bool WaveCompleteState::quit(const CEGUI::EventArgs &e)
 {
+	audioController->playAudio(Audio::BACK);
+
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
 	changeState(IntroState::getSingletonPtr());
 	return true;
@@ -141,6 +145,7 @@ bool WaveCompleteState::quit(const CEGUI::EventArgs &e)
 
 bool WaveCompleteState::upgrade(const CEGUI::EventArgs &e)
 {
+
 	_ventanaWaveComplete->setVisible(false);
 	_ventanaUpgrade->setVisible(true);
 	return true;
@@ -148,6 +153,7 @@ bool WaveCompleteState::upgrade(const CEGUI::EventArgs &e)
 
 bool WaveCompleteState::upgradeWeapon(const CEGUI::EventArgs &e)
 {
+	audioController->playAudio(Audio::UPGRADE);
 
 	_ventanaUpgrade->setVisible(false);
 	_ventanaWaveComplete->setVisible(true);
@@ -158,6 +164,8 @@ bool WaveCompleteState::upgradeWeapon(const CEGUI::EventArgs &e)
 
 bool WaveCompleteState::ready(const CEGUI::EventArgs &e)
 {
+	audioController->playAudio(Audio::BUTTON);
+
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
 	changeState(PlayState::getSingletonPtr());
 	return true;

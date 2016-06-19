@@ -13,8 +13,11 @@ public:
 	Bullet(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
 	~Bullet();
 
+	void collision(GameObject* gameObject);
+
 	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponent; };
 	RigidBodyComponent* getRigidBodyComponent(){ return _rigidBodyComponent; };
+
 private:
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;

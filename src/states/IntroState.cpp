@@ -37,8 +37,10 @@ IntroState::enter()
 	createGUI();
 
 	//_physicsManager = new PhysicsManager(_sceneMgr, true);
-	//_Map = new Map(_sceneMgr);
-	//_Map->GenerateMap();
+	//_map = new Map(_sceneMgr);
+	//_map->GenerateMap();
+	audioController = new AudioController();
+	audioController->playAudio(Audio::INTROSTATE);
 }
 
 void
@@ -65,10 +67,7 @@ IntroState::frameStarted
 	_timeSinceLastFrame = evt.timeSinceLastFrame;
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		_timeSinceLastFrame);
-
-	//_Map->update(evt.timeSinceLastFrame);
-
-	
+		
 	return true;
 }
 
@@ -96,28 +95,30 @@ IntroState::keyPressed
 
 
 	if (!_credits && !_highscore && e.key == OIS::KC_Z) {
+		audioController->playAudio(Audio::BACK);
+
 		_exitGame = true;
 	}
 	if (_credits && e.key == OIS::KC_ESCAPE) {
+		audioController->playAudio(Audio::BACK);
 
 		exitButton->setVisible(true);
 		playButton->setVisible(true);
 		highscoreButton->setVisible(true);
-		creditsButton->setVisible(true);
-		//pacmanTittle->setVisible(true);
+		creditsButton->setVisible(true);		
 		fondoCredits->setVisible(false);
 		fondoScore->setVisible(false);
 		_credits = false;
 
 	}
 	if (e.key == OIS::KC_ESCAPE && _highscore) {
+		audioController->playAudio(Audio::BACK);
 
 		introStateUI->setVisible(true);
 		exitButton->setVisible(true);
 		playButton->setVisible(true);
 		highscoreButton->setVisible(true);
-		creditsButton->setVisible(true);
-		//pacmanTittle->setVisible(true);
+		creditsButton->setVisible(true);	
 		fondoCredits->setVisible(false);
 		fondoScore->setVisible(false);
 		_highscore = false;
@@ -182,26 +183,30 @@ IntroState::getSingleton()
 bool IntroState::play(const CEGUI::EventArgs &e) {
 
 	//_Map->cleanMap();
+	audioController->playAudio(Audio::PLAY);
+
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
 	changeState(PlayState::getSingletonPtr());
 	
 	return true;
 }
 bool IntroState::quit(const CEGUI::EventArgs &e) {
+	audioController->playAudio(Audio::BACK);
+
 	_exitGame = true;
 	_sceneMgr->clearScene();
 	_root->getAutoCreatedWindow()->removeAllViewports();
 	return true;
 }
 bool IntroState::highscore(const CEGUI::EventArgs &e) {
+	audioController->playAudio(Audio::BUTTON);
 
 	_highscore = true;
 	instruccionesButton->setVisible(false);
 	exitButton->setVisible(false);
 	playButton->setVisible(false);
 	highscoreButton->setVisible(false);
-	creditsButton->setVisible(false);
-	//pacmanTittle->setVisible(false);
+	creditsButton->setVisible(false);	
 	fondoCredits->setVisible(false);
 	fondoScore->setVisible(true);
 	fondoInstrucciones->setVisible(false);
@@ -238,6 +243,8 @@ bool IntroState::highscore(const CEGUI::EventArgs &e) {
 	return true;
 }
 bool IntroState::credits(const CEGUI::EventArgs &e) {
+	audioController->playAudio(Audio::BUTTON);
+
 	_credits = true;
 	exitButton->setVisible(false);
 	playButton->setVisible(false);
@@ -258,6 +265,7 @@ bool IntroState::credits(const CEGUI::EventArgs &e) {
 }
 
 bool IntroState::instrucciones(const CEGUI::EventArgs &e) {
+	audioController->playAudio(Audio::BUTTON);
 
 	instruccionesButton->setVisible(false);
 	exitButton->setVisible(false);
@@ -273,6 +281,7 @@ bool IntroState::instrucciones(const CEGUI::EventArgs &e) {
 	return true;
 }
 bool IntroState::atras(const CEGUI::EventArgs &e) {
+	audioController->playAudio(Audio::BACK);
 
 	exitButton->setVisible(true);
 	playButton->setVisible(true);
@@ -288,6 +297,7 @@ bool IntroState::atras(const CEGUI::EventArgs &e) {
 }
 
 bool IntroState::control(const CEGUI::EventArgs &e) {
+	audioController->playAudio(Audio::BUTTON);
 
 	_controlText->setVisible(true);
 	_tutorialText->setVisible(false);
@@ -295,6 +305,7 @@ bool IntroState::control(const CEGUI::EventArgs &e) {
 }
 
 bool IntroState::tutorial(const CEGUI::EventArgs &e) {
+	audioController->playAudio(Audio::BUTTON);
 
 	_controlText->setVisible(false);
 	_tutorialText->setVisible(true);

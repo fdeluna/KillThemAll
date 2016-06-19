@@ -26,10 +26,30 @@ private:
 	SoundFXManager* _pSoundFXManager;
 
 	TrackPtr _mainTrack;
+	TrackPtr _introTrack;
+
 	SoundFXPtr _soundShoot;
+	SoundFXPtr _soundMineExplote;
+	SoundFXPtr _soundMine;
+	SoundFXPtr _soundPotion;
+
+	SoundFXPtr _soundButton;
+	SoundFXPtr _soundUpgrade;
+	SoundFXPtr _soundPlay;
+	SoundFXPtr _soundBack;
+
+	SoundFXPtr _soundDiePlayer;
+	SoundFXPtr _soundDieEnemy;
+	SoundFXPtr _soundDieBoss;
+	SoundFXPtr _soundSpawn;
+
+	SoundFXPtr _soundHitPlayer;
+	SoundFXPtr _soundHitEnemy;
+	SoundFXPtr _soundHitWall;
+
+
 	SoundFXPtr _soundReload;
 	SoundFXPtr _soundShootHitMonster;
-	SoundFXPtr _soundSpawn;
 	SoundFXPtr _soundAlarm;
 	SoundFXPtr _soundNoAmmo;
 

@@ -10,13 +10,13 @@
 
 using namespace Ogre;
 
-class Gun : public Weapon,GameObject
+class Gun : public Weapon, GameObject
 {
 public:
 
 	//CONSTRUCTOR
 	Gun() : _sceneNodeComponentGun(nullptr), _rigidBodyComponentGun(nullptr){};
-	Gun(Player* player,Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
+	Gun(Player* player, Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
 	//DESTRUCTOR
 	~Gun();
 

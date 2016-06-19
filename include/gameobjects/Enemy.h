@@ -1,32 +1,27 @@
 #ifndef ENEMY_H
-#define ENEMY_h
+#define ENEMY_H
 
-//#include <Ogre.h>
+#include "Player.h"
+#include "EnemyPathFinderComponent.h"
 
-#include "SceneNodeComponent.h"
-#include "RigidBodyComponent.h"
-#include "AudioController.h"
-class Enemy{
+class Enemy : public GameObject{
 
 public:
-	Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
-	Enemy();
-	//~Enemy();
+	Enemy() : _sceneNodeComponent(nullptr), _rigidBodyComponent(nullptr), _pathFinderComponent(nullptr){};
+	Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh,Player* player);
+	virtual ~Enemy();
+
+	virtual void update(float deltaTime);
+	virtual void collision(GameObject* gameObject){};
+
+	Ogre::Vector3 getPosition(){ return _rigidBodyComponent->getPosition(); };
 	
-	void update(const Ogre::FrameEvent& evt);
-
-	void setScale(Ogre::Vector3 scale);
-
-	//Funtions
 	void levelUp();
 	//Tiene qye haber una funcion que haga subir d enivel a los mounstros
 	//levelUp() que lo hace de manera individual, pero luego tiene que haber una funcion en el play state
 	//que elegira usar levelUp() segun la oleada en la que estemos.
-	void die();
-	void attack();
-	void move();
 	int damageHit(int dmg);//Danio qu erecibe de un hit
-
+	
 	//Getters/Setters
 	int getLife() { return life; }
 	void setLife(int hp){ life = hp; };
@@ -41,14 +36,14 @@ public:
 	float getAtkVelocity() { return atkVelocity; }
 	void setAtkVelocity(float atkVel){ atkVelocity = atkVel; };
 
-	bool getHitted(){ return hitted; }
-	void setHitted(bool hit){ hitted = hit; };
 
-	bool getCollisionWithPlayer(){ return enemyCollisionPlayer; }
-	void setCollisionWithPlayer(bool collision){ enemyCollisionPlayer = collision; };
-
-protected:
-
+protected:	
+	Player* _player;
+	SceneNodeComponent* _sceneNodeComponent;
+	RigidBodyComponent* _rigidBodyComponent;
+	EnemyPathFinderComponent* _pathFinderComponent;
+	EnemyState _state;
+	
 	//Variables
 	int life;//vida del enemigo
 	float speed;//velocidad de movimiento del enemigo
@@ -57,23 +52,22 @@ protected:
 	int level;//Nivel del enemigo
 	float timeStun = 0;//Contador para stun
 	float stunMax = 0;//Tiempo que se queda quieto tras recibir un golpe
-
+	
 	//Control
 	bool canAttack = true;
 	bool canMove = true;
-	EnemyState state;//estado del enemigo
 	bool killed;//Indica si esta muerto
-	bool hitted;//Indica si ha sido daniado
-	bool enemyCollisionPlayer;//Indica si ha colisionado con el player
+	bool isHitted;//Indica si ha sido daniado
+	
+	bool attackDistance();	
 
-	//Move
-	Ogre::Vector3 direction;
-
-	//Effects Variables()
-	Ogre::ParticleSystem* partSystem;//Particulas para las subidas de nivel, hit de danio y morir
-	Ogre::SceneNode* nodeParticle;
-	float timeParticle;
-	//Faltan los sonidos
+	virtual void move(float deltaTime);
+	virtual bool attack(float deltaTime) { return true; };
+	virtual void die(float deltaTime) {};
+	virtual void hitted(float deltaTime) {};
 };
+
+
+
 
 #endif

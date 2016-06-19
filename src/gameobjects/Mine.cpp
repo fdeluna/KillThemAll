@@ -13,6 +13,7 @@ Mine::Mine(Player* player, Ogre::SceneManager* sceneManager, Ogre::Vector3 posit
 	_player = player;
 	_player->setMineActive(true);
 	_player->setCountMines(_player->getCountMines()-1);
+	audioController = AudioController::getSingletonPtr();
 }
 
 
@@ -35,6 +36,8 @@ void Mine::update(const Ogre::FrameEvent& evt){
 	if (explosion){
 
 		std::cout << "explotaaaaaaaaaaa" << std::endl;
+		audioController->playAudio(Audio::MINEEXPLOSION);
+		explosion = false;
 		_player->setMineActive(false);
 		//this->~Mine();
 

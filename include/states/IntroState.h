@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "PhysicsManager.h"
 #include "WaveManager.h"
+#include "AudioController.h"
 
 class IntroState : public Ogre::Singleton<IntroState>, public GameState
 {
@@ -88,8 +89,9 @@ protected:
 	CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
 
 private:
-	Map* _Map;
+	Map* _map;
 	PhysicsManager* _physicsManager;
+	AudioController* audioController;
 };
 
 #endif

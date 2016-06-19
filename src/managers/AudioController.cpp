@@ -7,26 +7,51 @@ template<> AudioController* Ogre::Singleton<AudioController>::msSingleton = 0;
 
 AudioController::AudioController(){
 
-	_initSDL();
+	if (!_initSDL()){
+		_initSDL();
+	}
+
 
 	_pTrackManager = OGRE_NEW TrackManager;
 	_pSoundFXManager = OGRE_NEW SoundFXManager;
-	_mainTrack = _pTrackManager->load("219147_zagi2_retro-crime-movie-loop-2_converted.wav");
-	_soundShoot = _pSoundFXManager->load("shoot4.wav");
-	_soundShootHitMonster = _pSoundFXManager->load("hitMonster.wav");
-	_soundReload = _pSoundFXManager->load("reload.wav");
-	_soundSpawn = _pSoundFXManager->load("spawn2.wav");
-	_soundAlarm = _pSoundFXManager->load("alarm.wav");
-	_soundNoAmmo = _pSoundFXManager->load("noAmmo.wav");
-	for (int i = 0; i < 32; i++){ Mix_Volume(i, 20); }
+	_mainTrack = _pTrackManager->load("AUDIO/area1Music.wav");
+	_introTrack = _pTrackManager->load("AUDIO/menuMusic.wav");
+	_soundButton = _pSoundFXManager->load("AUDIO/sndAmmoPickup.wav");
+	_soundBack = _pSoundFXManager->load("AUDIO/sndEnemySlash.wav");
+	_soundPlay = _pSoundFXManager->load("AUDIO/sndLevelUp.wav");
+
+	_soundShoot = _pSoundFXManager->load("AUDIO/sndPistol.wav");
+
+	_soundPotion = _pSoundFXManager->load("AUDIO/sndRoll.wav");
+	_soundMine = _pSoundFXManager->load("AUDIO/sndSniperTarget.wav");
+	_soundMineExplote = _pSoundFXManager->load("AUDIO/sndGrenade.wav");
+
+	_soundHitPlayer = _pSoundFXManager->load("AUDIO/sndPlayerHit.wav");
+	_soundDiePlayer = _pSoundFXManager->load("AUDIO/sndPlayerDeath.wav");
+
+	_soundSpawn = _pSoundFXManager->load("AUDIO/sndSelect.wav");
+	_soundUpgrade = _pSoundFXManager->load("AUDIO/sndEnemyDie.wav");
+	/*
+
+	_soundHitEnemy = _pSoundFXManager->load("AUDIO/sndHit.wav");
+	_soundHitWall = _pSoundFXManager->load("AUDIO/sndHitWall.wav");
+
+
+	_soundDieEnemy = _pSoundFXManager->load("AUDIO/sndEnemyDie.wav");
 	
+	*/
+
+	
+	
+	for (int i = 0; i < 32; i++){ Mix_Volume(i, 40); }
+
 
 
 }
 
 void AudioController::playAudio(Audio audio){
 
-	
+
 	switch (audio)
 	{
 	case Audio::PLAYSTATE:
@@ -34,23 +59,57 @@ void AudioController::playAudio(Audio audio){
 		_mainTrack->play();
 		Mix_VolumeMusic(40);
 		break;
-	case Audio::SHOOT:
-		_soundShoot->play();
-		
-		break;
 	case Audio::SPAWN:
-	
+
 		_soundSpawn->play();
 
 		break;
+	case Audio::HITPLAYER:
+
+		_soundHitPlayer->play();
+
+		break;
+	case Audio::KILLPLAYER:
+
+		_soundDiePlayer->play();
+
+		break;
+	case Audio::KILLENEMY:
+
+		_soundDieEnemy->play();
+
+		break;
+	case Audio::SHOOT:
+		_soundShoot->play();
+
+		break;
+	case Audio::UPGRADE:
+		_soundUpgrade->play();
+
+		break;
+	case Audio::HITWALL:
+		_soundHitWall->play();
+
+		break;
+	case Audio::POTION:
+		_soundPotion->play();
+
+		break;
+
 	case Audio::RELOAD:
 		_soundReload->play();
 
 		break;
 	case Audio::HITENEMY:
 
-		
-		_soundShootHitMonster->play();
+
+		_soundHitEnemy->play();
+
+		break;
+	case Audio::PLAY:
+
+
+		_soundPlay->play();
 
 		break;
 	case Audio::ALARM:
@@ -59,6 +118,7 @@ void AudioController::playAudio(Audio audio){
 		_soundAlarm->play(1);
 
 		break;
+
 	case Audio::NOAMMO:
 
 
@@ -66,7 +126,35 @@ void AudioController::playAudio(Audio audio){
 
 		break;
 
-		
+	case Audio::BUTTON:
+
+
+		_soundButton->play();
+
+		break;
+	case Audio::BACK:
+
+
+		_soundBack->play();
+
+		break;
+	case Audio::MINE:
+
+
+		_soundMine->play();
+
+		break;
+	case Audio::MINEEXPLOSION:
+
+
+		_soundMineExplote->play();
+
+		break;
+	case Audio::INTROSTATE:
+
+		_introTrack->play();
+		Mix_VolumeMusic(40);
+		break;
 	default:
 		break;
 	}
@@ -102,5 +190,5 @@ bool AudioController::_initSDL() {
 	//// Llamar a Mix_CloseAudio al terminar.
 	atexit(Mix_CloseAudio);
 
-	return true;	
+	return true;
 }

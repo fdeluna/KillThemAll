@@ -4,7 +4,7 @@
 #include <map>
 #include <Ogre.h>
 
-enum Mesh1{
+enum MeshName{
 	TILE,
 	PLAYERM,
 	ENEMYFIGHTER,
@@ -15,27 +15,44 @@ enum Mesh1{
 	MINE
 };
 
-static std::map<Mesh1, Ogre::String> MESHES = {
-	{ Mesh1::TILE, "Tile.mesh" },
-	{ Mesh1::PLAYERM, "Cube.001.mesh" },
-	{ Mesh1::ENEMYFIGHTER, "EnemyFighter.mesh" },
-	{ Mesh1::BOSS, "Cylinder.mesh"},
-	{ Mesh1::PLAYERP, "Player.mesh" },
-	{ Mesh1::BULLETP, "Bullet.mesh" },
-	{ Mesh1::REVOLVER, "Revolver.mesh" },
-	{ Mesh1::MINE, "Mina.mesh" }
+static std::map<MeshName, Ogre::String> MESHES = {
+	{ MeshName::TILE, "Tile.mesh" },
+	{ MeshName::PLAYERM, "Player.mesh" },
+	{ MeshName::ENEMYFIGHTER, "EnemyFighter.mesh" },
+	{ MeshName::BOSS, "Cylinder.mesh" },
+	{ MeshName::PLAYERP, "EnemyFighter.mesh" },
+	{ MeshName::BULLETP, "Bullet.mesh" },
+	{ MeshName::REVOLVER, "Revolver.mesh" },
+	{ MeshName::MINE, "Mina.mesh" }
 
 };
 
+
+enum class EnemyState
+{
+	ATTACK,
+	MOVE,
+	DIE,
+	HITTED
+
+};
 
 enum GameObjectType{
-	OBSTACLE,
-	MAP_FLOOR,
-	HELL,
-	PLAYER,
-	BULLET,
-	MINES
+	OBSTACLE = 1,
+	MAP_FLOOR = 2,
+	HELL = 4,
+	PLAYER = 8,
+	ENEMY = 16,
+	BULLET = 32,
+	MINES = 42
 };
+
+static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY;
+static const short enemy_collides_with = PLAYER | OBSTACLE | MAP_FLOOR | HELL | BULLET;
+static const short obstacle_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET;
+static const short map_floor_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET;
+static const short hell_collides_with = PLAYER | ENEMY | BULLET;
+static const short bullet_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY;
 
 
 static int sceneNodeNumber = 0;
@@ -58,7 +75,16 @@ enum class Audio
 	SPAWN,
 	ALARM,
 	NOAMMO,
-	KILLENEMY
+	KILLENEMY,
+	BACK,
+	MINE,
+	MINEEXPLOSION,
+	HITWALL,
+	POTION,
+	KILLPLAYER,
+	PLAY,
+	HITPLAYER,
+	UPGRADE
 
 };
 
@@ -90,15 +116,6 @@ static std::map<AttackVelocity, float> ATTACKVELOCITIES = {
 	{ AttackVelocity::SLOW, 1.5f },
 	{ AttackVelocity::NORMAL, 2.0f },
 	{ AttackVelocity::FAST, 2.5f }
-
-};
-
-enum class EnemyState
-{
-	ATTACK,
-	MOVE,
-	DIE,
-	HITTED
 
 };
 

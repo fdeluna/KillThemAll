@@ -11,10 +11,27 @@
 class Player : public GameObject{
 
 public:
-	Player() : _sceneNodeComponent(nullptr), _rigidBodyComponent(nullptr){};
+	Player() : _sceneNodeComponent(nullptr), _rigidBodyComponent(nullptr), _playerInput(nullptr){};
 	Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
 	~Player();
 
+	Ogre::Vector3 getPosition(){ return _rigidBodyComponent->getPosition(); };
+
+	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponent; };
+	PlayerInputComponent* getPlayerInputComponent(){ return _playerInput; };
+	
+
+	int getLife(){ return life; };
+	int setLife(int hp){ life = hp; };
+	int getLevel(){ return level; };
+	int setLevel(int levelPlayer){ level = levelPlayer; };
+	int getPotions(){ return numPots; };
+	int setPotions(int pots){ numPots = pots; };
+	int getPotionsCount(){ return countPots; };
+	bool getMineActive(){ return mineActive; };
+	void setMineActive(bool active){ mineActive = active; };
+	int getCountMines(){ return numMines; };
+	void setCountMines(int mines){ numMines = mines; };
 
 	//FUNTIONS
 	bool die();
@@ -22,29 +39,11 @@ public:
 	void levelUp();
 	void potion();
 
-
-	//GETTERS/SETTERS
-	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponent; };
-	RigidBodyComponent* getRigidBodyComponent(){ return _rigidBodyComponent; };
-	PlayerInputComponent* getPlayerInputComponent(){ return _playerInput; };
-
-	int getLife(){ return life; };
-	void setLife(int hp){ life = hp; };
-	int getLevel(){ return level; };
-	void setLevel(int levelPlayer){ level = levelPlayer; };
-	int getPotions(){ return numPots; };
-	void setPotions(int pots){ numPots = pots; };
-	int getPotionsCount(){ return countPots; };
-	bool getMineActive(){ return mineActive; };
-	void setMineActive(bool active){ mineActive = active; };
-	int getCountMines(){ return numMines; };
-	void setCountMines(int mines){ numMines = mines; };
-
-protected:
+private:
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
 	PlayerInputComponent* _playerInput;
-
+	
 	int lifeMax = 8;
 	int life = 8;
 	int level = 1;
@@ -53,7 +52,6 @@ protected:
 	int mineActive = false;
 	int numMines = 1;
 	int numMinesLevel = 1;
-
 };
 
 #endif

@@ -26,6 +26,8 @@ void GameOverState::enter()
 	
 
 	//_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
+	audioController = AudioController::getSingletonPtr();
+	audioController->playAudio(Audio::INTROSTATE);
 
 }
 
@@ -143,6 +145,8 @@ CEGUI::MouseButton GameOverState::convertMouseButton(OIS::MouseButtonID id)
 
 bool GameOverState::quit(const CEGUI::EventArgs &e)
 {
+	audioController->playAudio(Audio::BACK);
+
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
 	changeState(IntroState::getSingletonPtr());
 	return true;
@@ -153,6 +157,8 @@ bool GameOverState::quit(const CEGUI::EventArgs &e)
 
 bool GameOverState::ready(const CEGUI::EventArgs &e)
 {
+	audioController->playAudio(Audio::BUTTON);
+
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
 	changeState(PlayState::getSingletonPtr());
 	return true;

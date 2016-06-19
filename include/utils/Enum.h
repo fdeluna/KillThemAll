@@ -11,7 +11,8 @@ enum MeshName{
 	BOSS,
 	PLAYERP,
 	BULLETP,
-	REVOLVER
+	REVOLVER,
+	OBSTACLENODE
 };
 
 static std::map<MeshName, Ogre::String> MESHES = {
@@ -21,7 +22,9 @@ static std::map<MeshName, Ogre::String> MESHES = {
 	{ MeshName::BOSS, "Cylinder.mesh" },
 	{ MeshName::PLAYERP, "EnemyFighter.mesh" },
 	{ MeshName::BULLETP, "Bullet.mesh" },
-	{ MeshName::REVOLVER, "Revolver.mesh" }
+	{ MeshName::REVOLVER, "Revolver.mesh" },
+	{ MeshName::OBSTACLENODE, "Obstacle.mesh" }
+
 };
 
 

@@ -6,9 +6,9 @@ void Map::GenerateMap(){
 
 
 
-	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[MeshName::TILE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
+	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[MeshName::OBSTACLENODE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
 	RigidBodyComponent* hellBody = new RigidBodyComponent((GameObject*)this, GameObjectType::HELL, hell);
-	hell->setMaterialName("DarkSlateGray");
+	hell->setMaterialName("Ground");
 
 	// TODO REFACTOR TO STYLE SELECTION
 	Ogre::Plane plane = createPlane("mapFloor", _mapSize.x + 0.2, _mapSize.y + 0.2);	
@@ -16,7 +16,7 @@ void Map::GenerateMap(){
 
 	rigidBodyComponent = new RigidBodyComponent(nullptr, GameObjectType::MAP_FLOOR, planeNode);
 	rigidBodyComponent->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
-	planeNode->setMaterialName("Ground");
+	planeNode->setMaterialName("Floor");
 
 	//addComponent(planeNode);
 	//addComponent(rigidBodyComponent);
@@ -66,7 +66,7 @@ void Map::GenerateMap(){
 	std::vector<MapNode*> gridRow;
 	for (int x = 0; x < _mapSize.x; x++){
 		for (int y = 0; y < _mapSize.y; y++){
-			Ogre::Vector3 position(x, -0.05, y);			
+			Ogre::Vector3 position(x, 0, y);			
 			MapNode* aux = new MapNode(_sceneManager, true, position, MESHES[MeshName::TILE], planeNode->getSceneNode(), x, y);
 			gridRow.push_back(aux);
 		}
@@ -103,7 +103,7 @@ void Map::GenerateMap(){
 			if (_mapCenter != coord && isMapAccessible(obstacleMap, currentNumberObstacules)){
 				float colourPercent = coord.y / (float)_mapSize.y;
 				Ogre::Math::lerp<Ogre::ColourValue, float>(Ogre::ColourValue::Black, Ogre::ColourValue::Red, colourPercent);
-				shuffledgrid[x][y]->makeObstacle(Ogre::Vector3(0.5, 10, 0.5), Ogre::Math::lerp<Ogre::ColourValue, float>(Ogre::ColourValue::White, Ogre::ColourValue::Blue, colourPercent));
+				shuffledgrid[x][y]->makeObstacle(Ogre::Vector3(0.5, 0.75, 0.5), MESHES[MeshName::OBSTACLENODE]);
 			}
 			else{
 				currentNumberObstacules--;

@@ -14,7 +14,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 	switch (type)
 	{
 	case OBSTACLE:
-		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(0.5, 0.5, 0.5));
+		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(0.5, 1, 0.5));
 		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld());
 		break;
 	case HELL:

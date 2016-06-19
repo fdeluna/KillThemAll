@@ -9,21 +9,23 @@ material Ground
 						
 			texture_unit
 			{
-				texture Tile.png
+				texture wood.png
 			}
 		}
 	}
 }
 
-material DarkSlateGray
+material Floor
   {
     technique
     {
       pass
       {
+		 ambient 0.75 0.75 0.75			
+
         texture_unit
         {
-          colour_op_ex source1 src_manual src_current 0 0 0
+          texture floor.jpg		  
         }
       } 
     }

@@ -2,13 +2,13 @@
 
 template<> PathFinder* Ogre::Singleton<PathFinder>::msSingleton = 0;
 
-void PathFinder::FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny, std::vector<Node*>& path){
+void PathFinder::FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny, std::vector<MapNode*>& path){
 
-	Node* startNode = _currentMap->nodeFromWorldPosition(origin);
-	Node* targetNode = _currentMap->nodeFromWorldPosition(destiny);
+	MapNode* startNode = _currentMap->nodeFromWorldPosition(origin);
+	MapNode* targetNode = _currentMap->nodeFromWorldPosition(destiny);
 	if (startNode && targetNode){
-		std::vector<Node*> openSet;
-		std::vector<Node*> closeSet;
+		std::vector<MapNode*> openSet;
+		std::vector<MapNode*> closeSet;
 
 		//path.clear();
 
@@ -17,13 +17,13 @@ void PathFinder::FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny, std::vect
 
 
 		while (openSet.size() > 0 && path.size() <= 0){
-			Node* currentNode = openSet[0];
+			MapNode* currentNode = openSet[0];
 
 			openSet.erase(std::remove(openSet.begin(), openSet.end(), currentNode), openSet.end());
 			closeSet.push_back(currentNode);
 
 			if (currentNode == targetNode){
-				Node* endNode = targetNode;
+				MapNode* endNode = targetNode;
 				while (endNode != startNode){
 					path.push_back(endNode);					
 					endNode = endNode->getParent();
@@ -31,7 +31,7 @@ void PathFinder::FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny, std::vect
 				std::reverse(path.begin(), path.end());
 			}
 			if (path.size() <= 0){
-				for (Node* neighbour : _currentMap->getNeighbours(currentNode)){
+				for (MapNode* neighbour : _currentMap->getNeighbours(currentNode)){
 					if (neighbour->isWakable() && std::find(closeSet.begin(), closeSet.end(), neighbour) == closeSet.end()){
 
 						int movementCostToNeighbour = currentNode->getG() + getDistance(currentNode, neighbour);
@@ -53,7 +53,7 @@ void PathFinder::FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny, std::vect
 	}
 }
 
-int PathFinder::getDistance(Node* nodeA, Node* nodeB){
+int PathFinder::getDistance(MapNode* nodeA, MapNode* nodeB){
 
 	int distance = 0;
 
@@ -72,7 +72,7 @@ int PathFinder::getDistance(Node* nodeA, Node* nodeB){
 	return distance;
 }
 
-bool PathFinder::lesserNode(Node* a, Node* b)
+bool PathFinder::lesserNode(MapNode* a, MapNode* b)
 {
 	return a->getTotalCost() < b->getTotalCost();
 }

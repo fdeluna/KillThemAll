@@ -28,6 +28,7 @@ void PlayerInputComponent::lookAt(){
 	float y = e.Y.abs / (float)Ogre::Root::getSingletonPtr()->getAutoCreatedWindow()->getHeight();
 
 	Ogre::Vector3 mousePosition = PhysicsManager::getSingletonPtr()->getMouseWorldPosition(x, y);
-	
+	positionMouseForWaeapon = Ogre::Vector3(mousePosition.x, 1, mousePosition.z);
+
 	_playerBody->rotate(Ogre::Vector3(mousePosition.x, 1 , mousePosition.z));	
 }

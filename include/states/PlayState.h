@@ -9,6 +9,8 @@
 #include "PhysicsManager.h"
 #include "PathFinder.h"
 #include "Player.h"
+#include "Bullet.h"
+#include "Gun.h"
 #include "EnemyFighter.h"
 #include "WaveManager.h"
 
@@ -64,7 +66,10 @@ private:
 	Map* _map;
 	Player* _player;
 	Enemy* _enemy;
+	Bullet* _bullet;
+	Gun* _gun;
 	std::vector<Enemy*> enemies;
+
 
 
 	// CEGUI

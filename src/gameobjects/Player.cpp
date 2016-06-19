@@ -2,7 +2,7 @@
 
 Player::Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh) : GameObject(sceneManager){
 
-	_sceneNodeComponent = new SceneNodeComponent(_sceneManager, "Player", mesh, Ogre::Vector3(0.04, 0.04, 0.04), position);
+	_sceneNodeComponent = new SceneNodeComponent(_sceneManager, "Player", mesh, Ogre::Vector3(0.02, 0.02, 0.02), position);
 		
 	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::PLAYER, _sceneNodeComponent);
 	_playerInput = new PlayerInputComponent(_rigidBodyComponent, _sceneManager);

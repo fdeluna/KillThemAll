@@ -12,9 +12,7 @@ class Player : public GameObject{
 
 public:
 	Player() : _sceneNodeComponent(nullptr), _rigidBodyComponent(nullptr), _playerInput(nullptr){};
-	Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String 
-		
-		);
+	Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
 	~Player();
 
 	Ogre::Vector3 getPosition(){ return _rigidBodyComponent->getPosition(); };
@@ -31,6 +29,12 @@ public:
 	int setPotions(int pots){ numPots = pots; };
 	int getPotionsCount(){ return countPots; };
 
+	//FUNTIONS
+	bool die();
+	void hitted(int damage);
+	void levelUp();
+	void potion();
+
 private:
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
@@ -40,13 +44,7 @@ private:
 	int life = 8;
 	int level = 1;
 	int numPots = 1;
-	int countPots = 0;
-			
-		//FUNTIONS
-	bool die();
-	void hitted(int damage);
-	void levelUp();
-	void potion();
+	int countPots = 0;				
 };
 
 #endif

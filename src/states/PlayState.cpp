@@ -49,14 +49,8 @@ void PlayState::enter()
 	_camera->setNearClipDistance(1);
 	_camera->setFarClipDistance(10000);
 
-
-	// TODO MOVE TO PLAYER
-	//_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 5, _map->_mapCenter.y), MESHES[MeshName::PLAYERP]);
-	////_bullet = new Bullet(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x + 10, 5, _map->_mapCenter.y), MESHES[MeshName::BULLET]);
-	//Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x+15,
-	//	_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
-	//	_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
-	//_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[MeshName::REVOLVER]);
+		
+	
 	////std::cout << Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition()) << "***************"<< std::endl;
 
 	_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
@@ -157,12 +151,11 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 		"TaharezLook/Mirilla");
 	//Use pots
 	if (_hudWeaponsShotGun->isVisible()){
-
-		//_player->potion();
+		_player->potion();
 		hudLife();
 	}
 	else if (_hudWeaponsClub->isVisible()){
-		//_gun->shoot();
+		_gun->shoot();
 	}
 }
 
@@ -185,7 +178,11 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){
 		_map->GenerateMap();
-		_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[MeshName::PLAYERM]);
+		_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[MeshName::PLAYERM]);		
+		Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x + 15,
+			_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
+			_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
+		_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[MeshName::REVOLVER]);
 		_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
 		_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
 		_pathFinder = new PathFinder(_map);

@@ -2,7 +2,7 @@
 #define Map_H
 
 #include "GameObject.h"
-#include "Node.h"
+#include "MapNode.h"
 #include "Enum.h"
 #include "Utils.h"
 
@@ -21,10 +21,10 @@ public:
 	void collision(GameObject* gameObject);
 	Ogre::Vector2 _mapCenter;
 
-	Node* nodeFromWorldPosition(Ogre::Vector3 position);
-	std::vector<Node*> getNeighbours(Node* node);
+	MapNode* nodeFromWorldPosition(Ogre::Vector3 position);
+	std::vector<MapNode*> getNeighbours(MapNode* node);
 
-	std::vector<std::vector <Node*>> getGrid(){ return grid; };
+	std::vector<std::vector <MapNode*>> getGrid(){ return grid; };
 
 
 private:
@@ -32,7 +32,7 @@ private:
 
 	SceneNodeComponent* planeNode;
 	RigidBodyComponent* rigidBodyComponent;
-	std::vector< std::vector <Node*>> grid;
+	std::vector< std::vector <MapNode*>> grid;
 
 	bool isMapAccessible(std::vector< std::vector <bool>> obstacleMap, int currentNumberObstacle);
 

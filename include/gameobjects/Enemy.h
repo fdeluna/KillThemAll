@@ -1,7 +1,6 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "Node.h"
 #include "Player.h"
 #include "EnemyPathFinderComponent.h"
 

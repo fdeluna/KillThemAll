@@ -2,8 +2,8 @@
 #define ENEMYPATHFINDERCOMPONENT_H
 
 #include "Component.h"
+#include "MapNode.h"
 #include "PathFinder.h"
-#include "Node.h"
 #include "Player.h"
 #include "RigidBodyComponent.h"
 
@@ -28,10 +28,11 @@ private:
 	Player* _player;
 	RigidBodyComponent* _enemyRigidBody;
 	PathFinder* _pathFinder;
-	Node* _currentNode;
+	MapNode* _currentNode;
 
-	std::vector<Node*> currentPath;
-	std::vector<Node*> newPath;	
+	std::vector<MapNode*> currentPath;
+	std::vector<MapNode*> newPath;
+
 };
 
 #endif

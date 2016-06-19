@@ -2,9 +2,12 @@
 
 
 void EnemyFighter::collision(GameObject* gameObject){
-	/*if (gameObject->getType() == GameObjectType::PLAYER){
-		_state = EnemyState::DIE;
-		}*/
+	if (gameObject){
+		if (gameObject->getType() == GameObjectType::PLAYER){
+			std::cout << "player" << std::endl;
+			_state = EnemyState::DIE;
+		}
+	}
 }
 
 

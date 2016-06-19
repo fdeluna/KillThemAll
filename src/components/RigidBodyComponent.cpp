@@ -10,7 +10,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 	Ogre::String rigidName(_sceneNodeComponent->getSceneNode()->getName());
 	rigidName.append("RigidBody");
 	PhysicsManager* physicsMgr = PhysicsManager::getSingletonPtr();
-	
+
 	switch (type)
 	{
 	case OBSTACLE:
@@ -19,7 +19,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 		break;
 	case HELL:
 		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(20, 0.5, 20));
-		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, hell_collides_with);
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld());
 		break;
 	case MAP_FLOOR:
 		trimeshConverter = new OgreBulletCollisions::StaticMeshToShapeConverter(_sceneNodeComponent->getEntity());
@@ -31,18 +31,23 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, player_collides_with);
 		break;
 	case ENEMY:
-		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5,0.5, Ogre::Vector3::UNIT_Y);
+		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5, 0.5, Ogre::Vector3::UNIT_Y);
 		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, enemy_collides_with);
 		break;
+	case BULLET:
+		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(0.2, 0.2, 0.2));
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, bullet_collides_with);
+		break;
 	}
-	
 
 
-	if (type == GameObjectType::PLAYER || type == GameObjectType::ENEMY){
+
+	if (type == GameObjectType::PLAYER || type == GameObjectType::ENEMY || type == GameObjectType::BULLET){
 		_rigidBody->setShape(_sceneNodeComponent->getSceneNode(), _shape, 0.01, 1, 100.0, position, orientation);
-		//_rigidBody->getBulletRigidBody()->setLinearFactor(btVector3(0, 0, 0));
+		//_rigidBody->getBulletRigidBody()->setLinearFactor(btVector3(0, 0, 0));		
 		_rigidBody->getBulletRigidBody()->setAngularFactor(btVector3(0, 0, 0));
-	}else{
+	}
+	else{
 		_rigidBody->setStaticShape(_shape, 0.01, 1, position, orientation);
 		_rigidBody->setGravity(Ogre::Vector3::ZERO);
 	}
@@ -89,8 +94,8 @@ void RigidBodyComponent::translate(Ogre::Vector3 direction){
 }
 
 void RigidBodyComponent::rotate(Ogre::Vector3 dest){
-			
-	Ogre::Vector3 mDirection = dest - getPosition();     
+
+	Ogre::Vector3 mDirection = dest - getPosition();
 	Ogre::Vector3 src = getPosition() * Ogre::Vector3::UNIT_X;      // Orientation from initial direction
 	src.y = 0;                                                    // Ignore pitch difference angle
 	mDirection.y = 0;

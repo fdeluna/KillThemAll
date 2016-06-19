@@ -33,19 +33,21 @@ void Gun::upgrade(){
 }
 void Gun::shoot(){
 
-	Ogre::Vector3 direction = _player->getPlayerInputComponent()->getMousePositionWeapon() - _player->getSceneNodeComponent()->getSceneNode()->getPosition();
-	Ogre::Vector3 directionShoot = direction;
+	Ogre::Vector3 mousePosition(_player->getPlayerInputComponent()->getMousePositionWeapon());
+	Ogre::Vector3 playerPosition(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, 1, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
 
-	Ogre::Vector3 position = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x,
-		_player->getSceneNodeComponent()->getSceneNode()->getPosition().y + 2,
-		_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
+	Ogre::Vector3 direction = mousePosition - playerPosition;
+	Ogre::Vector3 directionShoot = direction.normalisedCopy();
 
-	Bullet* bullet = new Bullet(_sceneNodeComponentGun->getSceneManager(), position, MESHES[MeshName::BULLETP]);
-	bullet->getSceneNodeComponent()->getSceneNode()->setScale(Ogre::Vector3(0.2, 0.2, 0.2));
-	directionShoot = direction.normalisedCopy() * 20;	//150 
+	//Ogre::Vector3 position = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x,
+	//	1,
+	//	_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
 
-	bullet->getRigidBodyComponent()->getRigidBody()->setLinearVelocity(directionShoot);
+	Bullet* bullet = new Bullet(_sceneNodeComponentGun->getSceneManager(), playerPosition, MESHES[MeshName::BULLETP]);
+	bullet->getSceneNodeComponent()->getSceneNode()->setScale(Ogre::Vector3(0.2, 0.2, 0.2));		
+	bullet->getRigidBodyComponent()->getRigidBody()->setLinearVelocity(directionShoot * 5);
 	bullet->getRigidBodyComponent()->getRigidBody()->setGravity(Ogre::Vector3(0, 0, 0));
+	bullet->getRigidBodyComponent()->rotate(mousePosition);
 	bullets.push_back(bullet);
 
 	//Resume Game

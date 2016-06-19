@@ -63,11 +63,11 @@ void Map::GenerateMap(){
 
 
 	// MAP GENERATION
-	std::vector<Node*> gridRow;
+	std::vector<MapNode*> gridRow;
 	for (int x = 0; x < _mapSize.x; x++){
 		for (int y = 0; y < _mapSize.y; y++){
 			Ogre::Vector3 position(x, -0.05, y);			
-			Node* aux = new Node(_sceneManager, true, position, MESHES[MeshName::TILE], planeNode->getSceneNode(), x, y);
+			MapNode* aux = new MapNode(_sceneManager, true, position, MESHES[MeshName::TILE], planeNode->getSceneNode(), x, y);
 			gridRow.push_back(aux);
 		}
 		grid.push_back(gridRow);
@@ -77,7 +77,7 @@ void Map::GenerateMap(){
 
 	std::vector< std::vector <bool>> obstacleMap;
 	std::vector<std::pair<int, int>> randomCoords;
-	std::vector< std::vector <Node*>> shuffledgrid = grid;
+	std::vector< std::vector <MapNode*>> shuffledgrid = grid;
 	std::srand(std::time(0));
 	int currentNumberObstacules = 0;
 
@@ -120,7 +120,7 @@ void Map::cleanMap(){
 	if (!grid.empty()){
 		for (int i = 0; i < grid.size(); i++){
 			for (int j = 0; j < grid[i].size(); j++){
-				Node* aux = grid[i][j];
+				MapNode* aux = grid[i][j];
 				if (aux){
 					delete aux;
 				}
@@ -139,9 +139,9 @@ void Map::collision(GameObject* gameObject){
 }
 
 
-Node* Map::nodeFromWorldPosition(Ogre::Vector3 position){
+MapNode* Map::nodeFromWorldPosition(Ogre::Vector3 position){
 
-	Node* node = nullptr;
+	MapNode* node = nullptr;
 	float distanceFromNode = 1;
 	position = Ogre::Vector3(position.x, 0, position.z);
 	for (int x = 0; x < grid.size(); x++){
@@ -159,8 +159,8 @@ Node* Map::nodeFromWorldPosition(Ogre::Vector3 position){
 	return node;
 }
 
-std::vector<Node*> Map::getNeighbours(Node* node){
-	std::vector<Node*> neighbours;
+std::vector<MapNode*> Map::getNeighbours(MapNode* node){
+	std::vector<MapNode*> neighbours;
 
 	for (int x = -1; x <= 1; x++){
 		for (int y = -1; y <= 1; y++){

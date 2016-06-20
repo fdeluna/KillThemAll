@@ -91,9 +91,33 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	_deltaT = evt.timeSinceLastFrame;
 
+	timer = timer + evt.timeSinceLastFrame;
+	if (_gun){
+		if (timer > _gun->getVelAtack()){
+
+			_gun->setCanShoot(true);
+			timer = 0;
+		}
+
+		if (_gun->getReloading()){
+			timerReload = timerReload + evt.timeSinceLastFrame;
+		}
+
+		if (timerReload > 1){
+
+			_gun->reload();
+			_gun->setReloading(false);
+
+
+		}
+	}
+
+	
+	
+
+	
 	_physicsManager->updatePhysics(_deltaT);
 	//_Map->update(_deltaT);
-
 	Ogre::Vector3 vt(0, 0, 0);     Ogre::Real tSpeed = 20.0;
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_ESCAPE)) return false;
@@ -159,7 +183,6 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 	}
 	else if (_hudWeaponsClub->isVisible()){
 		_gun->shoot();
-		audioController->playAudio(Audio::SHOOT);
 
 	}
 	else if (_hudWeaponsGun->isVisible()){
@@ -266,6 +289,15 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	if (OIS::KC_4 == e.key){
 
 		//_player->levelUp();
+		_gun->upgrade();
+	}
+	if (OIS::KC_5 == e.key){
+
+		//_player->levelUp();
+		_gun->setReloading(true);
+		std::cout << "reloading" << std::endl;
+		timerReload = 0;
+		
 	}
 
 }

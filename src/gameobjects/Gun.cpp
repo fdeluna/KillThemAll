@@ -11,6 +11,7 @@ Gun::Gun(Player* player, Ogre::SceneManager* sceneManager, Ogre::Vector3 positio
 	//player->getSceneNodeComponent()->getSceneNode()->attachObject(_sceneNodeComponentGun->getEntity());
 	std::cout << player->getSceneNodeComponent()->getSceneNode()->getName() << std::endl;
 	_player = player;
+	audioController = AudioController::getSingletonPtr();
 }
 
 
@@ -24,35 +25,74 @@ Gun::~Gun()
 void Gun::update(const Ogre::FrameEvent& evt){
 
 
+	
 }
 
 void Gun::upgrade(){
 
-
+	level++;
+	std::cout << level << "leveeeeel gun" << std::endl;
+	switch (level)
+	{
+	case 2:
+		velAtack = ATTACKVELOCITIES[AttackVelocity::NORMAL];
+		dmg++;
+		ammo = 16;
+	case 3:
+		velAtack = ATTACKVELOCITIES[AttackVelocity::NORMAL];
+		dmg++;
+		ammo = 25;
+	default:
+		break;
+	}
 
 }
 void Gun::shoot(){
 
-	Ogre::Vector3 mousePosition(_player->getPlayerInputComponent()->getMousePositionWeapon());
-	Ogre::Vector3 playerPosition(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, 1, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
+	if (canShoot && ammo >0 && !reloading){
+		audioController->playAudio(Audio::SHOOT);
 
-	Ogre::Vector3 direction = mousePosition - playerPosition;
-	Ogre::Vector3 directionShoot = direction.normalisedCopy();
+		Ogre::Vector3 mousePosition(_player->getPlayerInputComponent()->getMousePositionWeapon());
+		Ogre::Vector3 playerPosition(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, 1, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
 
-	//Ogre::Vector3 position = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x,
-	//	1,
-	//	_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
+		Ogre::Vector3 direction = mousePosition - playerPosition;
+		Ogre::Vector3 directionShoot = direction.normalisedCopy();
 
-	Bullet* bullet = new Bullet(_sceneNodeComponentGun->getSceneManager(), playerPosition, MESHES[MeshName::BULLETP]);
-	bullet->getSceneNodeComponent()->getSceneNode()->setScale(Ogre::Vector3(0.2, 0.2, 0.2));		
-	bullet->getRigidBodyComponent()->getRigidBody()->setLinearVelocity(directionShoot * 5);
-	bullet->getRigidBodyComponent()->getRigidBody()->setGravity(Ogre::Vector3(0, 0, 0));
-	bullet->getRigidBodyComponent()->rotate(mousePosition);
-	bullets.push_back(bullet);
+		//Ogre::Vector3 position = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x,
+		//	1,
+		//	_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
 
-	//Resume Game
-	numBullet++;
-	WaveManager::getSingletonPtr()->setCountBullets(numBullet);
+		Bullet* bullet = new Bullet(_sceneNodeComponentGun->getSceneManager(), playerPosition, MESHES[MeshName::BULLETP]);
+		bullet->getSceneNodeComponent()->getSceneNode()->setScale(Ogre::Vector3(0.2, 0.2, 0.2));
+		bullet->getRigidBodyComponent()->getRigidBody()->setLinearVelocity(directionShoot * 5);
+		bullet->getRigidBodyComponent()->getRigidBody()->setGravity(Ogre::Vector3(0, 0, 0));
+		bullet->getRigidBodyComponent()->rotate(mousePosition);
+		bullets.push_back(bullet);
+
+		//Resume Game
+		numBullet++;
+		WaveManager::getSingletonPtr()->setCountBullets(numBullet);
+		canShoot = false;
+		ammo--;
+		
+	}
+	
+
+
+}
+void Gun::reload(){
+
+	if (level == 1){
+	
+		ammo = 12;
+	}
+	else if (level == 2){
+		ammo = 16;
+
+	} else{
+		ammo = 25;
+	}
+	
 
 
 }

@@ -21,10 +21,11 @@ public:
 	void collision(GameObject* gameObject);
 	Ogre::Vector2 _mapCenter;
 
-	MapNode* nodeFromWorldPosition(Ogre::Vector3 position);
+	MapNode* nodeFromWorldPosition(Ogre::Vector3 position);;
 	std::vector<MapNode*> getNeighbours(MapNode* node);
 
 	std::vector<std::vector <MapNode*>> getGrid(){ return grid; };
+	Ogre::Vector3 getRandomNodePosition();
 
 
 private:

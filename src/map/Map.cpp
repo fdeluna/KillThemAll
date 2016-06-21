@@ -216,3 +216,20 @@ bool Map::isMapAccessible(std::vector< std::vector <bool>> obstacleMap, int curr
 	bool aux = totalNoObstacleTiles == noObstacletiles;
 	return totalNoObstacleTiles == noObstacletiles;
 }
+
+
+Ogre::Vector3 Map::getRandomNodePosition(){
+	Ogre::Vector3 nodePosition = Ogre::Vector3::ZERO;
+
+
+	while (nodePosition == Ogre::Vector3::ZERO){
+		int x = rand() % (int)_mapSize.x;
+		int y = rand() % (int)_mapSize.y;
+
+		if (grid[x][y]->isWakable()){
+			nodePosition = grid[x][y]->getSceneNode()->getSceneNode()->getPosition();
+		}
+	}
+
+	return nodePosition;
+}

@@ -1,21 +1,18 @@
 #ifndef PlayState_H
 #define PlayState_H
 
-
 #include "GameState.h"
 #include "WaveCompleteState.h"
 #include "GameOverState.h"
 #include "Map.h"
 #include "PhysicsManager.h"
+#include "WaveManager.h"
 #include "PathFinder.h"
 #include "Player.h"
 #include "Bullet.h"
 #include "Gun.h"
 #include "EnemyFighter.h"
-#include "WaveManager.h"
 
-#include <future>
-#include <algorithm>
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include <CEGUI/CEGUI.h>
@@ -62,7 +59,9 @@ private:
 
 	float _gameOverDelay = 0;
 
+	WaveManager* _waveManager;
 	PhysicsManager* _physicsManager;
+	PathFinder* _pathFinder;
 	Map* _map;
 	Player* _player;
 	Enemy* _enemy;
@@ -73,9 +72,6 @@ private:
 
 
 	// CEGUI
-
-	PathFinder* _pathFinder;
-
 	bool quit(const CEGUI::EventArgs &e);
 	bool save(const CEGUI::EventArgs &e);
 	void hudLife();

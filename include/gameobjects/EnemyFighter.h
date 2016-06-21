@@ -22,6 +22,9 @@ private:
 	// ATTACK
 	float _nextAttack= 1;
 	float _attackTime = 0;
+	int _attackDamage = 1;
+	float _attackSpeed = 7;
+	float _backSpeed = 4;
 	bool _endAttack = false;
 	Ogre::Vector3 _startPositon = Ogre::Vector3::ZERO;
 	Ogre::Vector3 _attackPosition = Ogre::Vector3::ZERO;

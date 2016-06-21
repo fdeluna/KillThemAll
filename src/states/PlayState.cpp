@@ -40,30 +40,32 @@ void PlayState::enter()
 	double height = _viewport->getActualHeight();
 	_camera->setAspectRatio(width / height);
 
-	_physicsManager = new PhysicsManager(_sceneMgr, true);
-	_map = new Map(_sceneMgr);
+	_physicsManager = new PhysicsManager(_sceneMgr, true);		
+	_waveManager = new WaveManager(_sceneMgr);
+	_player = new Player(_sceneMgr, Ogre::Vector3(_waveManager->getMap()->_mapCenter.x, 1, _waveManager->getMap()->_mapCenter.y), MESHES[MeshName::PLAYERM]);
+	_waveManager->setPlayer(_player);
+	_pathFinder = new PathFinder(_waveManager->getMap());
+	
+	
 
+	// MOVE TO PLAYER
+	Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x + 15,
+		_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
+		_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
+	_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[MeshName::REVOLVER]);
+
+	
 	// TODO REFACTOR TO INIT WAVE
 	_camera->setPosition(Ogre::Vector3(0, 20, 40));
 	_camera->lookAt(Ogre::Vector3(0, 0, -100));
 	_camera->setNearClipDistance(1);
-	_camera->setFarClipDistance(10000);
-
-		
-	
-	////std::cout << Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition()) << "***************"<< std::endl;
-
-	_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
-	_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
-
-	WaveManager::getSingletonPtr()->setTimeGame(150.0);
-
+	_camera->setFarClipDistance(10000);				
+	_camera->setPosition(_waveManager->getMap()->_mapCenter.x, 15, _waveManager->getMap()->_mapCenter.y - 5);
+	_camera->lookAt(_waveManager->getMap()->_mapCenter.x, 0, _waveManager->getMap()->_mapCenter.y);
 }
 
 void PlayState::exit() {	
-	delete _pathFinder;
-	_map->cleanMap();	
-	delete _map;	
+    delete _pathFinder;		
 	_player = nullptr;
 
 	if (enemies.size() > 0){
@@ -101,7 +103,22 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_LEFT))  vt += Ogre::Vector3(-1, 0, 0);
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_RIGHT)) vt += Ogre::Vector3(1, 0, 0);
 
-	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
+	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);	
+
+	if (_player && _player->isActive()){
+		hudLife();
+		if (_player->getLife() <= 0){
+			//_gameOverDelay += _deltaT;
+			//if (_gameOverDelay >1){
+				changeState(GameOverState::getSingletonPtr());
+			//}
+		}
+		else{
+			_player->update(_deltaT);
+			_waveManager->wave(_deltaT);
+		}
+	}	
+	
 
 	if (enemies.size() > 0){
 		for (int i = 0; i < enemies.size(); i++){
@@ -115,18 +132,6 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 			}
 		}
 	}
-
-
-	if (_player && _player->isActive()){
-		_player->update(_deltaT);
-		hudLife();
-		if (_player->getLife() <= 0){
-			_gameOverDelay += _deltaT;
-			if (_gameOverDelay >1){
-				changeState(GameOverState::getSingletonPtr());
-			}
-		}
-	}	
 	return true;
 }
 
@@ -134,7 +139,7 @@ bool PlayState::frameEnded(const Ogre::FrameEvent& evt)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
-	//_physicsManager->updatePhysics(_deltaT);
+	_physicsManager->updatePhysics(_deltaT);
 
 	if (_exitGame)
 		return false;
@@ -165,7 +170,7 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 	else if (_hudWeaponsClub->isVisible()){
 		_gun->shoot();
 	}
-}
+ }
 
 void PlayState::mouseReleased(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
@@ -197,7 +202,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	}
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_E)){
-		_enemy = new EnemyFighter(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[MeshName::ENEMYFIGHTER], _player);
+		_enemy = new EnemyFighter(_sceneMgr, Ogre::Vector3(_waveManager->getMap()->_mapCenter.x, 1, _waveManager->getMap()->_mapCenter.y), MESHES[MeshName::ENEMYFIGHTER], _player);
 		enemies.push_back(_enemy);
 	}
 

@@ -6,7 +6,7 @@
 
 #include <Ogre.h>
 #include <OgreBulletDynamicsRigidBody.h>
-#include "OgreBulletCollisionsRay.h"
+#include <OgreBulletCollisionsRay.h>
 
 class PhysicsManager : public Ogre::Singleton<PhysicsManager> {
 

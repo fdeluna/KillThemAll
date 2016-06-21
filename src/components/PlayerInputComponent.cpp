@@ -9,14 +9,14 @@ void PlayerInputComponent::update(float deltaTime){
 
 void PlayerInputComponent::move(float deltaTime){
 
-	Ogre::Vector3 vectorDirection = Ogre::Vector3::ZERO;
+	Ogre::Vector3 vectorDirection = Ogre::Vector3::ZERO;	
+
 	if (_inputManager->getKeyboard()->isKeyDown(OIS::KC_W)) vectorDirection += Ogre::Vector3(0, 0, 1);
 	if (_inputManager->getKeyboard()->isKeyDown(OIS::KC_S)) vectorDirection += Ogre::Vector3(0, 0, -1);
 	if (_inputManager->getKeyboard()->isKeyDown(OIS::KC_A)) vectorDirection += Ogre::Vector3(1, 0, 0);
 	if (_inputManager->getKeyboard()->isKeyDown(OIS::KC_D)) vectorDirection += Ogre::Vector3(-1, 0, 0);
 
 	_playerBody->translate(vectorDirection * _speed * deltaTime);
-
 
 }
 

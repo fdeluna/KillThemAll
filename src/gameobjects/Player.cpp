@@ -7,6 +7,7 @@ Player::Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::S
 	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::PLAYER, _sceneNodeComponent);
 	_playerInput = new PlayerInputComponent(_rigidBodyComponent, _sceneManager);
 	_type = GameObjectType::PLAYER;
+	Ogre::Camera* cam = _sceneManager->getCamera("PlayState");	
 	addComponent(_sceneNodeComponent);
 	addComponent(_rigidBodyComponent);
 	addComponent(_playerInput);

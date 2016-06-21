@@ -3,10 +3,11 @@
 
 void EnemyFighter::collision(GameObject* gameObject){
 	if (gameObject){
-		if (gameObject->getType() == GameObjectType::PLAYER){			
-			if (isAttacking && _nextAttack >= 0.65){
-				_player->hitted(1);
+		if (gameObject->getType() == GameObjectType::PLAYER){
+			if (isAttacking ){
+				_player->hitted(_attackDamage);
 				_nextAttack = 0;
+				isAttacking = false;
 			}
 			//_state = EnemyState::DIE;
 		}
@@ -17,7 +18,7 @@ void EnemyFighter::collision(GameObject* gameObject){
 void EnemyFighter::update(float deltaTime){
 	if (_state == EnemyState::MOVE){
 		_attackTime = 1;
-		_nextAttack = 1;
+		_nextAttack = 0;
 		_endAttack = false;
 		_startPositon = Ogre::Vector3::ZERO;
 		_attackPosition = Ogre::Vector3::ZERO;
@@ -38,32 +39,33 @@ bool EnemyFighter::attack(float deltaTime){
 	if (_startPositon == Ogre::Vector3::ZERO && _attackPosition == Ogre::Vector3::ZERO){
 		_startPositon = getPosition();
 		_attackPosition = _player->getPosition();
+		isAttacking = true;
 	}
 	attackDirecction = (_attackPosition - _startPositon).normalisedCopy();
-	float attackSpeed = 7;
-	float backSpeed = 4;
 
 	if (_attackTime <= 0.8){
 		if (getPosition().distance(_attackPosition) > 1 && !_endAttack) {
-			_rigidBodyComponent->translate(attackDirecction * attackSpeed * deltaTime);
-			isAttacking = true;
+			_rigidBodyComponent->translate(attackDirecction * _attackSpeed * deltaTime);									
+			_sceneNodeComponent->setMaterialName("CuerpoEnemyFigtherAttakking");
 		}
-		else if (getPosition().distance(_startPositon) >= 0.25){
+		else if (getPosition().distance(_startPositon) >= 0.1){
 			_endAttack = true;
-			_rigidBodyComponent->translate(-1 * attackDirecction * backSpeed * deltaTime);
-			isAttacking = false;
+			_rigidBodyComponent->translate(-1 * attackDirecction * _backSpeed * deltaTime);			
+			_sceneNodeComponent->setMaterialName("CuerpoEnemyFigther");
+
 		}
 	}
 	else{
 		_attackTime = 0;
+		_nextAttack = 0;
 		attack = false;
 		_endAttack = false;
 		_startPositon = Ogre::Vector3::ZERO;
-		_attackPosition = Ogre::Vector3::ZERO;		
+		_attackPosition = Ogre::Vector3::ZERO;
 	}
 
 	_rigidBodyComponent->rotate(Ogre::Vector3(_player->getPosition().x, 1, _player->getPosition().z));
-	
+
 
 	return attack;
 }

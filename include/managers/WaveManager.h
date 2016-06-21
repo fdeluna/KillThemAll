@@ -1,23 +1,28 @@
+#ifndef WAVEMANAGER_H
+#define WAVEMANAGER_H
 
-#ifndef WaveManager_H
-#define WaveManager_H
-
-#include <Ogre.h>
-#include "OgreSingleton.h"
+#include "Map.h"
 #include "Player.h"
-#include <OIS/OIS.h>
+#include "EnemyFighter.h"
 
-class WaveManager : public Ogre::Singleton<WaveManager>
-{
-public: 
-	WaveManager();
+#include <vector>
+#include <Ogre.h>
+
+class WaveManager : public Ogre::Singleton<WaveManager> {
+
+public:
+
+	WaveManager(Ogre::SceneManager* sceneManager);
 	~WaveManager();
 
-	// Heredados de Ogre::Singleton.
 	static WaveManager& getSingleton();
 	static WaveManager* getSingletonPtr();
 
-	void wave();
+	// TODO INIT-WAVE
+	void wave(float deltaTime);
+
+	Map* getMap(){ return _map; };
+	void setPlayer(Player* player){ _player = player; };
 
 	//Functions for resume game
 	float timeGame();
@@ -27,26 +32,34 @@ public:
 	int countBoss();
 	int countPots();
 
-	void setTimeGame(float timeGame){time = timeGame; };
-	void setLevelPlayer(int levelPlayer){ level = levelPlayer; };
-	void setCountBullets(int countBullets){ bullets = countBullets; };
-	void setCountEnemies(int countEnemies){ enemies = countEnemies; };
-	void setCountBoss(int countBoss){ boss = countBoss; };
-	void setCountPots(int countPots){ pots = countPots; };
+	void setTimeGame(float timeGame){ _time = timeGame; };
+	void setLevelPlayer(int levelPlayer){ _level = levelPlayer; };
+	void setCountBullets(int countBullets){ _bullets = countBullets; };
+	void setCountEnemies(int countEnemies){ _enemies = countEnemies; };
+	void setCountBoss(int countBoss){ _boss = countBoss; };
+	void setCountPots(int countPots){ _pots = countPots; };
 
-protected:
+private:
 
-	float time;
-	int level;
-	int bullets;
-	int enemies;
-	int boss;
-	int pots;
+	Map* _map;
+	Ogre::SceneManager* _sceneManager;
+
+	std::vector<EnemyFighter*> enemies;
+	float _spawnEnemy;
+	Player* _player;
+
+	
+	float _time;
+	int _level;
+	int _bullets;
+	int _enemies;
+	int _boss;
+	int _pots;
 
 	//LevelGame
-	int levelGame = 1;
-	int numWaves = 1;
-	
+	int _levelGame = 1;
+	int _numWaves = 1;
+
 };
 
 #endif

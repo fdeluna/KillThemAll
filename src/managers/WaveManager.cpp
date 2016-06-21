@@ -2,19 +2,55 @@
 
 template<> WaveManager* Ogre::Singleton<WaveManager>::msSingleton = 0;
 
-WaveManager::WaveManager()
-{
+WaveManager* WaveManager::getSingletonPtr() {
+	return msSingleton;
 }
 
-void WaveManager::wave()
+WaveManager& WaveManager::getSingleton() {
+	assert(msSingleton);
+	return *msSingleton;
+}
+
+WaveManager::WaveManager(Ogre::SceneManager* sceneManager) : _sceneManager(sceneManager)
 {
+	_map = new Map(_sceneManager);
+	_map->GenerateMap();
+}
+
+void WaveManager::wave(float deltaTime)
+{	
+	_spawnEnemy += deltaTime;
+	if (_spawnEnemy >= 1){
+		_spawnEnemy = 0;
+		EnemyFighter* newEnemy = nullptr;
+		Ogre::Vector3 enemyPosition = _map->getRandomNodePosition();
+		int enemyType = (rand() % 10) + 1;
+
+		if (enemyType > 2) {
+			newEnemy = new EnemyFighter(_sceneManager, Ogre::Vector3(enemyPosition.x + 0.5, 0.5, enemyPosition.z +0.5), MESHES[MeshName::ENEMYFIGHTER], _player);
+			enemies.push_back(newEnemy);
+		}				
+	}
+
+	if (enemies.size() > 0){
+		for (int i = 0; i < enemies.size(); i++){
+			if (enemies[i] && enemies[i]->isActive()){
+				enemies[i]->update(deltaTime);
+			}
+			else{
+				Enemy* aux = enemies[i];
+				enemies.erase(enemies.begin() + i);
+				delete aux;
+			}
+		}
+	}
 	//crear enemigos con el el level al que este el levelGame
 
-	if (levelGame%5 == 0){
+	if (_levelGame % 5 == 0){
 		//toca boss del nivel al que este levelGame
 	}
 	//Final
-	levelGame++;
+	_levelGame++;
 }
 
 
@@ -24,44 +60,31 @@ WaveManager::~WaveManager()
 
 float WaveManager::timeGame(){
 
-	return time;
+	return _time;
 }
 
 int WaveManager::levelPlayer(){
 
-	return level;
+	return _level;
 }
 
 int WaveManager::countEnemies(){
 
-	return enemies;
+	return _enemies;
 }
 
 int WaveManager::countBoss(){
 
-	return boss;
+	return _boss;
 }
 
 int WaveManager::countBullets(){
 
-	return bullets;
+	return _bullets;
 }
 
 int WaveManager::countPots(){
 
-	return pots;
+	return _pots;
 }
 
-
-WaveManager*
-WaveManager::getSingletonPtr()
-{
-	return msSingleton;
-}
-
-WaveManager&
-WaveManager::getSingleton()
-{
-	assert(msSingleton);
-	return *msSingleton;
-}

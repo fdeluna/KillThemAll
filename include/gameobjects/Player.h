@@ -6,7 +6,6 @@
 #include "RigidBodyComponent.h"
 #include "PlayerInputComponent.h"
 #include "Enum.h"
-#include "WaveManager.h"
 
 class Player : public GameObject{
 

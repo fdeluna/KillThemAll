@@ -58,6 +58,7 @@ private:
 	CEGUI::OgreRenderer* _renderer;
 
 	float _gameOverDelay = 0;
+	float _startDelay = 0;
 
 	WaveManager* _waveManager;
 	PhysicsManager* _physicsManager;

@@ -5,11 +5,16 @@ void EnemyFighter::collision(GameObject* gameObject){
 	if (gameObject){
 		if (gameObject->getType() == GameObjectType::PLAYER){
 			if (isAttacking ){
-				_player->hitted(_attackDamage);
+				_player->hitted(_damage);
 				_nextAttack = 0;
 				isAttacking = false;
+			}			
+		}
+
+		if (gameObject->getType() == GameObjectType::HELL){
+			if (isAttacking){
+				_life = 0;
 			}
-			//_state = EnemyState::DIE;
 		}
 	}
 }

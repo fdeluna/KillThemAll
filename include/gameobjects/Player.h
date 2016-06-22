@@ -14,10 +14,13 @@ public:
 	Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
 	~Player();
 
+	void collision(GameObject* gameObject);
+
 	Ogre::Vector3 getPosition(){ return _rigidBodyComponent->getPosition(); };
 
 	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponent; };
 	PlayerInputComponent* getPlayerInputComponent(){ return _playerInput; };
+
 	
 
 	int getLife(){ return life; };

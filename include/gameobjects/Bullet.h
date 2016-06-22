@@ -2,9 +2,11 @@
 #define Bullet_H
 
 #include "GameObject.h"
+#include "Player.h"
+#include "Enemy.h"
 #include "SceneNodeComponent.h"
 #include "RigidBodyComponent.h"
-#include "Player.h"
+
 
 class Bullet : public GameObject{
 
@@ -19,6 +21,9 @@ public:
 	RigidBodyComponent* getRigidBodyComponent(){ return _rigidBodyComponent; };
 
 private:
+
+	int _damage;
+
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
 };

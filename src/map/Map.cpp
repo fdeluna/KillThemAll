@@ -1,10 +1,8 @@
 #include "Map.h"
 
 void Map::GenerateMap(){
-	_mapSize = Ogre::Vector2(15, 20);
+	_mapSize = Ogre::Vector2(10, 10);
 	_mapCenter = Ogre::Vector2(_mapSize.x / 2, _mapSize.y / 2);
-
-
 
 	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[MeshName::OBSTACLENODE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
 	RigidBodyComponent* hellBody = new RigidBodyComponent((GameObject*)this, GameObjectType::HELL, hell);
@@ -17,50 +15,6 @@ void Map::GenerateMap(){
 	rigidBodyComponent = new RigidBodyComponent(nullptr, GameObjectType::MAP_FLOOR, planeNode);
 	rigidBodyComponent->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
 	planeNode->setMaterialName("Floor");
-
-	//addComponent(planeNode);
-	//addComponent(rigidBodyComponent);
-
-	// TODO PREGUNTAR PROFESORES
-	/*createPlane("hell", _mapSize.x + 0.2, _mapSize.y + 0.2);
-	SceneNodeComponent* hellPlaneNode = new SceneNodeComponent(_sceneManager, "HellPlaneFloor","hell", Ogre::Vector3(100,1,100), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
-	RigidBodyComponent* rigidBodyComponentHell = new RigidBodyComponent((GameObject*)this, GameObjectType::MAP_FLOOR, hellPlaneNode);
-	rigidBodyComponentHell->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));*/
-
-	// Render To Texture (MIRROR EFFECT) ------------------------------------
-	/*Ogre::TexturePtr rttM_texture = Ogre::TextureManager::getSingleton().createManual(
-		"RttMTex", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		Ogre::TEX_TYPE_2D, 2048, 2048, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET);
-
-		Ogre::RenderTexture *rMtex = rttM_texture->getBuffer()->getRenderTarget();
-
-		Ogre::Camera *camM = _sceneManager->createCamera("MirrorCamera");
-		camM->setPosition(_sceneManager->getCamera("PlayState")->getPosition());
-		camM->setOrientation(_sceneManager->getCamera("PlayState")->getOrientation());
-		camM->setAspectRatio(_sceneManager->getCamera("PlayState")->getAspectRatio());
-
-		rMtex->addViewport(camM);
-		rMtex->getViewport(0)->setClearEveryFrame(true);
-		rMtex->getViewport(0)->setBackgroundColour(Ogre::ColourValue::Black);
-		rMtex->getViewport(0)->setOverlaysEnabled(false);
-		rMtex->setAutoUpdated(true);
-
-		Ogre::MaterialPtr mMPtr = Ogre::MaterialManager::getSingleton().create(
-		"RttMMat", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		Ogre::Technique* matMTechnique = mMPtr->createTechnique();
-		matMTechnique->createPass();
-		Ogre::TextureUnitState *t = mMPtr->getTechnique(0)->getPass(0)->createTextureUnitState("tile.png");
-		t->setScrollAnimation(-0.5, 0);
-		t = mMPtr->getTechnique(0)->getPass(0)->createTextureUnitState("RttMTex");
-		t->setColourOperationEx(Ogre::LBX_BLEND_MANUAL, Ogre::LBS_TEXTURE, Ogre::LBS_CURRENT, Ogre::ColourValue::White, Ogre::ColourValue::White, 0.5);
-		t->setTextureAddressingMode(Ogre::TextureUnitState::TAM_CLAMP);
-		t->setProjectiveTexturing(true, camM);
-
-		camM->enableReflection(plane);
-		camM->enableCustomNearClipPlane(plane);
-
-		planeNode->setMaterialName("RttMMat");*/
-
 
 	// MAP GENERATION
 	std::vector<MapNode*> gridRow;
@@ -131,13 +85,6 @@ void Map::cleanMap(){
 	}
 	grid.clear();
 }
-
-void Map::collision(GameObject* gameObject){
-	if (gameObject->getType() == GameObjectType::PLAYER || gameObject->getType() == GameObjectType::ENEMY){
-		gameObject->setActive(false);
-	}
-}
-
 
 MapNode* Map::nodeFromWorldPosition(Ogre::Vector3 position){
 

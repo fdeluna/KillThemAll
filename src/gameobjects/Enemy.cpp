@@ -1,25 +1,28 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Player* player) : GameObject(sceneManager){
+Enemy::Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Player* player,int level) : GameObject(sceneManager), _player(player),_level(level){
 
 	_sceneNodeComponent = new SceneNodeComponent(_sceneManager, "Enemy", mesh, Ogre::Vector3(0.1, 0.25, 0.1), position);
 	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::ENEMY, _sceneNodeComponent);
-	_pathFinderComponent = new EnemyPathFinderComponent(_rigidBodyComponent, player);
-	_player = player;
+	_pathFinderComponent = new EnemyPathFinderComponent(_rigidBodyComponent, player);	
 	_state = EnemyState::MOVE;
 	_type = GameObjectType::ENEMY;
 	addComponent(_sceneNodeComponent);
-	addComponent(_rigidBodyComponent);
-	//addComponent(_pathFinderComponent);
+	addComponent(_rigidBodyComponent);	
 }
+
+
 
 
 void Enemy::update(float deltaTime){
 
+	if (_life <= 0){
+		_state = EnemyState::DIE;
+	}
+
 	switch (_state)
 	{
-
 	case EnemyState::ATTACK:
 		if (!attackDistance() & !attack(deltaTime)){
 			_state = EnemyState::MOVE;
@@ -33,6 +36,7 @@ void Enemy::update(float deltaTime){
 		break;
 	case EnemyState::DIE:
 		_active = false;
+		//WaveManager::getSingletonPtr()->addEnemyKilled();
 		die(deltaTime);
 		break;
 	case EnemyState::HITTED:

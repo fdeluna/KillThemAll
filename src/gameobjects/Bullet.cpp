@@ -13,6 +13,7 @@ void Bullet::collision(GameObject* gameObject){
 	if (gameObject){		
 		if (gameObject->getType() == GameObjectType::ENEMY){
 			gameObject->setActive(false);
+			((Enemy*)gameObject)->damageHit(1);
 		}
 		Bullet::~Bullet();
 	}

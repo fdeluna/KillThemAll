@@ -51,6 +51,6 @@ void Gun::shoot(){
 	bullets.push_back(bullet);
 
 	//Resume Game
-	numBullet++;
-	//WaveManager::getSingletonPtr()->setCountBullets(numBullet);
+	_numBullet++;
+	WaveManager::getSingletonPtr()->setCountBullets(_numBullet);
 }

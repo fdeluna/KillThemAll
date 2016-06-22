@@ -11,80 +11,59 @@ WaveManager& WaveManager::getSingleton() {
 	return *msSingleton;
 }
 
-WaveManager::WaveManager(Ogre::SceneManager* sceneManager) : _sceneManager(sceneManager)
-{
+void WaveManager::initWave(){
 	_map = new Map(_sceneManager);
 	_map->GenerateMap();
+	_waveEnemies = 10;
+	_waveEnemies = _waveEnemies * (_levelGame + 2);
+	_waveEnemiesKilled = 0;
+	_levelGame++;
+
+	std::cout << "LEVEL: " << _levelGame << std::endl;
+}
+
+void WaveManager::cleanWave(){
+	if (_map){
+		_map->cleanMap();
+	}
+	if (_enemies.size() > 0){
+		for (int i = 0; i < _enemies.size(); i++){
+			Enemy* aux = _enemies[i];
+			_enemies.erase(_enemies.begin() + i);
+			delete aux;
+		}
+	}
+	_enemies.clear();
 }
 
 void WaveManager::wave(float deltaTime)
-{	
+{
 	_spawnEnemy += deltaTime;
-	if (_spawnEnemy >= 1){
+	if (_spawnEnemy >= 1 && _enemies.size() <= _waveEnemies){
 		_spawnEnemy = 0;
 		EnemyFighter* newEnemy = nullptr;
 		Ogre::Vector3 enemyPosition = _map->getRandomNodePosition();
 		int enemyType = (rand() % 10) + 1;
 
 		if (enemyType > 2) {
-			newEnemy = new EnemyFighter(_sceneManager, Ogre::Vector3(enemyPosition.x + 0.5, 0.5, enemyPosition.z +0.5), MESHES[MeshName::ENEMYFIGHTER], _player);
-			enemies.push_back(newEnemy);
-		}				
+			newEnemy = new EnemyFighter(_sceneManager, Ogre::Vector3(enemyPosition.x + 0.5, 0.5, enemyPosition.z + 0.5), MESHES[MeshName::ENEMYFIGHTER], _player,_levelGame);
+
+		}
+		_enemies.push_back(newEnemy);
 	}
 
-	if (enemies.size() > 0){
-		for (int i = 0; i < enemies.size(); i++){
-			if (enemies[i] && enemies[i]->isActive()){
-				enemies[i]->update(deltaTime);
+
+	if (_enemies.size() > 0){
+		for (int i = 0; i < _enemies.size(); i++){
+			if (_enemies[i] && _enemies[i]->isActive()){
+				_enemies[i]->update(deltaTime);
 			}
 			else{
-				Enemy* aux = enemies[i];
-				enemies.erase(enemies.begin() + i);
+				_waveEnemiesKilled++;
+				Enemy* aux = _enemies[i];
+				_enemies.erase(_enemies.begin() + i);
 				delete aux;
 			}
 		}
 	}
-	//crear enemigos con el el level al que este el levelGame
-
-	if (_levelGame % 5 == 0){
-		//toca boss del nivel al que este levelGame
-	}
-	//Final
-	_levelGame++;
 }
-
-
-WaveManager::~WaveManager()
-{
-}
-
-float WaveManager::timeGame(){
-
-	return _time;
-}
-
-int WaveManager::levelPlayer(){
-
-	return _level;
-}
-
-int WaveManager::countEnemies(){
-
-	return _enemies;
-}
-
-int WaveManager::countBoss(){
-
-	return _boss;
-}
-
-int WaveManager::countBullets(){
-
-	return _bullets;
-}
-
-int WaveManager::countPots(){
-
-	return _pots;
-}
-

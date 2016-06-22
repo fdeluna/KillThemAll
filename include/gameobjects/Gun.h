@@ -28,11 +28,12 @@ public:
 	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponentGun; };
 	RigidBodyComponent* getRigidBodyComponent(){ return _rigidBodyComponentGun; };
 protected:
-
+	
+	int _numBullet;
+	int _damage = 1;
+	Player* _player;
 	SceneNodeComponent* _sceneNodeComponentGun;
 	RigidBodyComponent* _rigidBodyComponentGun;
-	int numBullet;
-	Player* _player;
 };
 
 #endif

@@ -20,6 +20,15 @@ Player::~Player(){
 	GameObject::~GameObject();
 }
 
+
+void Player::collision(GameObject* gameObject){
+	if (gameObject){	
+		if (gameObject->getType() == GameObjectType::HELL){			
+				life = 0;			
+		}
+	}
+}
+
 bool Player::die(){
 
 	

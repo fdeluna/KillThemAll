@@ -50,10 +50,10 @@ enum GameObjectType{
 static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY | MINES;
 static const short enemy_collides_with = PLAYER | OBSTACLE | MAP_FLOOR | HELL | BULLET |MINES;
 static const short obstacle_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET;
-static const short map_floor_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET;
+static const short map_floor_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET | MINES;
 static const short hell_collides_with = PLAYER | ENEMY | BULLET;
 static const short bullet_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY;
-static const short mines_collides_with = ENEMY | PLAYER;
+static const short mines_collides_with = ENEMY | PLAYER | MAP_FLOOR;
 
 static int sceneNodeNumber = 0;
 

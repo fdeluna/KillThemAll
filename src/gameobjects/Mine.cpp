@@ -8,12 +8,15 @@ Mine::Mine(Player* player, Ogre::SceneManager* sceneManager, Ogre::Vector3 posit
 	_sceneNodeComponent->getSceneNode()->setScale(Ogre::Vector3(0.1,0.1,0.1));
 	//_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::OBSTACLE, _sceneNodeComponent);
 	addComponent(_sceneNodeComponent);
+	_type = GameObjectType::MINES;
+
 	//addComponent(_rigidBodyComponent);
 	//_rigidBodyComponent->getRigidBody()->setGravity(Vector3(0,0,0));
 	_player = player;
 	_player->setMineActive(true);
 	_player->setCountMines(_player->getCountMines()-1);
 	audioController = AudioController::getSingletonPtr();
+	automaticExplosion = false;
 }
 
 
@@ -29,6 +32,7 @@ void Mine::collision(GameObject* gameObject){
 	if (gameObject){
 		if (gameObject->getType() == GameObjectType::ENEMY){
 			gameObject->setActive(false);
+			std::cout << "enemigo explotaaaaa" << std::endl;
 		}
 		
 	}
@@ -38,7 +42,14 @@ void Mine::collision(GameObject* gameObject){
 void Mine::update(const Ogre::FrameEvent& evt){
 
 	timer = timer + evt.timeSinceLastFrame;
-	if (timer > timeExplote && _player->getMineActive()){
+
+	
+	if (timer > timeDestroy){
+		Mine::~Mine();
+		timer = 0;
+
+	}
+	if ((timer > timeExplote || automaticExplosion) && _player->getMineActive()){
 	
 		shoot();
 		
@@ -46,10 +57,11 @@ void Mine::update(const Ogre::FrameEvent& evt){
 
 	if (explosion){
 
-		std::cout << "explotaaaaaaaaaaa" << std::endl;
+		//std::cout << "explotaaaaaaaaaaa" << std::endl;
 		explosion = false;
+		timeDestroy = timer + 1;
 		_player->setMineActive(false);
-		Mine::~Mine();
+		//Mine::~Mine();
 
 		//comprobar colisiones
 		//si colisiones destruir

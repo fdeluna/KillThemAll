@@ -194,7 +194,9 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 
 	}
 	else if (_hudWeaponsGun->isVisible()){
-		
+		if (_mine){
+			_mine->setAutomaticExplosion(true);
+		}
 		Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
 		//audioController->playAudio(Audio::MINE);
 

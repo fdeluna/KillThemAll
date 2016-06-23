@@ -25,6 +25,8 @@ public:
 	//GETTER/SETTERS
 	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponent; };
 	RigidBodyComponent* getRigidBodyComponent(){ return _rigidBodyComponent; };
+
+	void setAutomaticExplosion(bool explosion){ automaticExplosion = explosion; };
 protected:
 
 	SceneNodeComponent* _sceneNodeComponent;
@@ -35,5 +37,7 @@ protected:
 	float timeExplote = 5;
 	float timer = 0;
 	bool explosion = false;
+	float timeDestroy = 6;
+	bool automaticExplosion = false;
 };
 #endif

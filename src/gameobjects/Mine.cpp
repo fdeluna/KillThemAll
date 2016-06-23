@@ -21,13 +21,24 @@ Mine::~Mine()
 {
 	delete _rigidBodyComponent;
 	delete _sceneNodeComponent;
+	//delete audioController;
 	GameObject::~GameObject();
 }
+
+void Mine::collision(GameObject* gameObject){
+	if (gameObject){
+		if (gameObject->getType() == GameObjectType::ENEMY){
+			gameObject->setActive(false);
+		}
+		
+	}
+}
+
 
 void Mine::update(const Ogre::FrameEvent& evt){
 
 	timer = timer + evt.timeSinceLastFrame;
-	if (timer > timeExplote){
+	if (timer > timeExplote && _player->getMineActive()){
 	
 		shoot();
 		
@@ -36,10 +47,9 @@ void Mine::update(const Ogre::FrameEvent& evt){
 	if (explosion){
 
 		std::cout << "explotaaaaaaaaaaa" << std::endl;
-		audioController->playAudio(Audio::MINEEXPLOSION);
 		explosion = false;
 		_player->setMineActive(false);
-		//this->~Mine();
+		Mine::~Mine();
 
 		//comprobar colisiones
 		//si colisiones destruir
@@ -48,6 +58,7 @@ void Mine::update(const Ogre::FrameEvent& evt){
 
 
 void Mine::shoot(){
+	audioController->playAudio(Audio::MINEEXPLOSION);
 
 	//Activa el rigid
 	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::MINES, _sceneNodeComponent);

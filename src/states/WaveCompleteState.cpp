@@ -153,7 +153,7 @@ bool WaveCompleteState::upgrade(const CEGUI::EventArgs &e)
 
 bool WaveCompleteState::upgradeWeapon(const CEGUI::EventArgs &e)
 {
-	audioController->playAudio(Audio::UPGRADE);
+	audioController->playAudio(Audio::BUTTON);
 
 	_ventanaUpgrade->setVisible(false);
 	_ventanaWaveComplete->setVisible(true);

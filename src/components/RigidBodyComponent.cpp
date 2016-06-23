@@ -40,13 +40,13 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 		break;
 	case MINES:
 		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(1.5, 1.5, 1.5));
-		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, bullet_collides_with);
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, mines_collides_with);
 		break;
 	}
 
 
 
-	if (type == GameObjectType::PLAYER || type == GameObjectType::ENEMY || type == GameObjectType::BULLET){
+	if (type == GameObjectType::PLAYER || type == GameObjectType::ENEMY || type == GameObjectType::BULLET || type == GameObjectType::MINES){
 		_rigidBody->setShape(_sceneNodeComponent->getSceneNode(), _shape, 0.01, 1, 100.0, position, orientation);
 		//_rigidBody->getBulletRigidBody()->setLinearFactor(btVector3(0, 0, 0));		
 		_rigidBody->getBulletRigidBody()->setAngularFactor(btVector3(0, 0, 0));

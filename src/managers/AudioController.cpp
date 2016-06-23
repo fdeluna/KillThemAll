@@ -31,13 +31,16 @@ AudioController::AudioController(){
 
 	_soundSpawn = _pSoundFXManager->load("AUDIO/sndSelect.wav");
 	_soundUpgrade = _pSoundFXManager->load("AUDIO/sndEnemyDie.wav");
-	/*
 
 	_soundHitEnemy = _pSoundFXManager->load("AUDIO/sndHit.wav");
+	_soundDieEnemy = _pSoundFXManager->load("AUDIO/sndEnemyDie.wav");
+	/*
+
+	
 	_soundHitWall = _pSoundFXManager->load("AUDIO/sndHitWall.wav");
 
 
-	_soundDieEnemy = _pSoundFXManager->load("AUDIO/sndEnemyDie.wav");
+	
 	
 	*/
 

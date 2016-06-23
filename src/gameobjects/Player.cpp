@@ -10,6 +10,7 @@ Player::Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::S
 	addComponent(_sceneNodeComponent);
 	addComponent(_rigidBodyComponent);
 	addComponent(_playerInput);
+	audioController = AudioController::getSingletonPtr();
 }
 
 Player::~Player(){
@@ -50,13 +51,67 @@ void Player::potion(){
 void Player::levelUp(){
 
 	level++;
+
+	std::cout << level << "PLAYER LEVEL" << std::endl;
 	switch (level){
-	
+		
+
+	case 5:
+		_playerInput->setSpeedPlayer(SPEEDPLAYER[SpeedPlayer::NORMALP]);
+		numPots = numPotsMax;
+		numMines = numMinesMax;
 	case 10:
-		numPots = 2;
+		
+		_playerInput->setSpeedPlayer(SPEEDPLAYER[SpeedPlayer::FASTP]);
+		numPots = numPotsMax;
+		numMines = numMinesMax;
+
+
 	default:
-		numPots = 1;
+		break;
 	}
 	
+
+}
+void Player::levelUpPotion(){
+
+	levelPotion++;
+	std::cout << level << "PLAYER POTION" << std::endl;
+
+	switch (levelPotion){
+	
+		case 2:
+
+			numPotsMax = 2;
+			
+		case 3:
+
+			numPotsMax = 3;
+
+		default:
+			break;
+
+	}
+
+}
+void Player::levelUpMines(){
+
+	levelMine++;
+	std::cout << level << "PLAYER MINE" << std::endl;
+
+	switch (levelMine){
+
+	case 2:
+
+		numMinesMax = 2;
+
+	case 3:
+
+		numMinesMax = 3;
+
+	default:
+		break;
+
+	}
 
 }

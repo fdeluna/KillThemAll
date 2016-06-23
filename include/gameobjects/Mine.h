@@ -19,6 +19,8 @@ public:
 
 	void update(const Ogre::FrameEvent& evt);
 	void shoot();
+	void collision(GameObject* gameObject);
+
 
 	//GETTER/SETTERS
 	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponent; };

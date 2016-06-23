@@ -7,6 +7,7 @@
 #include "PlayerInputComponent.h"
 #include "Enum.h"
 #include "WaveManager.h"
+#include "AudioController.h"
 
 class Player : public GameObject{
 
@@ -37,21 +38,30 @@ public:
 	bool die();
 	void hitted(int damage);
 	void levelUp();
+	void levelUpPotion();
+	void levelUpMines();
 	void potion();
+
 
 private:
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
 	PlayerInputComponent* _playerInput;
-	
+	AudioController* audioController;
 	int lifeMax = 8;
 	int life = 8;
 	int level = 1;
+	//POTS
 	int numPots = 1;
+	int numPotsMax = 1;
 	int countPots = 0;
+	int levelPotion = 1;
+	//MINES
 	int mineActive = false;
 	int numMines = 1;
-	int numMinesLevel = 1;
+	int numMinesMax = 1;
+	int levelMine = 1;
+	float velMove = SPEEDPLAYER[SpeedPlayer::SLOWP];
 };
 
 #endif

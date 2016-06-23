@@ -92,6 +92,9 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	_deltaT = evt.timeSinceLastFrame;
 
 	timer = timer + evt.timeSinceLastFrame;
+	if (_mine){
+		_mine->update(evt);
+	}
 	if (_gun){
 		if (timer > _gun->getVelAtack()){
 
@@ -176,8 +179,13 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 		"TaharezLook/Mirilla");
 	//Use pots
 	if (_hudWeaponsShotGun->isVisible()){
-		_player->potion();
-		audioController->playAudio(Audio::POTION);
+		if (_player->getPotions()>0){
+			audioController->playAudio(Audio::POTION);
+
+			_player->potion();
+		
+		}
+		
 
 		hudLife();
 	}
@@ -186,16 +194,18 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 
 	}
 	else if (_hudWeaponsGun->isVisible()){
+		
 		Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
-		audioController->playAudio(Audio::MINE);
+		//audioController->playAudio(Audio::MINE);
 
-		_mine = new Mine(_player, _sceneMgr, Ogre::Vector3(positionMine.x, positionMine.y, positionMine.z), MESHES[MeshName::MINE]);
+		//_mine = new Mine(_player, _sceneMgr, Ogre::Vector3(positionMine.x, positionMine.y, positionMine.z), MESHES[MeshName::MINE]);
 		if (!_player->getMineActive() && _player->getCountMines() > 0){
 			audioController->playAudio(Audio::MINE);
 
 			_mine = new Mine(_player, _sceneMgr, Ogre::Vector3(positionMine.x, positionMine.y, positionMine.z), MESHES[MeshName::MINE]);
 
 		}
+		
 	}
 }
 
@@ -288,7 +298,9 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	}
 	if (OIS::KC_4 == e.key){
 
-		//_player->levelUp();
+		_player->levelUp();
+		_player->levelUpPotion();
+		_player->levelUpMines();
 		_gun->upgrade();
 	}
 	if (OIS::KC_5 == e.key){

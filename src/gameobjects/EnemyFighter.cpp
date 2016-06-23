@@ -5,7 +5,21 @@ void EnemyFighter::collision(GameObject* gameObject){
 	if (gameObject){
 		if (gameObject->getType() == GameObjectType::PLAYER){
 			std::cout << "player" << std::endl;
+			//audioController->playAudio(Audio::HITPLAYER);
+			//_state = EnemyState::HITTED;
 			_state = EnemyState::DIE;
+
+		}
+		if (gameObject->getType() == GameObjectType::BULLET){
+			std::cout << "bullet" << std::endl;
+			//_state = EnemyState::HITTED;
+			_state = EnemyState::DIE;
+
+		}
+		if (gameObject->getType() == GameObjectType::MINES){
+			std::cout << "enemigo explotaaaaa" << std::endl;
+			_state = EnemyState::DIE;
+
 		}
 	}
 }
@@ -23,6 +37,7 @@ void EnemyFighter::update(float deltaTime){
 
 
 bool EnemyFighter::attack(float deltaTime){
+	
 
 	bool attack = true;
 	Ogre::Vector3 attackDirecction;
@@ -56,4 +71,31 @@ bool EnemyFighter::attack(float deltaTime){
 	_rigidBodyComponent->rotate(Ogre::Vector3(_player->getPosition().x, 1, _player->getPosition().z));
 
 	return attack;
+}
+
+void EnemyFighter::upgrade(){
+
+
+	switch (level)
+	{
+	case 5:
+		life = life + 4;
+		speed = SPEEDS[Speed::NORMAL];
+		_pathFinderComponent->setSpeed(speed);
+
+	case 10:
+		life = life + 6;
+		damage = damage + 1;
+		speed = SPEEDS[Speed::FAST];
+		_pathFinderComponent->setSpeed(speed);
+
+	case 15:
+		life = life + 8;
+		damage = damage + 2;
+		_pathFinderComponent->setSpeed(speed);
+
+	default:
+		break;
+	}
+
 }

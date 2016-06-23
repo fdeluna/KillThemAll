@@ -18,11 +18,12 @@ public:
 
 	void move(float deltaTime);
 	void lookAt(float deltaTime);
+	void setSpeed(float speed){ _speed = speed; };
 
 private:
 
 	float _timer = 0;
-	float _speed = 5;
+	float _speed = SPEEDS[Speed::SLOW];
 	bool attackDistance = false;
 
 	Player* _player;

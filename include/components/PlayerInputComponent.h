@@ -20,12 +20,14 @@ public:
 	void lookAt();
 	
 	Ogre::Vector3 getMousePositionWeapon(){ return positionMouseForWaeapon; };
+	void setSpeedPlayer(float speed){ _speed = speed; };
 private:	
 	Ogre::SceneManager* _sceneManager;
 	RigidBodyComponent* _playerBody;	
 	InputManager* _inputManager;	
 	Ogre::Vector3 positionMouseForWaeapon;
 	float _speed = 5;
+
 };
 
 #endif

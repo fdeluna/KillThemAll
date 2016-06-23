@@ -11,6 +11,9 @@ Enemy::Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::Str
 	_type = GameObjectType::ENEMY;
 	addComponent(_sceneNodeComponent);
 	addComponent(_rigidBodyComponent);
+	audioController = AudioController::getSingletonPtr();
+	audioController->playAudio(Audio::SPAWN);
+	
 	//addComponent(_pathFinderComponent);
 }
 
@@ -26,16 +29,20 @@ void Enemy::update(float deltaTime){
 		}
 		break;
 	case EnemyState::MOVE:
+	
 		move(deltaTime);
 		if (attackDistance()){
 			_state = EnemyState::ATTACK;
 		}
 		break;
 	case EnemyState::DIE:
+		audioController->playAudio(Audio::KILLENEMY);
 		_active = false;
+		
 		die(deltaTime);
 		break;
 	case EnemyState::HITTED:
+		audioController->playAudio(Audio::HITENEMY);
 		hitted(deltaTime);
 		break;
 	default:
@@ -52,7 +59,14 @@ bool Enemy::attackDistance(){
 void Enemy::move(float deltaTime){
 	_pathFinderComponent->update(deltaTime);
 }
+void Enemy::hitted(float deltaTime){
 
+	timerStun = timerStun + deltaTime;
+	if (timerStun>stunMax){
+		
+		EnemyState::MOVE;
+	}
+}
 Enemy::~Enemy(){
 	
 	delete _pathFinderComponent;

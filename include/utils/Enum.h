@@ -44,16 +44,16 @@ enum GameObjectType{
 	PLAYER = 8,
 	ENEMY = 16,
 	BULLET = 32,
-	MINES = 42
+	MINES = 64
 };
 
-static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY;
-static const short enemy_collides_with = PLAYER | OBSTACLE | MAP_FLOOR | HELL | BULLET;
+static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY | MINES;
+static const short enemy_collides_with = PLAYER | OBSTACLE | MAP_FLOOR | HELL | BULLET |MINES;
 static const short obstacle_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET;
 static const short map_floor_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET;
 static const short hell_collides_with = PLAYER | ENEMY | BULLET;
 static const short bullet_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY;
-
+static const short mines_collides_with = ENEMY | PLAYER;
 
 static int sceneNodeNumber = 0;
 
@@ -97,12 +97,26 @@ enum class Speed{
 };
 
 static std::map<Speed, float> SPEEDS = {
-	{ Speed::SLOW, 1.5f },
-	{ Speed::NORMAL, 2.0f },
-	{ Speed::FAST, 2.5f }
+	{ Speed::SLOW, 5.5f },
+	{ Speed::NORMAL, 6.5f },
+	{ Speed::FAST, 8.5f }
 
 };
 
+enum class SpeedPlayer{
+
+	SLOWP,
+	NORMALP,
+	FASTP
+
+};
+
+static std::map<SpeedPlayer, float> SPEEDPLAYER = {
+	{ SpeedPlayer::SLOWP, 5.0f },
+	{ SpeedPlayer::NORMALP, 6.0f },
+	{ SpeedPlayer::FASTP, 8.0f }
+
+};
 
 enum class AttackVelocity{
 

@@ -36,6 +36,10 @@ public:
 	float getAtkVelocity() { return atkVelocity; }
 	void setAtkVelocity(float atkVel){ atkVelocity = atkVel; };
 
+	int getLevel() { return level; }
+	void setLevel(int _level){ level = _level; };
+
+
 
 protected:	
 	Player* _player;
@@ -43,16 +47,16 @@ protected:
 	RigidBodyComponent* _rigidBodyComponent;
 	EnemyPathFinderComponent* _pathFinderComponent;
 	EnemyState _state;
+	AudioController* audioController;
 	
 	//Variables
-	int life;//vida del enemigo
-	float speed;//velocidad de movimiento del enemigo
-	float damage;//Danio que hace el enemigo
+	int life = 3;//vida del enemigo
+	float speed = SPEEDS[Speed::SLOW];//velocidad de movimiento del enemigo
+	float damage = 1;//Danio que hace el enemigo
 	float atkVelocity;//velocidad de ataque del enemigo
-	int level;//Nivel del enemigo
-	float timeStun = 0;//Contador para stun
-	float stunMax = 0;//Tiempo que se queda quieto tras recibir un golpe
-	
+	int level;//Nivel del enemigo, que equivale al nivel de la oleada!! 
+	float timerStun = 0;//Contador para stun
+	float stunMax = 5;//Tiempo que se queda quieto tras recibir un golpe
 	//Control
 	bool canAttack = true;
 	bool canMove = true;
@@ -64,7 +68,7 @@ protected:
 	virtual void move(float deltaTime);
 	virtual bool attack(float deltaTime) { return true; };
 	virtual void die(float deltaTime) {};
-	virtual void hitted(float deltaTime) {};
+	virtual void hitted(float deltaTime);
 };
 
 

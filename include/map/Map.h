@@ -13,18 +13,18 @@ class Map : public GameObject{
 
 public:
 
-	Map(Ogre::SceneManager* sceneManager) :GameObject(sceneManager){};
+	Map(Ogre::SceneManager* sceneManager) :GameObject(sceneManager){ _type = GameObjectType::HELL;}
 	~Map(){ cleanMap();  GameObject::~GameObject(); };
 
 	void GenerateMap();
-	void cleanMap();
-	void collision(GameObject* gameObject);
+	void cleanMap();	
 	Ogre::Vector2 _mapCenter;
 
-	MapNode* nodeFromWorldPosition(Ogre::Vector3 position);
+	MapNode* nodeFromWorldPosition(Ogre::Vector3 position);;
 	std::vector<MapNode*> getNeighbours(MapNode* node);
 
 	std::vector<std::vector <MapNode*>> getGrid(){ return grid; };
+	Ogre::Vector3 getRandomNodePosition();
 
 
 private:

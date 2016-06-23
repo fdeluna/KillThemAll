@@ -268,7 +268,7 @@ void GameOverState::createGUI()
 	_exit->subscribeEvent(CEGUI::PushButton::EventClicked,
 		CEGUI::Event::Subscriber(&GameOverState::quit, this));
 
-	_timeGame = _ventanaGameOver->getChild("Tiempo");
+	/*_timeGame = _ventanaGameOver->getChild("Tiempo");
 	std::stringstream timeGame;
 	timeGame << WaveManager::getSingletonPtr()->timeGame();
 	_timeGame->setText(timeGame.str());
@@ -296,7 +296,7 @@ void GameOverState::createGUI()
 	_pots = _ventanaGameOver->getChild("Pociones");
 	std::stringstream pots;
 	pots << WaveManager::getSingletonPtr()->countPots();
-	_pots->setText(pots.str());
+	_pots->setText(pots.str());*/
 
 
 	//_ventanaGameOver->setXPosition(CEGUI::UDim(0.50,0));

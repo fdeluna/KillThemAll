@@ -1,16 +1,15 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Player* player) : GameObject(sceneManager){
+Enemy::Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Player* player,int level) : GameObject(sceneManager), _player(player),_level(level){
 
 	_sceneNodeComponent = new SceneNodeComponent(_sceneManager, "Enemy", mesh, Ogre::Vector3(0.1, 0.25, 0.1), position);
 	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::ENEMY, _sceneNodeComponent);
-	_pathFinderComponent = new EnemyPathFinderComponent(_rigidBodyComponent, player);
-	_player = player;
+	_pathFinderComponent = new EnemyPathFinderComponent(_rigidBodyComponent, player);	
 	_state = EnemyState::MOVE;
 	_type = GameObjectType::ENEMY;
 	addComponent(_sceneNodeComponent);
-	addComponent(_rigidBodyComponent);
+	addComponent(_rigidBodyComponent);	
 	audioController = AudioController::getSingletonPtr();
 	audioController->playAudio(Audio::SPAWN);
 	
@@ -18,18 +17,22 @@ Enemy::Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::Str
 }
 
 
+
+
 void Enemy::update(float deltaTime){
+
+	if (_life <= 0){
+		_state = EnemyState::DIE;
+	}
 
 	switch (_state)
 	{
-
 	case EnemyState::ATTACK:
 		if (!attackDistance() & !attack(deltaTime)){
 			_state = EnemyState::MOVE;
 		}
 		break;
 	case EnemyState::MOVE:
-	
 		move(deltaTime);
 		if (attackDistance()){
 			_state = EnemyState::ATTACK;
@@ -37,8 +40,7 @@ void Enemy::update(float deltaTime){
 		break;
 	case EnemyState::DIE:
 		audioController->playAudio(Audio::KILLENEMY);
-		_active = false;
-		
+		_active = false;		
 		die(deltaTime);
 		break;
 	case EnemyState::HITTED:
@@ -57,16 +59,20 @@ bool Enemy::attackDistance(){
 }
 
 void Enemy::move(float deltaTime){
-	_pathFinderComponent->update(deltaTime);
+	if (_pathFinderComponent){	
+		_pathFinderComponent->update(deltaTime);
+	}
 }
+
 void Enemy::hitted(float deltaTime){
 
-	timerStun = timerStun + deltaTime;
-	if (timerStun>stunMax){
-		
+	_timeStun = _timeStun + deltaTime;
+	if (_timeStun>_stunMax){
+		_timeStun = 0;
 		EnemyState::MOVE;
 	}
 }
+
 Enemy::~Enemy(){
 	
 	delete _pathFinderComponent;

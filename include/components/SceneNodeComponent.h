@@ -22,6 +22,7 @@ public:
 	void setDiffuseColor(Ogre::ColourValue diffuseColor);
 	//void addToRootScene();
 	void setMaterialName(Ogre::String materialName);
+	void setMesh(Ogre::String mesh);
 
 private:
 	Ogre::SceneManager* _sceneManager;

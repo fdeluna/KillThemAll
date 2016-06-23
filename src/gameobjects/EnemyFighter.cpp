@@ -1,21 +1,21 @@
 #include "EnemyFighter.h"
 
-
 void EnemyFighter::collision(GameObject* gameObject){
 	if (gameObject){
 		if (gameObject->getType() == GameObjectType::PLAYER){
-			std::cout << "player" << std::endl;
-			//audioController->playAudio(Audio::HITPLAYER);
-			//_state = EnemyState::HITTED;
-			_state = EnemyState::DIE;
-
+			if (isAttacking ){
+				_player->hitted(_damage);
+				_nextAttack = 0;
+				isAttacking = false;
+			}			
 		}
-		if (gameObject->getType() == GameObjectType::BULLET){
-			std::cout << "bullet" << std::endl;
-			//_state = EnemyState::HITTED;
-			_state = EnemyState::DIE;
 
+		if (gameObject->getType() == GameObjectType::HELL){
+			if (isAttacking){
+				_life = 0;
+			}
 		}
+		
 		if (gameObject->getType() == GameObjectType::MINES){
 			std::cout << "enemigo explotaaaaa" << std::endl;
 			_state = EnemyState::DIE;
@@ -25,19 +25,24 @@ void EnemyFighter::collision(GameObject* gameObject){
 }
 
 
+
 void EnemyFighter::update(float deltaTime){
 	if (_state == EnemyState::MOVE){
 		_attackTime = 1;
+		_nextAttack = 0;
 		_endAttack = false;
 		_startPositon = Ogre::Vector3::ZERO;
 		_attackPosition = Ogre::Vector3::ZERO;
+		// TODO CAMBIAR DE SITIO
+		//AudioController::getSingletonPtr()->playAudio(Audio::HITENEMY);
+	}
+	else{
+		_nextAttack += deltaTime;
 	}
 	Enemy::update(deltaTime);
 }
-
-
-bool EnemyFighter::attack(float deltaTime){
 	
+bool EnemyFighter::attack(float deltaTime){
 
 	bool attack = true;
 	Ogre::Vector3 attackDirecction;
@@ -46,22 +51,25 @@ bool EnemyFighter::attack(float deltaTime){
 	if (_startPositon == Ogre::Vector3::ZERO && _attackPosition == Ogre::Vector3::ZERO){
 		_startPositon = getPosition();
 		_attackPosition = _player->getPosition();
+		isAttacking = true;
 	}
 	attackDirecction = (_attackPosition - _startPositon).normalisedCopy();
-	float attackSpeed = 7;
-	float backSpeed = 4;
 
-	if (_attackTime <= 0.65){
+	if (_attackTime <= 0.8){
 		if (getPosition().distance(_attackPosition) > 1 && !_endAttack) {
-			_rigidBodyComponent->translate(attackDirecction * attackSpeed * deltaTime);
+			_rigidBodyComponent->translate(attackDirecction * _attackSpeed * deltaTime);									
+			_sceneNodeComponent->setMaterialName("CuerpoEnemyFigtherAttakking");
 		}
-		else if (getPosition().distance(_startPositon) >= 0.25){
+		else if (getPosition().distance(_startPositon) >= 0.1){
 			_endAttack = true;
-			_rigidBodyComponent->translate(-1 * attackDirecction * backSpeed * deltaTime);
+			_rigidBodyComponent->translate(-1 * attackDirecction * _backSpeed * deltaTime);			
+			_sceneNodeComponent->setMaterialName("CuerpoEnemyFigther");
+
 		}
 	}
 	else{
 		_attackTime = 0;
+		_nextAttack = 0;
 		attack = false;
 		_endAttack = false;
 		_startPositon = Ogre::Vector3::ZERO;
@@ -70,32 +78,7 @@ bool EnemyFighter::attack(float deltaTime){
 
 	_rigidBodyComponent->rotate(Ogre::Vector3(_player->getPosition().x, 1, _player->getPosition().z));
 
+
 	return attack;
 }
 
-void EnemyFighter::upgrade(){
-
-
-	switch (level)
-	{
-	case 5:
-		life = life + 4;
-		speed = SPEEDS[Speed::NORMAL];
-		_pathFinderComponent->setSpeed(speed);
-
-	case 10:
-		life = life + 6;
-		damage = damage + 1;
-		speed = SPEEDS[Speed::FAST];
-		_pathFinderComponent->setSpeed(speed);
-
-	case 15:
-		life = life + 8;
-		damage = damage + 2;
-		_pathFinderComponent->setSpeed(speed);
-
-	default:
-		break;
-	}
-
-}

@@ -1,18 +1,17 @@
 #ifndef PlayState_H
 #define PlayState_H
 
-
 #include "GameState.h"
 #include "WaveCompleteState.h"
 #include "GameOverState.h"
 #include "Map.h"
 #include "PhysicsManager.h"
+
 #include "PathFinder.h"
 #include "Player.h"
 #include "Bullet.h"
 #include "Gun.h"
 #include "EnemyFighter.h"
-#include "WaveManager.h"
 #include "Mine.h"
 
 #include <future>
@@ -61,25 +60,25 @@ private:
 
 	float _deltaT = 0;
 
-	CEGUI::OgreRenderer* _renderer;
 
+	float _gameOverDelay = 0;
+	float _startDelay = 0;
+
+	WaveManager* _waveManager;
 	float timer = 0;
 	float timerReload = 0;
 	PhysicsManager* _physicsManager;
+	PathFinder* _pathFinder;
 	Map* _map;
 	Player* _player;
 	Enemy* _enemy;
 	Bullet* _bullet;
 	Gun* _gun;
 	Mine* _mine;
-	std::vector<Enemy*> enemies;
 
-
+	std::vector<Enemy*> enemies;	
 
 	// CEGUI
-
-	PathFinder* _pathFinder;
-
 	bool quit(const CEGUI::EventArgs &e);
 	bool save(const CEGUI::EventArgs &e);
 	void hudLife();

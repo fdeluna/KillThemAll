@@ -1,14 +1,12 @@
 #include "Map.h"
 
 void Map::GenerateMap(){
-	_mapSize = Ogre::Vector2(25, 25);
+	_mapSize = Ogre::Vector2(10, 10);
 	_mapCenter = Ogre::Vector2(_mapSize.x / 2, _mapSize.y / 2);
 
-
-
-	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[MeshName::TILE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
+	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[MeshName::OBSTACLENODE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
 	RigidBodyComponent* hellBody = new RigidBodyComponent((GameObject*)this, GameObjectType::HELL, hell);
-	hell->setMaterialName("DarkSlateGray");
+	hell->setMaterialName("Ground");
 
 	// TODO REFACTOR TO STYLE SELECTION
 	Ogre::Plane plane = createPlane("mapFloor", _mapSize.x + 0.2, _mapSize.y + 0.2);	
@@ -16,57 +14,13 @@ void Map::GenerateMap(){
 
 	rigidBodyComponent = new RigidBodyComponent(nullptr, GameObjectType::MAP_FLOOR, planeNode);
 	rigidBodyComponent->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
-	planeNode->setMaterialName("Ground");
-
-	//addComponent(planeNode);
-	//addComponent(rigidBodyComponent);
-
-	// TODO PREGUNTAR PROFESORES
-	/*createPlane("hell", _mapSize.x + 0.2, _mapSize.y + 0.2);
-	SceneNodeComponent* hellPlaneNode = new SceneNodeComponent(_sceneManager, "HellPlaneFloor","hell", Ogre::Vector3(100,1,100), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
-	RigidBodyComponent* rigidBodyComponentHell = new RigidBodyComponent((GameObject*)this, GameObjectType::MAP_FLOOR, hellPlaneNode);
-	rigidBodyComponentHell->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));*/
-
-	// Render To Texture (MIRROR EFFECT) ------------------------------------
-	/*Ogre::TexturePtr rttM_texture = Ogre::TextureManager::getSingleton().createManual(
-		"RttMTex", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		Ogre::TEX_TYPE_2D, 2048, 2048, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET);
-
-		Ogre::RenderTexture *rMtex = rttM_texture->getBuffer()->getRenderTarget();
-
-		Ogre::Camera *camM = _sceneManager->createCamera("MirrorCamera");
-		camM->setPosition(_sceneManager->getCamera("PlayState")->getPosition());
-		camM->setOrientation(_sceneManager->getCamera("PlayState")->getOrientation());
-		camM->setAspectRatio(_sceneManager->getCamera("PlayState")->getAspectRatio());
-
-		rMtex->addViewport(camM);
-		rMtex->getViewport(0)->setClearEveryFrame(true);
-		rMtex->getViewport(0)->setBackgroundColour(Ogre::ColourValue::Black);
-		rMtex->getViewport(0)->setOverlaysEnabled(false);
-		rMtex->setAutoUpdated(true);
-
-		Ogre::MaterialPtr mMPtr = Ogre::MaterialManager::getSingleton().create(
-		"RttMMat", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		Ogre::Technique* matMTechnique = mMPtr->createTechnique();
-		matMTechnique->createPass();
-		Ogre::TextureUnitState *t = mMPtr->getTechnique(0)->getPass(0)->createTextureUnitState("tile.png");
-		t->setScrollAnimation(-0.5, 0);
-		t = mMPtr->getTechnique(0)->getPass(0)->createTextureUnitState("RttMTex");
-		t->setColourOperationEx(Ogre::LBX_BLEND_MANUAL, Ogre::LBS_TEXTURE, Ogre::LBS_CURRENT, Ogre::ColourValue::White, Ogre::ColourValue::White, 0.5);
-		t->setTextureAddressingMode(Ogre::TextureUnitState::TAM_CLAMP);
-		t->setProjectiveTexturing(true, camM);
-
-		camM->enableReflection(plane);
-		camM->enableCustomNearClipPlane(plane);
-
-		planeNode->setMaterialName("RttMMat");*/
-
+	planeNode->setMaterialName("Floor");
 
 	// MAP GENERATION
 	std::vector<MapNode*> gridRow;
 	for (int x = 0; x < _mapSize.x; x++){
 		for (int y = 0; y < _mapSize.y; y++){
-			Ogre::Vector3 position(x, -0.05, y);			
+			Ogre::Vector3 position(x, 0, y);			
 			MapNode* aux = new MapNode(_sceneManager, true, position, MESHES[MeshName::TILE], planeNode->getSceneNode(), x, y);
 			gridRow.push_back(aux);
 		}
@@ -103,7 +57,7 @@ void Map::GenerateMap(){
 			if (_mapCenter != coord && isMapAccessible(obstacleMap, currentNumberObstacules)){
 				float colourPercent = coord.y / (float)_mapSize.y;
 				Ogre::Math::lerp<Ogre::ColourValue, float>(Ogre::ColourValue::Black, Ogre::ColourValue::Red, colourPercent);
-				shuffledgrid[x][y]->makeObstacle(Ogre::Vector3(0.5, 10, 0.5), Ogre::Math::lerp<Ogre::ColourValue, float>(Ogre::ColourValue::White, Ogre::ColourValue::Blue, colourPercent));
+				shuffledgrid[x][y]->makeObstacle(Ogre::Vector3(0.5, 0.75, 0.5), MESHES[MeshName::OBSTACLENODE]);
 			}
 			else{
 				currentNumberObstacules--;
@@ -131,13 +85,6 @@ void Map::cleanMap(){
 	}
 	grid.clear();
 }
-
-void Map::collision(GameObject* gameObject){
-	if (gameObject->getType() == GameObjectType::PLAYER || gameObject->getType() == GameObjectType::ENEMY){
-		gameObject->setActive(false);
-	}
-}
-
 
 MapNode* Map::nodeFromWorldPosition(Ogre::Vector3 position){
 
@@ -215,4 +162,21 @@ bool Map::isMapAccessible(std::vector< std::vector <bool>> obstacleMap, int curr
 
 	bool aux = totalNoObstacleTiles == noObstacletiles;
 	return totalNoObstacleTiles == noObstacletiles;
+}
+
+
+Ogre::Vector3 Map::getRandomNodePosition(){
+	Ogre::Vector3 nodePosition = Ogre::Vector3::ZERO;
+
+
+	while (nodePosition == Ogre::Vector3::ZERO){
+		int x = rand() % (int)_mapSize.x;
+		int y = rand() % (int)_mapSize.y;
+
+		if (grid[x][y]->isWakable()){
+			nodePosition = grid[x][y]->getSceneNode()->getSceneNode()->getPosition();
+		}
+	}
+
+	return nodePosition;
 }

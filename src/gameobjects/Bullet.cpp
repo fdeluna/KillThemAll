@@ -9,11 +9,11 @@ Bullet::Bullet(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::S
 	addComponent(_rigidBodyComponent);
 }
 
-
 void Bullet::collision(GameObject* gameObject){
-	if (gameObject){
+	if (gameObject){		
 		if (gameObject->getType() == GameObjectType::ENEMY){
 			gameObject->setActive(false);
+			((Enemy*)gameObject)->damageHit(1);
 		}
 		Bullet::~Bullet();
 	}

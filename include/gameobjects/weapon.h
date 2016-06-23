@@ -3,10 +3,12 @@
 
 
 #include "AudioController.h"
+#include "Player.h"
+#include "WaveManager.h"
 #include "Bullet.h"
 #include "SceneNodeComponent.h"
 #include "RigidBodyComponent.h"
-#include "Player.h"
+
 
 using namespace Ogre;
 

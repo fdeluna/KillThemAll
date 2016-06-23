@@ -14,7 +14,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 	switch (type)
 	{
 	case OBSTACLE:
-		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(0.5, 0.5, 0.5));
+		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(0.5, 1, 0.5));
 		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld());
 		break;
 	case HELL:
@@ -43,8 +43,6 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, mines_collides_with);
 		break;
 	}
-
-
 
 	if (type == GameObjectType::PLAYER || type == GameObjectType::ENEMY || type == GameObjectType::BULLET){
 		_rigidBody->setShape(_sceneNodeComponent->getSceneNode(), _shape, 0.01, 1, 100.0, position, orientation);

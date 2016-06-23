@@ -12,14 +12,13 @@ WaveManager& WaveManager::getSingleton() {
 }
 
 void WaveManager::initWave(){
+	std::cout << "LEVEL: " << _levelGame << std::endl;
 	_map = new Map(_sceneManager);
 	_map->GenerateMap();
 	_waveEnemies = 10;
-	_waveEnemies = _waveEnemies * (_levelGame + 2);
+	_waveEnemies = _waveEnemies * (_levelGame);
 	_waveEnemiesKilled = 0;
-	_levelGame++;
-
-	std::cout << "LEVEL: " << _levelGame << std::endl;
+	_levelGame++;	
 }
 
 void WaveManager::cleanWave(){
@@ -46,7 +45,7 @@ void WaveManager::wave(float deltaTime)
 		int enemyType = (rand() % 10) + 1;
 
 		if (enemyType > 2) {
-			newEnemy = new EnemyFighter(_sceneManager, Ogre::Vector3(enemyPosition.x + 0.5, 0.5, enemyPosition.z + 0.5), MESHES[MeshName::ENEMYFIGHTER], _player,_levelGame);
+			newEnemy = new EnemyFighter(_sceneManager, Ogre::Vector3(enemyPosition.x, 0.5, enemyPosition.z), MESHES[MeshName::ENEMYFIGHTER], _player,_levelGame);
 
 		}
 		_enemies.push_back(newEnemy);

@@ -115,6 +115,8 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 			}
 		}
 
+		std::cout << "Enemies Killed: " << _waveManager->getWaveEnemiesKilled() << std::endl;
+		std::cout << "Enemies Wave: " << _waveManager->getWaveEnemies() << std::endl;
 		if (_waveManager->getWaveEnemiesKilled() >= _waveManager->getWaveEnemies()){						
 			changeState(WaveCompleteState::getSingletonPtr());
 		}

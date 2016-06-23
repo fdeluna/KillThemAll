@@ -35,8 +35,7 @@ void Enemy::update(float deltaTime){
 		}
 		break;
 	case EnemyState::DIE:
-		_active = false;
-		//WaveManager::getSingletonPtr()->addEnemyKilled();
+		_active = false;		
 		die(deltaTime);
 		break;
 	case EnemyState::HITTED:
@@ -54,7 +53,9 @@ bool Enemy::attackDistance(){
 }
 
 void Enemy::move(float deltaTime){
-	_pathFinderComponent->update(deltaTime);
+	if (_pathFinderComponent){	
+		_pathFinderComponent->update(deltaTime);
+	}
 }
 
 Enemy::~Enemy(){

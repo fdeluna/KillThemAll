@@ -9,7 +9,6 @@
 #include "GameState.h"
 #include "Map.h"
 #include "PhysicsManager.h"
-#include "WaveManager.h"
 #include "AudioController.h"
 
 class IntroState : public Ogre::Singleton<IntroState>, public GameState

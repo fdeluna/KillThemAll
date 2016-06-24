@@ -20,7 +20,7 @@ public:
 
 	void setWalkable(bool walkable);
 	void setScale(Ogre::Vector3 scale);
-	void makeObstacle(Ogre::Vector3 scale, Ogre::ColourValue color);
+	void makeObstacle(Ogre::Vector3 scale, Ogre::String mesh);
 
 
 	bool isWakable();

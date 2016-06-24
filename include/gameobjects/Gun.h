@@ -33,12 +33,13 @@ public:
 	bool getReloading(){ return reloading; };
 	float getVelAtack(){ return velAtack; };
 protected:
-
+	
+	int _numBullet;
+	int _damage = 1;
+	Player* _player;
 	SceneNodeComponent* _sceneNodeComponentGun;
 	RigidBodyComponent* _rigidBodyComponentGun;
 	AudioController* audioController;
-	int numBullet;
-	Player* _player;
 	bool canShoot = true;
 	float velAtack = ATTACKVELOCITIES[AttackVelocity::SLOW];
 	float dmg = 2;

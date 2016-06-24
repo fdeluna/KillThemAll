@@ -60,3 +60,15 @@ void SceneNodeComponent::setMaterialName(Ogre::String materialName){
 	_entity->setMaterialName(materialName);
 }
 
+void SceneNodeComponent::setMesh(Ogre::String mesh){
+
+	Ogre::String enityName("SceneComponentEntity");
+	enityName.append(Ogre::StringConverter::toString(getSceneNodeNumber()));
+	enityName.append(mesh);
+	getOgreName(enityName);
+
+	_sceneNode->detachAllObjects();
+	_entity = _sceneManager->createEntity(enityName, mesh);	
+	_sceneNode->attachObject(_entity);
+}
+

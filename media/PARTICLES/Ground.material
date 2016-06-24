@@ -1,0 +1,95 @@
+material Ground
+{
+	receive_shadows on
+	technique
+	{
+		pass
+		{
+			ambient 0.75 0.75 0.75
+			diffuse 1 1 1 1
+			
+			texture_unit
+			{
+				texture ground.jpg
+			}
+		}
+	}
+}
+
+material Ground2
+{
+	receive_shadows on
+	technique
+	{
+		pass
+		{
+			ambient 0.75 0.75 0.75
+			diffuse 1 1 1 1
+			
+			texture_unit
+			{
+				RTS_Crate.png
+			}
+		}
+	}
+}
+
+
+material Ground3
+{
+	receive_shadows on
+	technique
+	{
+		pass
+		{
+			ambient 0.75 0.75 0.75
+			diffuse 1 1 1 1
+			
+			texture_unit
+			{
+				texture muros_Base_Color.png						
+			}
+		}
+	}
+}
+
+material Core
+{
+	receive_shadows on
+	technique
+	{
+		pass
+		{
+			ambient 0.75 0.75 0.75
+			diffuse 1 1 1 1
+			
+			texture_unit
+			{
+				texture Core.png
+			}
+		}
+	}
+}
+Material CoreRed
+{
+	receive_shadows on
+	technique
+	{
+		pass
+		{
+			
+
+			
+			specular 255.0 0.4000000059604645 0.4000000059604645 1.0 0.25
+			colour 1.0 1.0 0.0 0.0
+			 alpha_to_coverage on
+          
+			texture_unit
+			{
+				texture Core.png
+				
+
+			}
+		}
+	}
+}

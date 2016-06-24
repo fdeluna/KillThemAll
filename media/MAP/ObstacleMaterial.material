@@ -1,0 +1,45 @@
+// ObstacleMaterial genrated by blender2ogre 0.6.0
+
+material ObstacleMaterial 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass ObstacleMaterial
+        {
+            ambient 5 8 7 1.0
+            diffuse 5 8 7 1.0
+            specular 5 8 7 1.0            											
+
+			texture_unit
+			{
+				texture WoodBox.png
+			}
+        }
+    }
+}
+
+
+
+material ObstacleMaterial 1
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass ObstacleMaterial
+        {
+            ambient 0.800000011920929 0.800000011920929 0.800000011920929 1.0
+            diffuse 0.6400000190734865 0.6400000190734865 0.6400000190734865 1.0
+            specular 0.5 0.5 0.5 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+			
+						
+			texture_unit
+			{
+				texture WoodBox.png
+			}
+        }
+    }
+}

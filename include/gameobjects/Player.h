@@ -6,7 +6,6 @@
 #include "RigidBodyComponent.h"
 #include "PlayerInputComponent.h"
 #include "Enum.h"
-#include "WaveManager.h"
 #include "AudioController.h"
 
 class Player : public GameObject{
@@ -16,10 +15,12 @@ public:
 	Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
 	~Player();
 
-	Ogre::Vector3 getPosition(){ return _rigidBodyComponent->getPosition(); };
+	void collision(GameObject* gameObject);
 
+	Ogre::Vector3 getPosition(){ return _rigidBodyComponent->getPosition(); };
 	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponent; };
 	PlayerInputComponent* getPlayerInputComponent(){ return _playerInput; };
+	
 	
 
 	int getLife(){ return life; };
@@ -42,6 +43,8 @@ public:
 	void levelUpMines();
 	void potion();
 
+private:
+
 
 private:
 	SceneNodeComponent* _sceneNodeComponent;
@@ -54,7 +57,7 @@ private:
 	//POTS
 	int numPots = 1;
 	int numPotsMax = 1;
-	int countPots = 0;
+	int countPots = 0;				
 	int levelPotion = 1;
 	//MINES
 	int mineActive = false;

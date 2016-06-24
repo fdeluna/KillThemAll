@@ -14,6 +14,7 @@ void PlayState::enter()
 	else {
 		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "PlayState");
 		_camera = _sceneMgr->createCamera("PlayState");
+		_waveManager = new WaveManager(_sceneMgr);
 	}
 
 
@@ -22,11 +23,8 @@ void PlayState::enter()
 
 	// TODO LIGHTS
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
-
-	_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
-
+	//_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	Ogre::Light* light;
-
 	// Creamos la luz
 	light = _sceneMgr->createLight("LightingNode");
 	light->setType(Ogre::Light::LT_DIRECTIONAL);
@@ -41,40 +39,40 @@ void PlayState::enter()
 	_camera->setAspectRatio(width / height);
 
 	_physicsManager = new PhysicsManager(_sceneMgr, true);
-	_map = new Map(_sceneMgr);
+	_waveManager->cleanWave();
+	_waveManager->initWave();
+	_player = new Player(_sceneMgr, Ogre::Vector3(_waveManager->getMap()->_mapCenter.x, 1, _waveManager->getMap()->_mapCenter.y), MESHES[MeshName::PLAYERM]);
+	_waveManager->setPlayer(_player);
+	_pathFinder = new PathFinder(_waveManager->getMap());
+	_startDelay = 0;
+
+
+	// MOVE TO PLAYER
+	Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x + 15,
+		_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
+		_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
+	_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[MeshName::REVOLVER]);
+
 
 	// TODO REFACTOR TO INIT WAVE
 	_camera->setPosition(Ogre::Vector3(0, 20, 40));
 	_camera->lookAt(Ogre::Vector3(0, 0, -100));
 	_camera->setNearClipDistance(1);
 	_camera->setFarClipDistance(10000);
+	_camera->setPosition(_waveManager->getMap()->_mapCenter.x, 15, _waveManager->getMap()->_mapCenter.y - 5);
+	_camera->lookAt(_waveManager->getMap()->_mapCenter.x, 0, _waveManager->getMap()->_mapCenter.y);
 
-		
-	
-	////std::cout << Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition()) << "***************"<< std::endl;
-
-	_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
-	_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
-
-	WaveManager::getSingletonPtr()->setTimeGame(150.0);
 	audioController = AudioController::getSingletonPtr();
 	audioController->playAudio(Audio::PLAYSTATE);
 }
 
-void PlayState::exit() {	
+void PlayState::exit() {
+	_waveManager->cleanWave();
+	_mine = nullptr;
 	delete _pathFinder;
-	_map->cleanMap();	
-	delete _map;	
 	_player = nullptr;
-
-	if (enemies.size() > 0){
-		for (int i = 0; i < enemies.size(); i++){
-			Enemy* aux = enemies[i];
-			enemies.erase(enemies.begin() + i);
-			delete aux;
-		}
-	}
 	_sceneMgr->clearScene();
+	delete _physicsManager;
 }
 
 void PlayState::pause() {
@@ -90,37 +88,31 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 		evt.timeSinceLastFrame);
 
 	_deltaT = evt.timeSinceLastFrame;
+	_startDelay += _deltaT;
 
-	timer = timer + evt.timeSinceLastFrame;
-	if (_mine){
-		_mine->update(evt);
+	if (_mine && _mine->isActive()){
+
+			_mine->update(evt);
+		
+	}
+	else{
+		_mine = nullptr;
 	}
 	if (_gun){
 		if (timer > _gun->getVelAtack()){
-
 			_gun->setCanShoot(true);
 			timer = 0;
 		}
-
 		if (_gun->getReloading()){
 			timerReload = timerReload + evt.timeSinceLastFrame;
 		}
-
 		if (timerReload > 1){
-
 			_gun->reload();
 			_gun->setReloading(false);
 
-
 		}
 	}
-
-	
-	
-
-	
 	_physicsManager->updatePhysics(_deltaT);
-	//_Map->update(_deltaT);
 	Ogre::Vector3 vt(0, 0, 0);     Ogre::Real tSpeed = 20.0;
 
 	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_ESCAPE)) return false;
@@ -131,22 +123,26 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
 
-	if (_player && _player->isActive()){
-		_player->update(_deltaT);		
-	}
-
-	if (enemies.size() > 0){
-		for (int i = 0; i < enemies.size(); i++){
-			if (enemies[i] && enemies[i]->isActive()){
-				enemies[i]->update(_deltaT);
-			}
-			else{
-				Enemy* aux = enemies[i];
-				enemies.erase(enemies.begin() + i);
-				delete aux;
-			}
+	if (_player){
+		hudLife();
+		if (_player->getLife() <= 0){
+			//_gameOverDelay += _deltaT;
+			//if (_gameOverDelay >1){				
+			changeState(GameOverState::getSingletonPtr());
+			//}
+		}
+		else{
+			_player->update(_deltaT);
+			_waveManager->wave(_deltaT);
 		}
 	}
+
+	//std::cout << "Enemies Killed: " << _waveManager->getWaveEnemiesKilled() << std::endl;
+	//std::cout << "Enemies Wave: " << _waveManager->getWaveEnemies() << std::endl;
+	if (_waveManager->getWaveEnemiesKilled() >= _waveManager->getWaveEnemies()){
+		changeState(WaveCompleteState::getSingletonPtr());
+	}
+
 	return true;
 }
 
@@ -183,20 +179,23 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 			audioController->playAudio(Audio::POTION);
 
 			_player->potion();
-		
-		}
-		
 
+		}
 		hudLife();
 	}
 	else if (_hudWeaponsClub->isVisible()){
 		_gun->shoot();
 
+
 	}
 	else if (_hudWeaponsGun->isVisible()){
+		
 		if (_mine){
 			_mine->setAutomaticExplosion(true);
+			_mine->shoot();
+
 		}
+		
 		Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
 		//audioController->playAudio(Audio::MINE);
 
@@ -205,9 +204,7 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 			audioController->playAudio(Audio::MINE);
 
 			_mine = new Mine(_player, _sceneMgr, Ogre::Vector3(positionMine.x, positionMine.y, positionMine.z), MESHES[MeshName::MINE]);
-
 		}
-		
 	}
 }
 
@@ -230,33 +227,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_exitGame = true;
 	}
 
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_C)){
-		_map->GenerateMap();
-		_player = new Player(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[MeshName::PLAYERM]);		
-		Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x + 15,
-			_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
-			_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
-		_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[MeshName::REVOLVER]);
-		_camera->setPosition(_map->_mapCenter.x, 15, _map->_mapCenter.y - 5);
-		_camera->lookAt(_map->_mapCenter.x, 0, _map->_mapCenter.y);
-		_pathFinder = new PathFinder(_map);
-	}
 
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_E)){
-		_enemy = new EnemyFighter(_sceneMgr, Ogre::Vector3(_map->_mapCenter.x, 1, _map->_mapCenter.y), MESHES[MeshName::ENEMYFIGHTER], _player);
-		enemies.push_back(_enemy);
-	}
-
-
-	if (OIS::KC_8 == e.key){		
-		CEGUI::WindowManager::getSingleton().destroyAllWindows();
-		changeState(WaveCompleteState::getSingletonPtr());
-	}
-
-	if (OIS::KC_9 == e.key){		
-		CEGUI::WindowManager::getSingleton().destroyAllWindows();
-		changeState(GameOverState::getSingletonPtr());
-	}
 	if (OIS::KC_1 == e.key){
 		audioController->playAudio(Audio::BUTTON);
 
@@ -280,24 +251,6 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_hudWeaponsShotGun->setVisible(true);
 	}
 
-	if (OIS::KC_R == e.key){		
-		delete _player;
-		delete _pathFinder;
-		_map->cleanMap();
-		_player = nullptr;
-
-		if (enemies.size() > 0){
-			for (int i = 0; i < enemies.size(); i++){
-				Enemy* aux = enemies[i];
-				enemies.erase(enemies.begin() + i);
-				delete aux;
-			}
-		}
-	}
-
-	if (OIS::KC_K == e.key){
-		delete _enemy;
-	}
 	if (OIS::KC_4 == e.key){
 
 		_player->levelUp();
@@ -305,17 +258,16 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_player->levelUpMines();
 		_gun->upgrade();
 	}
-	if (OIS::KC_5 == e.key){
+	if (OIS::KC_R == e.key){
 
 		//_player->levelUp();
 		_gun->setReloading(true);
+		_gun->reload();
 		std::cout << "reloading" << std::endl;
 		timerReload = 0;
-		
 	}
 
 }
-
 
 void PlayState::keyReleased(const OIS::KeyEvent &e)
 {
@@ -323,6 +275,7 @@ void PlayState::keyReleased(const OIS::KeyEvent &e)
 		static_cast<CEGUI::Key::Scan> (e.key));
 
 }
+
 
 PlayState* PlayState::getSingletonPtr()
 {

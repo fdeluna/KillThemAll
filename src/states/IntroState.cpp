@@ -39,7 +39,10 @@ IntroState::enter()
 	//_physicsManager = new PhysicsManager(_sceneMgr, true);
 	//_map = new Map(_sceneMgr);
 	//_map->GenerateMap();
-	audioController = new AudioController();
+	if (!audioController){
+		audioController = new AudioController();
+
+	}
 	audioController->playAudio(Audio::INTROSTATE);
 }
 

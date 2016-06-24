@@ -27,11 +27,20 @@ public:
 	RigidBodyComponent* getRigidBodyComponent(){ return _rigidBodyComponent; };
 
 	void setAutomaticExplosion(bool explosion){ automaticExplosion = explosion; };
+	float getTimer(){ return timer; };
+
+	bool isActive(){ return _active; };
+	void setActive(bool active){ _active = active; };
 protected:
 
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
 	AudioController* audioController;
+	//Particles
+	Ogre::ParticleSystem* partSystem;
+	SceneNode* nodeParticle;
+	float timeParticle;
+
 	int numBullet;
 	Player* _player;
 	float timeExplote = 5;

@@ -3,11 +3,13 @@
 void EnemyFighter::collision(GameObject* gameObject){
 	if (gameObject){
 		if (gameObject->getType() == GameObjectType::PLAYER){
+			
 			if (isAttacking ){
 				_player->hitted(_damage);
 				_nextAttack = 0;
 				isAttacking = false;
-			}			
+			}
+			
 		}
 
 		if (gameObject->getType() == GameObjectType::HELL){

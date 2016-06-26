@@ -25,9 +25,21 @@ Player::~Player(){
 void Player::collision(GameObject* gameObject){
 	if (gameObject){	
 		if (gameObject->getType() == GameObjectType::HELL){			
-				life = 0;			
+				life = 0;
+				textDie = "You are having a great lava shower";
+		}
+
+		if (gameObject->getType() == GameObjectType::MINES){
+			life = 0;
+			textDie = "You was exploted in 100 pieces";
+		}
+
+		if (gameObject->getType() == GameObjectType::ENEMY){
+			life = 0;
+			textDie = "You was killed by noob enemy. . .";
 		}
 	}
+
 }
 
 bool Player::die(){
@@ -62,7 +74,7 @@ void Player::levelUp(){
 
 	level++;
 
-	std::cout << level << "PLAYER LEVEL" << std::endl;
+	std::cout << level << "PLAYER LEVEL: ................." << level << std::endl;
 	switch (level){
 		
 
@@ -85,43 +97,39 @@ void Player::levelUp(){
 }
 void Player::levelUpPotion(){
 
-	levelPotion++;
-	std::cout << level << "PLAYER POTION" << std::endl;
-
-	switch (levelPotion){
-	
-		case 2:
-
-			numPotsMax = 2;
-			
-		case 3:
-
-			numPotsMax = 3;
-
-		default:
-			break;
+	//levelPotion++;
+	//std::cout << level << "PLAYER POTION" << std::endl;
+	if (levelPotion == 2){
+		numPotsMax = 2;
+		numPots = numPotsMax;
 
 	}
+	else if (levelPotion == 3){
+	
+		numPotsMax = 3;
+		numPots = numPotsMax;
+
+	}
+
+	
 
 }
 void Player::levelUpMines(){
 
-	levelMine++;
-	std::cout << level << "PLAYER MINE" << std::endl;
-
-	switch (levelMine){
-
-	case 2:
-
+	//levelMine++;
+	//std::cout << level << "PLAYER MINE" << std::endl;
+	if (levelMine == 2){
 		numMinesMax = 2;
-
-	case 3:
-
-		numMinesMax = 3;
-
-	default:
-		break;
+		numMines = numMinesMax;
 
 	}
+	else if (levelMine == 3){
+
+		numMinesMax = 3;
+		numMines = numMinesMax;
+
+	}
+
+
 
 }

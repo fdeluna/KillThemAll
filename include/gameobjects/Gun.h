@@ -32,6 +32,10 @@ public:
 	void setReloading(bool reload){ reloading = reload; };
 	bool getReloading(){ return reloading; };
 	float getVelAtack(){ return velAtack; };
+	int getAmmo(){ return ammo; };
+	void setLevelGun(int _level){ level = _level; };
+	int getLevelGun(){ return level; };
+
 protected:
 	
 	int _numBullet;

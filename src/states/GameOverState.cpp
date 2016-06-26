@@ -32,6 +32,8 @@ void GameOverState::enter()
 }
 
 void GameOverState::exit() {
+
+
 	_sceneMgr->clearScene();
 	_root->getAutoCreatedWindow()->removeAllViewports();
 
@@ -145,6 +147,16 @@ CEGUI::MouseButton GameOverState::convertMouseButton(OIS::MouseButtonID id)
 
 bool GameOverState::quit(const CEGUI::EventArgs &e)
 {
+
+
+	std::ifstream fe("nombre.txt");
+
+
+	std::fe.getline(cadena, 128);
+
+	
+
+
 	audioController->playAudio(Audio::BACK);
 
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();

@@ -26,7 +26,7 @@ public:
 	int getLife(){ return life; };
 	int setLife(int hp){ life = hp; };
 	int getLevel(){ return level; };
-	int setLevel(int levelPlayer){ level = levelPlayer; };
+	void setLevel(int levelPlayer){ level = levelPlayer; };
 	int getPotions(){ return numPots; };
 	int setPotions(int pots){ numPots = pots; };
 	int getPotionsCount(){ return countPots; };
@@ -34,6 +34,12 @@ public:
 	void setMineActive(bool active){ mineActive = active; };
 	int getCountMines(){ return numMines; };
 	void setCountMines(int mines){ numMines = mines; };
+	void setLevelMines(int _mines){ levelMine = _mines; };
+	void setLevelPots(int _pots){ levelPotion = _pots; };
+	int getLevelMines(){ return levelMine; };
+	int getLevelPots(){ return levelPotion; };
+
+	Ogre::String getTextDie(){ return textDie; };
 
 	//FUNTIONS
 	bool die();
@@ -51,6 +57,8 @@ private:
 	RigidBodyComponent* _rigidBodyComponent;
 	PlayerInputComponent* _playerInput;
 	AudioController* audioController;
+
+	Ogre::String textDie;
 	int lifeMax = 8;
 	int life = 8;
 	int level = 1;

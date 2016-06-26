@@ -23,8 +23,8 @@ AudioController::AudioController(){
 	_soundShoot = _pSoundFXManager->load("AUDIO/sndPistol.wav");
 
 	_soundPotion = _pSoundFXManager->load("AUDIO/sndRoll.wav");
-	//_soundMine = _pSoundFXManager->load("AUDIO/sndSniperTarget.wav");
-	//_soundMineExplote = _pSoundFXManager->load("AUDIO/sndGrenade.wav");
+	_soundMine = _pSoundFXManager->load("AUDIO/sndSniperTarget.wav");
+	_soundMineExplote = _pSoundFXManager->load("AUDIO/sndGrenade.wav");
 
 	_soundHitPlayer = _pSoundFXManager->load("AUDIO/sndPlayerHit.wav");
 	_soundDiePlayer = _pSoundFXManager->load("AUDIO/sndPlayerDeath.wav");
@@ -36,16 +36,16 @@ AudioController::AudioController(){
 	_soundDieEnemy = _pSoundFXManager->load("AUDIO/sndEnemyDie.wav");
 	/*
 
-
+	
 	_soundHitWall = _pSoundFXManager->load("AUDIO/sndHitWall.wav");
 
 
-
-
+	
+	
 	*/
 
-
-
+	
+	
 	for (int i = 0; i < 32; i++){ Mix_Volume(i, 40); }
 
 
@@ -58,85 +58,103 @@ void AudioController::playAudio(Audio audio){
 	switch (audio)
 	{
 	case Audio::PLAYSTATE:
-		
+
 		_mainTrack->play();
 		Mix_VolumeMusic(40);
 		break;
 	case Audio::SPAWN:
-		
+
 		_soundSpawn->play();
+
 		break;
 	case Audio::HITPLAYER:
-		
+
 		_soundHitPlayer->play();
 
 		break;
 	case Audio::KILLPLAYER:
-		
+
 		_soundDiePlayer->play();
 
 		break;
 	case Audio::KILLENEMY:
-		
+
 		_soundDieEnemy->play();
 
 		break;
 	case Audio::SHOOT:
-		
 		_soundShoot->play();
 
 		break;
 	case Audio::UPGRADE:
-		
 		_soundUpgrade->play();
+
 		break;
 	case Audio::HITWALL:
-		
 		_soundHitWall->play();
+
 		break;
 	case Audio::POTION:
-		
 		_soundPotion->play();
-		break;
-	case Audio::RELOAD:
-		
-		_soundReload->play();
+
 		break;
 
+	case Audio::RELOAD:
+		_soundReload->play();
+
+		break;
 	case Audio::HITENEMY:
-		
+
+
 		_soundHitEnemy->play();
+
 		break;
 	case Audio::PLAY:
-		
+
+
 		_soundPlay->play();
+
 		break;
 	case Audio::ALARM:
-		
+
+
 		_soundAlarm->play(1);
+
 		break;
+
 	case Audio::NOAMMO:
-		
+
+
 		_soundNoAmmo->play();
+
 		break;
+
 	case Audio::BUTTON:
-		
+
+
 		_soundButton->play();
+
 		break;
 	case Audio::BACK:
-		
+
+
 		_soundBack->play();
+
 		break;
 	case Audio::MINE:
-		
+
+
 		_soundMine->play();
+
 		break;
 	case Audio::MINEEXPLOSION:
-		
+
+
 		_soundMineExplote->play();
+
 		break;
 	case Audio::INTROSTATE:
-		
+
 		_introTrack->play();
 		Mix_VolumeMusic(40);
 		break;

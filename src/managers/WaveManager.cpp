@@ -12,7 +12,7 @@ WaveManager& WaveManager::getSingleton() {
 }
 
 void WaveManager::initWave(){
-	std::cout << "LEVEL: " << _levelGame << std::endl;
+	//std::cout << "LEVEL: " << _levelGame << std::endl;
 	_map = new Map(_sceneManager);
 	_map->GenerateMap();
 	_waveEnemies = 10;

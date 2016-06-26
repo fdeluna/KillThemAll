@@ -39,8 +39,16 @@ IntroState::enter()
 	//_physicsManager = new PhysicsManager(_sceneMgr, true);
 	//_map = new Map(_sceneMgr);
 	//_map->GenerateMap();
-	audioController = new AudioController();
+	if (!audioController){
+		audioController = new AudioController();
+
+	}
 	audioController->playAudio(Audio::INTROSTATE);
+
+	WaveCompleteState::getSingletonPtr()->resetLevelGun();
+	WaveCompleteState::getSingletonPtr()->resetLevelMines();
+	WaveCompleteState::getSingletonPtr()->resetLevelPots();
+
 }
 
 void
@@ -122,6 +130,8 @@ IntroState::keyPressed
 		fondoCredits->setVisible(false);
 		fondoScore->setVisible(false);
 		_highscore = false;
+
+
 
 	}
 

@@ -23,7 +23,7 @@
         </Window>
         <Window type="TaharezLook/Button" name="Score" >
             <Property name="Area" value="{{0,658},{0,647},{0,858},{0,697}}" />
-            <Property name="Text" value="SCORE" />
+            <Property name="Text" value="HIGHSCORE" />
             <Property name="HoverImage" value="TaharezLook/BotonHover" />
             <Property name="NormalImage" value="TaharezLook/Boton" />
             <Property name="PushedImage" value="TaharezLook/BotonPulsado" />
@@ -76,6 +76,12 @@
                 <Property name="NormalImage" value="TaharezLook/Undo" />
                 <Property name="PushedImage" value="TaharezLook/Undo" />
                 <Property name="DisabledImage" value="TaharezLook/Undo" />
+            </Window>
+            <Window type="TaharezLook/Label" name="SCORE" >
+                <Property name="Area" value="{{0,74},{0,64},{0,474},{0,336}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+                <Property name="VertFormatting" value="TopAligned" />
             </Window>
         </Window>
         <Window type="TaharezLook/ImageButton" name="VentanaInstrucciones" >

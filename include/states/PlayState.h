@@ -49,7 +49,8 @@ public:
 	CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);	
 
 	void createGUI();
-
+	void printTextGUI();
+	void updateLevelWeapons();
 private:	
 	Ogre::Root *_root;
 	Ogre::SceneManager *_sceneMgr;
@@ -59,7 +60,7 @@ private:
 	bool _exitGame;
 
 	float _deltaT = 0;
-
+	bool can = true;
 
 	float _gameOverDelay = 0;
 	float _startDelay = 0;
@@ -111,6 +112,21 @@ private:
 
 	CEGUI::Window* _turnText;
 	 
+	CEGUI::Window* _wave;
+	CEGUI::Window* _enemies;
+	CEGUI::Window* _bulletsGUI;
+	CEGUI::Window* _minesGUI;
+	CEGUI::Window* _potGUI;
+	CEGUI::Window* _centralText;
+	CEGUI::Window* _levelText;
+	CEGUI::Window* _warning;
+
+	bool activeWarning = false;
+	float timerWarning = 0;
+
+	
+	int enemiesNextWave =0;
+
 	//NUEVAS
 	CEGUI::Window* _hud;
 	CEGUI::Window* _hudLife;

@@ -49,8 +49,8 @@ enum GameObjectType{
 	MINES = 64
 };
 
-static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY | MINES;
-static const short enemy_collides_with = PLAYER | OBSTACLE | MAP_FLOOR | HELL | BULLET |MINES;
+static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | MINES;
+static const short enemy_collides_with = OBSTACLE | MAP_FLOOR | HELL | BULLET |MINES;
 static const short obstacle_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET;
 static const short map_floor_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET | MINES;
 static const short hell_collides_with = PLAYER | ENEMY | BULLET;
@@ -114,9 +114,9 @@ enum class SpeedPlayer{
 };
 
 static std::map<SpeedPlayer, float> SPEEDPLAYER = {
-	{ SpeedPlayer::SLOWP, 5.0f },
-	{ SpeedPlayer::NORMALP, 6.0f },
-	{ SpeedPlayer::FASTP, 8.0f }
+	{ SpeedPlayer::SLOWP, 4.0f },
+	{ SpeedPlayer::NORMALP, 5.0f },
+	{ SpeedPlayer::FASTP, 7.0f }
 
 };
 

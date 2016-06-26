@@ -41,6 +41,14 @@ public:
 
 	void addEnemyKilled() { _enemiesKilled++;  _waveEnemiesKilled++; }
 
+	void setLevelGun(int _level){ levelGun = _level; };
+	void setLevelMines(int _level){ levelMines = _level; };
+	void setLevelPots(int _level){ levelPots = _level; };
+
+	int getLevelGun(){ return levelGun; };
+	int getLevelMines(){ return levelMines; };
+	int getLevelPots(){ return levelPots; };
+
 
 private:
 
@@ -59,6 +67,9 @@ private:
 	int _enemiesKilled = 0;
 	int _pots;
 
+	int levelGun;
+	int levelMines;
+	int levelPots;
 	//LevelGame
 	int _levelGame = 1;
 	int _numWaves = 1;

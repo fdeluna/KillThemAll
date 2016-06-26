@@ -30,7 +30,7 @@ void Gun::update(const Ogre::FrameEvent& evt){
 
 void Gun::upgrade(){
 
-	level++;
+	
 	std::cout << level << "leveeeeel gun" << std::endl;
 	switch (level)
 	{
@@ -38,10 +38,15 @@ void Gun::upgrade(){
 		velAtack = ATTACKVELOCITIES[AttackVelocity::NORMAL];
 		dmg++;
 		ammo = 16;
+		std::cout << level << velAtack << dmg << ammo << std::endl;
+
 	case 3:
-		velAtack = ATTACKVELOCITIES[AttackVelocity::NORMAL];
+		velAtack = ATTACKVELOCITIES[AttackVelocity::FAST];
+
 		dmg++;
 		ammo = 25;
+		std::cout << level << velAtack << dmg << ammo << std::endl;
+
 	default:
 		break;
 	}
@@ -88,8 +93,11 @@ void Gun::reload(){
 	else if (level == 2){
 		ammo = 16;
 
-	} else{
+	} else if(level == 3){
 		ammo = 25;
+	}
+	else if(level == 0){
+		ammo = 12;
 	}
 	
 }

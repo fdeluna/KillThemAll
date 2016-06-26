@@ -13,11 +13,11 @@ class Map : public GameObject{
 
 public:
 
-	Map(Ogre::SceneManager* sceneManager) :GameObject(sceneManager){ _type = GameObjectType::HELL;}
+	Map(Ogre::SceneManager* sceneManager) :GameObject(sceneManager){ _type = GameObjectType::HELL; }
 	~Map(){ cleanMap();  GameObject::~GameObject(); };
 
 	void GenerateMap();
-	void cleanMap();	
+	void cleanMap();
 	Ogre::Vector2 _mapCenter;
 
 	MapNode* nodeFromWorldPosition(Ogre::Vector3 position);;

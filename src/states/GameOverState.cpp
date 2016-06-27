@@ -144,18 +144,54 @@ CEGUI::MouseButton GameOverState::convertMouseButton(OIS::MouseButtonID id)
 	return ceguiId;
 }
 
+void GameOverState::checkScore(){
 
+	std::ifstream ficheroEntrada;
+	String frase;
+
+	ficheroEntrada.open("scores.txt");
+	getline(ficheroEntrada, frase);
+	int a = WaveManager::getSingletonPtr()->levelPlayer();
+	int b = atoi(frase.c_str());
+	if (b < a){
+		frase = std::to_string(a);
+	}
+
+	ficheroEntrada.close();
+
+	std::ofstream ficheroSalida;
+	ficheroSalida.open("scores.txt");
+	ficheroSalida << frase;
+	ficheroSalida.close();
+}
+
+void GameOverState::statScore(){
+
+	std::ifstream ficheroEntrada;
+	String frase;
+	StringStream statsText;
+
+	std::ofstream ficheroSalida;
+	ficheroSalida.open("stat.txt");
+	statsText << "TIME. . . . . . . . . . . . . . . . . . . . . . . . . . ." << WaveManager::getSingletonPtr()->getGameTime()*60 << " \n" << " \n"
+		<< "LEVEL. . . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->levelPlayer() << " \n" << " \n"
+		<< "ENEMIES. . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->getEnemiesKilled() << " \n" << " \n"
+		<< "MINES. . . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->getMinesUsed() << " \n" << " \n"
+		<< "BULLETS. . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->getBulletsUsed() << " \n" << " \n"
+		<< "POTS. . . . . . . . . . . . . . . . . . . . . . . . . . ." << WaveManager::getSingletonPtr()->getPotsUsed() << " \n" << " \n";
+
+
+	frase = statsText.str();
+	ficheroSalida << frase;
+	ficheroSalida.close();
+}
 bool GameOverState::quit(const CEGUI::EventArgs &e)
 {
 
 
-	std::ifstream fe("nombre.txt");
-
-
-	std::fe.getline(cadena, 128);
-
 	
-
+	checkScore();
+	statScore();
 
 	audioController->playAudio(Audio::BACK);
 
@@ -280,9 +316,9 @@ void GameOverState::createGUI()
 	_exit->subscribeEvent(CEGUI::PushButton::EventClicked,
 		CEGUI::Event::Subscriber(&GameOverState::quit, this));
 
-	/*_timeGame = _ventanaGameOver->getChild("Tiempo");
+	_timeGame = _ventanaGameOver->getChild("Tiempo");
 	std::stringstream timeGame;
-	timeGame << WaveManager::getSingletonPtr()->timeGame();
+	timeGame << WaveManager::getSingletonPtr()->timeGame()/60;
 	_timeGame->setText(timeGame.str());
 
 	_level = _ventanaGameOver->getChild("Nivel");
@@ -292,27 +328,28 @@ void GameOverState::createGUI()
 
 	_enemies = _ventanaGameOver->getChild("Enemigos");
 	std::stringstream enemies;
-	enemies << WaveManager::getSingletonPtr()->countEnemies();
+	enemies << WaveManager::getSingletonPtr()->getEnemiesKilled();
 	_enemies->setText(enemies.str());
 
 	_boss = _ventanaGameOver->getChild("Boss");
 	std::stringstream boss;
-	boss << WaveManager::getSingletonPtr()->countBoss();
+	boss << WaveManager::getSingletonPtr()->getMinesUsed();
 	_boss->setText(boss.str());
 
 	_bullets = _ventanaGameOver->getChild("Balas");
 	std::stringstream bullets;
-	bullets << WaveManager::getSingletonPtr()->countBullets();
+	bullets << WaveManager::getSingletonPtr()->getBulletsUsed();
 	_bullets->setText(bullets.str());
 
 	_pots = _ventanaGameOver->getChild("Pociones");
 	std::stringstream pots;
-	pots << WaveManager::getSingletonPtr()->countPots();
-	_pots->setText(pots.str());*/
+	pots << WaveManager::getSingletonPtr()->getBulletsUsed();
+	_pots->setText(pots.str());
 
 
-	//_ventanaGameOver->setXPosition(CEGUI::UDim(0.50,0));
-	
+	_ventanaGameOver->setXPosition(CEGUI::UDim(0.30,0));
+	_ventanaGameOver->setYPosition(CEGUI::UDim(0.20, 0));
+
 	//Test scale real time animation
 	//_ventanaGameOver->setSize(CEGUI::USize(CEGUI::UDim(sizeX, 0), CEGUI::UDim(0.05, 0)));
 	

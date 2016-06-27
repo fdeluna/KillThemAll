@@ -211,7 +211,24 @@ bool IntroState::quit(const CEGUI::EventArgs &e) {
 bool IntroState::highscore(const CEGUI::EventArgs &e) {
 	audioController->playAudio(Audio::BUTTON);
 
+	std::fstream ficheroEntrada;
+	StringStream texto;
+	String frase;
+
+	ficheroEntrada.open("stat.txt");
+	if (ficheroEntrada.is_open()) {
+
+		while (!ficheroEntrada.eof()) {
+			getline(ficheroEntrada, frase);
+			texto << frase << "\n";
+		}
+		_highScoreText->setText(texto.str());
+
+		ficheroEntrada.close();
+	}
+
 	_highscore = true;
+	_highScoreText->setVisible(true);
 	instruccionesButton->setVisible(false);
 	exitButton->setVisible(false);
 	playButton->setVisible(false);
@@ -382,6 +399,7 @@ void IntroState::createGUI() {
 	_atrasInstrucciones->subscribeEvent(CEGUI::PushButton::EventClicked,
 		CEGUI::Event::Subscriber(&IntroState::atras, this));
 	_atrasScores = fondoScore->getChild("AtrasScore");
+	_highScoreText = fondoScore->getChild("SCORE");
 	_atrasScores->subscribeEvent(CEGUI::PushButton::EventClicked,
 		CEGUI::Event::Subscriber(&IntroState::atras, this));
 	_atrasCredits = fondoCredits->getChild("AtrasCredits");

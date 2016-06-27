@@ -35,6 +35,7 @@ public:
 	int getAmmo(){ return ammo; };
 	void setLevelGun(int _level){ level = _level; };
 	int getLevelGun(){ return level; };
+	int getNumBullet(){ return _numBullet; };
 
 protected:
 	

@@ -137,6 +137,9 @@ private:
 	// Time match for cegui GUI
 	float _time = 0;
 
+	//GAME STATS
+	int numMines = 0;
+	int numPots = 0;
 };
 
 #endif

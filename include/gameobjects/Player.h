@@ -73,6 +73,8 @@ private:
 	int numMinesMax = 1;
 	int levelMine = 1;
 	float velMove = SPEEDPLAYER[SpeedPlayer::SLOWP];
+
+
 };
 
 #endif

@@ -49,8 +49,25 @@ public:
 	int getLevelMines(){ return levelMines; };
 	int getLevelPots(){ return levelPots; };
 
+	//Game stats
+	float getGameTime(){ return gameTime; };
+	void setGameTime(float time){ gameTime = time; };
+
+	int getEnemiesKilled(){ return _enemiesKilled; };
+	void setEnemiesKilled(float enemies){ _enemiesKilled = enemies; };
+
+	int getBulletsUsed(){ return bulletsUsed; };
+	void setBulletUsed(float _bullets){ bulletsUsed = _bullets; };
+
+	int getMinesUsed(){ return minesUsed; };
+	void setMinesUsed(float mines){ minesUsed = mines; };
+
+	int getPotsUsed(){ return potsUsed; };
+	void setPotsUsed(float pots){ potsUsed = pots; };
 
 private:
+
+	
 
 	Map* _map = nullptr;
 	Ogre::SceneManager* _sceneManager;
@@ -62,7 +79,7 @@ private:
 	float _time;
 	int _bullets;
 	int _maxEnemiesInMap = 20;
-	int _waveEnemies = 10;
+	int _waveEnemies = 5;
 	int _waveEnemiesKilled = 0;
 	int _enemiesKilled = 0;
 	int _pots;
@@ -73,6 +90,12 @@ private:
 	//LevelGame
 	int _levelGame = 1;
 	int _numWaves = 1;
+
+	//Game stats
+	float gameTime;
+	int minesUsed;
+	int bulletsUsed;
+	int potsUsed;
 
 };
 

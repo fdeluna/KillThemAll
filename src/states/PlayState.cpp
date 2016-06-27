@@ -165,7 +165,14 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 		hudLife();
 		if (_player->getLife() <= 0){
 			_gameOverDelay += _deltaT;
-			if (_gameOverDelay >2){				
+			if (_gameOverDelay >2){	
+
+			//Pass all dates of playstate to waveManager
+				WaveManager::getSingletonPtr()->setGameTime(_deltaT);
+				WaveManager::getSingletonPtr()->setBulletUsed(_gun->getNumBullet());
+				WaveManager::getSingletonPtr()->setMinesUsed(numMines);
+				WaveManager::getSingletonPtr()->setPotsUsed(numPots);
+			
 			changeState(GameOverState::getSingletonPtr());
 			}
 		}
@@ -219,7 +226,7 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 			audioController->playAudio(Audio::POTION);
 
 			_player->potion();
-
+			numPots++;
 		}
 		hudLife();
 	}
@@ -244,6 +251,7 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 			audioController->playAudio(Audio::MINE);
 
 			_mine = new Mine(_player, _sceneMgr, Ogre::Vector3(positionMine.x, positionMine.y, positionMine.z), MESHES[MeshName::MINE]);
+			numMines++;
 		}
 	}
 }

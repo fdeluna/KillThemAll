@@ -44,7 +44,7 @@ protected:
 	float timeExplote = 5;
 	float timer = 0;
 	bool explosion = false;
-	float timeDestroy = 6;
+	float timeDestroy = 1;
 	bool automaticExplosion = false;
 };
 #endif

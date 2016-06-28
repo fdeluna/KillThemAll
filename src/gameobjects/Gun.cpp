@@ -72,7 +72,7 @@ void Gun::shoot(){
 
 		//Resume Game
 		_numBullet++;
-		WaveManager::getSingletonPtr()->setCountBullets(_numBullet);
+		WaveManager::getSingletonPtr()->setBulletUsed(WaveManager::getSingletonPtr()->getBulletsUsed() + _numBullet);
 		//canShoot = false;
 		ammo--;		
 	}	

@@ -37,6 +37,8 @@ public:
 	CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
 
 	void createGUI();
+	void checkScore();
+	void statScore();
 
 private:
 	Ogre::Root *_root;

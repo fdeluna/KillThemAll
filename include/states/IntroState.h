@@ -66,6 +66,7 @@ protected:
 	CEGUI::Window* _tutorial;
 	CEGUI::Window* _controlText;
 	CEGUI::Window* _tutorialText;
+	CEGUI::Window* _highScoreText;
 
 	bool _play;
 	bool _highscore;

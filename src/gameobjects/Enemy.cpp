@@ -38,6 +38,7 @@ void Enemy::update(float deltaTime){
 		break;
 	case EnemyState::DIE:
 		audioController->playAudio(Audio::KILLENEMY);
+		//WaveManager::getSingletonPtr()->setEnemiesKilled(WaveManager::getSingletonPtr()->getEnemiesKilled + 1);
 		_active = false;		
 		die(deltaTime);
 		break;

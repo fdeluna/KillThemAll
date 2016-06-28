@@ -52,7 +52,7 @@ void Mine::collision(GameObject* gameObject){
 
 void Mine::update(const Ogre::FrameEvent& evt){
 
-	timer = timer + evt.timeSinceLastFrame;
+	timer +=  evt.timeSinceLastFrame;
 
 	//partSystem->_update(evt.timeSinceLastFrame*4.0);
 
@@ -64,14 +64,12 @@ void Mine::update(const Ogre::FrameEvent& evt){
 
 	}
 	if (((timer > timeExplote || automaticExplosion) && _player->getMineActive()) && explosion){
-	
-		
+			
 		if (!automaticExplosion){
 			shoot();
-		}
-		std::cout << "explotaaaaaaaaaaa" << std::endl;
+		}		
 		explosion = false;
-		timeDestroy = timer + 1;
+		timeDestroy += timer;
 	}
 
 	if (explosion){
@@ -91,5 +89,4 @@ void Mine::shoot(){
 	addComponent(_rigidBodyComponent);
 	audioController->playAudio(Audio::MINEEXPLOSION);
 	explosion = true;
-
 }

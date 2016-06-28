@@ -399,6 +399,15 @@ void WaveCompleteState::createGUI()
 		_upgrade->disable();
 		_upgrade->setAlpha(0.5f);
 	}
+
+
+	//Recolocate windows
+	_ventanaUpgrade->setXPosition(CEGUI::UDim(0.2, 0));
+	_ventanaUpgrade->setYPosition(CEGUI::UDim(0.2, 0));
+
+	_ventanaWaveComplete->setXPosition(CEGUI::UDim(0.30, 0));
+	_ventanaWaveComplete->setYPosition(CEGUI::UDim(0.20, 0));
+
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
 	// INITIALISE OIS MOUSE POSITION TO CEGUI MOUSE POSITION
 	OIS::MouseState

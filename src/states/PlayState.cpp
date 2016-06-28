@@ -32,7 +32,7 @@ void PlayState::enter()
 	_sceneMgr->getRootSceneNode()->attachObject(light);
 
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
-	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));	
+	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
 
 	_gameOverDelay = 0;
 	_physicsManager = new PhysicsManager(_sceneMgr, true);
@@ -40,14 +40,14 @@ void PlayState::enter()
 	_waveManager->initWave();
 	_player = new Player(_sceneMgr, Ogre::Vector3(_waveManager->getMap()->_mapCenter.x, 1, _waveManager->getMap()->_mapCenter.y), MESHES[MeshName::PLAYERM]);
 	_player->setLevel(_waveManager->levelPlayer());
-	_player->levelUp();	
+	_player->levelUp();
 	_waveManager->setPlayer(_player);
 	_pathFinder = new PathFinder(_waveManager->getMap());
 
 	StringStream levelString;
 	levelString << _player->getLevel();
 	_levelText->setText(levelString.str());
-	
+
 	_startDelay = 0;
 
 	double width = _viewport->getActualWidth();
@@ -65,10 +65,10 @@ void PlayState::enter()
 	Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x + 15,
 		_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
 		_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
-	_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[MeshName::REVOLVER]);		
+	_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[MeshName::REVOLVER]);
 
 	//Update level weapons	
-	updateLevelWeapons();	
+	updateLevelWeapons();
 
 	audioController = AudioController::getSingletonPtr();
 	audioController->playAudio(Audio::PLAYSTATE);
@@ -98,20 +98,20 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	if (_player->getLife() < 100){
 		timerWarning += _deltaT;
-		if (0<timerWarning && timerWarning < 0.5){
+		if (0 < timerWarning && timerWarning < 0.5){
 			_warning->setVisible(true);
 		}
-		else if (0.5<timerWarning && timerWarning < 1){
+		else if (0.5 < timerWarning && timerWarning < 1){
 			_warning->setVisible(false);
-			
+
 		}
-		else if (1<timerWarning && timerWarning < 1.5){
-		
+		else if (1 < timerWarning && timerWarning < 1.5){
+
 			timerWarning = 0;
 		}
 	}
 	else{
-	
+
 		_warning->setVisible(false);
 
 	}
@@ -121,8 +121,8 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	//CONTROL WEAPONS
 	if (_mine && _mine->isActive()){
 
-			_mine->update(evt);
-		
+		_mine->update(evt);
+
 	}
 	else{
 		_mine = nullptr;
@@ -143,18 +143,24 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	}
 
 	//UPDATE PHYSICS
-	_physicsManager->updatePhysics(_deltaT);	
+	_physicsManager->updatePhysics(_deltaT);
 	//CONTROL PLAYER
 	if (_player){
 		hudLife();
 		if (_player->getLife() <= 0){
 			_gameOverDelay += _deltaT;
-			if (_gameOverDelay >= 2){				
+			if (_gameOverDelay > 2){
+
+				//Pass all dates of playstate to waveManager
+				WaveManager::getSingletonPtr()->setGameTime(_deltaT);
+				WaveManager::getSingletonPtr()->setBulletUsed(_gun->getNumBullet());
+				WaveManager::getSingletonPtr()->setMinesUsed(numMines);
+				WaveManager::getSingletonPtr()->setPotsUsed(numPots);
 				changeState(GameOverState::getSingletonPtr());
 			}
 		}
 		else{
-			_player->update(_deltaT);						
+			_player->update(_deltaT);
 			_waveManager->wave(_deltaT);
 		}
 	}
@@ -199,11 +205,11 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 		"TaharezLook/Mirilla");
 	//Use pots
 	if (_hudWeaponsShotGun->isVisible()){
-		if (_player->getPotions()>0){
+		if (_player->getPotions() > 0){
 			audioController->playAudio(Audio::POTION);
 
 			_player->potion();
-
+			numPots++;
 		}
 		hudLife();
 	}
@@ -213,19 +219,20 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 
 	}
 	else if (_hudWeaponsGun->isVisible()){
-		
+
 		if (_mine){
 			_mine->setAutomaticExplosion(true);
 			_mine->shoot();
 
 		}
-		
-		Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());		
-		
+
+		Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
+
 		if (!_player->getMineActive() && _player->getCountMines() > 0){
 			audioController->playAudio(Audio::MINE);
 
 			_mine = new Mine(_player, _sceneMgr, Ogre::Vector3(positionMine.x, positionMine.y, positionMine.z), MESHES[MeshName::MINE]);
+			numMines++;
 		}
 	}
 }
@@ -276,7 +283,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 	if (OIS::KC_4 == e.key){
 
 		_player->levelUp();
-	//	_player->levelUpPotion();
+		//	_player->levelUpPotion();
 		//_player->levelUpMines();
 		//_gun->upgrade();
 	}
@@ -454,40 +461,40 @@ void PlayState::printTextGUI(){
 		_centralText->setText(enemiesString6.str());
 
 	}
-	else if (_player->getLife()<1){
+	else if (_player->getLife() < 1){
 		StringStream enemiesString6;
 		enemiesString6 << _player->getTextDie();
 		_centralText->setText(enemiesString6.str());
 
 	}
-	else if (1>_startDelay>0){
+	else if (1 > _startDelay > 0){
 		StringStream enemiesString6;
 		//enemiesString6 << "READY!";
-		enemiesString6 <<  "LEVEL: "<<_player->getLevel();
+		enemiesString6 << "LEVEL: " << _player->getLevel();
 
 		_centralText->setText(enemiesString6.str());
 	}
-	else if (2>_startDelay>1){
+	else if (2 > _startDelay > 1){
 		StringStream enemiesString6;
 		enemiesString6 << "3";
 		_centralText->setText(enemiesString6.str());
 	}
-	else if (3>_startDelay>2){
+	else if (3 > _startDelay > 2){
 		StringStream enemiesString6;
 		enemiesString6 << "2";
 		_centralText->setText(enemiesString6.str());
 	}
-	else if (4>_startDelay>3){
+	else if (4 > _startDelay > 3){
 		StringStream enemiesString6;
 		enemiesString6 << "1";
 		_centralText->setText(enemiesString6.str());
 	}
-	else if (6>_startDelay>4){
+	else if (6 > _startDelay > 4){
 		StringStream enemiesString6;
 		enemiesString6 << "GO!";
 		_centralText->setText(enemiesString6.str());
 	}
-	else if (8>_startDelay>6){
+	else if (8 > _startDelay > 6){
 		StringStream enemiesString6;
 		enemiesString6 << "";
 		_centralText->setText(enemiesString6.str());
@@ -506,7 +513,7 @@ void PlayState::updateLevelWeapons(){
 	_gun->setLevelGun(WaveManager::getSingletonPtr()->getLevelGun());
 	_player->setLevelMines(WaveManager::getSingletonPtr()->getLevelMines());
 	_player->setLevelPots(WaveManager::getSingletonPtr()->getLevelPots());
-	
+
 	_gun->upgrade();
 	_player->levelUpMines();
 	_player->levelUpPotion();

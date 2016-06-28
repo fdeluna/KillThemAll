@@ -4,7 +4,6 @@
 #include "GameState.h"
 #include "WaveCompleteState.h"
 #include "GameOverState.h"
-#include "Map.h"
 #include "PhysicsManager.h"
 
 #include "PathFinder.h"
@@ -64,20 +63,17 @@ private:
 
 	float _gameOverDelay = 0;
 	float _startDelay = 0;
-
-	WaveManager* _waveManager;
+	
 	float timer = 0;
 	float timerReload = 0;
+	WaveManager* _waveManager;
 	PhysicsManager* _physicsManager;
-	PathFinder* _pathFinder;
-	Map* _map;
-	Player* _player;
-	Enemy* _enemy;
+	PathFinder* _pathFinder;	
+	Player* _player;	
+
 	Bullet* _bullet;
 	Gun* _gun;
-	Mine* _mine;
-
-	std::vector<Enemy*> enemies;	
+	Mine* _mine;	
 
 	// CEGUI
 	bool quit(const CEGUI::EventArgs &e);

@@ -1,8 +1,6 @@
 #ifndef Mine_H
 #define Mine_H
 
-#include "Weapon.h"
-#include "GameObject.h"
 #include "Player.h"
 #include "SceneNodeComponent.h"
 #include "RigidBodyComponent.h"
@@ -10,7 +8,7 @@
 
 using namespace Ogre;
 
-class Mine : public Weapon, GameObject
+class Mine : public GameObject
 {
 public:
 	Mine() : _sceneNodeComponent(nullptr), _rigidBodyComponent(nullptr){};

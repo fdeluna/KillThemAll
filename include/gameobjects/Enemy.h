@@ -18,6 +18,13 @@ public:
 	Ogre::Vector3 getPosition(){ return _rigidBodyComponent->getPosition(); };
 	
 	virtual void levelUp(){};
+
+	virtual void move(float deltaTime);
+	virtual bool attack(float deltaTime) { return true; };
+	virtual void die(float deltaTime) {};
+	virtual void hitted(float deltaTime);
+
+
 	//Tiene qye haber una funcion que haga subir d enivel a los mounstros
 	//levelUp() que lo hace de manera individual, pero luego tiene que haber una funcion en el play state
 	//que elegira usar levelUp() segun la oleada en la que estemos.
@@ -48,7 +55,7 @@ protected:
 	
 	//Variables
 	int _life = 1;//vida del enemigo
-	float _speed;//velocidad de movimiento del enemigo
+	float _speed = 3;//velocidad de movimiento del enemigo
 	float _damage = 1;//Danio que hace el enemigo
 	float atkVelocity;//velocidad de ataque del enemigo
 	int _level;//Nivel del enemigo
@@ -60,11 +67,6 @@ protected:
 	bool killed;//Indica si esta muerto	
 	
 	bool attackDistance();	
-
-	virtual void move(float deltaTime);
-	virtual bool attack(float deltaTime) { return true; };
-	virtual void die(float deltaTime) {};
-	virtual void hitted(float deltaTime);
 };
 
 

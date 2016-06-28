@@ -22,8 +22,8 @@ void GameOverState::enter()
 
 	createGUI();
 	_exitGame = false;
-	
-	
+
+
 
 	//_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
 	audioController = AudioController::getSingletonPtr();
@@ -101,9 +101,9 @@ void GameOverState::keyPressed(const OIS::KeyEvent &e)
 	//Test scale real time animation
 	/*
 	if (OIS::KC_M == e.key){
-		CEGUI::WindowManager::getSingleton().destroyAllWindows();
-		sizeX = sizeX + 0.1;
-		createGUI();
+	CEGUI::WindowManager::getSingleton().destroyAllWindows();
+	sizeX = sizeX + 0.1;
+	createGUI();
 	}
 	*/
 }
@@ -152,9 +152,9 @@ bool GameOverState::quit(const CEGUI::EventArgs &e)
 	std::ifstream fe("nombre.txt");
 
 
-	std::fe.getline(cadena, 128);
+	//	std::fe.getline(cadena, 128);
 
-	
+
 
 
 	audioController->playAudio(Audio::BACK);
@@ -258,22 +258,22 @@ void GameOverState::createGUI()
 	_exit = _ventanaWaveComplete->getChild("Salir");
 
 	_exit->subscribeEvent(CEGUI::PushButton::EventClicked,
-		CEGUI::Event::Subscriber(&GameOverState::quit, this));
+	CEGUI::Event::Subscriber(&GameOverState::quit, this));
 	_upgrade->subscribeEvent(CEGUI::PushButton::EventClicked,
-		CEGUI::Event::Subscriber(&GameOverState::upgrade, this));
+	CEGUI::Event::Subscriber(&GameOverState::upgrade, this));
 
 	_upgradeClub->subscribeEvent(CEGUI::PushButton::EventClicked,
-		CEGUI::Event::Subscriber(&GameOverState::upgradeWeapon, this));
+	CEGUI::Event::Subscriber(&GameOverState::upgradeWeapon, this));
 
 	_upgradeGun->subscribeEvent(CEGUI::PushButton::EventClicked,
-		CEGUI::Event::Subscriber(&GameOverState::upgradeWeapon, this));
+	CEGUI::Event::Subscriber(&GameOverState::upgradeWeapon, this));
 
 	_upgradeShotGun->subscribeEvent(CEGUI::PushButton::EventClicked,
-		CEGUI::Event::Subscriber(&GameOverState::upgradeWeapon, this));
+	CEGUI::Event::Subscriber(&GameOverState::upgradeWeapon, this));
 
 	_ready->subscribeEvent(CEGUI::PushButton::EventClicked,
-		CEGUI::Event::Subscriber(&GameOverState::ready, this));
-		*/
+	CEGUI::Event::Subscriber(&GameOverState::ready, this));
+	*/
 
 	_ventanaGameOver = _GameOverStateUI->getChild("VentanaGameOver");
 	_exit = _ventanaGameOver->getChild("Exit");
@@ -312,10 +312,10 @@ void GameOverState::createGUI()
 
 
 	//_ventanaGameOver->setXPosition(CEGUI::UDim(0.50,0));
-	
+
 	//Test scale real time animation
 	//_ventanaGameOver->setSize(CEGUI::USize(CEGUI::UDim(sizeX, 0), CEGUI::UDim(0.05, 0)));
-	
+
 	sheet->addChild(_GameOverStateUI);
 
 

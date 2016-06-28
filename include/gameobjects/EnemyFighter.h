@@ -2,6 +2,7 @@
 #define ENEMYFIGHTER_H
 
 #include "Enemy.h"
+#include "Mine.h"
 #include "AudioController.h"
 class EnemyFighter : public Enemy{
 
@@ -19,6 +20,7 @@ public:
 
 private:
 
+	Mine* _mine;
 	// ATTACK
 	float _nextAttack= 1;
 	float _attackTime = 0;

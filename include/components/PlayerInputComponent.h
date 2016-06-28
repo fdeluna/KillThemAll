@@ -11,7 +11,7 @@ class PlayerInputComponent : public Component {
 
 public:
 	PlayerInputComponent() : _playerBody(nullptr), _sceneManager(nullptr), _speed(0.f){};
-	PlayerInputComponent(RigidBodyComponent* body, Ogre::SceneManager* sceneManager) : _playerBody(body), _sceneManager(sceneManager), _inputManager(InputManager::getSingletonPtr()){};
+	PlayerInputComponent(RigidBodyComponent* body, Ogre::SceneManager* sceneManager);
 	~PlayerInputComponent(){ _playerBody = nullptr;  _inputManager = nullptr; };
 
 	void update(float deltaTime);
@@ -23,6 +23,7 @@ public:
 	void setSpeedPlayer(float speed){ _speed = speed; };
 private:	
 	Ogre::SceneManager* _sceneManager;
+	Ogre::Camera* _camera;
 	RigidBodyComponent* _playerBody;	
 	InputManager* _inputManager;	
 	Ogre::Vector3 positionMouseForWaeapon;

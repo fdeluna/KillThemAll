@@ -24,7 +24,7 @@ public:
 	
 
 	int getLife(){ return life; };
-	int setLife(int hp){ life = hp; };
+	void setLife(int hp){ life = hp; };
 	int getLevel(){ return level; };
 	void setLevel(int levelPlayer){ level = levelPlayer; };
 	int getPotions(){ return numPots; };

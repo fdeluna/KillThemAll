@@ -49,8 +49,8 @@ enum GameObjectType{
 	MINES = 64
 };
 
-static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | MINES;
-static const short enemy_collides_with = OBSTACLE | MAP_FLOOR | HELL | BULLET |MINES;
+static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | MINES | ENEMY;
+static const short enemy_collides_with = OBSTACLE | MAP_FLOOR | HELL | BULLET | MINES | PLAYER;
 static const short obstacle_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET;
 static const short map_floor_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET | MINES;
 static const short hell_collides_with = PLAYER | ENEMY | BULLET;

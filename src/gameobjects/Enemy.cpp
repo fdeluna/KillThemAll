@@ -5,15 +5,13 @@ Enemy::Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::Str
 
 	_sceneNodeComponent = new SceneNodeComponent(_sceneManager, "Enemy", mesh, Ogre::Vector3(0.1, 0.25, 0.1), position);
 	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::ENEMY, _sceneNodeComponent);
-	_pathFinderComponent = new EnemyPathFinderComponent(_rigidBodyComponent, player);	
+	_pathFinderComponent = new EnemyPathFinderComponent(_rigidBodyComponent);	
 	_state = EnemyState::MOVE;
 	_type = GameObjectType::ENEMY;
 	addComponent(_sceneNodeComponent);
 	addComponent(_rigidBodyComponent);	
 	audioController = AudioController::getSingletonPtr();
-	audioController->playAudio(Audio::SPAWN);
-	
-	//addComponent(_pathFinderComponent);
+	audioController->playAudio(Audio::SPAWN);		
 }
 
 
@@ -60,7 +58,7 @@ bool Enemy::attackDistance(){
 
 void Enemy::move(float deltaTime){
 	if (_pathFinderComponent){	
-		_pathFinderComponent->update(deltaTime);
+		_pathFinderComponent->update(deltaTime * _speed,_player->getPosition());
 	}
 }
 

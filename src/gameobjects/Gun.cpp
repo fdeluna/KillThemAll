@@ -6,9 +6,7 @@ Gun::Gun(Player* player, Ogre::SceneManager* sceneManager, Ogre::Vector3 positio
 	_sceneNodeComponentGun = new SceneNodeComponent(_sceneManager, "Gun", mesh, Ogre::Vector3(0.5, 0.25, 0.5), position, player->getSceneNodeComponent()->getSceneNode());
 	_sceneNodeComponentGun->getSceneNode()->setScale(Ogre::Vector3(4, 4, 4));
 	_rigidBodyComponentGun = new RigidBodyComponent((GameObject*)this, GameObjectType::OBSTACLE, _sceneNodeComponentGun);
-	addComponent(_sceneNodeComponentGun);
-	//addComponent(_rigidBodyComponentGun);
-	//player->getSceneNodeComponent()->getSceneNode()->attachObject(_sceneNodeComponentGun->getEntity());
+	addComponent(_sceneNodeComponentGun);	
 	std::cout << player->getSceneNodeComponent()->getSceneNode()->getName() << std::endl;
 	_player = player;
 	audioController = AudioController::getSingletonPtr();
@@ -22,10 +20,8 @@ Gun::~Gun()
 	Gun::~Gun();
 }
 
-void Gun::update(const Ogre::FrameEvent& evt){
+void Gun::update(const Ogre::FrameEvent& evt){	
 
-
-	
 }
 
 void Gun::upgrade(){
@@ -79,11 +75,9 @@ void Gun::shoot(){
 		WaveManager::getSingletonPtr()->setCountBullets(_numBullet);
 		//canShoot = false;
 		ammo--;		
-	}
-	
-
-
+	}	
 }
+
 void Gun::reload(){
 
 	if (level == 1){

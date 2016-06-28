@@ -24,7 +24,8 @@ public:
 	void cleanWave();
 
 	Map* getMap(){ return _map; };
-	void setPlayer(Player* player){ _player = player; };
+	void setPlayer(Player* player);
+	Ogre::Vector3 getRandomNodePosition(){ return _map->getRandomNodePosition(); };
 
 	//Functions for resume game
 	float timeGame() { return _time; }
@@ -58,6 +59,7 @@ private:
 
 	float _spawnEnemy;
 	Player* _player;
+	float _playerCurrentLife = 0;
 
 	float _time;
 	int _bullets;
@@ -71,7 +73,7 @@ private:
 	int levelMines;
 	int levelPots;
 	//LevelGame
-	int _levelGame = 1;
+	int _levelGame = 0;
 	int _numWaves = 1;
 
 };

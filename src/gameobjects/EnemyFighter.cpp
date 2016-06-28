@@ -4,7 +4,7 @@ void EnemyFighter::collision(GameObject* gameObject){
 	if (gameObject){
 		if (gameObject->getType() == GameObjectType::PLAYER){
 			
-			if (isAttacking ){
+			if (isAttacking && _nextAttack < 0.65){				
 				_player->hitted(_damage);
 				_nextAttack = 0;
 				isAttacking = false;
@@ -12,16 +12,12 @@ void EnemyFighter::collision(GameObject* gameObject){
 			
 		}
 
-		if (gameObject->getType() == GameObjectType::HELL){
-			if (isAttacking){
+		if (gameObject->getType() == GameObjectType::HELL){		
 				_life = 0;
-			}
 		}
 		
-		if (gameObject->getType() == GameObjectType::MINES){
-			std::cout << "enemigo explotaaaaa" << std::endl;
+		if (gameObject->getType() == GameObjectType::MINES){			
 			_state = EnemyState::DIE;
-
 		}
 	}
 }
@@ -63,6 +59,7 @@ bool EnemyFighter::attack(float deltaTime){
 			_sceneNodeComponent->setMaterialName("CuerpoEnemyFigtherAttakking");
 		}
 		else if (getPosition().distance(_startPositon) >= 0.1){
+			isAttacking = false;
 			_endAttack = true;
 			_rigidBodyComponent->translate(-1 * attackDirecction * _backSpeed * deltaTime);			
 			_sceneNodeComponent->setMaterialName("CuerpoEnemyFigther");

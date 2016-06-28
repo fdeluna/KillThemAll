@@ -23,7 +23,7 @@ void PlayState::enter()
 
 	// TODO LIGHTS
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
-	//_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+	_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	Ogre::Light* light;
 	// Creamos la luz
 	light = _sceneMgr->createLight("LightingNode");
@@ -32,34 +32,27 @@ void PlayState::enter()
 	_sceneMgr->getRootSceneNode()->attachObject(light);
 
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
-	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
+	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));	
 
-	double width = _viewport->getActualWidth();
-	double height = _viewport->getActualHeight();
-	_camera->setAspectRatio(width / height);
-
+	_gameOverDelay = 0;
 	_physicsManager = new PhysicsManager(_sceneMgr, true);
 	_waveManager->cleanWave();
 	_waveManager->initWave();
 	_player = new Player(_sceneMgr, Ogre::Vector3(_waveManager->getMap()->_mapCenter.x, 1, _waveManager->getMap()->_mapCenter.y), MESHES[MeshName::PLAYERM]);
-	_waveManager->setPlayer(_player);
 	_player->setLevel(_waveManager->levelPlayer());
-	_player->levelUp();
+	_player->levelUp();	
+	_waveManager->setPlayer(_player);
+	_pathFinder = new PathFinder(_waveManager->getMap());
+
 	StringStream levelString;
 	levelString << _player->getLevel();
 	_levelText->setText(levelString.str());
-	_pathFinder = new PathFinder(_waveManager->getMap());
+	
 	_startDelay = 0;
 
-
-	// MOVE TO PLAYER
-	Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x + 15,
-		_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
-		_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
-	_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[MeshName::REVOLVER]);
-
-
-	// TODO REFACTOR TO INIT WAVE
+	double width = _viewport->getActualWidth();
+	double height = _viewport->getActualHeight();
+	_camera->setAspectRatio(width / height);
 	_camera->setPosition(Ogre::Vector3(0, 20, 40));
 	_camera->lookAt(Ogre::Vector3(0, 0, -100));
 	_camera->setNearClipDistance(1);
@@ -67,12 +60,18 @@ void PlayState::enter()
 	_camera->setPosition(_waveManager->getMap()->_mapCenter.x, 15, _waveManager->getMap()->_mapCenter.y - 5);
 	_camera->lookAt(_waveManager->getMap()->_mapCenter.x, 0, _waveManager->getMap()->_mapCenter.y);
 
+
+	// MOVE TO PLAYER
+	Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x + 15,
+		_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
+		_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
+	_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[MeshName::REVOLVER]);		
+
+	//Update level weapons	
+	updateLevelWeapons();	
+
 	audioController = AudioController::getSingletonPtr();
 	audioController->playAudio(Audio::PLAYSTATE);
-	//Update level weapons
-	
-	updateLevelWeapons();
-	
 }
 
 void PlayState::exit() {
@@ -84,14 +83,12 @@ void PlayState::exit() {
 	delete _physicsManager;
 }
 
-void PlayState::pause() {
 
-}
+void PlayState::pause() {}
 
-void PlayState::resume() {
-	//updateLevelWeapons();
 
-}
+void PlayState::resume() {}
+
 bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
@@ -107,7 +104,6 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 		else if (0.5<timerWarning && timerWarning < 1){
 			_warning->setVisible(false);
 			
-
 		}
 		else if (1<timerWarning && timerWarning < 1.5){
 		
@@ -147,30 +143,18 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	}
 
 	//UPDATE PHYSICS
-	_physicsManager->updatePhysics(_deltaT);
-
-	//DEVELOP TOOLS
-	Ogre::Vector3 vt(0, 0, 0);     Ogre::Real tSpeed = 20.0;
-
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_ESCAPE)) return false;
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_UP))    vt += Ogre::Vector3(0, 0, -1);
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_DOWN))  vt += Ogre::Vector3(0, 0, 1);
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_LEFT))  vt += Ogre::Vector3(-1, 0, 0);
-	if (InputManager::getSingletonPtr()->getKeyboard()->isKeyDown(OIS::KC_RIGHT)) vt += Ogre::Vector3(1, 0, 0);
-
-	_camera->moveRelative(vt * evt.timeSinceLastFrame * tSpeed);
-
+	_physicsManager->updatePhysics(_deltaT);	
 	//CONTROL PLAYER
 	if (_player){
 		hudLife();
 		if (_player->getLife() <= 0){
 			_gameOverDelay += _deltaT;
-			if (_gameOverDelay >2){				
-			changeState(GameOverState::getSingletonPtr());
+			if (_gameOverDelay >= 2){				
+				changeState(GameOverState::getSingletonPtr());
 			}
 		}
 		else{
-			_player->update(_deltaT);
+			_player->update(_deltaT);						
 			_waveManager->wave(_deltaT);
 		}
 	}
@@ -236,10 +220,8 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 
 		}
 		
-		Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
-		//audioController->playAudio(Audio::MINE);
-
-		//_mine = new Mine(_player, _sceneMgr, Ogre::Vector3(positionMine.x, positionMine.y, positionMine.z), MESHES[MeshName::MINE]);
+		Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());		
+		
 		if (!_player->getMineActive() && _player->getCountMines() > 0){
 			audioController->playAudio(Audio::MINE);
 

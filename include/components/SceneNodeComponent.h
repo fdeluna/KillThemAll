@@ -19,8 +19,7 @@ public:
 	Ogre::SceneManager* getSceneManager(){ return _sceneManager; };
 
 	void addChild(Ogre::SceneNode* child){ _sceneNode->addChild(child); };
-	void setDiffuseColor(Ogre::ColourValue diffuseColor);
-	//void addToRootScene();
+	void setDiffuseColor(Ogre::ColourValue diffuseColor);	
 	void setMaterialName(Ogre::String materialName);
 	void setMesh(Ogre::String mesh);
 

@@ -3,11 +3,11 @@
 Player::Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh) : GameObject(sceneManager){
 
 	_sceneNodeComponent = new SceneNodeComponent(_sceneManager, "Player", mesh, Ogre::Vector3(0.02, 0.02, 0.02), position);
-		
+
 	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::PLAYER, _sceneNodeComponent);
 	_playerInput = new PlayerInputComponent(_rigidBodyComponent, _sceneManager);
 	_type = GameObjectType::PLAYER;
-	Ogre::Camera* cam = _sceneManager->getCamera("PlayState");	
+	Ogre::Camera* cam = _sceneManager->getCamera("PlayState");
 	addComponent(_sceneNodeComponent);
 	addComponent(_rigidBodyComponent);
 	addComponent(_playerInput);
@@ -23,19 +23,19 @@ Player::~Player(){
 
 
 void Player::collision(GameObject* gameObject){
-	if (gameObject){	
-		if (gameObject->getType() == GameObjectType::HELL){			
-				life = 0;
-				textDie = "You are having a great lava shower";
+	if (gameObject){
+		if (gameObject->getType() == GameObjectType::HELL){
+			life = 0;
+			textDie = "You are having a great lava shower";
 		}
 
 		if (gameObject->getType() == GameObjectType::MINES){
 			life = 0;
 			textDie = "You was exploted in 100 pieces";
+
 		}
 
 		if (gameObject->getType() == GameObjectType::ENEMY){
-			life = 0;
 			textDie = "You was killed by noob enemy. . .";
 		}
 	}
@@ -44,8 +44,8 @@ void Player::collision(GameObject* gameObject){
 
 bool Player::die(){
 
-	
-	if(life <= 0){
+
+	if (life <= 0){
 		return true;
 	}
 	else{
@@ -60,7 +60,6 @@ void Player::hitted(int damage){
 }
 
 void Player::potion(){
-
 	if (numPots > 0){
 		life = lifeMax;
 		numPots--;
@@ -74,25 +73,19 @@ void Player::levelUp(){
 
 	level++;
 
-	std::cout << level << "PLAYER LEVEL: ................." << level << std::endl;
 	switch (level){
-		
-
 	case 5:
 		_playerInput->setSpeedPlayer(SPEEDPLAYER[SpeedPlayer::NORMALP]);
 		numPots = numPotsMax;
 		numMines = numMinesMax;
+		break;
 	case 10:
-		
 		_playerInput->setSpeedPlayer(SPEEDPLAYER[SpeedPlayer::FASTP]);
 		numPots = numPotsMax;
 		numMines = numMinesMax;
-
-
-	default:
 		break;
 	}
-	
+
 
 }
 void Player::levelUpPotion(){
@@ -105,19 +98,17 @@ void Player::levelUpPotion(){
 
 	}
 	else if (levelPotion == 3){
-	
+
 		numPotsMax = 3;
 		numPots = numPotsMax;
 
 	}
 
-	
+
 
 }
 void Player::levelUpMines(){
 
-	//levelMine++;
-	//std::cout << level << "PLAYER MINE" << std::endl;
 	if (levelMine == 2){
 		numMinesMax = 2;
 		numMines = numMinesMax;
@@ -129,7 +120,5 @@ void Player::levelUpMines(){
 		numMines = numMinesMax;
 
 	}
-
-
 
 }

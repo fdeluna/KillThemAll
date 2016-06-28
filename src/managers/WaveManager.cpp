@@ -12,13 +12,12 @@ WaveManager& WaveManager::getSingleton() {
 }
 
 void WaveManager::initWave(){
-	//std::cout << "LEVEL: " << _levelGame << std::endl;
 	_map = new Map(_sceneManager);
 	_map->GenerateMap();
 	_waveEnemies = 10;
-	_waveEnemies = _waveEnemies * (_levelGame);
+	_waveEnemies = _waveEnemies * (_levelGame + 1);
 	_waveEnemiesKilled = 0;
-	_levelGame++;	
+	_levelGame++;
 }
 
 void WaveManager::cleanWave(){
@@ -32,6 +31,9 @@ void WaveManager::cleanWave(){
 			delete aux;
 		}
 	}
+	if (_player){
+		_playerCurrentLife = _player->getLife();
+	}
 	_enemies.clear();
 }
 
@@ -42,15 +44,10 @@ void WaveManager::wave(float deltaTime)
 		_spawnEnemy = 0;
 		EnemyFighter* newEnemy = nullptr;
 		Ogre::Vector3 enemyPosition = _map->getRandomNodePosition();
-		int enemyType = (rand() % 10) + 1;
+		newEnemy = new EnemyFighter(_sceneManager, Ogre::Vector3(enemyPosition.x, 0.5, enemyPosition.z), MESHES[MeshName::ENEMYFIGHTER], _player, _levelGame);
 
-		if (enemyType > 2) {
-			newEnemy = new EnemyFighter(_sceneManager, Ogre::Vector3(enemyPosition.x, 0.5, enemyPosition.z), MESHES[MeshName::ENEMYFIGHTER], _player,_levelGame);
-
-		}
 		_enemies.push_back(newEnemy);
 	}
-
 
 	if (_enemies.size() > 0){
 		for (int i = 0; i < _enemies.size(); i++){
@@ -66,3 +63,11 @@ void WaveManager::wave(float deltaTime)
 		}
 	}
 }
+
+
+void WaveManager::setPlayer(Player* player){
+	_player = player;
+	if (_playerCurrentLife != 0){		
+		_player->setLife(_playerCurrentLife);
+	}
+};

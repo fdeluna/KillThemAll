@@ -186,21 +186,16 @@ void GameOverState::statScore(){
 	ficheroSalida.close();
 }
 bool GameOverState::quit(const CEGUI::EventArgs &e)
-{
-
-
-	
+{	
 	checkScore();
 	statScore();
 
-	audioController->playAudio(Audio::BACK);
-
+	audioController->playAudio(Audio::BACK);	
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
+	WaveManager::getSingletonPtr()->resetWaveManager();
 	changeState(IntroState::getSingletonPtr());
 	return true;
 }
-
-
 
 
 bool GameOverState::ready(const CEGUI::EventArgs &e)
@@ -211,10 +206,9 @@ bool GameOverState::ready(const CEGUI::EventArgs &e)
 	changeState(PlayState::getSingletonPtr());
 	return true;
 }
+
 void GameOverState::createGUI()
 {
-
-
 	CEGUI::Scheme::setDefaultResourceGroup("Schemes");
 	CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
 	CEGUI::Font::setDefaultResourceGroup("Fonts");
@@ -234,8 +228,6 @@ void GameOverState::createGUI()
 	//Config Window	
 	_GameOverStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
 		"gameOver.layout");
-
-
 
 	/*
 	_gameOverUI = playStateUI->getChild("FondoGameOver");

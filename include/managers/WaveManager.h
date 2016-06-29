@@ -13,12 +13,13 @@ class WaveManager : public Ogre::Singleton<WaveManager> {
 public:
 
 	WaveManager(Ogre::SceneManager* sceneManager) : _sceneManager(sceneManager){};
-	~WaveManager();
+	~WaveManager(){ cleanWave(); };
 
 	static WaveManager& getSingleton();
 	static WaveManager* getSingletonPtr();
 
 	// TODO INIT-WAVE
+	void resetWaveManager();
 	void initWave();
 	void wave(float deltaTime);
 	void cleanWave();
@@ -67,9 +68,7 @@ public:
 	void setPotsUsed(float pots){ potsUsed = pots; };
 
 private:
-
 	
-
 	Map* _map = nullptr;
 	Ogre::SceneManager* _sceneManager;
 	std::vector<EnemyFighter*> _enemies;
@@ -85,14 +84,12 @@ private:
 	int _waveEnemiesKilled = 0;
 	int _enemiesKilled = 0;
 	int _pots;
-
 	int levelGun;
 	int levelMines;
 	int levelPots;
 	//LevelGame
 	int _levelGame = 0;
 	int _numWaves = 1;
-
 	//Game stats
 	float gameTime;
 	int minesUsed;

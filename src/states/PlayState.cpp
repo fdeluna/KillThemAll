@@ -17,7 +17,6 @@ void PlayState::enter()
 		_waveManager = new WaveManager(_sceneMgr);
 	}
 
-
 	createGUI();
 	_exitGame = false;
 
@@ -96,7 +95,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	_deltaT = evt.timeSinceLastFrame;
 	_startDelay += _deltaT;
 
-	if (_player->getLife() < 100){
+	if (_player->getLife() < _player->getLife()/2){
 		timerWarning += _deltaT;
 		if (0 < timerWarning && timerWarning < 0.5){
 			_warning->setVisible(true);
@@ -149,13 +148,12 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 		hudLife();
 		if (_player->getLife() <= 0){
 			_gameOverDelay += _deltaT;
-			if (_gameOverDelay > 2){
-
-				//Pass all dates of playstate to waveManager
+			if (_gameOverDelay > 2){				
 				WaveManager::getSingletonPtr()->setGameTime(_deltaT);
 				WaveManager::getSingletonPtr()->setBulletUsed(_gun->getNumBullet());
 				WaveManager::getSingletonPtr()->setMinesUsed(numMines);
 				WaveManager::getSingletonPtr()->setPotsUsed(numPots);
+
 				changeState(GameOverState::getSingletonPtr());
 			}
 		}
@@ -164,9 +162,6 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 			_waveManager->wave(_deltaT);
 		}
 	}
-
-	//std::cout << "Enemies Killed: " << _waveManager->getWaveEnemiesKilled() << std::endl;
-	//std::cout << "Enemies Wave: " << _waveManager->getWaveEnemies() << std::endl;
 
 	//CONTROL WAVEMANAGER
 	if (_waveManager->getWaveEnemiesKilled() >= _waveManager->getWaveEnemies()){
@@ -192,9 +187,6 @@ void PlayState::mouseMoved(const OIS::MouseEvent &e)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseMove(
 		e.state.X.rel, e.state.Y.rel);
-
-	//_camera->yaw(Ogre::Radian(e.state.X.rel) * _deltaT * -1);
-	//_camera->pitch(Ogre::Radian(e.state.Y.rel) * _deltaT * -1);
 }
 
 void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
@@ -221,18 +213,18 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 	else if (_hudWeaponsGun->isVisible()){
 
 		if (_mine){
-			_mine->setAutomaticExplosion(true);
-			_mine->shoot();
-
+			_mine->active();			
 		}
+		else{
+			Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
 
-		Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
+			if (_player->getCountMines() > 0){
+				audioController->playAudio(Audio::MINE);
 
-		if (!_player->getMineActive() && _player->getCountMines() > 0){
-			audioController->playAudio(Audio::MINE);
-
-			_mine = new Mine(_player, _sceneMgr, Ogre::Vector3(positionMine.x, positionMine.y, positionMine.z), MESHES[MeshName::MINE]);
-			numMines++;
+				_mine = new Mine(_sceneMgr, Ogre::Vector3(positionMine.x, 0, positionMine.z), MESHES[MeshName::MINE]);				
+				_player->setCountMines(_player->getCountMines() - 1);				
+				numMines++;
+			}
 		}
 	}
 }

@@ -47,8 +47,7 @@ IntroState::enter()
 
 	WaveCompleteState::getSingletonPtr()->resetLevelGun();
 	WaveCompleteState::getSingletonPtr()->resetLevelMines();
-	WaveCompleteState::getSingletonPtr()->resetLevelPots();
-
+	WaveCompleteState::getSingletonPtr()->resetLevelPots();	
 }
 
 void

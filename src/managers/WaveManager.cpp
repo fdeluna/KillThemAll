@@ -2,14 +2,26 @@
 
 template<> WaveManager* Ogre::Singleton<WaveManager>::msSingleton = 0;
 
-WaveManager* WaveManager::getSingletonPtr() {
-	return msSingleton;
+void WaveManager::resetWaveManager(){
+	_bullets = 0;
+	_maxEnemiesInMap = 20;
+	_waveEnemies = 5;
+	_waveEnemiesKilled = 0;
+	_enemiesKilled = 0;
+	_pots = 0;
+	levelGun = 1;
+	levelMines = 1;
+	levelPots = 1;
+	//LevelGame
+	_levelGame = 0;
+	_numWaves = 1;
+	//Game stats
+	gameTime = 0;
+	minesUsed = 0;
+	bulletsUsed = 0;
+	potsUsed = 0;
 }
 
-WaveManager& WaveManager::getSingleton() {
-	assert(msSingleton);
-	return *msSingleton;
-}
 
 void WaveManager::initWave(){
 	_map = new Map(_sceneManager);
@@ -67,7 +79,18 @@ void WaveManager::wave(float deltaTime)
 
 void WaveManager::setPlayer(Player* player){
 	_player = player;
-	if (_playerCurrentLife != 0){		
+	if (_playerCurrentLife != 0){
 		_player->setLife(_playerCurrentLife);
 	}
 };
+
+
+WaveManager* WaveManager::getSingletonPtr() {
+	return msSingleton;
+}
+
+WaveManager& WaveManager::getSingleton() {
+	assert(msSingleton);
+	return *msSingleton;
+}
+

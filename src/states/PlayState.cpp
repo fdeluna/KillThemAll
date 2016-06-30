@@ -38,8 +38,7 @@ void PlayState::enter()
 	_waveManager->cleanWave();
 	_waveManager->initWave();
 	_player = new Player(_sceneMgr, Ogre::Vector3(_waveManager->getMap()->_mapCenter.x, 1, _waveManager->getMap()->_mapCenter.y), MESHES[MeshName::PLAYERM]);
-	_player->setLevel(_waveManager->levelPlayer());
-	_player->levelUp();
+	_player->setLevel(_waveManager->levelPlayer());	
 	_waveManager->setPlayer(_player);
 	_pathFinder = new PathFinder(_waveManager->getMap());
 
@@ -165,6 +164,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	//CONTROL WAVEMANAGER
 	if (_waveManager->getWaveEnemiesKilled() >= _waveManager->getWaveEnemies()){
+		_player->levelUp();
 		changeState(WaveCompleteState::getSingletonPtr());
 	}
 
@@ -221,7 +221,7 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 			if (_player->getCountMines() > 0){
 				audioController->playAudio(Audio::MINE);
 
-				_mine = new Mine(_sceneMgr, Ogre::Vector3(positionMine.x, 0.5, positionMine.z), MESHES[MeshName::MINE]);				
+				_mine = new Mine(_sceneMgr, Ogre::Vector3(positionMine.x, 0.5, positionMine.z), MESHES[MeshName::MINE], GameObjectType::MINEENEMY);
 				_player->setCountMines(_player->getCountMines() - 1);				
 				numMines++;
 			}

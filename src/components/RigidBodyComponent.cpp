@@ -30,9 +30,13 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5, 0.5, Ogre::Vector3::UNIT_Y);
 		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, player_collides_with);
 		break;
-	case ENEMY:
+	case ENEMYFIGHTER:
 		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5, 0.5, Ogre::Vector3::UNIT_Y);
-		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, enemy_collides_with);
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, enemy_fighter_collides_with);
+		break;
+	case ENEMYMINER:
+		_shape = new OgreBulletCollisions::CapsuleCollisionShape(0.5, 0.5, Ogre::Vector3::UNIT_Y);
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, enemy_miner_collides_with);
 		break;
 	case BULLET:
 		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(0.2, 0.2, 0.2));
@@ -42,11 +46,14 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(1.5, 1.5, 1.5));
 		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, mines_collides_with);
 		break;
+	case ENEMYMINE:
+		_shape = new OgreBulletCollisions::BoxCollisionShape(Ogre::Vector3(1.5, 1.5, 1.5));
+		_rigidBody = new OgreBulletDynamics::RigidBody(rigidName, physicsMgr->getWorld(), type, enemy_mines_collides_with);
+		break;
 	}
 
-	if (type == GameObjectType::PLAYER || type == GameObjectType::ENEMY || type == GameObjectType::BULLET){
-		_rigidBody->setShape(_sceneNodeComponent->getSceneNode(), _shape, 0.01, 1, 100.0, position, orientation);
-		//_rigidBody->getBulletRigidBody()->setLinearFactor(btVector3(0, 0, 0));		
+	if (type == GameObjectType::PLAYER || type == GameObjectType::ENEMYFIGHTER || type == GameObjectType::ENEMYMINER || type == GameObjectType::BULLET){
+		_rigidBody->setShape(_sceneNodeComponent->getSceneNode(), _shape, 0.01, 1, 100.0, position, orientation);		
 		_rigidBody->getBulletRigidBody()->setAngularFactor(btVector3(0, 0, 0));
 	}
 	else{

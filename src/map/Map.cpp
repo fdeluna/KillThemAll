@@ -1,7 +1,10 @@
 #include "Map.h"
 
 void Map::GenerateMap(){
-	_mapSize = Ogre::Vector2(10, 10);
+	std::srand(std::time(0));
+	int randX = rand() % (25 - 10 + 1) + 10;
+	int randY = rand() % (20 - 10 + 1) + 10;
+	_mapSize = Ogre::Vector2(randX, randY);
 	_mapCenter = Ogre::Vector2(_mapSize.x / 2, _mapSize.y / 2);
 
 	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[MeshName::OBSTACLENODE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
@@ -9,7 +12,7 @@ void Map::GenerateMap(){
 	hell->setMaterialName("Ground");
 
 	// TODO REFACTOR TO STYLE SELECTION
-	Ogre::Plane plane = createPlane("mapFloor", _mapSize.x + 0.2, _mapSize.y + 0.2);
+	Ogre::Plane plane = createPlane("mapFloor", randX, randY);
 	planeNode = new SceneNodeComponent(_sceneManager, "PlaneFloor", "mapFloor", Ogre::Vector3::UNIT_SCALE, Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
 
 	rigidBodyComponent = new RigidBodyComponent(nullptr, GameObjectType::MAP_FLOOR, planeNode);
@@ -31,11 +34,10 @@ void Map::GenerateMap(){
 
 	std::vector< std::vector <bool>> obstacleMap;
 	std::vector<std::pair<int, int>> randomCoords;
-	std::vector< std::vector <MapNode*>> shuffledgrid = grid;
-	std::srand(std::time(0));
+	std::vector< std::vector <MapNode*>> shuffledgrid = grid;	
 	int currentNumberObstacules = 0;
 
-	int maxNumberObstacules = _mapSize.x * _mapSize.y * 0.25;
+	int maxNumberObstacules = _mapSize.x * _mapSize.y * 0.30;
 	int minNumberObstacules = _mapSize.x * _mapSize.y * 0.15;
 	int numberObstacules = rand() % (maxNumberObstacules - minNumberObstacules) + minNumberObstacules;
 

@@ -17,14 +17,17 @@ void EnemyMiner::collision(GameObject* gameObject){
 
 void EnemyMiner::update(float deltaTime){
 	std::cout << _targetPosition.distance(getPosition()) << std::endl;
-
-	// TODO  COGER UNA POSICIÓN MAS ALEJADA
+	
 	if (_targetPosition == Ogre::Vector3::ZERO){		
-		_targetPosition = _map->getRandomNodePosition();
+		_targetPosition = _map->getRandomNodePosition();		
 	}
 
 	if (_targetPosition.distance(getPosition()) <= 2){
-		_targetPosition = _map->getRandomNodePosition();
+		Ogre::Vector3 aux = _map->getRandomNodePosition();
+		while (_targetPosition.distance(aux) < 5){
+			aux = _map->getRandomNodePosition();
+		}
+		_targetPosition = aux;
 		_state = EnemyState::ATTACK;
 	}
 
@@ -34,10 +37,12 @@ void EnemyMiner::update(float deltaTime){
 		_state = EnemyState::MOVE;
 	}
 
+	if (_state == EnemyState::DIE){
+		activeMine();
+	}
+
 	if (_mine && _mine->isActive()){
-
 		_mine->update(deltaTime);
-
 	}
 	else{
 		_mine = nullptr;
@@ -57,7 +62,7 @@ void EnemyMiner::move(float deltaTime){
 bool EnemyMiner::attack(float deltaTime){
 
 	Ogre::Vector3 positionMine = Ogre::Vector3(getPosition());
-	_mine = new Mine(_sceneManager, Ogre::Vector3(positionMine.x, 0.5, positionMine.z), MESHES[MeshName::MINE]);
+	_mine = new Mine(_sceneManager, Ogre::Vector3(positionMine.x, 0.5, positionMine.z), MESHES[MeshName::MINE], GameObjectType::MINEENEMY);
 
 	return true;
 }

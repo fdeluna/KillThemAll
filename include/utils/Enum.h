@@ -7,7 +7,8 @@
 enum MeshName{
 	TILE,
 	PLAYERM,
-	ENEMYFIGHTER,
+	ENEMYFIGHTERM,
+	ENEMYMINE,
 	BOSS,
 	PLAYERP,
 	BULLETP,
@@ -19,7 +20,8 @@ enum MeshName{
 static std::map<MeshName, Ogre::String> MESHES = {
 	{ MeshName::TILE, "Tile.mesh" },
 	{ MeshName::PLAYERM, "Player.mesh" },
-	{ MeshName::ENEMYFIGHTER, "EnemyFighter.mesh" },
+	{ MeshName::ENEMYFIGHTERM, "EnemyFighter.mesh" },
+	{ MeshName::ENEMYMINE, "EnemyMine.mesh" },
 	{ MeshName::BOSS, "Cylinder.mesh" },
 	{ MeshName::PLAYERP, "EnemyFighter.mesh" },
 	{ MeshName::BULLETP, "Bullet.mesh" },
@@ -44,18 +46,22 @@ enum GameObjectType{
 	MAP_FLOOR = 2,
 	HELL = 4,
 	PLAYER = 8,
-	ENEMY = 16,
+	ENEMYFIGHTER = 16,	
 	BULLET = 32,
-	MINES = 64
+	MINES = 64,
+	MINEENEMY = 128,
+	ENEMYMINER = 256
 };
 
-static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | MINES | ENEMY;
-static const short enemy_collides_with = OBSTACLE | MAP_FLOOR | HELL | BULLET | MINES | PLAYER;
-static const short obstacle_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET;
-static const short map_floor_collides_with = PLAYER | ENEMY | MAP_FLOOR | BULLET | MINES;
-static const short hell_collides_with = PLAYER | ENEMY | BULLET;
-static const short bullet_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMY;
-static const short mines_collides_with = ENEMY | PLAYER | MAP_FLOOR;
+static const short player_collides_with = OBSTACLE | MAP_FLOOR | HELL | MINES | ENEMYFIGHTER | MINEENEMY;
+static const short enemy_fighter_collides_with = OBSTACLE | MAP_FLOOR | HELL | BULLET | MINES | PLAYER;
+static const short enemy_miner_collides_with = OBSTACLE | MAP_FLOOR | HELL | BULLET | MINES;
+static const short obstacle_collides_with = PLAYER | ENEMYFIGHTER | ENEMYMINER | MAP_FLOOR | BULLET;
+static const short map_floor_collides_with = PLAYER | ENEMYFIGHTER | ENEMYMINER | MAP_FLOOR | BULLET | MINES;
+static const short hell_collides_with = PLAYER | ENEMYFIGHTER | ENEMYMINER | BULLET;
+static const short bullet_collides_with = OBSTACLE | MAP_FLOOR | HELL | ENEMYFIGHTER | ENEMYMINER;
+static const short mines_collides_with = ENEMYFIGHTER | ENEMYMINER | PLAYER | MAP_FLOOR;
+static const short enemy_mines_collides_with = PLAYER | MAP_FLOOR;
 
 static int sceneNodeNumber = 0;
 

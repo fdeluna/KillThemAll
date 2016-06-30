@@ -6,6 +6,7 @@
 #include "EnemyFighter.h"
 #include "EnemyMiner.h"
 
+#include <random>
 #include <vector>
 #include <Ogre.h>
 

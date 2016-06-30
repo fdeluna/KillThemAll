@@ -12,7 +12,7 @@ class Mine : public GameObject
 {
 public:
 	Mine() : _sceneNodeComponent(nullptr), _rigidBodyComponent(nullptr){};
-	Mine(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
+	Mine(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, GameObjectType type);
 	~Mine();
 
 	void update(float deltaTime);

@@ -9,7 +9,7 @@ class EnemyFighter : public Enemy{
 public:
 
 	EnemyFighter() : Enemy() {};
-	EnemyFighter(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Player* player,int level) : Enemy(sceneManager,position,mesh,player,level) {};
+	EnemyFighter(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Player* player, int level, GameObjectType type) : Enemy(sceneManager, position, mesh, player, level, type) {};
 	
 
 	void update(float deltaTime);

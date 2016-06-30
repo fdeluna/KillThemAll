@@ -29,13 +29,13 @@ void Player::collision(GameObject* gameObject){
 			textDie = "You are having a great lava shower";
 		}
 
-		if (gameObject->getType() == GameObjectType::MINES){
+		if (gameObject->getType() == GameObjectType::MINES || gameObject->getType() == GameObjectType::MINEENEMY){
 			life = 0;
 			textDie = "You was exploted in 100 pieces";
 
 		}
 
-		if (gameObject->getType() == GameObjectType::ENEMY){
+		if (gameObject->getType() == GameObjectType::ENEMYFIGHTER){
 			textDie = "You was killed by noob enemy. . .";
 		}
 	}

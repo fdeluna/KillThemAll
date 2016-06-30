@@ -9,7 +9,7 @@ class Enemy : public GameObject{
 
 public:
 	Enemy() : _sceneNodeComponent(nullptr), _rigidBodyComponent(nullptr), _pathFinderComponent(nullptr){};
-	Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh,Player* player,int level);
+	Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Player* player, int level, GameObjectType type);
 	virtual ~Enemy();
 
 	virtual void update(float deltaTime);

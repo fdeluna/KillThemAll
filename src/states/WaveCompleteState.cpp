@@ -23,10 +23,7 @@ void WaveCompleteState::enter()
 	createGUI();
 	_exitGame = false;
 	//_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
-	audioController = AudioController::getSingletonPtr();
-
-
-
+	audioController = AudioController::getSingletonPtr();	
 }
 
 void WaveCompleteState::exit() {

@@ -26,15 +26,12 @@ void Enemy::update(float deltaTime){
 	switch (_state)
 	{
 	case EnemyState::ATTACK:
-		if (!attackDistance() & !attack(deltaTime)){
+		/*if (!attackDistance() & !attack(deltaTime)){
 			_state = EnemyState::MOVE;
 		}
-		break;
+		break*/;
 	case EnemyState::MOVE:
-		move(deltaTime);
-		if (attackDistance()){
-			_state = EnemyState::ATTACK;
-		}
+		move(deltaTime);		
 		break;
 	case EnemyState::DIE:
 		audioController->playAudio(Audio::KILLENEMY);
@@ -55,12 +52,6 @@ void Enemy::update(float deltaTime){
 
 bool Enemy::attackDistance(){
 	return _player->getPosition().distance(_rigidBodyComponent->getPosition()) <= 2;
-}
-
-void Enemy::move(float deltaTime){
-	if (_pathFinderComponent){	
-		_pathFinderComponent->update(deltaTime * _speed,_player->getPosition());
-	}
 }
 
 void Enemy::hitted(float deltaTime){

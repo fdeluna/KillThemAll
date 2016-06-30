@@ -33,11 +33,29 @@ void EnemyFighter::update(float deltaTime){
 		_attackPosition = Ogre::Vector3::ZERO;
 		// TODO CAMBIAR DE SITIO
 		//AudioController::getSingletonPtr()->playAudio(Audio::HITENEMY);
+		move(deltaTime);
+		if (attackDistance()){
+			_state = EnemyState::ATTACK;
+		}		
 	}
 	else{
 		_nextAttack += deltaTime;
 	}
+
+	// TODO SWITCH DE ESTADOS
+	if (_state == EnemyState::ATTACK){
+		if (!attackDistance() & !attack(deltaTime)){
+			_state = EnemyState::MOVE;
+		}
+	}
 	Enemy::update(deltaTime);
+}
+
+
+void EnemyFighter::move(float deltaTime){
+	if (_pathFinderComponent){
+		_pathFinderComponent->update(deltaTime * _speed, _player->getPosition());
+	}
 }
 	
 bool EnemyFighter::attack(float deltaTime){

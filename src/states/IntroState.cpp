@@ -35,19 +35,17 @@ IntroState::enter()
 	_viewport->setBackgroundColour(Ogre::ColourValue(0.0, 0.0, 0.0));
 	//CEGUI
 	createGUI();
-
-	//_physicsManager = new PhysicsManager(_sceneMgr, true);
-	//_map = new Map(_sceneMgr);
-	//_map->GenerateMap();
+	
 	if (!audioController){
 		audioController = new AudioController();
 
 	}
 	audioController->playAudio(Audio::INTROSTATE);
 
-	WaveCompleteState::getSingletonPtr()->resetLevelGun();
+	// POR QUE?????
+	/*WaveCompleteState::getSingletonPtr()->resetLevelGun();
 	WaveCompleteState::getSingletonPtr()->resetLevelMines();
-	WaveCompleteState::getSingletonPtr()->resetLevelPots();	
+	WaveCompleteState::getSingletonPtr()->resetLevelPots();*/
 }
 
 void

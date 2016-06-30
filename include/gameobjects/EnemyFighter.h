@@ -14,6 +14,7 @@ public:
 
 	void update(float deltaTime);
 	void collision(GameObject* gameObject);
+	void move(float deltaTime);
 	bool attack(float deltaTime);
 	//void die() {};
 	//void hitted() {};

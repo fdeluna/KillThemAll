@@ -26,8 +26,8 @@ void WaveManager::resetWaveManager(){
 void WaveManager::initWave(){
 	_map = new Map(_sceneManager);
 	_map->GenerateMap();
-	_waveEnemies = 10;
-	_waveEnemies = _waveEnemies * (_levelGame + 1);
+	_waveEnemies = 1;
+	//_waveEnemies = _waveEnemies * (_levelGame + 1);
 	_waveEnemiesKilled = 0;
 	_levelGame++;
 }
@@ -54,9 +54,10 @@ void WaveManager::wave(float deltaTime)
 	_spawnEnemy += deltaTime;
 	if (_spawnEnemy >= 1 && _enemies.size() <= _waveEnemies){
 		_spawnEnemy = 0;
-		EnemyFighter* newEnemy = nullptr;
+		Enemy* newEnemy = nullptr;
 		Ogre::Vector3 enemyPosition = _map->getRandomNodePosition();
-		newEnemy = new EnemyFighter(_sceneManager, Ogre::Vector3(enemyPosition.x, 0.5, enemyPosition.z), MESHES[MeshName::ENEMYFIGHTER], _player, _levelGame);
+		//newEnemy = new EnemyFighter(_sceneManager, Ogre::Vector3(enemyPosition.x, 0, enemyPosition.z), MESHES[MeshName::ENEMYFIGHTER], _player, _levelGame);
+		newEnemy = new EnemyMiner(_sceneManager, Ogre::Vector3(enemyPosition.x, 0.2, enemyPosition.z), MESHES[MeshName::ENEMYFIGHTER], _map, _levelGame);
 
 		_enemies.push_back(newEnemy);
 	}

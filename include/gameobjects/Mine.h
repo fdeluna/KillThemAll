@@ -15,7 +15,7 @@ public:
 	Mine(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
 	~Mine();
 
-	void update(const Ogre::FrameEvent& evt);
+	void update(float deltaTime);
 	void active(){ _activeMine = true; };
 	void shoot();
 

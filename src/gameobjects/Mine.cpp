@@ -21,9 +21,9 @@ Mine::~Mine()
 	GameObject::~GameObject();
 }
 
-void Mine::update(const Ogre::FrameEvent& evt){
+void Mine::update(float deltaTime){
 
-	timer += evt.timeSinceLastFrame;
+	timer += deltaTime;
 
 	if (timer > timeExplote || _activeMine){
 		if (!explosion){		

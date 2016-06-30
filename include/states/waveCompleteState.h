@@ -51,11 +51,7 @@ private:
 	Ogre::Viewport *_viewport;
 	AudioController* audioController;
 	bool _exitGame;
-
-
-	CEGUI::OgreRenderer* _renderer;
-
-	Map* _Map;
+		
 	//Weapons
 	int levelGun = 1;
 	int levelMines = 1;

@@ -120,7 +120,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	//CONTROL WEAPONS
 	if (_mine && _mine->isActive()){
 
-		_mine->update(evt);
+		_mine->update(_deltaT);
 
 	}
 	else{
@@ -221,7 +221,7 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 			if (_player->getCountMines() > 0){
 				audioController->playAudio(Audio::MINE);
 
-				_mine = new Mine(_sceneMgr, Ogre::Vector3(positionMine.x, 0, positionMine.z), MESHES[MeshName::MINE]);				
+				_mine = new Mine(_sceneMgr, Ogre::Vector3(positionMine.x, 0.5, positionMine.z), MESHES[MeshName::MINE]);				
 				_player->setCountMines(_player->getCountMines() - 1);				
 				numMines++;
 			}

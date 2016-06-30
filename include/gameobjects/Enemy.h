@@ -19,7 +19,7 @@ public:
 	
 	virtual void levelUp(){};
 
-	virtual void move(float deltaTime);
+	virtual void move(float deltaTime){};
 	virtual bool attack(float deltaTime) { return true; };
 	virtual void die(float deltaTime) {};
 	virtual void hitted(float deltaTime);

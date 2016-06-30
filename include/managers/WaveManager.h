@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "Player.h"
 #include "EnemyFighter.h"
+#include "EnemyMiner.h"
 
 #include <vector>
 #include <Ogre.h>
@@ -71,7 +72,7 @@ private:
 	
 	Map* _map = nullptr;
 	Ogre::SceneManager* _sceneManager;
-	std::vector<EnemyFighter*> _enemies;
+	std::vector<Enemy*> _enemies;
 
 	float _spawnEnemy;
 	Player* _player;

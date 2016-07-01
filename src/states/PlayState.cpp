@@ -408,17 +408,6 @@ void PlayState::printTextGUI(){
 	enemiesString5 << _gun->getAmmo();
 	_bulletsGUI->setText(enemiesString5.str());
 
-	if (_gun->getAmmo() < 1){
-		StringStream enemiesString6;
-		enemiesString6 << "RELOAD!";
-		_centralText->setText(enemiesString6.str());
-	}
-	else if (_gun->getReloading()){
-		StringStream enemiesString6;
-		enemiesString6 << "RELOADING . . .";
-		_centralText->setText(enemiesString6.str());
-	}
-
 	if (_startDelay < 3){
 		StringStream enemiesString6;
 		enemiesString6 << "LEVEL: " << _player->getLevel();
@@ -427,6 +416,17 @@ void PlayState::printTextGUI(){
 	else{
 		StringStream enemiesString6;
 		enemiesString6 << "";
+		_centralText->setText(enemiesString6.str());
+	}
+
+	if (_gun->getAmmo() < 1){
+		StringStream enemiesString6;
+		enemiesString6 << "RELOAD!";
+		_centralText->setText(enemiesString6.str());
+	}
+	else if (_gun->getReloading()){
+		StringStream enemiesString6;
+		enemiesString6 << "RELOADING . . .";
 		_centralText->setText(enemiesString6.str());
 	}
 

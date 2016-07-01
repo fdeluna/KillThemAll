@@ -24,7 +24,7 @@ void Gun::update(const Ogre::FrameEvent& evt){
 }
 
 void Gun::upgrade(){
-	_level++;
+
 	switch (_level)
 	{
 	case 2:
@@ -69,7 +69,6 @@ void Gun::reload(){
 	}
 	else if (_level == 2){
 		_ammo = 16;
-
 	}
 	else if (_level == 3){
 		_ammo = 25;

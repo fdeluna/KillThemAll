@@ -29,7 +29,7 @@ public:
 	bool getReloading(){ return _reloading; };
 	float getVelAtack(){ return _velAtack; };
 	int getAmmo(){ return _ammo; };
-	void setLevelGun(int _level){ _level = _level; };
+	void setLevelGun(int level){ _level = level; };
 	int getLevelGun(){ return _level; };
 	int getNumBullet(){ return _numBullet; };
 

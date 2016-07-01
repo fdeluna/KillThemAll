@@ -5,23 +5,19 @@
 #include "WaveCompleteState.h"
 #include "GameOverState.h"
 #include "PhysicsManager.h"
-
 #include "PathFinder.h"
 #include "Player.h"
 #include "Bullet.h"
 #include "Gun.h"
-#include "EnemyFighter.h"
 #include "Mine.h"
+#include "AudioController.h"
 
-#include <future>
 #include <algorithm>
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <btBulletDynamicsCommon.h>
-#include "AudioController.h"
-
 
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
 {
@@ -47,56 +43,39 @@ public:
 	
 	CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);	
 
+	void init();
 	void createGUI();
 	void printTextGUI();
 	void updateLevelWeapons();
+
 private:	
 	Ogre::Root *_root;
 	Ogre::SceneManager *_sceneMgr;
 	Ogre::Camera *_camera;
 	Ogre::Viewport *_viewport;
-	AudioController* audioController;
-	bool _exitGame;
+	AudioController* audioController;	
 
-	float _deltaT = 0;
-	bool can = true;
-
-	float _gameOverDelay = 0;
-	float _startDelay = 0;
-	
-	float timer = 0;
-	float timerReload = 0;
 	WaveManager* _waveManager;
 	PhysicsManager* _physicsManager;
-	PathFinder* _pathFinder;	
-	Player* _player;	
+	PathFinder* _pathFinder;
+	Player* _player;
 
 	Bullet* _bullet;
 	Gun* _gun;
-	Mine* _mine;	
+	Mine* _mine;
 
-	// CEGUI
-	bool quit(const CEGUI::EventArgs &e);
-	bool save(const CEGUI::EventArgs &e);
+	GameFlowState _state = GameFlowState::PLAY;
+
+	float _deltaT = 0;	
+	float _delay = 0;
+	float _startDelay = 0;	
+	float timer = 0;
+	float timerReload = 0;		
+
+	// CEGUI	
 	void hudLife();
 
-	
-	//ANTIGUAS
 	CEGUI::Window* playStateUI;
-	CEGUI::Window* _gameOverUI;
-	CEGUI::Window* _winUI;
-	CEGUI::Window* _exitGameOver;
-	CEGUI::Window* _scoreText;
-	CEGUI::Window* _scoreTextLose;
-	CEGUI::Window* _getReadyText;
-	CEGUI::Window* _scoreTextGUI;
-	CEGUI::Window* _scoreNumberTextGUI;
-	CEGUI::Window* _lifeText;
-	CEGUI::Window*	_nameText;
-	CEGUI::Window*	_nameTextLose;
-	CEGUI::Window* _saveGameOver;
-	CEGUI::Window* _saveWin;
-
 	CEGUI::Window* _vida1;
 	CEGUI::Window* _vida2;
 	CEGUI::Window* _vida3;
@@ -118,10 +97,7 @@ private:
 	CEGUI::Window* _warning;
 
 	bool activeWarning = false;
-	float timerWarning = 0;
-
-	
-	int enemiesNextWave =0;
+	float timerWarning = 0;		
 
 	//NUEVAS
 	CEGUI::Window* _hud;

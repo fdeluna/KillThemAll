@@ -19,10 +19,6 @@ public:
 	void active(){ _activeMine = true; };
 	void shoot();
 
-	//GETTER/SETTERS
-	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponent; };
-	RigidBodyComponent* getRigidBodyComponent(){ return _rigidBodyComponent; };
-
 protected:
 
 	SceneNodeComponent* _sceneNodeComponent;
@@ -33,7 +29,7 @@ protected:
 	bool _activeMine = false;
 	bool explosion = false;
 	float timeExplote = 2.5;
-	float timeDestroy = 1;
+	float timeDestroy = 0.25;
 	float timer = 0;
 	
 };

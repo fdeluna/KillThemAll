@@ -16,50 +16,33 @@ void PlayState::enter()
 		_camera = _sceneMgr->createCamera("PlayState");
 		_waveManager = new WaveManager(_sceneMgr);
 	}
-
+	init();
 	createGUI();
-	_exitGame = false;
+	_state = GameFlowState::PLAY;
+}
 
-	// TODO LIGHTS
+void  PlayState::init(){
+	// lights
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
 	_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	Ogre::Light* light;
-	// Creamos la luz
 	light = _sceneMgr->createLight("LightingNode");
 	light->setType(Ogre::Light::LT_DIRECTIONAL);
 	light->setDirection(Ogre::Vector3(1, -1, -3));
 	_sceneMgr->getRootSceneNode()->attachObject(light);
 
-	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
-	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
-
-	_gameOverDelay = 0;
 	_physicsManager = new PhysicsManager(_sceneMgr, true);
+	
+	_delay = 0;
+	_startDelay = 0;	
 	_waveManager->cleanWave();
 	_waveManager->initWave();
-	_player = new Player(_sceneMgr, Ogre::Vector3(_waveManager->getMap()->_mapCenter.x, 1, _waveManager->getMap()->_mapCenter.y), MESHES[MeshName::PLAYERM]);
-	_player->setLevel(_waveManager->levelPlayer());	
+	_player = new Player(_sceneMgr, Ogre::Vector3(_waveManager->getMap()->getMapCenter().x, 1, _waveManager->getMap()->getMapCenter().y), MESHES[MeshName::PLAYERM]);
+	_player->setLevel(_waveManager->levelPlayer());
 	_waveManager->setPlayer(_player);
 	_pathFinder = new PathFinder(_waveManager->getMap());
 
-	StringStream levelString;
-	levelString << _player->getLevel();
-	_levelText->setText(levelString.str());
-
-	_startDelay = 0;
-
-	double width = _viewport->getActualWidth();
-	double height = _viewport->getActualHeight();
-	_camera->setAspectRatio(width / height);
-	_camera->setPosition(Ogre::Vector3(0, 20, 40));
-	_camera->lookAt(Ogre::Vector3(0, 0, -100));
-	_camera->setNearClipDistance(1);
-	_camera->setFarClipDistance(10000);
-	_camera->setPosition(_waveManager->getMap()->_mapCenter.x, 15, _waveManager->getMap()->_mapCenter.y - 5);
-	_camera->lookAt(_waveManager->getMap()->_mapCenter.x, 0, _waveManager->getMap()->_mapCenter.y);
-
-
-	// MOVE TO PLAYER
+	// weapons
 	Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x + 15,
 		_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
 		_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
@@ -67,6 +50,19 @@ void PlayState::enter()
 
 	//Update level weapons	
 	updateLevelWeapons();
+
+	// Camera
+	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
+	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
+	double width = _viewport->getActualWidth();
+	double height = _viewport->getActualHeight();
+	_camera->setAspectRatio(width / height);
+	_camera->setPosition(Ogre::Vector3(0, 20, 40));
+	_camera->lookAt(Ogre::Vector3(0, 0, -100));
+	_camera->setNearClipDistance(1);
+	_camera->setFarClipDistance(10000);
+	_camera->setPosition(_waveManager->getMap()->getMapCenter().x, 12.5, _waveManager->getMap()->getMapCenter().y - 5);
+	_camera->lookAt(_waveManager->getMap()->getMapCenter().x, 0, _waveManager->getMap()->getMapCenter().y);
 
 	audioController = AudioController::getSingletonPtr();
 	audioController->playAudio(Audio::PLAYSTATE);
@@ -93,81 +89,72 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	_deltaT = evt.timeSinceLastFrame;
 	_startDelay += _deltaT;
-
-	if (_player->getLife() < _player->getLife()/2){
-		timerWarning += _deltaT;
-		if (0 < timerWarning && timerWarning < 0.5){
-			_warning->setVisible(true);
-		}
-		else if (0.5 < timerWarning && timerWarning < 1){
-			_warning->setVisible(false);
-
-		}
-		else if (1 < timerWarning && timerWarning < 1.5){
-
-			timerWarning = 0;
-		}
-	}
-	else{
-
-		_warning->setVisible(false);
-
-	}
-	//Set all text of GUI
-	printTextGUI();
-
-	//CONTROL WEAPONS
-	if (_mine && _mine->isActive()){
-
-		_mine->update(_deltaT);
-
-	}
-	else{
-		_mine = nullptr;
-	}
-	if (_gun){
-		if (timer > _gun->getVelAtack()){
-			_gun->setCanShoot(true);
-			timer = 0;
-		}
-		if (_gun->getReloading()){
-			timerReload = timerReload + evt.timeSinceLastFrame;
-		}
-		if (timerReload > 1 && _gun->getReloading()){
-			_gun->reload();
-			_gun->setReloading(false);
-
-		}
-	}
-
-	//UPDATE PHYSICS
 	_physicsManager->updatePhysics(_deltaT);
-	//CONTROL PLAYER
-	if (_player){
-		hudLife();
-		if (_player->getLife() <= 0){
-			_gameOverDelay += _deltaT;
-			if (_gameOverDelay > 2){				
-				WaveManager::getSingletonPtr()->setGameTime(_deltaT);
-				WaveManager::getSingletonPtr()->setBulletUsed(_gun->getNumBullet());
-				WaveManager::getSingletonPtr()->setMinesUsed(numMines);
-				WaveManager::getSingletonPtr()->setPotsUsed(numPots);
+	printTextGUI();
+	std::cout << _startDelay << std::endl;
+	switch (_state){
+	case GameFlowState::PLAY:
 
-				changeState(GameOverState::getSingletonPtr());
-			}
+		if (_mine && _mine->isActive()){
+			_mine->update(_deltaT);
 		}
 		else{
+			_mine = nullptr;
+		}
+
+		if (_gun){
+			if (timer > _gun->getVelAtack()){
+				_gun->setCanShoot(true);
+				timer = 0;
+			}
+			if (_gun->getReloading()){
+				timerReload = timerReload + evt.timeSinceLastFrame;
+			}
+			if (timerReload > 1 && _gun->getReloading()){
+				_gun->reload();
+				_gun->setReloading(false);
+
+			}
+		}
+
+		if (_player){
+			hudLife();
+			if (_player->getLife() <= 0){
+				_delay = 0;
+				_state = GameFlowState::GAMEOVER;
+			}
 			_player->update(_deltaT);
 			_waveManager->wave(_deltaT);
 		}
-	}
 
-	//CONTROL WAVEMANAGER
-	if (_waveManager->getWaveEnemiesKilled() >= _waveManager->getWaveEnemies()){
-		_player->levelUp();
-		changeState(WaveCompleteState::getSingletonPtr());
-	}
+		if (_waveManager->getWaveEnemiesKilled() >= _waveManager->getWaveEnemies()){
+			_delay = 0;
+			_state = GameFlowState::WAVECLEARED;
+		}
 
+		break;
+	case GameFlowState::GAMEOVER:
+		_delay += _deltaT;
+		if (_delay > 3){
+			_waveManager->setGameTime(_deltaT);
+			_waveManager->setBulletUsed(_gun->getNumBullet());
+			_waveManager->setMinesUsed(numMines);
+			_waveManager->setPotsUsed(numPots);
+			_waveManager->resetWaveManager();
+			changeState(GameOverState::getSingletonPtr());
+		}
+		break;
+	case GameFlowState::WAVECLEARED:
+		_delay += _deltaT;
+		StringStream waveComplete;
+		waveComplete << "WAVE CLEARED!!!";
+		_centralText->setText(waveComplete.str());
+		if (_delay > 3){
+			_player->levelUp();
+			changeState(WaveCompleteState::getSingletonPtr());
+		}
+		break;
+	}
 	return true;
 }
 
@@ -177,8 +164,6 @@ bool PlayState::frameEnded(const Ogre::FrameEvent& evt)
 		evt.timeSinceLastFrame);
 	_physicsManager->updatePhysics(_deltaT);
 
-	if (_exitGame)
-		return false;
 	return true;
 }
 
@@ -195,35 +180,38 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 		convertMouseButton(id));
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setImage(
 		"TaharezLook/Mirilla");
-	//Use pots
-	if (_hudWeaponsShotGun->isVisible()){
-		if (_player->getPotions() > 0){
-			audioController->playAudio(Audio::POTION);
 
-			_player->potion();
-			numPots++;
+	if (_state == GameFlowState::PLAY){
+		//Use pots
+		if (_hudWeaponsShotGun->isVisible()){
+			if (_player->getPotions() > 0){
+				audioController->playAudio(Audio::POTION);
+
+				_player->potion();
+				numPots++;
+			}
+			hudLife();
 		}
-		hudLife();
-	}
-	else if (_hudWeaponsClub->isVisible()){
-		_gun->shoot();
+		else if (_hudWeaponsClub->isVisible()){
+			_gun->shoot();
 
 
-	}
-	else if (_hudWeaponsGun->isVisible()){
-
-		if (_mine){
-			_mine->active();			
 		}
-		else{
-			Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
+		else if (_hudWeaponsGun->isVisible()){
 
-			if (_player->getCountMines() > 0){
-				audioController->playAudio(Audio::MINE);
+			if (_mine){
+				_mine->active();
+			}
+			else{
+				Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
 
-				_mine = new Mine(_sceneMgr, Ogre::Vector3(positionMine.x, 0.5, positionMine.z), MESHES[MeshName::MINE], GameObjectType::MINEENEMY);
-				_player->setCountMines(_player->getCountMines() - 1);				
-				numMines++;
+				if (_player->getCountMines() > 0){
+					audioController->playAudio(Audio::MINE);
+
+					_mine = new Mine(_sceneMgr, Ogre::Vector3(positionMine.x, 0.5, positionMine.z), MESHES[MeshName::MINE], GameObjectType::MINES);
+					_player->setCountMines(_player->getCountMines() - 1);
+					numMines++;
+				}
 			}
 		}
 	}
@@ -241,13 +229,6 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(
 		static_cast<CEGUI::Key::Scan> (e.key));
-
-	if (OIS::KC_ESCAPE == e.key){
-		audioController->playAudio(Audio::BACK);
-
-		_exitGame = true;
-	}
-
 
 	if (OIS::KC_1 == e.key){
 		audioController->playAudio(Audio::BUTTON);
@@ -272,16 +253,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		_hudWeaponsShotGun->setVisible(true);
 	}
 
-	if (OIS::KC_4 == e.key){
-
-		_player->levelUp();
-		//	_player->levelUpPotion();
-		//_player->levelUpMines();
-		//_gun->upgrade();
-	}
 	if (OIS::KC_R == e.key){
-
-		//_player->levelUp();
 		_gun->setReloading(true);
 		_gun->reload();
 		timerReload = 0;
@@ -293,9 +265,7 @@ void PlayState::keyReleased(const OIS::KeyEvent &e)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp(
 		static_cast<CEGUI::Key::Scan> (e.key));
-
 }
-
 
 PlayState* PlayState::getSingletonPtr()
 {
@@ -425,12 +395,10 @@ void PlayState::printTextGUI(){
 	_wave->setText(enemiesString2.str());
 
 	StringStream enemiesString;
-	enemiesNextWave = _waveManager->getWaveEnemies() - _waveManager->getWaveEnemiesKilled();
-	enemiesString << "ENEMIES: " << enemiesNextWave;
+	enemiesString << "ENEMIES: " << _waveManager->getWaveEnemies() - _waveManager->getWaveEnemiesKilled();
 	_enemies->setText(enemiesString.str());
 
 	StringStream enemiesString3;
-
 	enemiesString3 << _player->getCountMines();
 	_minesGUI->setText(enemiesString3.str());
 
@@ -451,44 +419,11 @@ void PlayState::printTextGUI(){
 		StringStream enemiesString6;
 		enemiesString6 << "RELOADING . . .";
 		_centralText->setText(enemiesString6.str());
-
 	}
-	else if (_player->getLife() < 1){
-		StringStream enemiesString6;
-		enemiesString6 << _player->getTextDie();
-		_centralText->setText(enemiesString6.str());
 
-	}
-	else if (1 > _startDelay > 0){
+	if (_startDelay < 3){
 		StringStream enemiesString6;
-		//enemiesString6 << "READY!";
 		enemiesString6 << "LEVEL: " << _player->getLevel();
-
-		_centralText->setText(enemiesString6.str());
-	}
-	else if (2 > _startDelay > 1){
-		StringStream enemiesString6;
-		enemiesString6 << "3";
-		_centralText->setText(enemiesString6.str());
-	}
-	else if (3 > _startDelay > 2){
-		StringStream enemiesString6;
-		enemiesString6 << "2";
-		_centralText->setText(enemiesString6.str());
-	}
-	else if (4 > _startDelay > 3){
-		StringStream enemiesString6;
-		enemiesString6 << "1";
-		_centralText->setText(enemiesString6.str());
-	}
-	else if (6 > _startDelay > 4){
-		StringStream enemiesString6;
-		enemiesString6 << "GO!";
-		_centralText->setText(enemiesString6.str());
-	}
-	else if (8 > _startDelay > 6){
-		StringStream enemiesString6;
-		enemiesString6 << "";
 		_centralText->setText(enemiesString6.str());
 	}
 	else{
@@ -498,26 +433,45 @@ void PlayState::printTextGUI(){
 	}
 
 
+	if (_player->getLife() < 1){
+		StringStream enemiesString6;
+		enemiesString6 << _player->getTextDie();
+		_centralText->setText(enemiesString6.str());
+
+	}
+
+	if (_player->getLife() <= _player->getMaxLife() / 2){
+		timerWarning += _deltaT;
+		if (0 < timerWarning && timerWarning < 0.5){
+			_warning->setVisible(true);
+		}
+		else if (0.5 < timerWarning && timerWarning < 1){
+			_warning->setVisible(false);
+
+		}
+		else if (1 < timerWarning && timerWarning < 1.5){
+			timerWarning = 0;
+		}
+	}
+	else{
+
+		_warning->setVisible(false);
+
+	}
 
 }
-void PlayState::updateLevelWeapons(){
 
+void PlayState::updateLevelWeapons(){
 	_gun->setLevelGun(WaveManager::getSingletonPtr()->getLevelGun());
 	_player->setLevelMines(WaveManager::getSingletonPtr()->getLevelMines());
 	_player->setLevelPots(WaveManager::getSingletonPtr()->getLevelPots());
-
 	_gun->upgrade();
 	_player->levelUpMines();
 	_player->levelUpPotion();
-
-
-
 }
+
 void PlayState::createGUI()
 {
-
-
-
 	CEGUI::Scheme::setDefaultResourceGroup("Schemes");
 	CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
 	CEGUI::Font::setDefaultResourceGroup("Fonts");
@@ -536,48 +490,6 @@ void PlayState::createGUI()
 	//Config Window	
 	playStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
 		"PlayState.layout");
-
-
-
-	/*
-	_gameOverUI = playStateUI->getChild("FondoGameOver");
-	_winUI = playStateUI->getChild("FondoWin");
-	_scoreText = _winUI->getChild("LabelScore");
-	_scoreTextLose = _gameOverUI->getChild("LabelScore");
-	_getReadyText = playStateUI->getChild("GetReady");
-	_nameText = _winUI->getChild("NameText");
-	_nameTextLose = _gameOverUI->getChild("NameText");
-	_scoreTextGUI = playStateUI->getChild("ScoreText");
-	_scoreNumberTextGUI = playStateUI->getChild("ScorePlayer");
-	_lifeText = playStateUI->getChild("Life");
-	_getReadyText->setText("GET READY");
-	_saveWin = _winUI->getChild("Save");
-	_saveWin->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::save, this));
-	_saveGameOver = _gameOverUI->getChild("Exit");
-	_saveGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::save, this));
-	_heart1 = playStateUI->getChild("1heart");
-	_heart2 = playStateUI->getChild("2heart");
-	_heart3 = playStateUI->getChild("3heart");
-	_winUI->setVisible(false);
-	_gameOverUI->setVisible(false);
-	*/
-	/*
-	_resume->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::resume, this));
-	_exitPause->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::quit, this));
-	_retry->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::retry, this));
-	_exitGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::quit, this));
-	_save->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::save, this));
-	_winUI->setVisible(false);
-	_pauseUI->setVisible(false);
-	_gameOverUI->setVisible(false);
-	*/
 
 	_hud = playStateUI->getChild("HUD");
 	_hudLife = _hud->getChild("HUDFULL");
@@ -619,6 +531,9 @@ void PlayState::createGUI()
 	_hudWeaponsShotGun = _hudWeapons->getChild("WeaponShotGun");
 	_hudWeaponsShotGun->setVisible(false);
 
+	StringStream levelString;
+	levelString << _player->getLevel();
+	_levelText->setText(levelString.str());
 	sheet->addChild(playStateUI);
 
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);

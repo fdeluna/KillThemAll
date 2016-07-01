@@ -17,13 +17,11 @@ public:
 	void update(float deltaTime, Ogre::Vector3 position);
 
 	void move(float deltaTime);
-	void lookAt(float deltaTime);
-	void setSpeed(float speed){ _speed = speed; };
+	void lookAt(float deltaTime);	
 
 private:
 
-	float _timer = 0;
-	float _speed = SPEEDS[Speed::SLOW];
+	float _timer = 0;	
 	bool attackDistance = false;
 	
 	Ogre::Vector3 _position;

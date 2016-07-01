@@ -31,14 +31,18 @@ static std::map<MeshName, Ogre::String> MESHES = {
 
 };
 
+enum class GameFlowState{
+
+	PLAY,
+	GAMEOVER,
+	WAVECLEARED
+};
 
 enum class EnemyState
 {
 	ATTACK,
 	MOVE,
-	DIE,
-	HITTED
-
+	DIE
 };
 
 enum GameObjectType{
@@ -105,18 +109,16 @@ enum class Speed{
 };
 
 static std::map<Speed, float> SPEEDS = {
-	{ Speed::SLOW, 5.5f },
-	{ Speed::NORMAL, 6.5f },
-	{ Speed::FAST, 8.5f }
+	{ Speed::SLOW, 1.5f },
+	{ Speed::NORMAL, 3.0f },
+	{ Speed::FAST, 5.0f }
 
 };
 
 enum class SpeedPlayer{
-
 	SLOWP,
 	NORMALP,
 	FASTP
-
 };
 
 static std::map<SpeedPlayer, float> SPEEDPLAYER = {
@@ -140,26 +142,4 @@ static std::map<AttackVelocity, float> ATTACKVELOCITIES = {
 	{ AttackVelocity::FAST, 0.1f }
 
 };
-
-enum class ScopeWeapon{
-
-	LONG,
-	MELEE,
-	SHORT
-};
-
-enum class CadenceWeapon{
-
-	SLOW,
-	NORMAL,
-	FAST
-};
-
-static std::map<CadenceWeapon, float>	CADENCE = {
-	{ CadenceWeapon::SLOW, 1.5f },
-	{ CadenceWeapon::NORMAL, 2.0f },
-	{ CadenceWeapon::FAST, 2.5f }
-
-};
-
 #endif

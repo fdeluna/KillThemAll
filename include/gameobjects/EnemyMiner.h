@@ -10,14 +10,13 @@ class EnemyMiner : public Enemy{
 public:
 
 	EnemyMiner() : Enemy() {};
-	EnemyMiner(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Map* map, int level, GameObjectType type) : Enemy(sceneManager, position, mesh, nullptr, level, type), _map(map){};
+	EnemyMiner(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Map* map, int level, GameObjectType type) : Enemy(sceneManager, position, mesh, nullptr, level, type), _map(map){};	
 
 	void update(float deltaTime);
 	void collision(GameObject* gameObject);
 	void move(float deltaTime);
 	bool attack(float deltaTime);
 
-	void activeMine(){ if(_mine) _mine->active(); };
 	//void die() {};
 	//void hitted() {};
 

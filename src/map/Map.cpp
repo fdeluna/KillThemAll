@@ -10,10 +10,11 @@ void Map::GenerateMap(){
 	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[MeshName::OBSTACLENODE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
 	RigidBodyComponent* hellBody = new RigidBodyComponent((GameObject*)this, GameObjectType::HELL, hell);
 	hell->setMaterialName("Ground");
-
-	// TODO REFACTOR TO STYLE SELECTION
-	Ogre::Plane plane = createPlane("mapFloor", randX, randY);
-	planeNode = new SceneNodeComponent(_sceneManager, "PlaneFloor", "mapFloor", Ogre::Vector3::UNIT_SCALE, Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
+	
+	Ogre::String nodeName("mapFloor");	
+	getOgreName(nodeName);
+	Ogre::Plane plane = createPlane(nodeName, _mapSize.x + 0.2, _mapSize.y + 0.2);
+	planeNode = new SceneNodeComponent(_sceneManager, "PlaneFloor", nodeName, Ogre::Vector3::UNIT_SCALE, Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
 
 	rigidBodyComponent = new RigidBodyComponent(nullptr, GameObjectType::MAP_FLOOR, planeNode);
 	rigidBodyComponent->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));

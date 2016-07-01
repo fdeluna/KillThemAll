@@ -2,6 +2,7 @@
 #define GameOverState_H
 
 
+#include "AudioController.h"
 #include "GameState.h"
 #include "Map.h"
 
@@ -10,7 +11,7 @@
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <btBulletDynamicsCommon.h>
-#include "AudioController.h"
+
 
 class GameOverState : public Ogre::Singleton<GameOverState>, public GameState
 {
@@ -46,20 +47,18 @@ private:
 	Ogre::Camera *_camera;
 	Ogre::Viewport *_viewport;
 	AudioController* audioController;
-	bool _exitGame;
-
-	CEGUI::OgreRenderer* _renderer;
-
+		
 	Map* _Map;
-	// CEGUI
-
 
 	bool quit(const CEGUI::EventArgs &e);
 	bool upgrade(const CEGUI::EventArgs &e);
 	bool ready(const CEGUI::EventArgs &e);
 	bool upgradeWeapon(const CEGUI::EventArgs &e);
 
-	//ANTIGUAS
+	float sizeX = 0.15;
+	float _time = 0;
+
+	CEGUI::OgreRenderer* _renderer;	
 	CEGUI::Window* _GameOverStateUI;
 	CEGUI::Window* _gameOverUI;
 	CEGUI::Window* _winUI;
@@ -94,10 +93,7 @@ private:
 	CEGUI::Window* _bullets;
 	CEGUI::Window* _pots;
 
-	CEGUI::Window* _exit;
-	float sizeX = 0.15;
-	// Time match for cegui GUI
-	float _time = 0;
+	CEGUI::Window* _exit;	
 
 };
 

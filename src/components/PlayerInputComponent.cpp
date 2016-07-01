@@ -8,6 +8,7 @@ PlayerInputComponent::PlayerInputComponent(RigidBodyComponent* body, Ogre::Scene
 void PlayerInputComponent::update(float deltaTime){
 
 	_camera->setPosition(_playerBody->getPosition().x, 12.5, _playerBody->getPosition().z - 4);
+	_camera->lookAt(_playerBody->getPosition().x, 12.5, _playerBody->getPosition().z - 4);
 	move(deltaTime);
 	lookAt();
 }

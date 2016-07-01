@@ -25,64 +25,50 @@ Player::~Player(){
 void Player::collision(GameObject* gameObject){
 	if (gameObject){
 		if (gameObject->getType() == GameObjectType::HELL){
-			life = 0;
-			textDie = "You are having a great lava shower";
+			_life = 0;
+			_textDie = "You fell into the hell";
 		}
 
 		if (gameObject->getType() == GameObjectType::MINES || gameObject->getType() == GameObjectType::MINEENEMY){
-			life = 0;
-			textDie = "You was exploted in 100 pieces";
-
+			_life = 0;
+			_textDie = "You exploted in 100 pieces";
 		}
 
 		if (gameObject->getType() == GameObjectType::ENEMYFIGHTER){
-			textDie = "You was killed by noob enemy. . .";
+			_textDie = "You was killed by noob enemy. . .";
 		}
 	}
 
-}
-
-bool Player::die(){
-
-
-	if (life <= 0){
-		return true;
-	}
-	else{
-		return false;
-	}
 }
 
 void Player::hitted(int damage){
 
-	life = life - damage;
+	_life -= damage;
 
 }
 
 void Player::potion(){
-	if (numPots > 0){
-		life = lifeMax;
-		numPots--;
-		//Resume Game
-		countPots++;
+	if (_numPots > 0){
+		_life = _lifeMax;
+		_numPots--;		
+		_countPots++;
 	}
 
 }
 
 void Player::levelUp(){
 
-	level++;
-
-	switch (level){
+	_level++;
+	switch (_level){
 	case 5:
 		_playerInput->setSpeedPlayer(SPEEDPLAYER[SpeedPlayer::NORMALP]);
-		numPots = numPotsMax;
-		numMines = numMinesMax;
+		_numPots = _numPotsMax;
+		_numMines = _numMinesMax;
 		break;
 	case 10:
 		_playerInput->setSpeedPlayer(SPEEDPLAYER[SpeedPlayer::FASTP]);
-		numPots = numPotsMax;
-		numMines = numMinesMax;
+		_numPots = _numPotsMax;
+		_numMines = _numMinesMax;
 		break;
 	}
 
@@ -90,35 +76,26 @@ void Player::levelUp(){
 }
 void Player::levelUpPotion(){
 
-	//levelPotion++;
-	//std::cout << level << "PLAYER POTION" << std::endl;
-	if (levelPotion == 2){
-		numPotsMax = 2;
-		numPots = numPotsMax;
-
+	if (_levelPotion == 2){
+		_numPotsMax = 2;
+		_numPots = _numPotsMax;
 	}
-	else if (levelPotion == 3){
-
-		numPotsMax = 3;
-		numPots = numPotsMax;
-
+	else if (_levelPotion == 3){
+		_numPotsMax = 3;
+		_numPots = _numPotsMax;
 	}
-
-
 
 }
 void Player::levelUpMines(){
 
-	if (levelMine == 2){
-		numMinesMax = 2;
-		numMines = numMinesMax;
+	if (_levelMine == 2){
+		_numMinesMax = 2;
+		_numMines = _numMinesMax;
 
 	}
-	else if (levelMine == 3){
+	else if (_levelMine == 3){
 
-		numMinesMax = 3;
-		numMines = numMinesMax;
-
+		_numMinesMax = 3;
+		_numMines = _numMinesMax;
 	}
-
 }

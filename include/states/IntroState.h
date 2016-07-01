@@ -2,14 +2,15 @@
 #ifndef IntroState_H
 #define IntroState_H
 
-#include <Ogre.h>
-#include <OIS/OIS.h>
-#include <CEGUI/CEGUI.h>
-#include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include "GameState.h"
 #include "Map.h"
 #include "PhysicsManager.h"
 #include "AudioController.h"
+
+#include <Ogre.h>
+#include <OIS/OIS.h>
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
 
 class IntroState : public Ogre::Singleton<IntroState>, public GameState
 {
@@ -36,15 +37,29 @@ public:
 	static IntroState& getSingleton();
 	static IntroState* getSingletonPtr();
 
-protected:
+private:
 	Ogre::Root* _root;
 	Ogre::SceneManager* _sceneMgr;
 	Ogre::Viewport* _viewport;
 	Ogre::Camera* _camera;
-
+	
 	bool _exitGame;
+	bool _play;
+	bool _highscore;
+	bool _credits;
+	float _timeSinceLastFrame;
 
-	//PARA CEGUI
+	bool play(const CEGUI::EventArgs &e);
+	bool quit(const CEGUI::EventArgs &e);
+	bool highscore(const CEGUI::EventArgs &e);
+	bool credits(const CEGUI::EventArgs &e);
+	bool instrucciones(const CEGUI::EventArgs &e);
+	bool atras(const CEGUI::EventArgs &e);
+	bool control(const CEGUI::EventArgs &e);
+	bool tutorial(const CEGUI::EventArgs &e);
+
+	void createGUI();
+	
 	CEGUI::OgreRenderer* renderer;
 	CEGUI::Window* introStateUI;
 	CEGUI::Window* exitButton;
@@ -67,28 +82,8 @@ protected:
 	CEGUI::Window* _controlText;
 	CEGUI::Window* _tutorialText;
 	CEGUI::Window* _highScoreText;
-
-	bool _play;
-	bool _highscore;
-	bool _credits;
-
-
-	float _timeSinceLastFrame;
-	
-	bool play(const CEGUI::EventArgs &e);
-	bool quit(const CEGUI::EventArgs &e);
-	bool highscore(const CEGUI::EventArgs &e);
-	bool credits(const CEGUI::EventArgs &e);
-	bool instrucciones(const CEGUI::EventArgs &e);
-	bool atras(const CEGUI::EventArgs &e);
-	bool control(const CEGUI::EventArgs &e);
-	bool tutorial(const CEGUI::EventArgs &e);
-
-
-	void createGUI();
 	CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
 
-private:
 	Map* _map;
 	PhysicsManager* _physicsManager;
 	AudioController* audioController;

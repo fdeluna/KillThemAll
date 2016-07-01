@@ -2,6 +2,7 @@
 #define WaveCompleteState_H
 
 
+#include "AudioController.h"
 #include "GameState.h"
 #include "Map.h"
 
@@ -10,7 +11,6 @@
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <btBulletDynamicsCommon.h>
-#include "AudioController.h"
 
 class WaveCompleteState : public Ogre::Singleton<WaveCompleteState>, public GameState
 {
@@ -49,45 +49,21 @@ private:
 	Ogre::SceneManager *_sceneMgr;
 	Ogre::Camera *_camera;
 	Ogre::Viewport *_viewport;
-	AudioController* audioController;
-	bool _exitGame;
-		
-	//Weapons
+	AudioController* audioController;	
+	
 	int levelGun = 1;
 	int levelMines = 1;
 	int levelPots = 1;
 
 	// CEGUI
-
-
 	bool quit(const CEGUI::EventArgs &e);
 	bool upgrade(const CEGUI::EventArgs &e);
 	bool ready(const CEGUI::EventArgs &e);
 	bool upgradeGun(const CEGUI::EventArgs &e);
 	bool upgradeMines(const CEGUI::EventArgs &e);
 	bool upgradePots(const CEGUI::EventArgs &e);
-
-	//ANTIGUAS
-	CEGUI::Window* _waveCompleteStateUI;
-	CEGUI::Window* _gameOverUI;
-	CEGUI::Window* _winUI;
-	CEGUI::Window* _exitGameOver;
-	CEGUI::Window* _scoreText;
-	CEGUI::Window* _scoreTextLose;
-	CEGUI::Window* _getReadyText;
-	CEGUI::Window* _scoreTextGUI;
-	CEGUI::Window* _scoreNumberTextGUI;
-	CEGUI::Window* _lifeText;
-	CEGUI::Window*	_nameText;
-	CEGUI::Window*	_nameTextLose;
-	CEGUI::Window* _saveGameOver;
-	CEGUI::Window* _saveWin;
-	CEGUI::Window* _heart1;
-	CEGUI::Window* _heart2;
-	CEGUI::Window* _heart3;
-	CEGUI::Window* _turnText;
-
-	//NUEVAS
+	
+	CEGUI::Window* _waveCompleteStateUI;	
 	CEGUI::Window* _ventanaUpgrade;
 	CEGUI::Window* _ventanaWaveComplete;
 	CEGUI::Window* _ready;
@@ -99,13 +75,10 @@ private:
 	CEGUI::Window* _upgradeClubInfo;
 	CEGUI::Window* _upgradeGunInfo;
 	CEGUI::Window* _upgradeShotGunInfo;
-
-
 	CEGUI::Window* _exit;
 	
 	// Time match for cegui GUI
 	float _time = 0;
-
 };
 
 #endif

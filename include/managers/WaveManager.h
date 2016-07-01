@@ -19,12 +19,13 @@ public:
 
 	static WaveManager& getSingleton();
 	static WaveManager* getSingletonPtr();
+	
 
-	// TODO INIT-WAVE
 	void resetWaveManager();
 	void initWave();
 	void wave(float deltaTime);
 	void cleanWave();
+	void cleanEnemies();
 
 	Map* getMap(){ return _map; };
 	void setPlayer(Player* player);

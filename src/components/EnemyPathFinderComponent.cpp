@@ -1,15 +1,8 @@
 #include "EnemyPathFinderComponent.h"
 
-EnemyPathFinderComponent::EnemyPathFinderComponent(RigidBodyComponent* body) : _enemyRigidBody(body), _pathFinder(nullptr){
-	_pathFinder = PathFinder::getSingletonPtr();
-
-	//std::async(std::launch::async, &PathFinder::FindPath, _pathFinder, _enemyRigidBody->getPosition(), _player->getPosition(), currentPath);
-	//_pathFinder->FindPath(_enemyRigidBody->getPosition(), _player->getPosition(), newPath);	
-	_currentNode = nullptr;
+EnemyPathFinderComponent::EnemyPathFinderComponent(RigidBodyComponent* body) : _enemyRigidBody(body), _currentNode(nullptr){
+	_pathFinder = PathFinder::getSingletonPtr();		
 };
-
-
-
 
 void EnemyPathFinderComponent::update(float deltaTime, Ogre::Vector3 position){
 
@@ -24,7 +17,7 @@ void EnemyPathFinderComponent::update(float deltaTime, Ogre::Vector3 position){
 	}
 
 	move(deltaTime);
-	lookAt(deltaTime);
+	//lookAt(deltaTime);
 }
 
 
@@ -50,5 +43,4 @@ void EnemyPathFinderComponent::move(float deltaTime){
 }
 void EnemyPathFinderComponent::lookAt(float deltaTime){
 	_enemyRigidBody->rotate(Ogre::Vector3(_position.x, 1, _position.z));
-
 }

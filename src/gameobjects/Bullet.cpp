@@ -11,9 +11,8 @@ Bullet::Bullet(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::S
 
 void Bullet::collision(GameObject* gameObject){
 	if (gameObject){		
-		if (gameObject->getType() == GameObjectType::ENEMYFIGHTER || gameObject->getType() == GameObjectType::ENEMYMINER){
-			gameObject->setActive(false);
-			((Enemy*)gameObject)->damageHit(1);
+		if (gameObject->getType() == GameObjectType::ENEMYFIGHTER || gameObject->getType() == GameObjectType::ENEMYMINER){			
+			((Enemy*)gameObject)->die();
 		}
 		Bullet::~Bullet();
 	}

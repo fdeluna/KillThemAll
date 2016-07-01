@@ -14,37 +14,24 @@ void WaveCompleteState::enter()
 	}
 	else {
 		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "WaveCompleteState");
-		//Inicializacion de CEGUI
-		//_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
-		// set camera
 		_camera = _sceneMgr->createCamera("WaveCompleteState");
 	}
-	//_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
-	createGUI();
-	_exitGame = false;
-	//_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
-	audioController = AudioController::getSingletonPtr();	
+	createGUI();	
+	audioController = AudioController::getSingletonPtr();
 }
 
 void WaveCompleteState::exit() {
 	_sceneMgr->clearScene();
 	_root->getAutoCreatedWindow()->removeAllViewports();
-
 }
 
-void WaveCompleteState::pause() {
+void WaveCompleteState::pause() {}
 
-}
-
-void WaveCompleteState::resume() {
-
-}
+void WaveCompleteState::resume() {}
 
 bool WaveCompleteState::frameStarted(const Ogre::FrameEvent& evt){
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
-
-
 
 	return true;
 }
@@ -53,10 +40,7 @@ bool WaveCompleteState::frameEnded(const Ogre::FrameEvent& evt)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
-
-
-	if (_exitGame)
-		return false;
+	
 	return true;
 }
 
@@ -87,12 +71,6 @@ void WaveCompleteState::keyPressed(const OIS::KeyEvent &e)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(
 		static_cast<CEGUI::Key::Scan> (e.key));
-
-	if (OIS::KC_ESCAPE == e.key){
-		_exitGame = true;
-	}
-
-
 }
 
 void WaveCompleteState::keyReleased(const OIS::KeyEvent &e)
@@ -143,7 +121,6 @@ bool WaveCompleteState::quit(const CEGUI::EventArgs &e)
 
 bool WaveCompleteState::upgrade(const CEGUI::EventArgs &e)
 {
-
 	if (levelGun > 3){
 		_upgradeGun->disable();
 		_upgradeGun->setAlpha(0.5f);
@@ -169,9 +146,6 @@ bool WaveCompleteState::upgrade(const CEGUI::EventArgs &e)
 	scores2.clear();
 	scores3.clear();
 
-	
-
-
 	if (levelGun == 1){
 
 		scores << "Damage: 3" << "\n" << " Attack velocity: NORMAL" << "\n" <<
@@ -189,7 +163,6 @@ bool WaveCompleteState::upgrade(const CEGUI::EventArgs &e)
 	}
 
 	if (levelMines == 1){
-
 		scores2 << "Max: 2";
 		_upgradeClubInfo->setText(scores2.str());
 	}
@@ -201,33 +174,25 @@ bool WaveCompleteState::upgrade(const CEGUI::EventArgs &e)
 		scores2 << "Imposible more upgrades";
 		_upgradeClubInfo->setText(scores2.str());
 	}
-	
 
 	if (levelPots == 1){
-
 		scores3 << "Max: 2";
 		_upgradeShotGunInfo->setText(scores3.str());
 	}
 	else if (levelPots == 2){
-		scores3<< "Max: 3";
+		scores3 << "Max: 3";
 		_upgradeShotGunInfo->setText(scores3.str());
 	}
 	else if (levelPots == 3){
 		scores3 << "Imposible more upgrades";
 		_upgradeShotGunInfo->setText(scores3.str());
 	}
-	
-	
-	
-	
-	
 
 	return true;
 }
 
 bool WaveCompleteState::upgradeGun(const CEGUI::EventArgs &e)
 {
-	
 	if (levelGun < 3){
 		audioController->playAudio(Audio::BUTTON);
 		levelGun++;
@@ -235,17 +200,12 @@ bool WaveCompleteState::upgradeGun(const CEGUI::EventArgs &e)
 		_ventanaWaveComplete->setVisible(true);
 		_upgrade->disable();
 		_upgrade->setAlpha(0.5f);
-		
+
 	}
-	
-
-	
-
 	return true;
 }
 bool WaveCompleteState::upgradeMines(const CEGUI::EventArgs &e)
 {
-
 	if (levelMines < 3){
 		audioController->playAudio(Audio::BUTTON);
 		levelMines++;
@@ -255,15 +215,10 @@ bool WaveCompleteState::upgradeMines(const CEGUI::EventArgs &e)
 		_upgrade->setAlpha(0.5f);
 
 	}
-
-
-
-
 	return true;
 }
 bool WaveCompleteState::upgradePots(const CEGUI::EventArgs &e)
 {
-
 	if (levelPots < 3){
 		audioController->playAudio(Audio::BUTTON);
 		levelPots++;
@@ -271,11 +226,7 @@ bool WaveCompleteState::upgradePots(const CEGUI::EventArgs &e)
 		_ventanaWaveComplete->setVisible(true);
 		_upgrade->disable();
 		_upgrade->setAlpha(0.5f);
-
 	}
-
-
-
 
 	return true;
 }
@@ -314,51 +265,6 @@ void WaveCompleteState::createGUI()
 	_waveCompleteStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
 		"WaveComplete.layout");
 
-
-
-	/*
-	_gameOverUI = playStateUI->getChild("FondoGameOver");
-	_winUI = playStateUI->getChild("FondoWin");
-	_scoreText = _winUI->getChild("LabelScore");
-	_scoreTextLose = _gameOverUI->getChild("LabelScore");
-	_getReadyText = playStateUI->getChild("GetReady");
-	_nameText = _winUI->getChild("NameText");
-	_nameTextLose = _gameOverUI->getChild("NameText");
-	_scoreTextGUI = playStateUI->getChild("ScoreText");
-	_scoreNumberTextGUI = playStateUI->getChild("ScorePlayer");
-	_lifeText = playStateUI->getChild("Life");
-	_getReadyText->setText("GET READY");
-	_saveWin = _winUI->getChild("Save");
-	_saveWin->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::save, this));
-	_saveGameOver = _gameOverUI->getChild("Exit");
-	_saveGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::save, this));
-	_heart1 = playStateUI->getChild("1heart");
-	_heart2 = playStateUI->getChild("2heart");
-	_heart3 = playStateUI->getChild("3heart");
-
-	_winUI->setVisible(false);
-	_gameOverUI->setVisible(false);
-	*/
-	/*
-	_resume->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::resume, this));
-	_exitPause->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::quit, this));
-	_retry->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::retry, this));
-	_exitGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::quit, this));
-
-	_save->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::save, this));
-
-	_winUI->setVisible(false);
-	_pauseUI->setVisible(false);
-	_gameOverUI->setVisible(false);
-
-	*/
 	_ventanaUpgrade = _waveCompleteStateUI->getChild("VentanaUpgrade");
 	_ventanaUpgrade->setVisible(false);
 	_ventanaWaveComplete = _waveCompleteStateUI->getChild("VentanaWaveComplete");
@@ -378,7 +284,7 @@ void WaveCompleteState::createGUI()
 		CEGUI::Event::Subscriber(&WaveCompleteState::quit, this));
 	_upgrade->subscribeEvent(CEGUI::PushButton::EventClicked,
 		CEGUI::Event::Subscriber(&WaveCompleteState::upgrade, this));
-	
+
 	_upgradeClub->subscribeEvent(CEGUI::PushButton::EventClicked,
 		CEGUI::Event::Subscriber(&WaveCompleteState::upgradeMines, this));
 
@@ -392,13 +298,11 @@ void WaveCompleteState::createGUI()
 		CEGUI::Event::Subscriber(&WaveCompleteState::ready, this));
 	sheet->addChild(_waveCompleteStateUI);
 
-	if (levelGun == 3 && levelMines == 3 && levelPots ==3){
+	if (levelGun == 3 && levelMines == 3 && levelPots == 3){
 		_upgrade->disable();
 		_upgrade->setAlpha(0.5f);
 	}
-
-
-	//Recolocate windows
+	
 	_ventanaUpgrade->setXPosition(CEGUI::UDim(0.2, 0));
 	_ventanaUpgrade->setYPosition(CEGUI::UDim(0.2, 0));
 
@@ -414,5 +318,4 @@ void WaveCompleteState::createGUI()
 		= CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().getPosition().d_x;
 	mutableMouseState.Y.abs
 		= CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().getPosition().d_y;
-
 }

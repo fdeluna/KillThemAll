@@ -1,17 +1,17 @@
 #ifndef Gun_H
 #define Gun_H
 
-
-#include "Weapon.h"
 #include "GameObject.h"
 #include "Player.h"
+#include "Bullet.h"
+#include "WaveManager.h"
 #include "SceneNodeComponent.h"
 #include "RigidBodyComponent.h"
 #include "AudioController.h"
 
 using namespace Ogre;
 
-class Gun : public Weapon, GameObject
+class Gun : public GameObject
 {
 public:
 

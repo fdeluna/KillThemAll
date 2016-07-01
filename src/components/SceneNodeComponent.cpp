@@ -4,14 +4,12 @@ SceneNodeComponent::SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::S
 
 	_sceneManager = sceneManager;
 
-	Ogre::String enityName("SceneComponentEntity");
-	enityName.append(Ogre::StringConverter::toString(getSceneNodeNumber()));
+	Ogre::String enityName("SceneComponentEntity");	
 	enityName.append(mesh);	
 	getOgreName(enityName);
 
 
-	Ogre::String nodeName("SceneComponentNode");
-	nodeName.append(Ogre::StringConverter::toString(getSceneNodeNumber()));
+	Ogre::String nodeName("SceneComponentNode");	
 	nodeName.append(mesh);
 	getOgreName(nodeName);
 	_entity = _sceneManager->createEntity(enityName, mesh);
@@ -44,16 +42,6 @@ SceneNodeComponent::~SceneNodeComponent(){
 		_entity = nullptr;
 	}
 	_sceneManager = nullptr;
-}
-
-
-void SceneNodeComponent::setDiffuseColor(Ogre::ColourValue diffuseColor){
-	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("ObstacleMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, true);
-	Ogre::Pass *pass = material->getTechnique(0)->getPass(0);
-	pass->setAmbient(diffuseColor);
-	_entity->setMaterial(material);
-	//_entity->setMaterialName("Ground");
-
 }
 
 void SceneNodeComponent::setMaterialName(Ogre::String materialName){

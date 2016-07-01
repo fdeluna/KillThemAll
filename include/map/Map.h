@@ -18,7 +18,7 @@ public:
 
 	void GenerateMap();
 	void cleanMap();
-	Ogre::Vector2 _mapCenter;
+	Ogre::Vector2 getMapCenter(){ return _mapCenter;};	
 
 	MapNode* nodeFromWorldPosition(Ogre::Vector3 position);;
 	std::vector<MapNode*> getNeighbours(MapNode* node);
@@ -29,7 +29,7 @@ public:
 
 private:
 	Ogre::Vector2 _mapSize;
-
+	Ogre::Vector2 _mapCenter;
 	SceneNodeComponent* planeNode;
 	RigidBodyComponent* rigidBodyComponent;
 	std::vector< std::vector <MapNode*>> grid;

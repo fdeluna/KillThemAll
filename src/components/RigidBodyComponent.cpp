@@ -52,16 +52,17 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 		break;
 	}
 
-	if (type == GameObjectType::PLAYER || type == GameObjectType::ENEMYFIGHTER || type == GameObjectType::ENEMYMINER || type == GameObjectType::BULLET){
-		_rigidBody->setShape(_sceneNodeComponent->getSceneNode(), _shape, 0.01, 1, 100.0, position, orientation);		
-		_rigidBody->getBulletRigidBody()->setAngularFactor(btVector3(0, 0, 0));
-	}
-	else{
+	if (type == GameObjectType::MAP_FLOOR || type == GameObjectType::OBSTACLE || type == GameObjectType::HELL){
 		_rigidBody->setStaticShape(_shape, 0.01, 1, position, orientation);
 		_rigidBody->setGravity(Ogre::Vector3::ZERO);
 	}
-
-	_rigidBody->disableDeactivation();
+	else{
+		_rigidBody->setShape(_sceneNodeComponent->getSceneNode(), _shape, 0.01, 1, 100.0, position, orientation);
+		_rigidBody->getBulletRigidBody()->setAngularFactor(btVector3(0, 0, 0));
+		_rigidBody->disableDeactivation();
+	}
+	
+	
 
 	_rigidBody->getBulletRigidBody()->setUserPointer(gameObject);
 	setWorldPosition(position);

@@ -13,57 +13,35 @@ void GameOverState::enter()
 		_camera = _sceneMgr->getCamera("GameOverState");
 	}
 	else {
-		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "GameOverState");
-		//Inicializacion de CEGUI
-		//_renderer = &CEGUI::OgreRenderer::bootstrapSystem();
-		// set camera
+		_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "GameOverState");		
 		_camera = _sceneMgr->createCamera("GameOverState");
 	}
 
-	createGUI();
-	_exitGame = false;
+	createGUI();	
 
-
-
-	//_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
 	audioController = AudioController::getSingletonPtr();
 	audioController->playAudio(Audio::INTROSTATE);
-
 }
 
 void GameOverState::exit() {
-
-
 	_sceneMgr->clearScene();
 	_root->getAutoCreatedWindow()->removeAllViewports();
-
 }
 
-void GameOverState::pause() {
+void GameOverState::pause() {}
 
-}
-
-void GameOverState::resume() {
-
-}
+void GameOverState::resume() {}
 
 bool GameOverState::frameStarted(const Ogre::FrameEvent& evt){
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
 
-
-
 	return true;
 }
 
-bool GameOverState::frameEnded(const Ogre::FrameEvent& evt)
-{
+bool GameOverState::frameEnded(const Ogre::FrameEvent& evt){
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
-
-
-	if (_exitGame)
-		return false;
 	return true;
 }
 
@@ -94,18 +72,6 @@ void GameOverState::keyPressed(const OIS::KeyEvent &e)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(
 		static_cast<CEGUI::Key::Scan> (e.key));
-
-	if (OIS::KC_ESCAPE == e.key){
-		_exitGame = true;
-	}
-	//Test scale real time animation
-	/*
-	if (OIS::KC_M == e.key){
-	CEGUI::WindowManager::getSingleton().destroyAllWindows();
-	sizeX = sizeX + 0.1;
-	createGUI();
-	}
-	*/
 }
 
 void GameOverState::keyReleased(const OIS::KeyEvent &e)
@@ -228,80 +194,6 @@ void GameOverState::createGUI()
 	//Config Window	
 	_GameOverStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
 		"gameOver.layout");
-
-	/*
-	_gameOverUI = playStateUI->getChild("FondoGameOver");
-	_winUI = playStateUI->getChild("FondoWin");
-	_scoreText = _winUI->getChild("LabelScore");
-	_scoreTextLose = _gameOverUI->getChild("LabelScore");
-	_getReadyText = playStateUI->getChild("GetReady");
-	_nameText = _winUI->getChild("NameText");
-	_nameTextLose = _gameOverUI->getChild("NameText");
-	_scoreTextGUI = playStateUI->getChild("ScoreText");
-	_scoreNumberTextGUI = playStateUI->getChild("ScorePlayer");
-	_lifeText = playStateUI->getChild("Life");
-	_getReadyText->setText("GET READY");
-	_saveWin = _winUI->getChild("Save");
-	_saveWin->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::save, this));
-	_saveGameOver = _gameOverUI->getChild("Exit");
-	_saveGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::save, this));
-	_heart1 = playStateUI->getChild("1heart");
-	_heart2 = playStateUI->getChild("2heart");
-	_heart3 = playStateUI->getChild("3heart");
-
-	_winUI->setVisible(false);
-	_gameOverUI->setVisible(false);
-	*/
-	/*
-	_resume->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::resume, this));
-	_exitPause->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::quit, this));
-	_retry->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::retry, this));
-	_exitGameOver->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::quit, this));
-
-	_save->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&PlayState::save, this));
-
-	_winUI->setVisible(false);
-	_pauseUI->setVisible(false);
-	_gameOverUI->setVisible(false);
-
-	*/
-	/*
-	_ventanaUpgrade = _GameOverStateUI->getChild("VentanaUpgrade");
-	_ventanaUpgrade->setVisible(false);
-	_ventanaWaveComplete = _GameOverStateUI->getChild("VentanaWaveComplete");
-
-	_upgradeClub = _ventanaUpgrade->getChild("UpgradeClub");
-	_upgradeGun = _ventanaUpgrade->getChild("UpgradeGun");
-	_upgradeShotGun = _ventanaUpgrade->getChild("UpgradeShotGun");
-
-	_ready = _ventanaWaveComplete->getChild("Upgrade");
-	_upgrade = _ventanaWaveComplete->getChild("Ready");
-	_exit = _ventanaWaveComplete->getChild("Salir");
-
-	_exit->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&GameOverState::quit, this));
-	_upgrade->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&GameOverState::upgrade, this));
-
-	_upgradeClub->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&GameOverState::upgradeWeapon, this));
-
-	_upgradeGun->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&GameOverState::upgradeWeapon, this));
-
-	_upgradeShotGun->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&GameOverState::upgradeWeapon, this));
-
-	_ready->subscribeEvent(CEGUI::PushButton::EventClicked,
-	CEGUI::Event::Subscriber(&GameOverState::ready, this));
-	*/
 
 	_ventanaGameOver = _GameOverStateUI->getChild("VentanaGameOver");
 	_exit = _ventanaGameOver->getChild("Exit");

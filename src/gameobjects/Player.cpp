@@ -11,7 +11,7 @@ Player::Player(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::S
 	addComponent(_sceneNodeComponent);
 	addComponent(_rigidBodyComponent);
 	addComponent(_playerInput);
-	audioController = AudioController::getSingletonPtr();
+	AudioManager = AudioManager::getSingletonPtr();
 }
 
 Player::~Player(){

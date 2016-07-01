@@ -3,14 +3,12 @@
 template<> PhysicsManager* Ogre::Singleton<PhysicsManager>::msSingleton = 0;
 
 PhysicsManager::PhysicsManager(Ogre::SceneManager* sceneManager, bool debug) : _sceneManager(sceneManager), _debug(debug) {
-
-	// Creacion del modulo de debug visual de Bullet
+	
 	_debugDrawer = new OgreBulletCollisions::DebugDrawer();
 	_debugDrawer->setDrawWireframe(true);
 	Ogre::SceneNode *debugNode = _sceneManager->getRootSceneNode()->createChildSceneNode("debugNode", Ogre::Vector3::ZERO);
 	debugNode->attachObject(static_cast <Ogre::SimpleRenderable *>(_debugDrawer));
-
-	// Creacion del mundo (definicion de limites y gravedad)
+	
 	Ogre::AxisAlignedBox worldBounds = Ogre::AxisAlignedBox(
 		Ogre::Vector3(-10000, -10000, -10000),
 		Ogre::Vector3(10000, 10000, 10000));

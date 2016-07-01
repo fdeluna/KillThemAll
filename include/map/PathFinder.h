@@ -1,9 +1,7 @@
 #ifndef PATHFINDER_H
 #define PATHFINDER_H
 
-
 #include "Map.h"
-
 #include <Ogre.h>
 
 class PathFinder : public Ogre::Singleton<PathFinder>{
@@ -11,10 +9,6 @@ class PathFinder : public Ogre::Singleton<PathFinder>{
 public:
 	PathFinder();
 	PathFinder(Map* map) :_currentMap(map){};
-	/*~PathFinder(){
-		_currentMap = nullptr;
-		Ogre::Singleton<PathFinder>::~Singleton();
-	}*/
 
 	void FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny, std::vector<MapNode*>& path);
 

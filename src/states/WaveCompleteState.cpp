@@ -17,7 +17,7 @@ void WaveCompleteState::enter()
 		_camera = _sceneMgr->createCamera("WaveCompleteState");
 	}
 	createGUI();	
-	audioController = AudioController::getSingletonPtr();
+	AudioManager = AudioManager::getSingletonPtr();
 }
 
 void WaveCompleteState::exit() {
@@ -112,7 +112,7 @@ CEGUI::MouseButton WaveCompleteState::convertMouseButton(OIS::MouseButtonID id)
 
 bool WaveCompleteState::quit(const CEGUI::EventArgs &e)
 {
-	audioController->playAudio(Audio::BACK);
+	AudioManager->playAudio(Audio::BACK);
 
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
 	changeState(IntroState::getSingletonPtr());
@@ -194,7 +194,7 @@ bool WaveCompleteState::upgrade(const CEGUI::EventArgs &e)
 bool WaveCompleteState::upgradeGun(const CEGUI::EventArgs &e)
 {
 	if (levelGun < 3){
-		audioController->playAudio(Audio::BUTTON);
+		AudioManager->playAudio(Audio::BUTTON);
 		levelGun++;
 		_ventanaUpgrade->setVisible(false);
 		_ventanaWaveComplete->setVisible(true);
@@ -207,7 +207,7 @@ bool WaveCompleteState::upgradeGun(const CEGUI::EventArgs &e)
 bool WaveCompleteState::upgradeMines(const CEGUI::EventArgs &e)
 {
 	if (levelMines < 3){
-		audioController->playAudio(Audio::BUTTON);
+		AudioManager->playAudio(Audio::BUTTON);
 		levelMines++;
 		_ventanaUpgrade->setVisible(false);
 		_ventanaWaveComplete->setVisible(true);
@@ -220,7 +220,7 @@ bool WaveCompleteState::upgradeMines(const CEGUI::EventArgs &e)
 bool WaveCompleteState::upgradePots(const CEGUI::EventArgs &e)
 {
 	if (levelPots < 3){
-		audioController->playAudio(Audio::BUTTON);
+		AudioManager->playAudio(Audio::BUTTON);
 		levelPots++;
 		_ventanaUpgrade->setVisible(false);
 		_ventanaWaveComplete->setVisible(true);
@@ -232,7 +232,7 @@ bool WaveCompleteState::upgradePots(const CEGUI::EventArgs &e)
 }
 bool WaveCompleteState::ready(const CEGUI::EventArgs &e)
 {
-	audioController->playAudio(Audio::BUTTON);
+	AudioManager->playAudio(Audio::BUTTON);
 	WaveManager::getSingletonPtr()->setLevelGun(levelGun);
 	WaveManager::getSingletonPtr()->setLevelMines(levelMines);
 	WaveManager::getSingletonPtr()->setLevelPots(levelPots);
@@ -253,15 +253,12 @@ void WaveCompleteState::createGUI()
 	CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage(
 		"TaharezLook/Cursor");
-
-	// load all the fonts 
+	
 	CEGUI::FontManager::getSingleton().createAll("*.font", "Fonts");
-
-	//Sheet
+	
 	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow(
 		"DefaultWindow", "Sheet");
-
-	//Config Window	
+	
 	_waveCompleteStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
 		"WaveComplete.layout");
 
@@ -310,7 +307,7 @@ void WaveCompleteState::createGUI()
 	_ventanaWaveComplete->setYPosition(CEGUI::UDim(0.20, 0));
 
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
-	// INITIALISE OIS MOUSE POSITION TO CEGUI MOUSE POSITION
+	
 	OIS::MouseState
 		&mutableMouseState =
 		const_cast<OIS::MouseState &> (GameManager::getSingletonPtr()->getInputManager()->getMouse()->getMouseState());

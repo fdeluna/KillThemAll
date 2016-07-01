@@ -24,9 +24,9 @@ IntroState::enter()
 	_map = new Map(_sceneMgr);
 	_map->GenerateMap();
 
-	//Camera
+	
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
-	// Camera
+	
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
 	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
 	double width = _viewport->getActualWidth();
@@ -39,14 +39,14 @@ IntroState::enter()
 	_camera->setPosition(_map->getMapCenter().x, 12.5, _map->getMapCenter().y - 5);
 	_camera->lookAt(_map->getMapCenter().x, 0, _map->getMapCenter().y);
 	
-	//CEGUI
+	
 	createGUI();
 
-	if (!audioController){
-		audioController = new AudioController();
+	if (!_audioManager){
+		_audioManager = new AudioManager();
 
 	}
-	audioController->playAudio(Audio::INTROSTATE);
+	_audioManager->playAudio(Audio::INTROSTATE);
 }
 
 void IntroState::exit()
@@ -84,12 +84,12 @@ void IntroState::keyPressed(const OIS::KeyEvent &e) {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(e.text);
 
 	if (!_credits && !_highscore && e.key == OIS::KC_Z) {
-		audioController->playAudio(Audio::BACK);
+		_audioManager->playAudio(Audio::BACK);
 
 		_exitGame = true;
 	}
 	if (_credits && e.key == OIS::KC_ESCAPE) {
-		audioController->playAudio(Audio::BACK);
+		_audioManager->playAudio(Audio::BACK);
 
 		exitButton->setVisible(true);
 		playButton->setVisible(true);
@@ -101,7 +101,7 @@ void IntroState::keyPressed(const OIS::KeyEvent &e) {
 
 	}
 	if (e.key == OIS::KC_ESCAPE && _highscore) {
-		audioController->playAudio(Audio::BACK);
+		_audioManager->playAudio(Audio::BACK);
 
 		introStateUI->setVisible(true);
 		exitButton->setVisible(true);
@@ -151,7 +151,7 @@ IntroState& IntroState::getSingleton()
 
 bool IntroState::play(const CEGUI::EventArgs &e) {
 
-	audioController->playAudio(Audio::PLAY);
+	_audioManager->playAudio(Audio::PLAY);
 
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
 	changeState(PlayState::getSingletonPtr());
@@ -160,7 +160,7 @@ bool IntroState::play(const CEGUI::EventArgs &e) {
 }
 
 bool IntroState::quit(const CEGUI::EventArgs &e) {
-	audioController->playAudio(Audio::BACK);
+	_audioManager->playAudio(Audio::BACK);
 
 	_exitGame = true;
 	_sceneMgr->clearScene();
@@ -169,7 +169,7 @@ bool IntroState::quit(const CEGUI::EventArgs &e) {
 }
 
 bool IntroState::highscore(const CEGUI::EventArgs &e) {
-	audioController->playAudio(Audio::BUTTON);
+	_audioManager->playAudio(Audio::BUTTON);
 
 	std::fstream ficheroEntrada;
 	StringStream texto;
@@ -201,7 +201,7 @@ bool IntroState::highscore(const CEGUI::EventArgs &e) {
 	return true;
 }
 bool IntroState::credits(const CEGUI::EventArgs &e) {
-	audioController->playAudio(Audio::BUTTON);
+	_audioManager->playAudio(Audio::BUTTON);
 
 	_credits = true;
 	exitButton->setVisible(false);
@@ -218,7 +218,7 @@ bool IntroState::credits(const CEGUI::EventArgs &e) {
 }
 
 bool IntroState::instrucciones(const CEGUI::EventArgs &e) {
-	audioController->playAudio(Audio::BUTTON);
+	_audioManager->playAudio(Audio::BUTTON);
 
 	instruccionesButton->setVisible(false);
 	exitButton->setVisible(false);
@@ -233,7 +233,7 @@ bool IntroState::instrucciones(const CEGUI::EventArgs &e) {
 	return true;
 }
 bool IntroState::atras(const CEGUI::EventArgs &e) {
-	audioController->playAudio(Audio::BACK);
+	_audioManager->playAudio(Audio::BACK);
 
 	exitButton->setVisible(true);
 	playButton->setVisible(true);
@@ -248,7 +248,7 @@ bool IntroState::atras(const CEGUI::EventArgs &e) {
 }
 
 bool IntroState::control(const CEGUI::EventArgs &e) {
-	audioController->playAudio(Audio::BUTTON);
+	_audioManager->playAudio(Audio::BUTTON);
 
 	_controlText->setVisible(true);
 	_tutorialText->setVisible(false);
@@ -256,7 +256,7 @@ bool IntroState::control(const CEGUI::EventArgs &e) {
 }
 
 bool IntroState::tutorial(const CEGUI::EventArgs &e) {
-	audioController->playAudio(Audio::BUTTON);
+	_audioManager->playAudio(Audio::BUTTON);
 
 	_controlText->setVisible(false);
 	_tutorialText->setVisible(true);

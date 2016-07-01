@@ -13,7 +13,6 @@ class Component;
 
 class GameObject{
 public:
-
 	GameObject(): _sceneManager(nullptr){};
 	GameObject(Ogre::SceneManager* sceneManager) : _sceneManager(sceneManager){};
 
@@ -28,16 +27,12 @@ public:
 	GameObjectType getType(){ return _type; };
 
 	bool isActive(){ return _active; };
-	void setActive(bool active){ _active = active; };
-	
+	void setActive(bool active){ _active = active; };	
 
 protected:
-
 	Ogre::SceneManager* _sceneManager;
 	bool _active = true;		
 	std::vector<Component*> _components;
 	GameObjectType _type;
-
-
 };
 #endif

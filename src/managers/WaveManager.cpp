@@ -12,10 +12,10 @@ void WaveManager::resetWaveManager(){
 	levelGun = 1;
 	levelMines = 1;
 	levelPots = 1;
-	//LevelGame
+	
 	_levelGame = 0;
 	_numWaves = 1;
-	//Game stats
+	
 	gameTime = 0;
 	minesUsed = 0;
 	bulletsUsed = 0;

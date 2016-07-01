@@ -19,11 +19,12 @@ void GameOverState::enter()
 
 	createGUI();	
 
-	audioController = AudioController::getSingletonPtr();
-	audioController->playAudio(Audio::INTROSTATE);
+	AudioManager = AudioManager::getSingletonPtr();
+	AudioManager->playAudio(Audio::INTROSTATE);
 }
 
 void GameOverState::exit() {
+	WaveManager::getSingletonPtr()->resetWaveManager();
 	_sceneMgr->clearScene();
 	_root->getAutoCreatedWindow()->removeAllViewports();
 }
@@ -156,7 +157,7 @@ bool GameOverState::quit(const CEGUI::EventArgs &e)
 	checkScore();
 	statScore();
 
-	audioController->playAudio(Audio::BACK);	
+	AudioManager->playAudio(Audio::BACK);	
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
 	WaveManager::getSingletonPtr()->resetWaveManager();
 	changeState(IntroState::getSingletonPtr());
@@ -166,7 +167,7 @@ bool GameOverState::quit(const CEGUI::EventArgs &e)
 
 bool GameOverState::ready(const CEGUI::EventArgs &e)
 {
-	audioController->playAudio(Audio::BUTTON);
+	AudioManager->playAudio(Audio::BUTTON);
 
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
 	changeState(PlayState::getSingletonPtr());
@@ -183,15 +184,12 @@ void GameOverState::createGUI()
 	CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage(
 		"TaharezLook/Cursor");
-
-	// load all the fonts 
+	
 	CEGUI::FontManager::getSingleton().createAll("*.font", "Fonts");
-
-	//Sheet
+	
 	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow(
 		"DefaultWindow", "Sheet");
-
-	//Config Window	
+	
 	_GameOverStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
 		"gameOver.layout");
 
@@ -238,7 +236,7 @@ void GameOverState::createGUI()
 
 
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
-	// INITIALISE OIS MOUSE POSITION TO CEGUI MOUSE POSITION
+	
 	OIS::MouseState
 		&mutableMouseState =
 		const_cast<OIS::MouseState &> (GameManager::getSingletonPtr()->getInputManager()->getMouse()->getMouseState());

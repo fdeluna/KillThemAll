@@ -10,7 +10,7 @@
 #include "Bullet.h"
 #include "Gun.h"
 #include "Mine.h"
-#include "AudioController.h"
+#include "AudioManager.h"
 
 #include <algorithm>
 #include <Ogre.h>
@@ -53,7 +53,7 @@ private:
 	Ogre::SceneManager *_sceneMgr;
 	Ogre::Camera *_camera;
 	Ogre::Viewport *_viewport;
-	AudioController* audioController;	
+	AudioManager* AudioManager;	
 
 	WaveManager* _waveManager;
 	PhysicsManager* _physicsManager;
@@ -71,8 +71,7 @@ private:
 	float _startDelay = 0;	
 	float timer = 0;
 	float timerReload = 0;		
-
-	// CEGUI	
+	
 	void hudLife();
 
 	CEGUI::Window* playStateUI;
@@ -99,17 +98,15 @@ private:
 	bool activeWarning = false;
 	float timerWarning = 0;		
 
-	//NUEVAS
 	CEGUI::Window* _hud;
 	CEGUI::Window* _hudLife;
 	CEGUI::Window* _hudWeapons;
 	CEGUI::Window* _hudWeaponsClub;
 	CEGUI::Window* _hudWeaponsGun;
 	CEGUI::Window* _hudWeaponsShotGun;
-	// Time match for cegui GUI
+	
 	float _time = 0;
-
-	//GAME STATS
+	
 	int numMines = 0;
 	int numPots = 0;
 };

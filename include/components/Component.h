@@ -15,7 +15,6 @@ public:
 
 	virtual void update(float deltaTime){};
 	virtual void getName(){};
-	
 
 private:
 	GameObject* _gameObject;

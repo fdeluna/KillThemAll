@@ -9,6 +9,7 @@ RigidBodyComponent::RigidBodyComponent(GameObject* gameObject, GameObjectType ty
 
 	Ogre::String rigidName(_sceneNodeComponent->getSceneNode()->getName());
 	rigidName.append("RigidBody");
+	getOgreName(rigidName);
 	PhysicsManager* physicsMgr = PhysicsManager::getSingletonPtr();
 
 	switch (type)
@@ -89,13 +90,13 @@ Ogre::Quaternion RigidBodyComponent::getOrientation(){
 
 void RigidBodyComponent::setWorldPosition(Ogre::Vector3 position){
 	btTransform transform = _rigidBody->getBulletRigidBody()->getWorldTransform();
-	transform.setOrigin(OgreBulletCollisions::OgreBtConverter::to(position)); //Set the new position/origin
+	transform.setOrigin(OgreBulletCollisions::OgreBtConverter::to(position));
 	_rigidBody->getBulletRigidBody()->setWorldTransform(transform);
 }
 
 void RigidBodyComponent::setWorldOrientation(Ogre::Quaternion orientation){
 	btTransform transform = _rigidBody->getBulletRigidBody()->getWorldTransform();
-	transform.setRotation(OgreBulletCollisions::OgreBtConverter::to(orientation)); //Set the new position/origin
+	transform.setRotation(OgreBulletCollisions::OgreBtConverter::to(orientation));
 	_rigidBody->getBulletRigidBody()->setWorldTransform(transform);
 }
 
@@ -106,13 +107,13 @@ void RigidBodyComponent::translate(Ogre::Vector3 direction){
 void RigidBodyComponent::rotate(Ogre::Vector3 dest){
 
 	Ogre::Vector3 mDirection = dest - getPosition();
-	Ogre::Vector3 src = getPosition() * Ogre::Vector3::UNIT_X;      // Orientation from initial direction
-	src.y = 0;                                                    // Ignore pitch difference angle
+	Ogre::Vector3 src = getPosition() * Ogre::Vector3::UNIT_X;  
+	src.y = 0;                                                    
 	mDirection.y = 0;
 	src.normalise();
-	Ogre::Real mDistance = mDirection.normalise();                     // Both vectors modified so renormalize them
+	Ogre::Real mDistance = mDirection.normalise();              
 
-	if ((1.0f + src.dotProduct(mDirection)) < 0.0001f)            // Work around 180 degree quaternion rotation quirk                         
+	if ((1.0f + src.dotProduct(mDirection)) < 0.0001f)          
 	{
 		_sceneNodeComponent->getSceneNode()->yaw(Ogre::Degree(90));
 	}

@@ -41,8 +41,7 @@ GameManager::start
 
 	// Registro como key y mouse listener...
 	_inputMgr->addKeyListener(this, "GameManager");
-	_inputMgr->addMouseListener(this, "GameManager");
-	_inputMgr->addJoystickListener(this, "GameManager");
+	_inputMgr->addMouseListener(this, "GameManager");	
 
 	// El GameManager es un FrameListener.
 	_root->addFrameListener(this);
@@ -155,9 +154,7 @@ GameManager::frameStarted
 (const Ogre::FrameEvent& evt)
 {
 	_inputMgr->capture();
-	if (_inputMgr->getNumOfJoysticks()){
-		//_inputMgr->getJoystick()->		
-	}
+
 	return _states.top()->frameStarted(evt);
 }
 

@@ -22,7 +22,7 @@ void PlayState::enter()
 }
 
 void  PlayState::init(){
-	// lights
+	
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
 	_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	Ogre::Light* light;
@@ -42,16 +42,16 @@ void  PlayState::init(){
 	_waveManager->setPlayer(_player);
 	_pathFinder = new PathFinder(_waveManager->getMap());
 
-	// weapons
+	
 	Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x + 15,
 		_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
 		_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
 	_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[MeshName::REVOLVER]);
 
-	//Update level weapons	
+	
 	updateLevelWeapons();
 
-	// Camera
+	
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
 	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
 	double width = _viewport->getActualWidth();
@@ -64,8 +64,8 @@ void  PlayState::init(){
 	_camera->setPosition(_waveManager->getMap()->getMapCenter().x, 12.5, _waveManager->getMap()->getMapCenter().y - 5);
 	_camera->lookAt(_waveManager->getMap()->getMapCenter().x, 0, _waveManager->getMap()->getMapCenter().y);
 
-	audioController = AudioController::getSingletonPtr();
-	audioController->playAudio(Audio::PLAYSTATE);
+	AudioManager = AudioManager::getSingletonPtr();
+	AudioManager->playAudio(Audio::PLAYSTATE);
 }
 
 void PlayState::exit() {
@@ -91,7 +91,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	_startDelay += _deltaT;
 	_physicsManager->updatePhysics(_deltaT);
 	printTextGUI();
-	std::cout << _startDelay << std::endl;
+
 	switch (_state){
 	case GameFlowState::PLAY:
 
@@ -139,8 +139,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 			_waveManager->setGameTime(_deltaT);
 			_waveManager->setBulletUsed(_gun->getNumBullet());
 			_waveManager->setMinesUsed(numMines);
-			_waveManager->setPotsUsed(numPots);
-			_waveManager->resetWaveManager();
+			_waveManager->setPotsUsed(numPots);			
 			changeState(GameOverState::getSingletonPtr());
 		}
 		break;
@@ -185,7 +184,7 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 		//Use pots
 		if (_hudWeaponsShotGun->isVisible()){
 			if (_player->getPotions() > 0){
-				audioController->playAudio(Audio::POTION);
+				AudioManager->playAudio(Audio::POTION);
 
 				_player->potion();
 				numPots++;
@@ -206,7 +205,7 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 				Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
 
 				if (_player->getCountMines() > 0){
-					audioController->playAudio(Audio::MINE);
+					AudioManager->playAudio(Audio::MINE);
 
 					_mine = new Mine(_sceneMgr, Ogre::Vector3(positionMine.x, 0.5, positionMine.z), MESHES[MeshName::MINE], GameObjectType::MINES);
 					_player->setCountMines(_player->getCountMines() - 1);
@@ -231,7 +230,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		static_cast<CEGUI::Key::Scan> (e.key));
 
 	if (OIS::KC_1 == e.key){
-		audioController->playAudio(Audio::BUTTON);
+		AudioManager->playAudio(Audio::BUTTON);
 
 		_hudWeaponsClub->setVisible(true);
 		_hudWeaponsGun->setVisible(false);
@@ -239,14 +238,14 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 
 	}
 	if (OIS::KC_2 == e.key){
-		audioController->playAudio(Audio::BUTTON);
+		AudioManager->playAudio(Audio::BUTTON);
 
 		_hudWeaponsClub->setVisible(false);
 		_hudWeaponsGun->setVisible(true);
 		_hudWeaponsShotGun->setVisible(false);
 	}
 	if (OIS::KC_3 == e.key){
-		audioController->playAudio(Audio::BUTTON);
+		AudioManager->playAudio(Audio::BUTTON);
 
 		_hudWeaponsClub->setVisible(false);
 		_hudWeaponsGun->setVisible(false);
@@ -388,8 +387,7 @@ void PlayState::hudLife()
 
 }
 void PlayState::printTextGUI(){
-
-	//Enemmies to finish wave
+	
 	StringStream enemiesString2;
 	enemiesString2 << "WAVE: " << _waveManager->levelPlayer();
 	_wave->setText(enemiesString2.str());
@@ -480,14 +478,12 @@ void PlayState::createGUI()
 	CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage(
 		"TaharezLook/Mirilla");
-	// load all the fonts 
+	
 	CEGUI::FontManager::getSingleton().createAll("*.font", "Fonts");
-
-	//Sheet
+	
 	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow(
 		"DefaultWindow", "Sheet");
-
-	//Config Window	
+	
 	playStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
 		"PlayState.layout");
 
@@ -537,7 +533,7 @@ void PlayState::createGUI()
 	sheet->addChild(playStateUI);
 
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
-	// INITIALISE OIS MOUSE POSITION TO CEGUI MOUSE POSITION
+	
 	OIS::MouseState
 		&mutableMouseState =
 		const_cast<OIS::MouseState &> (GameManager::getSingletonPtr()->getInputManager()->getMouse()->getMouseState());

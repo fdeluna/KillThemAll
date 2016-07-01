@@ -137,9 +137,9 @@ enum class AttackVelocity{
 };
 
 static std::map<AttackVelocity, float> ATTACKVELOCITIES = {
-	{ AttackVelocity::SLOW, 0.5f },
-	{ AttackVelocity::NORMAL, 0.3f },
-	{ AttackVelocity::FAST, 0.1f }
+	{ AttackVelocity::SLOW, 5.0f },
+	{ AttackVelocity::NORMAL, 6.0f },
+	{ AttackVelocity::FAST, 7.0f }
 
 };
 #endif

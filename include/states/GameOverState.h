@@ -2,7 +2,7 @@
 #define GameOverState_H
 
 
-#include "AudioController.h"
+#include "AudioManager.h"
 #include "GameState.h"
 #include "Map.h"
 
@@ -46,7 +46,7 @@ private:
 	Ogre::SceneManager *_sceneMgr;
 	Ogre::Camera *_camera;
 	Ogre::Viewport *_viewport;
-	AudioController* audioController;
+	AudioManager* AudioManager;
 		
 	Map* _Map;
 
@@ -77,8 +77,7 @@ private:
 	CEGUI::Window* _heart2;
 	CEGUI::Window* _heart3;
 	CEGUI::Window* _turnText;
-
-	//NUEVAS
+	
 	CEGUI::Window* _ventanaUpgrade;
 	CEGUI::Window* _ventanaGameOver;
 	CEGUI::Window* _ready;

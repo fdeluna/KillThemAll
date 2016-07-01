@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "SceneNodeComponent.h"
 #include "RigidBodyComponent.h"
-#include "AudioController.h"
+#include "AudioManager.h"
 
 using namespace Ogre;
 
@@ -23,7 +23,7 @@ protected:
 
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
-	AudioController* audioController;	
+	AudioManager* AudioManager;	
 	
 	Player* _player;
 	bool _activeMine = false;

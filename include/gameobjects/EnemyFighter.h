@@ -2,7 +2,7 @@
 #define ENEMYFIGHTER_H
 
 #include "Enemy.h"
-#include "AudioController.h"
+#include "AudioManager.h"
 
 class EnemyFighter : public Enemy{
 
@@ -11,17 +11,13 @@ public:
 	EnemyFighter() : Enemy() {};
 	EnemyFighter(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Player* player, int level, GameObjectType type) : Enemy(sceneManager, position, mesh, player, level, type) {};
 	
-
 	void update(float deltaTime);
 	void collision(GameObject* gameObject);
 	void move(float deltaTime);
-	bool attack(float deltaTime);
-	//void die() {};
-	//void hitted() {};
+	bool attack(float deltaTime);	
 
 private:
-
-	// ATTACK
+	
 	float _nextAttack= 1;
 	float _attackTime = 0;
 	
@@ -31,8 +27,5 @@ private:
 
 	Ogre::Vector3 _startPositon = Ogre::Vector3::ZERO;
 	Ogre::Vector3 _attackPosition = Ogre::Vector3::ZERO;	
-
 };
-
-
 #endif

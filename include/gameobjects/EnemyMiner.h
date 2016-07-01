@@ -2,13 +2,12 @@
 #define ENEMYMINER_H
 
 #include "Enemy.h"
-#include "AudioController.h"
+#include "AudioManager.h"
 #include "Mine.h"
 
 class EnemyMiner : public Enemy{
 
 public:
-
 	EnemyMiner() : Enemy() {};
 	EnemyMiner(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Map* map, int level, GameObjectType type) : Enemy(sceneManager, position, mesh, nullptr, level, type), _map(map){};	
 
@@ -17,11 +16,7 @@ public:
 	void move(float deltaTime);
 	bool attack(float deltaTime);
 
-	//void die() {};
-	//void hitted() {};
-
 private:
-
 	Map* _map;
 	Mine* _mine;
 
@@ -29,6 +24,4 @@ private:
 	Ogre::Vector3 _currentPosition = Ogre::Vector3::ZERO;
 
 };
-
-
 #endif

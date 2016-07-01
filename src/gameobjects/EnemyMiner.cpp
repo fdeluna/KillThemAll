@@ -9,7 +9,6 @@ void EnemyMiner::collision(GameObject* gameObject){
 }
 
 
-
 void EnemyMiner::update(float deltaTime){
 
 	switch (_state)
@@ -45,6 +44,7 @@ void EnemyMiner::update(float deltaTime){
 		_mine = nullptr;
 	}
 
+	_rigidBodyComponent->rotate(Ogre::Vector3(_targetPosition.x, 1, _targetPosition.z));
 	Enemy::update(deltaTime);
 }
 

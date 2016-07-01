@@ -5,7 +5,7 @@
 #include "GameState.h"
 #include "Map.h"
 #include "PhysicsManager.h"
-#include "AudioController.h"
+#include "AudioManager.h"
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
@@ -32,8 +32,7 @@ public:
 
 	bool frameStarted(const Ogre::FrameEvent& evt);
 	bool frameEnded(const Ogre::FrameEvent& evt);
-
-	// Heredados de Ogre::Singleton.
+	
 	static IntroState& getSingleton();
 	static IntroState* getSingletonPtr();
 
@@ -86,7 +85,7 @@ private:
 
 	Map* _map;
 	PhysicsManager* _physicsManager;
-	AudioController* audioController;
+	AudioManager* _audioManager;
 };
 
 #endif

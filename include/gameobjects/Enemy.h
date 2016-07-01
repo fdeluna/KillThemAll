@@ -3,7 +3,7 @@
 
 #include "Player.h"
 #include "EnemyPathFinderComponent.h"
-#include "AudioController.h"
+#include "AudioManager.h"
 
 class Enemy : public GameObject{
 
@@ -22,22 +22,16 @@ protected:
 		
 	Player* _player;
 	EnemyState _state;
-	AudioController* audioController;
+	AudioManager* AudioManager;
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
 	EnemyPathFinderComponent* _pathFinderComponent;			
-
-	//Variables	
-	int _level;
-	float _speed = 2;//velocidad de movimiento del enemigo
-	float _damage = 1;//Danio que hace el enemigo		
 	
-	//Control	
+	int _level;
+	float _speed = 2;
+	float _damage = 1;
+		
 	bool isAttacking = false;			
 	bool attackDistance();	
 };
-
-
-
-
 #endif

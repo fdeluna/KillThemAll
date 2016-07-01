@@ -6,7 +6,7 @@
 #include "RigidBodyComponent.h"
 #include "PlayerInputComponent.h"
 #include "Enum.h"
-#include "AudioController.h"
+#include "AudioManager.h"
 
 class Player : public GameObject{
 
@@ -51,18 +51,18 @@ private:
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
 	PlayerInputComponent* _playerInput;
-	AudioController* audioController;
+	AudioManager* AudioManager;
 
 	Ogre::String _textDie;
 	int _lifeMax = 8;
 	int _life = 8;
 	int _level = 1;
-	//POTS
+	
 	int _numPots = 1;
 	int _numPotsMax = 1;
 	int _countPots = 0;				
 	int _levelPotion = 1;
-	//MINES
+	
 	int _mineActive = false;
 	int _numMines = 1;
 	int _numMinesMax = 1;

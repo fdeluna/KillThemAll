@@ -2,7 +2,7 @@
 #define WaveCompleteState_H
 
 
-#include "AudioController.h"
+#include "AudioManager.h"
 #include "GameState.h"
 #include "Map.h"
 
@@ -49,13 +49,12 @@ private:
 	Ogre::SceneManager *_sceneMgr;
 	Ogre::Camera *_camera;
 	Ogre::Viewport *_viewport;
-	AudioController* audioController;	
+	AudioManager* AudioManager;	
 	
 	int levelGun = 1;
 	int levelMines = 1;
 	int levelPots = 1;
 
-	// CEGUI
 	bool quit(const CEGUI::EventArgs &e);
 	bool upgrade(const CEGUI::EventArgs &e);
 	bool ready(const CEGUI::EventArgs &e);
@@ -76,8 +75,7 @@ private:
 	CEGUI::Window* _upgradeGunInfo;
 	CEGUI::Window* _upgradeShotGunInfo;
 	CEGUI::Window* _exit;
-	
-	// Time match for cegui GUI
+		
 	float _time = 0;
 };
 

@@ -1,5 +1,5 @@
-#ifndef AudioController_H
-#define AudioController_H
+#ifndef AudioManager_H
+#define AudioManager_H
 
 #include <Ogre.h>
 
@@ -8,16 +8,16 @@
 #include "SoundFXManager.h"
 #include <SDL_mixer.h>
 
-class AudioController : public Ogre::Singleton<AudioController>{
+class AudioManager : public Ogre::Singleton<AudioManager>{
 
 public:
-	AudioController();
-	~AudioController();
+	AudioManager();
+	~AudioManager();
 
 	void playAudio(Audio audio);
 
-	static AudioController& getSingleton();
-	static AudioController* getSingletonPtr();
+	static AudioManager& getSingleton();
+	static AudioManager* getSingletonPtr();
 
 private:
 

@@ -8,9 +8,7 @@ void PathFinder::FindPath(Ogre::Vector3 origin, Ogre::Vector3 destiny, std::vect
 	MapNode* targetNode = _currentMap->nodeFromWorldPosition(destiny);
 	if (startNode && targetNode){
 		std::vector<MapNode*> openSet;
-		std::vector<MapNode*> closeSet;
-
-		//path.clear();
+		std::vector<MapNode*> closeSet;		
 
 		openSet.push_back(startNode);
 		std::make_heap(openSet.begin(), openSet.end());
@@ -58,9 +56,7 @@ int PathFinder::getDistance(MapNode* nodeA, MapNode* nodeB){
 	int distance = 0;
 
 	int distanceX = Ogre::Math::Abs(nodeA->getGridX() - nodeB->getGridX());
-	int distanceY = Ogre::Math::Abs(nodeA->getGridY() - nodeB->getGridY());
-
-	//return 10 * (distanceX + distanceY);
+	int distanceY = Ogre::Math::Abs(nodeA->getGridY() - nodeB->getGridY());	
 
 	if (distanceX > distanceY){
 		distance = 10 * distanceY + 10 * (distanceX - distanceY);

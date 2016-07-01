@@ -17,7 +17,6 @@ void EnemyPathFinderComponent::update(float deltaTime, Ogre::Vector3 position){
 	}
 
 	move(deltaTime);
-	//lookAt(deltaTime);
 }
 
 

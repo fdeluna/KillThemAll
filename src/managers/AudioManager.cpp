@@ -1,11 +1,11 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
-#include "AudioController.h"
+#include "AudioManager.h"
 
-template<> AudioController* Ogre::Singleton<AudioController>::msSingleton = 0;
+template<> AudioManager* Ogre::Singleton<AudioManager>::msSingleton = 0;
 
 
-AudioController::AudioController(){
+AudioManager::AudioManager(){
 
 	if (!_initSDL()){
 		_initSDL();
@@ -33,27 +33,12 @@ AudioController::AudioController(){
 	_soundUpgrade = _pSoundFXManager->load("AUDIO/sndEnemyDie.wav");
 
 	_soundHitEnemy = _pSoundFXManager->load("AUDIO/sndHit.wav");
-	_soundDieEnemy = _pSoundFXManager->load("AUDIO/sndEnemyDie.wav");
-	/*
-
-	
-	_soundHitWall = _pSoundFXManager->load("AUDIO/sndHitWall.wav");
-
-
-	
-	
-	*/
-
-	
-	
+	_soundDieEnemy = _pSoundFXManager->load("AUDIO/sndEnemyDie.wav");	
+		
 	for (int i = 0; i < 32; i++){ Mix_Volume(i, 40); }
-
-
-
 }
 
-void AudioController::playAudio(Audio audio){
-
+void AudioManager::playAudio(Audio audio){
 
 	switch (audio)
 	{
@@ -164,33 +149,30 @@ void AudioController::playAudio(Audio audio){
 }
 
 
-AudioController* AudioController::getSingletonPtr()
+AudioManager* AudioManager::getSingletonPtr()
 {
 	return msSingleton;
 }
 
-AudioController& AudioController::getSingleton()
+AudioManager& AudioManager::getSingleton()
 {
 	assert(msSingleton);
 	return *msSingleton;
 }
 
 
-bool AudioController::_initSDL() {
+bool AudioManager::_initSDL() {
 	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
 		return false;
-	}
-	//// Llamar a  SDL_Quit al terminar.
+	}	
 
 	atexit(SDL_Quit);
-
-	//// Inicializando SDL mixer...
+	
 	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096) < 0) {
 		return false;
 	}
 
-	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
-	//// Llamar a Mix_CloseAudio al terminar.
+	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);	
 	atexit(Mix_CloseAudio);
 
 	return true;

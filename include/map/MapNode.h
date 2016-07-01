@@ -50,10 +50,9 @@ private:
 	RigidBodyComponent* _rigidBodyComponent;
 	int _gridX;
 	int _gridY;
-	int _g; // distance from starting node
-	int _h; // distance form destination node
+	int _g;
+	int _h; 
 
 	MapNode* _parent;
 };
-
 #endif

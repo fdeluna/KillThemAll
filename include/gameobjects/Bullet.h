@@ -7,7 +7,6 @@
 #include "SceneNodeComponent.h"
 #include "RigidBodyComponent.h"
 
-
 class Bullet : public GameObject{
 
 public:
@@ -21,9 +20,6 @@ public:
 	RigidBodyComponent* getRigidBodyComponent(){ return _rigidBodyComponent; };
 
 private:
-
-	int _damage;
-
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
 };

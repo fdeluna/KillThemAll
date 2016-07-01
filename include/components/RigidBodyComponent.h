@@ -11,8 +11,6 @@
 #include <Shapes/OgreBulletCollisionsCapsuleShape.h>
 #include <Utils/OgreBulletCollisionsMeshToShapeConverter.h>
 
-
-
 class RigidBodyComponent : public Component{
 public:
 	RigidBodyComponent() :_shape(nullptr), _rigidBody(nullptr){};

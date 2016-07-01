@@ -6,16 +6,13 @@ SceneNodeComponent::SceneNodeComponent(Ogre::SceneManager* sceneManager, Ogre::S
 
 	Ogre::String enityName("SceneComponentEntity");	
 	enityName.append(mesh);	
-	getOgreName(enityName);
-
-
-	Ogre::String nodeName("SceneComponentNode");	
-	nodeName.append(mesh);
-	getOgreName(nodeName);
+	getOgreName(enityName);	
 	_entity = _sceneManager->createEntity(enityName, mesh);
 
 
-
+	Ogre::String nodeName("SceneComponentNode");
+	nodeName.append(mesh);
+	getOgreName(nodeName);
 	_sceneNode = _sceneManager->createSceneNode(nodeName);
 	_sceneNode->attachObject(_entity);
 	_sceneNode->setPosition(position);

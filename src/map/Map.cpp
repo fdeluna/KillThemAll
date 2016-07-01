@@ -19,8 +19,7 @@ void Map::GenerateMap(){
 	rigidBodyComponent = new RigidBodyComponent(nullptr, GameObjectType::MAP_FLOOR, planeNode);
 	rigidBodyComponent->setWorldPosition(Ogre::Vector3(_mapCenter.x - 0.5, 0, _mapCenter.y - 0.5));
 	planeNode->setMaterialName("Floor");
-
-	// MAP GENERATION
+	
 	std::vector<MapNode*> gridRow;
 	for (int x = 0; x < _mapSize.x; x++){
 		for (int y = 0; y < _mapSize.y; y++){

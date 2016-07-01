@@ -7,7 +7,7 @@ Mine::Mine(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::Strin
 	_sceneNodeComponent->getSceneNode()->setScale(Ogre::Vector3(0.1, 0.1, 0.1));
 	_type = type;
 	addComponent(_sceneNodeComponent);
-	AudioManager = AudioManager::getSingletonPtr();
+	_audioManager = AudioManager::getSingletonPtr();
 }
 
 
@@ -46,5 +46,5 @@ void Mine::shoot(){
 	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::MINES, _sceneNodeComponent);
 	_sceneNodeComponent->setVisible(false);
 	addComponent(_rigidBodyComponent);
-	AudioManager->playAudio(Audio::MINEEXPLOSION);
+	_audioManager->playAudio(Audio::MINEEXPLOSION);
 }

@@ -39,7 +39,7 @@ protected:
 	Player* _player;
 	SceneNodeComponent* _sceneNodeComponentGun;
 	RigidBodyComponent* _rigidBodyComponentGun;
-	AudioManager* _AudioManager;
+	AudioManager* _audioManager;
 	bool _canShoot = true;
 	float _velAtack = ATTACKVELOCITIES[AttackVelocity::SLOW];	
 	int _level = 1;	

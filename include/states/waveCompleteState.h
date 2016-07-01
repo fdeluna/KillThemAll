@@ -33,12 +33,12 @@ public:
 
 	bool frameStarted(const Ogre::FrameEvent &e);
 	bool frameEnded(const Ogre::FrameEvent &e);
-	void resetLevelGun(){ levelGun = 1; };
-	void resetLevelMines(){ levelMines = 1; };
-	void resetLevelPots(){ levelPots = 1; };
-	int getLevelGun(){ return levelGun; };
-	int getLevelMines(){ return levelMines; };
-	int getLevelPots(){ return levelPots; };
+	void resetLevelGun(){ _levelGun = 1; };
+	void resetLevelMines(){ _levelMines = 1; };
+	void resetLevelPots(){ _levelPots = 1; };
+	int getLevelGun(){ return _levelGun; };
+	int getLevelMines(){ return _levelMines; };
+	int getLevelPots(){ return _levelPots; };
 
 	CEGUI::MouseButton convertMouseButton(OIS::MouseButtonID id);
 
@@ -49,11 +49,11 @@ private:
 	Ogre::SceneManager *_sceneMgr;
 	Ogre::Camera *_camera;
 	Ogre::Viewport *_viewport;
-	AudioManager* AudioManager;	
+	AudioManager* _audioManager;	
 	
-	int levelGun = 1;
-	int levelMines = 1;
-	int levelPots = 1;
+	int _levelGun = 1;
+	int _levelMines = 1;
+	int _levelPots = 1;
 
 	bool quit(const CEGUI::EventArgs &e);
 	bool upgrade(const CEGUI::EventArgs &e);

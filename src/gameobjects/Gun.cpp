@@ -8,7 +8,7 @@ Gun::Gun(Player* player, Ogre::SceneManager* sceneManager, Ogre::Vector3 positio
 	_rigidBodyComponentGun = new RigidBodyComponent((GameObject*)this, GameObjectType::OBSTACLE, _sceneNodeComponentGun);
 	addComponent(_sceneNodeComponentGun);	
 	_player = player;
-	_AudioManager = AudioManager::getSingletonPtr();
+	_audioManager = AudioManager::getSingletonPtr();
 }
 
 
@@ -42,7 +42,7 @@ void Gun::upgrade(){
 void Gun::shoot(){
 
 	if (_canShoot && _ammo > 0 && !_reloading){
-		_AudioManager->playAudio(Audio::SHOOT);
+		_audioManager->playAudio(Audio::SHOOT);
 
 		Ogre::Vector3 mousePosition(_player->getPlayerInputComponent()->getMousePositionWeapon());
 		Ogre::Vector3 playerPosition(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, 1, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z);

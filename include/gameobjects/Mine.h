@@ -23,7 +23,7 @@ protected:
 
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
-	AudioManager* AudioManager;	
+	AudioManager* _audioManager;
 	
 	Player* _player;
 	bool _activeMine = false;

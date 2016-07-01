@@ -10,8 +10,8 @@ Enemy::Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::Str
 	_type = type;
 	addComponent(_sceneNodeComponent);
 	addComponent(_rigidBodyComponent);
-	AudioManager = AudioManager::getSingletonPtr();
-	AudioManager->playAudio(Audio::SPAWN);
+	_audioManager = AudioManager::getSingletonPtr();
+	_audioManager->playAudio(Audio::SPAWN);
 }
 
 Enemy::~Enemy(){
@@ -34,7 +34,7 @@ void Enemy::update(float deltaTime){
 		attack(deltaTime);
 		break;
 	case EnemyState::DIE:
-		AudioManager->playAudio(Audio::KILLENEMY);
+		_audioManager->playAudio(Audio::KILLENEMY);
 		_active = false;		
 		break;	
 	}

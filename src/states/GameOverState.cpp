@@ -19,8 +19,8 @@ void GameOverState::enter()
 
 	createGUI();	
 
-	AudioManager = AudioManager::getSingletonPtr();
-	AudioManager->playAudio(Audio::INTROSTATE);
+	_audioManager = AudioManager::getSingletonPtr();
+	_audioManager->playAudio(Audio::INTROSTATE);
 }
 
 void GameOverState::exit() {
@@ -157,7 +157,7 @@ bool GameOverState::quit(const CEGUI::EventArgs &e)
 	checkScore();
 	statScore();
 
-	AudioManager->playAudio(Audio::BACK);	
+	_audioManager->playAudio(Audio::BACK);
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
 	WaveManager::getSingletonPtr()->resetWaveManager();
 	changeState(IntroState::getSingletonPtr());
@@ -167,7 +167,7 @@ bool GameOverState::quit(const CEGUI::EventArgs &e)
 
 bool GameOverState::ready(const CEGUI::EventArgs &e)
 {
-	AudioManager->playAudio(Audio::BUTTON);
+	_audioManager->playAudio(Audio::BUTTON);
 
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();
 	changeState(PlayState::getSingletonPtr());

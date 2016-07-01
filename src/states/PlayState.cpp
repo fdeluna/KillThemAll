@@ -64,8 +64,8 @@ void  PlayState::init(){
 	_camera->setPosition(_waveManager->getMap()->getMapCenter().x, 12.5, _waveManager->getMap()->getMapCenter().y - 5);
 	_camera->lookAt(_waveManager->getMap()->getMapCenter().x, 0, _waveManager->getMap()->getMapCenter().y);
 
-	AudioManager = AudioManager::getSingletonPtr();
-	AudioManager->playAudio(Audio::PLAYSTATE);
+	_audioManager = AudioManager::getSingletonPtr();
+	_audioManager->playAudio(Audio::PLAYSTATE);
 }
 
 void PlayState::exit() {
@@ -184,7 +184,7 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 		//Use pots
 		if (_hudWeaponsShotGun->isVisible()){
 			if (_player->getPotions() > 0){
-				AudioManager->playAudio(Audio::POTION);
+				_audioManager->playAudio(Audio::POTION);
 
 				_player->potion();
 				numPots++;
@@ -205,7 +205,7 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 				Ogre::Vector3 positionMine = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
 
 				if (_player->getCountMines() > 0){
-					AudioManager->playAudio(Audio::MINE);
+					_audioManager->playAudio(Audio::MINE);
 
 					_mine = new Mine(_sceneMgr, Ogre::Vector3(positionMine.x, 0.5, positionMine.z), MESHES[MeshName::MINE], GameObjectType::MINES);
 					_player->setCountMines(_player->getCountMines() - 1);
@@ -230,7 +230,7 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 		static_cast<CEGUI::Key::Scan> (e.key));
 
 	if (OIS::KC_1 == e.key){
-		AudioManager->playAudio(Audio::BUTTON);
+		_audioManager->playAudio(Audio::BUTTON);
 
 		_hudWeaponsClub->setVisible(true);
 		_hudWeaponsGun->setVisible(false);
@@ -238,14 +238,14 @@ void PlayState::keyPressed(const OIS::KeyEvent &e)
 
 	}
 	if (OIS::KC_2 == e.key){
-		AudioManager->playAudio(Audio::BUTTON);
+		_audioManager->playAudio(Audio::BUTTON);
 
 		_hudWeaponsClub->setVisible(false);
 		_hudWeaponsGun->setVisible(true);
 		_hudWeaponsShotGun->setVisible(false);
 	}
 	if (OIS::KC_3 == e.key){
-		AudioManager->playAudio(Audio::BUTTON);
+		_audioManager->playAudio(Audio::BUTTON);
 
 		_hudWeaponsClub->setVisible(false);
 		_hudWeaponsGun->setVisible(false);

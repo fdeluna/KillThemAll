@@ -51,7 +51,7 @@ private:
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
 	PlayerInputComponent* _playerInput;
-	AudioManager* AudioManager;
+	AudioManager* _audioManager;
 
 	Ogre::String _textDie;
 	int _lifeMax = 8;

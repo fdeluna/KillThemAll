@@ -53,7 +53,7 @@ private:
 	Ogre::SceneManager *_sceneMgr;
 	Ogre::Camera *_camera;
 	Ogre::Viewport *_viewport;
-	AudioManager* AudioManager;	
+	AudioManager* _audioManager;
 
 	WaveManager* _waveManager;
 	PhysicsManager* _physicsManager;

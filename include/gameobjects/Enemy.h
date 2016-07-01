@@ -22,7 +22,7 @@ protected:
 		
 	Player* _player;
 	EnemyState _state;
-	AudioManager* AudioManager;
+	AudioManager* _audioManager;
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
 	EnemyPathFinderComponent* _pathFinderComponent;			

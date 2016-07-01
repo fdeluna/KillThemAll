@@ -29,7 +29,7 @@ protected:
 
 	//Variables	
 	int _level;
-	float _speed = 1.5;//velocidad de movimiento del enemigo
+	float _speed = 2;//velocidad de movimiento del enemigo
 	float _damage = 1;//Danio que hace el enemigo		
 	
 	//Control	

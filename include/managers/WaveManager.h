@@ -36,9 +36,9 @@ public:
 	
 	void addEnemyKilled() { _enemiesKilled++;  _waveEnemiesKilled++; }
 
-	void setLevelGun(int _level){ _levelGun = _level; };
-	void setLevelMines(int _level){ _levelMines = _level; };
-	void setLevelPots(int _level){ _levelPots = _level; };
+	void setLevelGun(int level){ _levelGun = level; };
+	void setLevelMines(int level){ _levelMines = level; };
+	void setLevelPots(int level){ _levelPots = level; };
 
 	int getLevelGun(){ return _levelGun; };
 	int getLevelMines(){ return _levelMines; };
@@ -51,7 +51,7 @@ public:
 	void setEnemiesKilled(float enemies){ _enemiesKilled = enemies; };
 
 	int getBulletsUsed(){ return _bulletsUsed; };
-	void setBulletUsed(float _bullets){ _bulletsUsed = _bullets; };
+	void setBulletUsed(float bullets){ _bulletsUsed = bullets; };
 
 	int getMinesUsed(){ return _minesUsed; };
 	void setMinesUsed(float mines){ _minesUsed = mines; };

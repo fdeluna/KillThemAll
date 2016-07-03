@@ -28,7 +28,7 @@ protected:
 	EnemyPathFinderComponent* _pathFinderComponent;			
 	
 	int _level;
-	float _speed = 2;
+	float _speed = 2.5;
 	float _damage = 1;
 		
 	bool isAttacking = false;			

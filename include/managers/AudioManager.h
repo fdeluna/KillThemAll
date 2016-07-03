@@ -53,8 +53,5 @@ private:
 	SoundFXPtr _soundAlarm;
 	SoundFXPtr _soundNoAmmo;
 
-
-
-
 };
 #endif

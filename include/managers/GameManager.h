@@ -10,7 +10,7 @@
 
 class GameState;
 
-class GameManager : public Ogre::FrameListener, public Ogre::Singleton<GameManager>, public OIS::KeyListener, public OIS::MouseListener,public OIS::JoyStickListener
+class GameManager : public Ogre::FrameListener, public Ogre::Singleton<GameManager>, public OIS::KeyListener, public OIS::MouseListener
 {
  public:
   GameManager ();
@@ -44,13 +44,7 @@ class GameManager : public Ogre::FrameListener, public Ogre::Singleton<GameManag
   bool mouseMoved (const OIS::MouseEvent &e);
   bool mousePressed (const OIS::MouseEvent &e, OIS::MouseButtonID id);
   bool mouseReleased (const OIS::MouseEvent &e, OIS::MouseButtonID id);
-
-  bool povMoved(const OIS::JoyStickEvent &e, int pov){ return true; };
-  bool axisMoved(const OIS::JoyStickEvent &e, int axis){ return true; };
-  bool sliderMoved(const OIS::JoyStickEvent &e, int sliderID){ return true; };
-  bool buttonPressed(const OIS::JoyStickEvent &e, int button){ return true; };
-  bool buttonReleased(const OIS::JoyStickEvent &e, int button){ return true; };
-  
+    
   InputManager *_inputMgr;
  
   std::stack<GameState*> _states;

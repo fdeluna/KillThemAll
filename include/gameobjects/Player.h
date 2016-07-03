@@ -30,14 +30,14 @@ public:
 	int getLevel(){ return _level; };
 	void setLevel(int levelPlayer){ _level = levelPlayer; };
 	int getPotions(){ return _numPots; };
-	int setPotions(int pots){ _numPots = pots; };
+	void setPotions(int pots){ _numPots = pots; };
 	int getPotionsCount(){ return _countPots; };
 	bool getMineActive(){ return _mineActive; };
 	void setMineActive(bool active){ _mineActive = active; };
 	int getCountMines(){ return _numMines; };
 	void setCountMines(int mines){ _numMines = mines; };
-	void setLevelMines(int _mines){ _levelMine = _mines; };
-	void setLevelPots(int _pots){ _levelPotion = _pots; };
+	void setLevelMines(int level){ _levelMine = level; };
+	void setLevelPots(int pots){ _levelPotion = pots; };
 	int getLevelMines(){ return _levelMine; };
 	int getLevelPots(){ return _levelPotion; };
 

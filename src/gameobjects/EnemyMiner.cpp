@@ -8,7 +8,6 @@ void EnemyMiner::collision(GameObject* gameObject){
 	}
 }
 
-
 void EnemyMiner::update(float deltaTime){
 
 	switch (_state)
@@ -41,6 +40,7 @@ void EnemyMiner::update(float deltaTime){
 		_mine->update(deltaTime);
 	}
 	else{
+		delete _mine;
 		_mine = nullptr;
 	}
 

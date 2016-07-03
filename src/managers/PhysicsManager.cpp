@@ -47,7 +47,7 @@ Ogre::Vector3& PhysicsManager::getMouseWorldPosition(float x, float y){
 
 
 void PhysicsManager::updatePhysics(Ogre::Real deltaTime) {
-	_world->stepSimulation(deltaTime, 50);
+	_world->stepSimulation(deltaTime,60);
 	checkCollisions();
 }
 

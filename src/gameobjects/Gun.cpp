@@ -7,6 +7,8 @@ Gun::Gun(Player* player, Ogre::SceneManager* sceneManager, Ogre::Vector3 positio
 	_sceneNodeComponentGun->getSceneNode()->setScale(Ogre::Vector3(4, 4, 4));
 	_rigidBodyComponentGun = new RigidBodyComponent((GameObject*)this, GameObjectType::OBSTACLE, _sceneNodeComponentGun);
 	addComponent(_sceneNodeComponentGun);
+	addComponent(_rigidBodyComponentGun);
+
 	_player = player;
 	_audioManager = AudioManager::getSingletonPtr();
 
@@ -22,6 +24,9 @@ Gun::Gun(Player* player, Ogre::SceneManager* sceneManager, Ogre::Vector3 positio
 
 Gun::~Gun()
 {
+	
+	delete _rigidBodyComponentGun;
+	delete _sceneNodeComponentGun;
 
 	if (_bullets.size() > 0){
 		for (int i = 0; i < _bullets.size(); i++){
@@ -32,9 +37,7 @@ Gun::~Gun()
 		}
 	}
 	_bullets.clear();
-	delete _rigidBodyComponentGun;
-	delete _sceneNodeComponentGun;
-	Gun::~Gun();
+	GameObject::~GameObject();
 }
 
 void Gun::update(float deltaTime){

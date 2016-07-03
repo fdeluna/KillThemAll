@@ -9,7 +9,7 @@ class EnemyMiner : public Enemy{
 
 public:
 	EnemyMiner() : Enemy() {};
-	EnemyMiner(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Map* map, int level, GameObjectType type) : Enemy(sceneManager, position, mesh, nullptr, level, type), _map(map){};	
+	EnemyMiner(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh, Map* map, int level, GameObjectType type) : Enemy(sceneManager, position, mesh, nullptr, level, type), _map(map){};		
 
 	void update(float deltaTime);
 	void collision(GameObject* gameObject);

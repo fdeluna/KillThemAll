@@ -22,7 +22,7 @@ void PlayState::enter()
 }
 
 void  PlayState::init(){
-		
+
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
 	_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	Ogre::Light* light;
@@ -32,9 +32,9 @@ void  PlayState::init(){
 	_sceneMgr->getRootSceneNode()->attachObject(light);
 
 	_physicsManager = new PhysicsManager(_sceneMgr, false);
-	
+
 	_delay = 0;
-	_startDelay = 0;	
+	_startDelay = 0;
 	_waveManager->cleanWave();
 	_waveManager->initWave();
 	_player = new Player(_sceneMgr, Ogre::Vector3(_waveManager->getMap()->getMapCenter().x, 1, _waveManager->getMap()->getMapCenter().y), MESHES[MeshName::PLAYERM]);
@@ -42,16 +42,16 @@ void  PlayState::init(){
 	_waveManager->setPlayer(_player);
 	_pathFinder = new PathFinder(_waveManager->getMap());
 
-	
+
 	Ogre::Vector3 weaponPosition = Ogre::Vector3(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x + 15,
 		_player->getSceneNodeComponent()->getSceneNode()->getPosition().y,
 		_player->getSceneNodeComponent()->getSceneNode()->getPosition().z);
 	_gun = new Gun(_player, _player->getSceneNodeComponent()->getSceneManager(), weaponPosition, MESHES[MeshName::REVOLVER]);
 
-	
+
 	updateLevelWeapons();
 
-	
+
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
 	_viewport->setBackgroundColour(Ogre::ColourValue(0.18, 0.31, 0.31));
 	double width = _viewport->getActualWidth();
@@ -99,7 +99,7 @@ void PlayState::exit() {
 	_waveManager->cleanWave();
 	_mine = nullptr;
 	delete _mine;
-
+	delete _gun;
 	delete _pathFinder;
 	_player = nullptr;
 	_sceneMgr->clearScene();
@@ -114,11 +114,10 @@ void PlayState::resume() {}
 
 bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
-		evt.timeSinceLastFrame);	 
+		evt.timeSinceLastFrame);
 	_deltaT = evt.timeSinceLastFrame;
 	_time += _deltaT;
 	_startDelay += _deltaT;
-	_physicsManager->updatePhysics(_deltaT);
 	printTextGUI();
 	_timeParticlePotion += _deltaT;
 
@@ -137,7 +136,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 	switch (_state){
 	case GameFlowState::PLAY:
-
+		_physicsManager->updatePhysics(_deltaT);
 		if (_mine && _mine->isActive()){
 			_mine->update(_deltaT);
 		}
@@ -185,7 +184,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 			_waveManager->setGameTime(_time);
 			_waveManager->setBulletUsed(_gun->getNumBullet());
 			_waveManager->setMinesUsed(_numMines);
-			_waveManager->setPotsUsed(_numPots);			
+			_waveManager->setPotsUsed(_numPots);
 			_time = 0;
 			_numMines = 0;
 			_numPots = 0;
@@ -210,8 +209,9 @@ bool PlayState::frameEnded(const Ogre::FrameEvent& evt)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
-	_physicsManager->updatePhysics(_deltaT);
-
+	if (_state == GameFlowState::PLAY){
+		_physicsManager->updatePhysics(_deltaT);
+	}
 	return true;
 }
 
@@ -439,7 +439,7 @@ void PlayState::hudLife()
 
 }
 void PlayState::printTextGUI(){
-	
+
 	StringStream enemiesString2;
 	enemiesString2 << "WAVE: " << _waveManager->getLevel();
 	_wave->setText(enemiesString2.str());
@@ -530,12 +530,12 @@ void PlayState::createGUI()
 	CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage(
 		"TaharezLook/Mirilla");
-	
+
 	CEGUI::FontManager::getSingleton().createAll("*.font", "Fonts");
-	
+
 	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().createWindow(
 		"DefaultWindow", "Sheet");
-	
+
 	playStateUI = CEGUI::WindowManager::getSingleton().loadLayoutFromFile(
 		"PlayState.layout");
 
@@ -585,7 +585,7 @@ void PlayState::createGUI()
 	sheet->addChild(playStateUI);
 
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
-	
+
 	OIS::MouseState
 		&mutableMouseState =
 		const_cast<OIS::MouseState &> (GameManager::getSingletonPtr()->getInputManager()->getMouse()->getMouseState());

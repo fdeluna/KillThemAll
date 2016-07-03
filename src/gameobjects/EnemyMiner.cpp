@@ -28,8 +28,7 @@ void EnemyMiner::update(float deltaTime){
 		break;
 	case EnemyState::DIE:
 		if (_mine){
-			_mine->shoot();
-			delete _mine;
+			_mine->shoot();			
 			_mine = nullptr;
 		}
 		break;

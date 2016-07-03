@@ -209,8 +209,8 @@ bool PlayState::frameEnded(const Ogre::FrameEvent& evt)
 {
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		evt.timeSinceLastFrame);
-	if (_state == GameFlowState::PLAY){
-		_physicsManager->updatePhysics(_deltaT);
+	if (_state == GameFlowState::PLAY){		
+		_physicsManager->updatePhysics(evt.timeSinceLastFrame);
 	}
 	return true;
 }

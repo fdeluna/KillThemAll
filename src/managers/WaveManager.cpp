@@ -48,7 +48,7 @@ void WaveManager::cleanEnemies(){
 void WaveManager::wave(float deltaTime)
 {
 	_spawnEnemy += deltaTime;
-	if (_spawnEnemy >= 1.25 && _enemies.size() < _waveEnemies){
+	if (_spawnEnemy >= 1 && _enemies.size() < _waveEnemies){
 		_spawnEnemy = 0;
 		int randomType = rand() % 10 + 1;
 		Enemy* newEnemy = nullptr;
@@ -59,8 +59,7 @@ void WaveManager::wave(float deltaTime)
 		}
 		else{
 			newEnemy = new EnemyMiner(_sceneManager, Ogre::Vector3(enemyPosition.x, 0.2, enemyPosition.z), MESHES[MeshName::ENEMYMINE], _map, _levelGame, GameObjectType::ENEMYMINER);
-		}
-		
+		}		
 		_enemies.push_back(newEnemy);
 	}
 

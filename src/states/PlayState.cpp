@@ -22,7 +22,7 @@ void PlayState::enter()
 }
 
 void  PlayState::init(){
-	
+		
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(1, 1, 1));
 	_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	Ogre::Light* light;
@@ -184,6 +184,9 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 			_waveManager->setBulletUsed(_gun->getNumBullet());
 			_waveManager->setMinesUsed(_numMines);
 			_waveManager->setPotsUsed(_numPots);
+			_time = 0;
+			_numMines = 0;
+			_numPots = 0;
 			changeState(GameOverState::getSingletonPtr());
 		}
 		break;

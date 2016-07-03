@@ -138,15 +138,15 @@ void GameOverState::statScore(){
 	std::ifstream ficheroEntrada;
 	String frase;
 	StringStream statsText;
-
+	std::cout << WaveManager::getSingletonPtr()->getPotsUsed() << std::endl; 
 	std::ofstream ficheroSalida;
 	ficheroSalida.open("stat.txt");
-	statsText << "TIME. . . . . . . . . . . . . . . . . . . . . . . . . . ." << WaveManager::getSingletonPtr()->getGameTime()*60 << " \n" << " \n"
+	statsText << "TIME. . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->getGameTime()*60 << " \n" << " \n"
 		<< "LEVEL. . . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->getLevel() << " \n" << " \n"
 		<< "ENEMIES. . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->getEnemiesKilled() << " \n" << " \n"
 		<< "MINES. . . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->getMinesUsed() << " \n" << " \n"
 		<< "BULLETS. . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->getBulletsUsed() << " \n" << " \n"
-		<< "POTS. . . . . . . . . . . . . . . . . . . . . . . . . . ." << WaveManager::getSingletonPtr()->getPotsUsed() << " \n" << " \n";
+		<< "POTS. . . . . . . . . . . . . . . . . . . . . . . . . . ." << WaveManager::getSingletonPtr()->getPotsUsed() << " \n" << " \n";		
 
 	frase = statsText.str();
 	ficheroSalida << frase;

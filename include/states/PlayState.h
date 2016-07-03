@@ -46,6 +46,7 @@ public:
 	void createGUI();
 	void printTextGUI();
 	void updateLevelWeapons();
+	void hudLife();
 
 private:	
 	Ogre::Root *_root;
@@ -70,9 +71,7 @@ private:
 	float _startDelay = 0;	
 	float timer = 0;
 	float timerReload = 0;		
-	
-	void hudLife();
-
+		
 	CEGUI::Window* playStateUI;
 	CEGUI::Window* _vida1;
 	CEGUI::Window* _vida2;

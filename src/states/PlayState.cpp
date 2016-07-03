@@ -98,6 +98,8 @@ void  PlayState::init(){
 void PlayState::exit() {
 	_waveManager->cleanWave();
 	_mine = nullptr;
+	delete _mine;
+
 	delete _pathFinder;
 	_player = nullptr;
 	_sceneMgr->clearScene();
@@ -145,7 +147,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 
 		if (_gun){
 
-			_gun->update(evt);
+			_gun->update(_deltaT);
 
 			if (timer > _gun->getVelAtack()){
 				_gun->setCanShoot(true);
@@ -183,7 +185,7 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 			_waveManager->setGameTime(_time);
 			_waveManager->setBulletUsed(_gun->getNumBullet());
 			_waveManager->setMinesUsed(_numMines);
-			_waveManager->setPotsUsed(_numPots);
+			_waveManager->setPotsUsed(_numPots);			
 			_time = 0;
 			_numMines = 0;
 			_numPots = 0;

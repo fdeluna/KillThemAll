@@ -18,12 +18,20 @@ Bullet::Bullet(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::S
 	partSystem->setVisible(true);
 }
 
+void Bullet::update(float deltaTime){
+	_timeToDestroy += deltaTime;
+
+	if (_timeToDestroy > 3){
+		_active = false;
+	}
+}
+
 void Bullet::collision(GameObject* gameObject){
 	if (gameObject){		
 		if (gameObject->getType() == GameObjectType::ENEMYFIGHTER || gameObject->getType() == GameObjectType::ENEMYMINER){			
 			((Enemy*)gameObject)->die();
 		}
-		Bullet::~Bullet();
+		setActive(false);
 	}
 }
 

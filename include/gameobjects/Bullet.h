@@ -14,12 +14,14 @@ public:
 	Bullet(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);
 	~Bullet();
 
+	void update(float deltaTime);
 	void collision(GameObject* gameObject);
 
 	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponent; };
 	RigidBodyComponent* getRigidBodyComponent(){ return _rigidBodyComponent; };
 
 private:
+	float _timeToDestroy = 0;
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
 

@@ -6,10 +6,10 @@ Gun::Gun(Player* player, Ogre::SceneManager* sceneManager, Ogre::Vector3 positio
 	_sceneNodeComponentGun = new SceneNodeComponent(_sceneManager, "Gun", mesh, Ogre::Vector3(0.5, 0.25, 0.5), position, player->getSceneNodeComponent()->getSceneNode());
 	_sceneNodeComponentGun->getSceneNode()->setScale(Ogre::Vector3(4, 4, 4));
 	_rigidBodyComponentGun = new RigidBodyComponent((GameObject*)this, GameObjectType::OBSTACLE, _sceneNodeComponentGun);
-	addComponent(_sceneNodeComponentGun);	
+	addComponent(_sceneNodeComponentGun);
 	_player = player;
 	_audioManager = AudioManager::getSingletonPtr();
-	
+
 	nodeParticle = sceneManager->createSceneNode("NodeParticula");
 	nodeParticle->setScale(0.03, 0.03, 0.03);
 	_sceneNodeComponentGun->getSceneNode()->addChild(nodeParticle);
@@ -22,14 +22,24 @@ Gun::Gun(Player* player, Ogre::SceneManager* sceneManager, Ogre::Vector3 positio
 
 Gun::~Gun()
 {
+
+	if (_bullets.size() > 0){
+		for (int i = 0; i < _bullets.size(); i++){
+
+			Bullet* aux = _bullets[i];
+			_bullets.erase(_bullets.begin() + i);
+			delete aux;
+		}
+	}
+	_bullets.clear();
 	delete _rigidBodyComponentGun;
 	delete _sceneNodeComponentGun;
 	Gun::~Gun();
 }
 
-void Gun::update(const Ogre::FrameEvent& evt){
-	partSystem->_update(evt.timeSinceLastFrame*4.0);
-	timeParticle += evt.timeSinceLastFrame;
+void Gun::update(float deltaTime){
+	partSystem->_update(deltaTime);
+	timeParticle += deltaTime;
 	if (timeParticle < 0.2){
 		partSystem->setVisible(true);
 
@@ -39,6 +49,18 @@ void Gun::update(const Ogre::FrameEvent& evt){
 
 	}
 
+	if (_bullets.size() > 0){
+		for (int i = 0; i < _bullets.size(); i++){
+			if (_bullets[i]->isActive()){
+				_bullets[i]->update(deltaTime);
+			}
+			else{
+				Bullet* aux = _bullets[i];
+				_bullets.erase(_bullets.begin() + i);
+				delete aux;
+			}
+		}
+	}
 }
 
 void Gun::upgrade(){
@@ -46,14 +68,14 @@ void Gun::upgrade(){
 	switch (_level)
 	{
 	case 2:
-		_velAtack = ATTACKVELOCITIES[AttackVelocity::NORMAL];		
+		_velAtack = ATTACKVELOCITIES[AttackVelocity::NORMAL];
 		_ammo = 16;
 		break;
 
 	case 3:
-		_velAtack = ATTACKVELOCITIES[AttackVelocity::FAST];		
-		_ammo = 25;		
-		break;	
+		_velAtack = ATTACKVELOCITIES[AttackVelocity::FAST];
+		_ammo = 25;
+		break;
 	}
 
 }
@@ -78,6 +100,7 @@ void Gun::shoot(){
 		_numBullet++;
 		WaveManager::getSingletonPtr()->setBulletUsed(WaveManager::getSingletonPtr()->getBulletsUsed() + _numBullet);
 		_ammo--;
+		_bullets.push_back(bullet);
 	}
 }
 

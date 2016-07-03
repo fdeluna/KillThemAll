@@ -28,15 +28,7 @@ material Mina4
             scene_blend one zero
             scene_blend_op add
             shading gouraud
-            transparent_sorting on
-
-            texture_unit 
-            {
-                texture copy.png
-                tex_address_mode wrap
-                scale 1.0 1.0
-                colour_op modulate
-            }
+            transparent_sorting on            
         }
     }
 }

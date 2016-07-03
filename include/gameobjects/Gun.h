@@ -19,7 +19,7 @@ public:
 	Gun(Player* player, Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::String mesh);	
 	~Gun();
 
-	void update(const Ogre::FrameEvent& evt);
+	void update(float deltaTime);
 	void upgrade();
 	void shoot();
 	void reload();
@@ -45,6 +45,8 @@ private:
 	int _level = 1;	
 	int _ammo = 12;
 	bool _reloading = false;	
+
+	std::vector<Bullet*> _bullets;
 
 	//PARTICLES
 	Ogre::ParticleSystem* partSystem;

@@ -38,7 +38,7 @@ void  PlayState::init(){
 	_waveManager->cleanWave();
 	_waveManager->initWave();
 	_player = new Player(_sceneMgr, Ogre::Vector3(_waveManager->getMap()->getMapCenter().x, 1, _waveManager->getMap()->getMapCenter().y), MESHES[MeshName::PLAYERM]);
-	_player->setLevel(_waveManager->levelPlayer());
+	_player->setLevel(_waveManager->getLevel());
 	_waveManager->setPlayer(_player);
 	_pathFinder = new PathFinder(_waveManager->getMap());
 
@@ -68,32 +68,31 @@ void  PlayState::init(){
 	_audioManager->playAudio(Audio::PLAYSTATE);
 
 	//PARTICLE
-	nodeParticlePotion = _sceneMgr->createSceneNode("NodeParticulaMine");
-	nodeParticlePotion->setScale(0.3, 0.3, 0.3);
-	_player->getSceneNodeComponent()->getSceneNode()->addChild(nodeParticlePotion);
-	nodeParticlePotion->setPosition(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
-	partSystemPotion = _sceneMgr->createParticleSystem("Potion", "Potion");
-	nodeParticlePotion->attachObject(partSystemPotion);
-	partSystemPotion->setVisible(false);
+	_nodeParticlePotion = _sceneMgr->createSceneNode("NodeParticulaMine");
+	_nodeParticlePotion->setScale(0.3, 0.3, 0.3);
+	_player->getSceneNodeComponent()->getSceneNode()->addChild(_nodeParticlePotion);
+	_nodeParticlePotion->setPosition(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
+	_partSystemPotion = _sceneMgr->createParticleSystem("Potion", "Potion");
+	_nodeParticlePotion->attachObject(_partSystemPotion);
+	_partSystemPotion->setVisible(false);
 
-	nodeParticleFire = _sceneMgr->createSceneNode("NodeParticulaFire");
-	nodeParticleFire->setScale(0.01, 0.01, 0.01);
+	_nodeParticleFire = _sceneMgr->createSceneNode("NodeParticulaFire");
+	_nodeParticleFire->setScale(0.01, 0.01, 0.01);
 
-	_sceneMgr->getRootSceneNode()->addChild(nodeParticleFire);
-	nodeParticleFire->setPosition(Ogre::Vector3(-5, -10, 0));
-	partSystemFire = _sceneMgr->createParticleSystem("Fire", "FireFloor");
-	nodeParticleFire->attachObject(partSystemFire);
-	partSystemFire->setVisible(true);
+	_sceneMgr->getRootSceneNode()->addChild(_nodeParticleFire);
+	_nodeParticleFire->setPosition(Ogre::Vector3(-5, -10, 0));
+	_partSystemFire = _sceneMgr->createParticleSystem("Fire", "FireFloor");
+	_nodeParticleFire->attachObject(_partSystemFire);
+	_partSystemFire->setVisible(true);
 
+	_nodeParticleFire2 = _sceneMgr->createSceneNode("NodeParticulaFire2");
+	_nodeParticleFire2->setScale(0.03, 0.01, 0.03);
 
-	nodeParticleFire2 = _sceneMgr->createSceneNode("NodeParticulaFire2");
-	nodeParticleFire2->setScale(0.03, 0.01, 0.03);
-
-	_sceneMgr->getRootSceneNode()->addChild(nodeParticleFire2);
-	nodeParticleFire2->setPosition(Ogre::Vector3(5, -10, 0));
-	partSystemFire2 = _sceneMgr->createParticleSystem("Fire2", "FireFloor");
-	nodeParticleFire2->attachObject(partSystemFire2);
-	partSystemFire2->setVisible(true);
+	_sceneMgr->getRootSceneNode()->addChild(_nodeParticleFire2);
+	_nodeParticleFire2->setPosition(Ogre::Vector3(5, -10, 0));
+	_partSystemFire2 = _sceneMgr->createParticleSystem("Fire2", "FireFloor");
+	_nodeParticleFire2->attachObject(_partSystemFire2);
+	_partSystemFire2->setVisible(true);
 }
 
 void PlayState::exit() {
@@ -113,25 +112,25 @@ void PlayState::resume() {}
 
 bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
-		evt.timeSinceLastFrame);
-
+		evt.timeSinceLastFrame);	 
 	_deltaT = evt.timeSinceLastFrame;
+	_time += _deltaT;
 	_startDelay += _deltaT;
 	_physicsManager->updatePhysics(_deltaT);
 	printTextGUI();
-	timeParticlePotion += _deltaT;
+	_timeParticlePotion += _deltaT;
 
 	//Particle
-	if (timeParticlePotion > 0.5){
-		partSystemPotion->setVisible(false);
+	if (_timeParticlePotion > 0.5){
+		_partSystemPotion->setVisible(false);
 	}
 
-	partSystemFire->_update(2 * _deltaT);
-	partSystemFire2->_update(2 * _deltaT);
+	_partSystemFire->_update(2 * _deltaT);
+	_partSystemFire2->_update(2 * _deltaT);
 
-	if (nodeParticlePotion){
-		nodeParticlePotion->setPosition(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
-		partSystemPotion->_update(4 * _deltaT);
+	if (_nodeParticlePotion){
+		_nodeParticlePotion->setPosition(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
+		_partSystemPotion->_update(4 * _deltaT);
 	}
 
 	switch (_state){
@@ -181,10 +180,10 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	case GameFlowState::GAMEOVER:
 		_delay += _deltaT;
 		if (_delay > 3){
-			_waveManager->setGameTime(_deltaT);
+			_waveManager->setGameTime(_time);
 			_waveManager->setBulletUsed(_gun->getNumBullet());
-			_waveManager->setMinesUsed(numMines);
-			_waveManager->setPotsUsed(numPots);			
+			_waveManager->setMinesUsed(_numMines);
+			_waveManager->setPotsUsed(_numPots);
 			changeState(GameOverState::getSingletonPtr());
 		}
 		break;
@@ -233,9 +232,9 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 				_audioManager->playAudio(Audio::POTION);
 
 				_player->potion();
-				partSystemPotion->setVisible(true);
-				timeParticlePotion = 0;
-				numPots++;
+				_partSystemPotion->setVisible(true);
+				_timeParticlePotion = 0;
+				_numPots++;
 			}
 			hudLife();
 		}
@@ -257,7 +256,7 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 
 					_mine = new Mine(_sceneMgr, Ogre::Vector3(positionMine.x, 0.5, positionMine.z), MESHES[MeshName::MINE], GameObjectType::MINES);
 					_player->setCountMines(_player->getCountMines() - 1);
-					numMines++;
+					_numMines++;
 				}
 			}
 		}
@@ -437,7 +436,7 @@ void PlayState::hudLife()
 void PlayState::printTextGUI(){
 	
 	StringStream enemiesString2;
-	enemiesString2 << "WAVE: " << _waveManager->levelPlayer();
+	enemiesString2 << "WAVE: " << _waveManager->getLevel();
 	_wave->setText(enemiesString2.str());
 
 	StringStream enemiesString;

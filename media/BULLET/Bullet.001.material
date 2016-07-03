@@ -1,17 +1,17 @@
-// BossCuerpo genrated by blender2ogre 0.6.0
+// Bullet.001 genrated by blender2ogre 0.6.0
 
-material BossCuerpo 
+material Bullet.001 
 {
     receive_shadows on 
 
     technique
     {
-        pass BossCuerpo
+        pass Bullet.001
         {
-            ambient 0.05097600445151329 0.019331160932779312 0.016549568623304367 1.0
-            diffuse 0.05097600445151329 0.019331160932779312 0.016549568623304367 1.0
-            specular 0.5 0.5 0.5 1.0 12.25
-            emissive 0.0 0.0 0.0 1.0
+            ambient 0.3343230187892914 0.1942489743232727 0.0 1.0
+            diffuse 0.3343230187892914 0.1942489743232727 0.0 1.0
+            specular 1.0 1.0 1.0 1.0 12.5
+            emissive 0.6686460375785828 0.3884979486465454 0.0 1.0
 
             alpha_to_coverage off
             colour_write on

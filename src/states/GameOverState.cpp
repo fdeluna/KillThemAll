@@ -118,7 +118,7 @@ void GameOverState::checkScore(){
 
 	ficheroEntrada.open("scores.txt");
 	getline(ficheroEntrada, frase);
-	int a = WaveManager::getSingletonPtr()->levelPlayer();
+	int a = WaveManager::getSingletonPtr()->getLevel();
 	int b = atoi(frase.c_str());
 	if (b < a){
 		frase = std::to_string(a);
@@ -142,7 +142,7 @@ void GameOverState::statScore(){
 	std::ofstream ficheroSalida;
 	ficheroSalida.open("stat.txt");
 	statsText << "TIME. . . . . . . . . . . . . . . . . . . . . . . . . . ." << WaveManager::getSingletonPtr()->getGameTime()*60 << " \n" << " \n"
-		<< "LEVEL. . . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->levelPlayer() << " \n" << " \n"
+		<< "LEVEL. . . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->getLevel() << " \n" << " \n"
 		<< "ENEMIES. . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->getEnemiesKilled() << " \n" << " \n"
 		<< "MINES. . . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->getMinesUsed() << " \n" << " \n"
 		<< "BULLETS. . . . . . . . . . . . . . . . . . . . . . . . . " << WaveManager::getSingletonPtr()->getBulletsUsed() << " \n" << " \n"
@@ -200,12 +200,12 @@ void GameOverState::createGUI()
 
 	_timeGame = _ventanaGameOver->getChild("Tiempo");
 	std::stringstream timeGame;
-	timeGame << WaveManager::getSingletonPtr()->timeGame()/60;
+	timeGame << WaveManager::getSingletonPtr()->getGameTime()/60;
 	_timeGame->setText(timeGame.str());
 
 	_level = _ventanaGameOver->getChild("Nivel");
 	std::stringstream level;
-	level << WaveManager::getSingletonPtr()->levelPlayer();
+	level << WaveManager::getSingletonPtr()->getLevel();
 	_level->setText(level.str());
 
 	_enemies = _ventanaGameOver->getChild("Enemigos");

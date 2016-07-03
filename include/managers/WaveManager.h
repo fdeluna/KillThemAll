@@ -29,43 +29,37 @@ public:
 	Map* getMap(){ return _map; };
 	void setPlayer(Player* player);
 	Ogre::Vector3 getRandomNodePosition(){ return _map->getRandomNodePosition(); };
-	
-	float timeGame() { return _time; }
-	int levelPlayer() { return _levelGame; }
-	int countBullets(){ return _bullets; };
-	int countEnemies() { return _enemiesKilled; }
-	int countPots() { return _pots; }
+				
+	int countEnemies() { return _enemiesKilled; }	
 	int getWaveEnemiesKilled() { return _waveEnemiesKilled; }
 	int getWaveEnemies() { return _waveEnemies; }
-
-	void setTimeGame(float timeGame){ _time = timeGame; };
-	void setCountBullets(int countBullets){ _bullets = countBullets; };
-	void setCountEnemies(int countEnemies){ _waveEnemies = countEnemies; };
-
+	
 	void addEnemyKilled() { _enemiesKilled++;  _waveEnemiesKilled++; }
 
-	void setLevelGun(int _level){ levelGun = _level; };
-	void setLevelMines(int _level){ levelMines = _level; };
-	void setLevelPots(int _level){ levelPots = _level; };
+	void setLevelGun(int _level){ _levelGun = _level; };
+	void setLevelMines(int _level){ _levelMines = _level; };
+	void setLevelPots(int _level){ _levelPots = _level; };
 
-	int getLevelGun(){ return levelGun; };
-	int getLevelMines(){ return levelMines; };
-	int getLevelPots(){ return levelPots; };
+	int getLevelGun(){ return _levelGun; };
+	int getLevelMines(){ return _levelMines; };
+	int getLevelPots(){ return _levelPots; };
 	
-	float getGameTime(){ return gameTime; };
-	void setGameTime(float time){ gameTime = time; };
+	float getGameTime(){ return _gameTime; };
+	void setGameTime(float time){ _gameTime = time; };
 
 	int getEnemiesKilled(){ return _enemiesKilled; };
 	void setEnemiesKilled(float enemies){ _enemiesKilled = enemies; };
 
-	int getBulletsUsed(){ return bulletsUsed; };
-	void setBulletUsed(float _bullets){ bulletsUsed = _bullets; };
+	int getBulletsUsed(){ return _bulletsUsed; };
+	void setBulletUsed(float _bullets){ _bulletsUsed = _bullets; };
 
-	int getMinesUsed(){ return minesUsed; };
-	void setMinesUsed(float mines){ minesUsed = mines; };
+	int getMinesUsed(){ return _minesUsed; };
+	void setMinesUsed(float mines){ _minesUsed = mines; };
 
-	int getPotsUsed(){ return potsUsed; };
-	void setPotsUsed(float pots){ potsUsed = pots; };
+	int getPotsUsed(){ return _potsUsed; };
+	void setPotsUsed(float pots){ _potsUsed = pots; };
+
+	int getLevel(){ return _levelGame; };
 
 private:	
 	Map* _map = nullptr;
@@ -80,18 +74,17 @@ private:
 	int _bullets;	
 	int _waveEnemies = 5;
 	int _waveEnemiesKilled = 0;
-	int _enemiesKilled = 0;
-	int _pots;
-	int levelGun;
-	int levelMines;
-	int levelPots;
+	int _enemiesKilled = 0;	
+	int _levelGun;
+	int _levelMines;
+	int _levelPots;
 	
 	int _levelGame = 0;
 	int _numWaves = 1;
 	
-	float gameTime;
-	int minesUsed;
-	int bulletsUsed;
-	int potsUsed;
+	float _gameTime;
+	int _minesUsed;
+	int _bulletsUsed;
+	int _potsUsed;
 };
 #endif

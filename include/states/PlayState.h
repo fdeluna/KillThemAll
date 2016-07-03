@@ -12,7 +12,6 @@
 #include "Mine.h"
 #include "AudioManager.h"
 
-#include <algorithm>
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include <CEGUI/CEGUI.h>
@@ -105,22 +104,18 @@ private:
 	CEGUI::Window* _hudWeaponsGun;
 	CEGUI::Window* _hudWeaponsShotGun;
 	
-	float _time = 0;
-	
-	int numMines = 0;
-	int numPots = 0;
+	float _time = 0;	
+	int _numMines = 0;
+	int _numPots = 0;
 
 	//PARTICLES
-	Ogre::ParticleSystem* partSystemPotion;
-	Ogre::SceneNode* nodeParticlePotion;
-
-	float timeParticlePotion = 0.5;
-
-	Ogre::ParticleSystem* partSystemFire;
-	Ogre::ParticleSystem* partSystemFire2;
-
-	Ogre::SceneNode* nodeParticleFire;
-	Ogre::SceneNode* nodeParticleFire2;
+	Ogre::ParticleSystem* _partSystemPotion;
+	Ogre::SceneNode* _nodeParticlePotion;
+	float _timeParticlePotion = 0.5;
+	Ogre::ParticleSystem* _partSystemFire;
+	Ogre::ParticleSystem* _partSystemFire2;
+	Ogre::SceneNode* _nodeParticleFire;
+	Ogre::SceneNode* _nodeParticleFire2;
 
 	float timeParticleFire;
 };

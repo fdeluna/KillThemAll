@@ -1,12 +1,12 @@
-// BossCuernos genrated by blender2ogre 0.6.0
+// Material.005 genrated by blender2ogre 0.6.0
 
-material BossCuernos 
+material Material.005 
 {
     receive_shadows on 
 
     technique
     {
-        pass BossCuernos
+        pass Material.005
         {
             ambient 0.6399999856948853 0.6399999856948853 0.6399999856948853 1.0
             diffuse 0.6399999856948853 0.6399999856948853 0.6399999856948853 1.0

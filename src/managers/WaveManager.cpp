@@ -5,18 +5,12 @@ template<> WaveManager* Ogre::Singleton<WaveManager>::msSingleton = 0;
 void WaveManager::resetWaveManager(){
 	_bullets = 0;
 	_waveEnemiesKilled = 0;
-	_enemiesKilled = 0;
-	_pots = 0;
-	levelGun = 1;
-	levelMines = 1;
-	levelPots = 1;	
+	_enemiesKilled = 0;	
+	_levelGun = 1;
+	_levelMines = 1;
+	_levelPots = 1;	
 	_levelGame = 0;
-	_numWaves = 1;
-	
-	gameTime = 0;
-	minesUsed = 0;
-	bulletsUsed = 0;
-	potsUsed = 0;
+	_numWaves = 1;			
 }
 
 

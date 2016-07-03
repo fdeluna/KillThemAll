@@ -30,7 +30,7 @@
             <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
         </Window>
         <Window type="TaharezLook/ImageButton" name="VentanaCredits" >
-            <Property name="Area" value="{{0,233},{0,123},{0,761},{0,591}}" />
+            <Property name="Area" value="{{0,235},{0,147},{0,763},{0,615}}" />
             <Property name="Visible" value="false" />
             <Property name="HoverImage" value="TaharezLook/Ventana" />
             <Property name="NormalImage" value="TaharezLook/Ventana" />
@@ -64,7 +64,7 @@
             <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
         </Window>
         <Window type="TaharezLook/ImageButton" name="VentanaScore" >
-            <Property name="Area" value="{{0,233},{0,123},{0,761},{0,591}}" />
+            <Property name="Area" value="{{0,235},{0,147},{0,763},{0,615}}" />
             <Property name="Visible" value="false" />
             <Property name="HoverImage" value="TaharezLook/Ventana" />
             <Property name="NormalImage" value="TaharezLook/Ventana" />
@@ -85,7 +85,7 @@
             </Window>
         </Window>
         <Window type="TaharezLook/ImageButton" name="VentanaInstrucciones" >
-            <Property name="Area" value="{{0,162},{0,39},{0,814},{0,639}}" />
+            <Property name="Area" value="{{0,166},{0,39},{0,818},{0,639}}" />
             <Property name="Visible" value="false" />
             <Property name="HoverImage" value="TaharezLook/Ventana" />
             <Property name="NormalImage" value="TaharezLook/Ventana" />
@@ -101,21 +101,19 @@
             <Window type="TaharezLook/Label" name="LabelInstrucciones" >
                 <Property name="Area" value="{{0,57},{0,53},{0,596},{0,372}}" />
                 <Property name="Text" >W,A,S,D: move
-E: next weapon
-Q: previous weapon
 1,2,3: weapon 1,2 or 3
          mouse move: direction player          
 mouse click left: shoot 
-mouse click right: secondary action
+
 </Property>
                 <Property name="MaxSize" value="{{1,0},{1,0}}" />
                 <Property name="HorzFormatting" value="WordWrapCentreAligned" />
             </Window>
             <Window type="TaharezLook/Label" name="LabelTutorial" >
                 <Property name="Area" value="{{0,63},{0,56},{0,594},{0,401}}" />
-                <Property name="Text" >Move your character with w.a.s.d and try to evade enemies, you can kill enemies with your left mouse button. If you want use other weapon you can switch between 3 differents weapons with E and Q, or with numeric selection. 
+                <Property name="Text" >Move your character with w.a.s.d and try to evade enemies, you can kill enemies with your left mouse button. If you want use other weapon you can switch between 3 differents weapons with numeric selection. 
 
-When you kill all enemies of one wave the map will be reset, when you complete five waves, one boss will be appeared and the generic enemies will level up. The next time that you fight with the boss this will be stronger. 
+When you kill all enemies of one wave the map will be reset, when you complete five waves, you will level up. Between waves you can level up your items. Be care with the hell, is hot! 
 </Property>
                 <Property name="MaxSize" value="{{1,0},{1,0}}" />
                 <Property name="HorzFormatting" value="WordWrapCentreAligned" />
@@ -144,6 +142,13 @@ When you kill all enemies of one wave the map will be reset, when you complete f
             <Property name="NormalImage" value="TaharezLook/Instrucciones" />
             <Property name="PushedImage" value="TaharezLook/Instrucciones" />
             <Property name="DisabledImage" value="TaharezLook/Instrucciones" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+        </Window>
+        <Window type="TaharezLook/Button" name="Titulo" >
+            <Property name="Area" value="{{0,179},{0,5},{0,808},{0,126}}" />
+            <Property name="HoverImage" value="TaharezLook/VentanaLetras" />
+            <Property name="NormalImage" value="TaharezLook/VentanaLetras" />
+            <Property name="PushedImage" value="TaharezLook/VentanaLetras" />
             <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
         </Window>
     </Window>

@@ -1,5 +1,5 @@
 <Imageset autoScaled="true" imagefile="TaharezLook.png" name="TaharezLook" nativeHorzRes="1280" nativeVertRes="720" version="2">
-    <Image height="128" name="VentanaLetras" width="441" xPos="563" yPos="737" />
+    <Image height="75" name="VentanaLetras" width="637" xPos="1075" yPos="763" />
     <Image height="394" name="Ventana" width="394" xPos="98" yPos="716" />
     <Image height="52" name="Boton" width="246" xPos="376" yPos="195" />
     <Image height="56" name="BotonHover" width="252" xPos="373" yPos="253" />
@@ -28,4 +28,5 @@
     <Image height="128" name="HUDVIDAFINISH" width="486" xPos="732" yPos="474" />
     <Image height="48" name="Instrucciones" width="32" xPos="732" yPos="16" />
     <Image height="44" name="Mirilla" width="44" xPos="931" yPos="11" />
+    <Image height="119" name="KillThemAll" width="920" xPos="528" yPos="922" />
 </Imageset>

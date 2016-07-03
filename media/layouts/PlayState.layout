@@ -113,23 +113,26 @@
         <Window type="TaharezLook/Label" name="CENTRALTEXT" >
             <Property name="Area" value="{{0,336},{0,408},{0,694},{0,482}}" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="NormalTextColour" value="FF000000" />
             <Property name="RiseOnClickEnabled" value="false" />
         </Window>
         <Window type="TaharezLook/Label" name="WAVE" >
             <Property name="Area" value="{{0,457},{0,11},{0,664},{0,72}}" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="NormalTextColour" value="FF000000" />
         </Window>
         <Window type="TaharezLook/Label" name="ENEMIES" >
             <Property name="Area" value="{{0,458},{0,48},{0,666},{0,115}}" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="NormalTextColour" value="FF000000" />
         </Window>
         <Window type="TaharezLook/Label" name="TEXTSLOT2" >
-            <Property name="Area" value="{{0,487},{0,659},{0,511},{0,682}}" />
+            <Property name="Area" value="{{0,391},{0,659},{0,415},{0,682}}" />
             <Property name="Text" value="0" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
         </Window>
         <Window type="TaharezLook/Label" name="TEXTSLOT1" >
-            <Property name="Area" value="{{0,391},{0,658},{0,415},{0,681}}" />
+            <Property name="Area" value="{{0,487},{0,659},{0,511},{0,682}}" />
             <Property name="Text" value="0" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
         </Window>

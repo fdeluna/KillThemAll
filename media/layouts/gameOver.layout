@@ -5,7 +5,7 @@
         <Property name="Area" value="{{0,0},{0,0},{1,0},{1,-1}}" />
         <Property name="MaxSize" value="{{1,0},{1,0}}" />
         <Window type="TaharezLook/ImageButton" name="VentanaGameOver" >
-            <Property name="Area" value="{{0,393},{0,106},{0,873},{0,508}}" />
+            <Property name="Area" value="{{0,255},{0,132},{0,735},{0,534}}" />
             <Property name="HoverImage" value="TaharezLook/Ventana" />
             <Property name="NormalImage" value="TaharezLook/Ventana" />
             <Property name="PushedImage" value="TaharezLook/Ventana" />
@@ -56,7 +56,7 @@
             </Window>
             <Window type="TaharezLook/Label" name="BossText" >
                 <Property name="Area" value="{{0,42},{0,184},{0,409},{0,228}}" />
-                <Property name="Text" value="BOSS. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ." />
+                <Property name="Text" value="MINES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ." />
                 <Property name="MaxSize" value="{{1,0},{1,0}}" />
                 <Property name="HorzFormatting" value="LeftAligned" />
             </Window>

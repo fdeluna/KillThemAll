@@ -19,7 +19,7 @@ public:
 	void active(){ _activeMine = true; };
 	void shoot();
 
-protected:
+private:
 
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
@@ -31,6 +31,11 @@ protected:
 	float timeExplote = 2.5;
 	float timeDestroy = 0.25;
 	float timer = 0;
+
+	//Particle
+	Ogre::ParticleSystem* partSystem;
+	Ogre::SceneNode* nodeParticle;
+	float timeParticle;
 	
 };
 #endif

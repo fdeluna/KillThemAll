@@ -12,6 +12,15 @@ Enemy::Enemy(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::Str
 	addComponent(_rigidBodyComponent);
 	_audioManager = AudioManager::getSingletonPtr();
 	_audioManager->playAudio(Audio::SPAWN);
+
+	nodeParticleHitEnemy = sceneManager->createSceneNode("NodeParticulaHitEnemy" + _sceneNodeComponent->getEntity()->getName());
+
+	
+	_sceneNodeComponent->getSceneNode()->addChild(nodeParticleHitEnemy);		
+	nodeParticleHitEnemy->setScale(0.01, 0.01, 0.01);
+	partSystem2 = sceneManager->createParticleSystem("HitEnemy" + _sceneNodeComponent->getEntity()->getName(), "Sangre2");
+	nodeParticleHitEnemy->attachObject(partSystem2);	
+	partSystem2->setVisible(false);
 }
 
 Enemy::~Enemy(){
@@ -25,6 +34,8 @@ Enemy::~Enemy(){
 
 void Enemy::update(float deltaTime){
 
+	partSystem2->_update(deltaTime);	
+
 	switch (_state)
 	{			
 	case EnemyState::MOVE:
@@ -34,8 +45,18 @@ void Enemy::update(float deltaTime){
 		attack(deltaTime);
 		break;
 	case EnemyState::DIE:
-		_audioManager->playAudio(Audio::KILLENEMY);
-		_active = false;		
+		timerParticle += deltaTime;
+
+		if (timerParticle < 0.2){
+			partSystem2->setVisible(true);
+
+		}
+		else{
+			_audioManager->playAudio(Audio::KILLENEMY);
+
+			_active = false;
+			
+		}
 		break;	
 	}
 	GameObject::update(deltaTime);

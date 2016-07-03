@@ -6,8 +6,9 @@ void Map::GenerateMap(){
 	int randY = rand() % (20 - 10 + 1) + 10;
 	_mapSize = Ogre::Vector2(randX, randY);
 	_mapCenter = Ogre::Vector2(_mapSize.x / 2, _mapSize.y / 2);
-
-	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[MeshName::OBSTACLENODE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -10, _mapCenter.y - 0.5));
+	_mapSize = Ogre::Vector2(randX, randY);
+	_mapCenter = Ogre::Vector2(_mapSize.x / 2, _mapSize.y / 2);
+	SceneNodeComponent* hell = new SceneNodeComponent(_sceneManager, "Hell", MESHES[MeshName::OBSTACLENODE], Ogre::Vector3(50, 1, 50), Ogre::Vector3(_mapCenter.x - 0.5, -20, _mapCenter.y - 0.5));
 	RigidBodyComponent* hellBody = new RigidBodyComponent((GameObject*)this, GameObjectType::HELL, hell);
 	hell->setMaterialName("Ground");
 	
@@ -30,7 +31,6 @@ void Map::GenerateMap(){
 		grid.push_back(gridRow);
 		gridRow.clear();
 	}
-
 
 	std::vector< std::vector <bool>> obstacleMap;
 	std::vector<std::pair<int, int>> randomCoords;

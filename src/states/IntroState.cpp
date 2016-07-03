@@ -32,11 +32,11 @@ IntroState::enter()
 	double width = _viewport->getActualWidth();
 	double height = _viewport->getActualHeight();
 	_camera->setAspectRatio(width / height);
-	_camera->setPosition(Ogre::Vector3(0, 20, 40));
+	_camera->setPosition(Ogre::Vector3(0, 40, 80));
 	_camera->lookAt(Ogre::Vector3(0, 0, -100));
 	_camera->setNearClipDistance(1);
 	_camera->setFarClipDistance(10000);
-	_camera->setPosition(_map->getMapCenter().x, 12.5, _map->getMapCenter().y - 5);
+	_camera->setPosition(_map->getMapCenter().x, 18, _map->getMapCenter().y - 9);
 	_camera->lookAt(_map->getMapCenter().x, 0, _map->getMapCenter().y);
 	
 	
@@ -47,6 +47,26 @@ IntroState::enter()
 
 	}
 	_audioManager->playAudio(Audio::INTROSTATE);
+
+	//PARTICLE
+	nodeParticleFire = _sceneMgr->createSceneNode("NodeParticulaFire");
+	nodeParticleFire->setScale(0.01, 0.01, 0.01);
+
+	_sceneMgr->getRootSceneNode()->addChild(nodeParticleFire);
+	nodeParticleFire->setPosition(Ogre::Vector3(-5, -10, 0));
+	partSystemFire = _sceneMgr->createParticleSystem("Fire", "FireFloor");
+	nodeParticleFire->attachObject(partSystemFire);
+	partSystemFire->setVisible(true);
+
+
+	nodeParticleFire2 = _sceneMgr->createSceneNode("NodeParticulaFire2");
+	nodeParticleFire2->setScale(0.03, 0.01, 0.03);
+
+	_sceneMgr->getRootSceneNode()->addChild(nodeParticleFire2);
+	nodeParticleFire2->setPosition(Ogre::Vector3(5, -10, 0));
+	partSystemFire2 = _sceneMgr->createParticleSystem("Fire2", "FireFloor");
+	nodeParticleFire2->attachObject(partSystemFire2);
+	partSystemFire2->setVisible(true);
 }
 
 void IntroState::exit()
@@ -67,7 +87,22 @@ IntroState::frameStarted
 	_timeSinceLastFrame = evt.timeSinceLastFrame;
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
 		_timeSinceLastFrame);
+	
+	_deltaT = evt.timeSinceLastFrame;
+	partSystemFire->_update(2 * _deltaT);
+	partSystemFire2->_update(2 * _deltaT);
 
+	timerMap += evt.timeSinceLastFrame;
+	if (timerMap > 5){
+		_map->cleanMap();
+		_map = new Map(_sceneMgr);
+		_map->GenerateMap();
+		timerMap = 0;
+		_camera->setPosition(_map->getMapCenter().x, 18, _map->getMapCenter().y - 9);
+		_camera->lookAt(_map->getMapCenter().x, 0, _map->getMapCenter().y);
+	}
+	
+	
 	return true;
 }
 

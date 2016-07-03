@@ -77,8 +77,7 @@ private:
 	float _playerCurrentLife = 0;
 
 	float _time;
-	int _bullets;
-	int _maxEnemiesInMap = 20;
+	int _bullets;	
 	int _waveEnemies = 5;
 	int _waveEnemiesKilled = 0;
 	int _enemiesKilled = 0;

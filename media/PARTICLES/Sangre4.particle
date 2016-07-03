@@ -1,4 +1,4 @@
-particle_system sangre4
+particle_system Sangre4
 {
 	material Heat.001
 	particle_width 100

@@ -1,4 +1,4 @@
-particle_system sangre3
+particle_system Sangre11
 {
 	material RedGrid
 	particle_width 112.379997253418

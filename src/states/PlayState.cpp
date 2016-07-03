@@ -31,7 +31,7 @@ void  PlayState::init(){
 	light->setDirection(Ogre::Vector3(1, -1, -3));
 	_sceneMgr->getRootSceneNode()->attachObject(light);
 
-	_physicsManager = new PhysicsManager(_sceneMgr, true);
+	_physicsManager = new PhysicsManager(_sceneMgr, false);
 	
 	_delay = 0;
 	_startDelay = 0;	
@@ -66,6 +66,34 @@ void  PlayState::init(){
 
 	_audioManager = AudioManager::getSingletonPtr();
 	_audioManager->playAudio(Audio::PLAYSTATE);
+
+	//PARTICLE
+	nodeParticlePotion = _sceneMgr->createSceneNode("NodeParticulaMine");
+	nodeParticlePotion->setScale(0.3, 0.3, 0.3);
+	_player->getSceneNodeComponent()->getSceneNode()->addChild(nodeParticlePotion);
+	nodeParticlePotion->setPosition(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
+	partSystemPotion = _sceneMgr->createParticleSystem("Potion", "Potion");
+	nodeParticlePotion->attachObject(partSystemPotion);
+	partSystemPotion->setVisible(false);
+
+	nodeParticleFire = _sceneMgr->createSceneNode("NodeParticulaFire");
+	nodeParticleFire->setScale(0.01, 0.01, 0.01);
+
+	_sceneMgr->getRootSceneNode()->addChild(nodeParticleFire);
+	nodeParticleFire->setPosition(Ogre::Vector3(-5, -10, 0));
+	partSystemFire = _sceneMgr->createParticleSystem("Fire", "FireFloor");
+	nodeParticleFire->attachObject(partSystemFire);
+	partSystemFire->setVisible(true);
+
+
+	nodeParticleFire2 = _sceneMgr->createSceneNode("NodeParticulaFire2");
+	nodeParticleFire2->setScale(0.03, 0.01, 0.03);
+
+	_sceneMgr->getRootSceneNode()->addChild(nodeParticleFire2);
+	nodeParticleFire2->setPosition(Ogre::Vector3(5, -10, 0));
+	partSystemFire2 = _sceneMgr->createParticleSystem("Fire2", "FireFloor");
+	nodeParticleFire2->attachObject(partSystemFire2);
+	partSystemFire2->setVisible(true);
 }
 
 void PlayState::exit() {
@@ -91,6 +119,20 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 	_startDelay += _deltaT;
 	_physicsManager->updatePhysics(_deltaT);
 	printTextGUI();
+	timeParticlePotion += _deltaT;
+
+	//Particle
+	if (timeParticlePotion > 0.5){
+		partSystemPotion->setVisible(false);
+	}
+
+	partSystemFire->_update(2 * _deltaT);
+	partSystemFire2->_update(2 * _deltaT);
+
+	if (nodeParticlePotion){
+		nodeParticlePotion->setPosition(_player->getSceneNodeComponent()->getSceneNode()->getPosition());
+		partSystemPotion->_update(4 * _deltaT);
+	}
 
 	switch (_state){
 	case GameFlowState::PLAY:
@@ -103,6 +145,9 @@ bool PlayState::frameStarted(const Ogre::FrameEvent& evt){
 		}
 
 		if (_gun){
+
+			_gun->update(evt);
+
 			if (timer > _gun->getVelAtack()){
 				_gun->setCanShoot(true);
 				timer = 0;
@@ -184,9 +229,12 @@ void PlayState::mousePressed(const OIS::MouseEvent &e, OIS::MouseButtonID id)
 		//Use pots
 		if (_hudWeaponsShotGun->isVisible()){
 			if (_player->getPotions() > 0){
+
 				_audioManager->playAudio(Audio::POTION);
 
 				_player->potion();
+				partSystemPotion->setVisible(true);
+				timeParticlePotion = 0;
 				numPots++;
 			}
 			hudLife();

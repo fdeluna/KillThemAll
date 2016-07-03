@@ -86,6 +86,21 @@ private:
 	Map* _map;
 	PhysicsManager* _physicsManager;
 	AudioManager* _audioManager;
+
+	//PARTICLES
+	Ogre::ParticleSystem* partSystemPotion;
+	Ogre::SceneNode* nodeParticlePotion;
+
+	float timeParticlePotion = 0.5;
+
+	Ogre::ParticleSystem* partSystemFire;
+	Ogre::ParticleSystem* partSystemFire2;
+
+	Ogre::SceneNode* nodeParticleFire;
+	Ogre::SceneNode* nodeParticleFire2;
+
+	float timerMap;
+	float _deltaT;
 };
 
 #endif

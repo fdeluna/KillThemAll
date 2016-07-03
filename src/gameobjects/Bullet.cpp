@@ -7,6 +7,15 @@ Bullet::Bullet(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::S
 	_rigidBodyComponent = new RigidBodyComponent((GameObject*)this, GameObjectType::BULLET, _sceneNodeComponent);
 	addComponent(_sceneNodeComponent);
 	addComponent(_rigidBodyComponent);
+
+	nodeParticle = sceneManager->createSceneNode("NodeParticula" + _sceneNodeComponent->getEntity()->getName());
+	nodeParticle->setScale(0.03, 0.03, 0.03);
+	_sceneNodeComponent->getSceneNode()->addChild(nodeParticle);
+
+	partSystem = sceneManager->createParticleSystem("NodeParticula" + _sceneNodeComponent->getEntity()->getName(), "Bullet2");
+
+	nodeParticle->attachObject(partSystem);
+	partSystem->setVisible(true);
 }
 
 void Bullet::collision(GameObject* gameObject){

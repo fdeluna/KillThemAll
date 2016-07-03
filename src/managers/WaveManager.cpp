@@ -4,15 +4,12 @@ template<> WaveManager* Ogre::Singleton<WaveManager>::msSingleton = 0;
 
 void WaveManager::resetWaveManager(){
 	_bullets = 0;
-	_maxEnemiesInMap = 20;
-	_waveEnemies = 5;
 	_waveEnemiesKilled = 0;
 	_enemiesKilled = 0;
 	_pots = 0;
 	levelGun = 1;
 	levelMines = 1;
-	levelPots = 1;
-	
+	levelPots = 1;	
 	_levelGame = 0;
 	_numWaves = 1;
 	
@@ -80,6 +77,7 @@ void WaveManager::wave(float deltaTime)
 			}
 			else{
 				_waveEnemiesKilled++;
+				_enemiesKilled++;
 				Enemy* aux = _enemies[i];
 				_enemies.erase(_enemies.begin() + i);
 				delete aux;

@@ -24,7 +24,7 @@ static std::map<MeshName, Ogre::String> MESHES = {
 	{ MeshName::ENEMYMINE, "EnemyMine.mesh" },
 	{ MeshName::BOSS, "Cylinder.mesh" },
 	{ MeshName::PLAYERP, "EnemyFighter.mesh" },
-	{ MeshName::BULLETP, "Bullet.mesh" },
+	{ MeshName::BULLETP, "BulletSphere.mesh" },
 	{ MeshName::REVOLVER, "Revolver.mesh" },
 	{ MeshName::MINE, "Mina.mesh" },
 	{ MeshName::OBSTACLENODE, "Obstacle.mesh" }

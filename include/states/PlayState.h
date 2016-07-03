@@ -109,6 +109,20 @@ private:
 	
 	int numMines = 0;
 	int numPots = 0;
+
+	//PARTICLES
+	Ogre::ParticleSystem* partSystemPotion;
+	Ogre::SceneNode* nodeParticlePotion;
+
+	float timeParticlePotion = 0.5;
+
+	Ogre::ParticleSystem* partSystemFire;
+	Ogre::ParticleSystem* partSystemFire2;
+
+	Ogre::SceneNode* nodeParticleFire;
+	Ogre::SceneNode* nodeParticleFire2;
+
+	float timeParticleFire;
 };
 
 #endif

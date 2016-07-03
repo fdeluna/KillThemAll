@@ -9,6 +9,14 @@ Gun::Gun(Player* player, Ogre::SceneManager* sceneManager, Ogre::Vector3 positio
 	addComponent(_sceneNodeComponentGun);	
 	_player = player;
 	_audioManager = AudioManager::getSingletonPtr();
+	
+	nodeParticle = sceneManager->createSceneNode("NodeParticula");
+	nodeParticle->setScale(0.03, 0.03, 0.03);
+	_sceneNodeComponentGun->getSceneNode()->addChild(nodeParticle);
+	nodeParticle->setPosition(Ogre::Vector3(5, 0, -0.5));
+	partSystem = sceneManager->createParticleSystem("Shoot", "Shoot2");
+	nodeParticle->attachObject(partSystem);
+	partSystem->setVisible(false);
 }
 
 
@@ -20,6 +28,16 @@ Gun::~Gun()
 }
 
 void Gun::update(const Ogre::FrameEvent& evt){
+	partSystem->_update(evt.timeSinceLastFrame*4.0);
+	timeParticle += evt.timeSinceLastFrame;
+	if (timeParticle < 0.2){
+		partSystem->setVisible(true);
+
+	}
+	else{
+		partSystem->setVisible(false);
+
+	}
 
 }
 
@@ -43,6 +61,7 @@ void Gun::shoot(){
 
 	if (_canShoot && _ammo > 0 && !_reloading){
 		_audioManager->playAudio(Audio::SHOOT);
+		timeParticle = 0;
 
 		Ogre::Vector3 mousePosition(_player->getPlayerInputComponent()->getMousePositionWeapon());
 		Ogre::Vector3 playerPosition(_player->getSceneNodeComponent()->getSceneNode()->getPosition().x, 1, _player->getSceneNodeComponent()->getSceneNode()->getPosition().z);

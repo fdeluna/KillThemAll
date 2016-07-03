@@ -19,6 +19,8 @@ public:
 
 	Ogre::Vector3 getPosition(){ return _rigidBodyComponent->getPosition(); };
 	SceneNodeComponent* getSceneNodeComponent(){ return _sceneNodeComponent; };
+	RigidBodyComponent* getRigidBodyComponent(){ return _rigidBodyComponent; };
+
 	PlayerInputComponent* getPlayerInputComponent(){ return _playerInput; };
 	
 	

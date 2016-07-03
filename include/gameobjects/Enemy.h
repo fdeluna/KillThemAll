@@ -33,5 +33,9 @@ protected:
 		
 	bool isAttacking = false;			
 	bool attackDistance();	
+
+	Ogre::SceneNode* nodeParticleHitEnemy;
+	Ogre::ParticleSystem* partSystem2;
+	float timerParticle = 0;
 };
 #endif

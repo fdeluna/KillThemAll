@@ -7,8 +7,7 @@ material Heat.000
 			lighting off
 			depth_write off
 			scene_blend add
-			ambient 0.75 0.75 0.75
-			diffuse 1 1 1 1
+
 			texture_unit
 			{
 				texture Heat.000.png

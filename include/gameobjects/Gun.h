@@ -33,7 +33,7 @@ public:
 	int getLevelGun(){ return _level; };
 	int getNumBullet(){ return _numBullet; };
 
-protected:
+private:
 	
 	int _numBullet;	
 	Player* _player;
@@ -45,6 +45,11 @@ protected:
 	int _level = 1;	
 	int _ammo = 12;
 	bool _reloading = false;	
+
+	//PARTICLES
+	Ogre::ParticleSystem* partSystem;
+	Ogre::SceneNode* nodeParticle;
+	float timeParticle = 0.2;
 };
 
 #endif

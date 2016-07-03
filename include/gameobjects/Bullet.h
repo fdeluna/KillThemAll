@@ -22,6 +22,11 @@ public:
 private:
 	SceneNodeComponent* _sceneNodeComponent;
 	RigidBodyComponent* _rigidBodyComponent;
+
+	//PARTICLES
+	Ogre::ParticleSystem* partSystem;
+	Ogre::SceneNode* nodeParticle;
+	float timeParticle = 0.2;
 };
 
 #endif

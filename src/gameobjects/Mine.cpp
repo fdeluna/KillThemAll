@@ -8,6 +8,13 @@ Mine::Mine(Ogre::SceneManager* sceneManager, Ogre::Vector3 position, Ogre::Strin
 	_type = type;
 	addComponent(_sceneNodeComponent);
 	_audioManager = AudioManager::getSingletonPtr();
+		
+	nodeParticle = sceneManager->createSceneNode("NodeParticulaMine2" + _sceneNodeComponent->getEntity()->getName());
+	nodeParticle->setScale(0.01, 0.01, 0.01);
+	_sceneNodeComponent->getSceneNode()->addChild(nodeParticle);		
+	partSystem = sceneManager->createParticleSystem("Mine" + _sceneNodeComponent->getEntity()->getName(), "Mine");
+	nodeParticle->attachObject(partSystem);
+	partSystem->setVisible(false);
 }
 
 
@@ -25,8 +32,12 @@ Mine::~Mine()
 void Mine::update(float deltaTime){
 
 	timer += deltaTime;
+	
+	partSystem->_update(deltaTime*5.0);	
 
 	if (timer > timeExplote || _activeMine){
+		partSystem->setVisible(true);
+
 		if (!explosion){
 			shoot();
 			timer = 0;			
@@ -34,6 +45,7 @@ void Mine::update(float deltaTime){
 	}
 
 	if (explosion && timer > timeDestroy){
+		partSystem->setVisible(true);
 		setActive(false);
 		Mine::~Mine();
 		timer = 0;
@@ -47,4 +59,6 @@ void Mine::shoot(){
 	_sceneNodeComponent->setVisible(false);
 	addComponent(_rigidBodyComponent);
 	_audioManager->playAudio(Audio::MINEEXPLOSION);
+	partSystem->setVisible(true);
+
 }

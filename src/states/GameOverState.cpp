@@ -122,8 +122,9 @@ void GameOverState::checkScore(){
 	int b = atoi(frase.c_str());
 	if (b < a){
 		frase = std::to_string(a);
+		statScore();
 	}
-
+	
 	ficheroEntrada.close();
 
 	std::ofstream ficheroSalida;
@@ -154,8 +155,7 @@ void GameOverState::statScore(){
 }
 bool GameOverState::quit(const CEGUI::EventArgs &e)
 {	
-	checkScore();
-	statScore();
+	checkScore();	
 
 	_audioManager->playAudio(Audio::BACK);
 	CEGUI::WindowManager::getSingleton().destroyAllWindows();

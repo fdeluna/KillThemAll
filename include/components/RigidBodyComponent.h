@@ -18,7 +18,6 @@ public:
 	RigidBodyComponent(GameObject* gameObject, GameObjectType type, SceneNodeComponent* sceneNodeComponent);
 	~RigidBodyComponent();
 
-
 	OgreBulletDynamics::RigidBody* getRigidBody(){ return _rigidBody;};
 	Ogre::Vector3 getPosition();
 	Ogre::Quaternion getOrientation();

@@ -27,8 +27,7 @@ InputManager* GameManager::getInputManager()
 void
 GameManager::start
 (GameState* state)
-{
-	// Creación del objeto Ogre::Root.
+{	
 	_root = new Ogre::Root();
 
 	loadResources();
@@ -38,63 +37,51 @@ GameManager::start
 
 	_inputMgr = new InputManager;
 	_inputMgr->initialise(_renderWindow);
-
-	// Registro como key y mouse listener...
+	
 	_inputMgr->addKeyListener(this, "GameManager");
 	_inputMgr->addMouseListener(this, "GameManager");	
-
-	// El GameManager es un FrameListener.
+	
 	_root->addFrameListener(this);
-
-	// Transición al estado inicial.
+	
 	changeState(state);
-
-	// Bucle de rendering.
+	
 	_root->startRendering();
 }
 
 void
 GameManager::changeState
 (GameState* state)
-{
-	// Limpieza del estado actual.
-	if (!_states.empty()) {
-		// exit() sobre el último estado.
-		_states.top()->exit();
-		// Elimina el último estado.
+{	
+	if (!_states.empty()) 
+	{		
+		_states.top()->exit();		
 		_states.pop();
 	}
-
-	// Transición al nuevo estado.
+	
 	_states.push(state);
-	// enter() sobre el nuevo estado.
 	_states.top()->enter();
 }
 
 void
 GameManager::pushState
 (GameState* state)
-{
-	// Pausa del estado actual.
+{	
 	if (!_states.empty())
 		_states.top()->pause();
-
-	// Transición al nuevo estado.
-	_states.push(state);
-	// enter() sobre el nuevo estado.
+	
+	_states.push(state);	
 	_states.top()->enter();
 }
 
 void
 GameManager::popState()
-{
-	// Limpieza del estado actual.
-	if (!_states.empty()) {
+{	
+	if (!_states.empty()) 
+	{
 		_states.top()->exit();
 		_states.pop();
 	}
-
-	// Vuelta al estado anterior.
+	
 	if (!_states.empty())
 		_states.top()->resume();
 }
@@ -147,8 +134,6 @@ GameManager::getSingleton()
 	return *msSingleton;
 }
 
-// Las siguientes funciones miembro delegan
-// el evento en el estado actual.
 bool
 GameManager::frameStarted
 (const Ogre::FrameEvent& evt)

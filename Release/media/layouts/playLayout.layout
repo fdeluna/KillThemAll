@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="DefaultWindow" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+        <Window type="TaharezLook/ImageButton" name="HUD" >
+            <Property name="Area" value="{{0,-2},{0,0},{0,472},{0,184}}" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            <Window type="TaharezLook/ImageButton" name="HUDFULL" >
+                <Property name="Area" value="{{0,15},{0,8},{0,454},{0,140}}" />
+                <Property name="HoverImage" value="TaharezLook/HUDVIDAFULL" />
+                <Property name="NormalImage" value="TaharezLook/HUDVIDAFULL" />
+                <Property name="PushedImage" value="TaharezLook/HUDVIDAFULL" />
+                <Property name="DisabledImage" value="TaharezLook/HUDVIDAFULL" />
+                <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            </Window>
+        </Window>
+        <Window type="TaharezLook/ImageButton" name="Weapons" >
+            <Property name="Area" value="{{0,350},{0,648},{0,694},{0,749}}" />
+            <Window type="TaharezLook/ImageButton" name="WeaponClub" >
+                <Property name="Area" value="{{0,0},{0,0},{0,340},{0,98}}" />
+                <Property name="HoverImage" value="TaharezLook/WeaponClub" />
+                <Property name="NormalImage" value="TaharezLook/WeaponClub" />
+                <Property name="PushedImage" value="TaharezLook/WeaponClub" />
+                <Property name="DisabledImage" value="TaharezLook/WeaponClub" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="WeaponGun" >
+                <Property name="Area" value="{{0,0},{0,0},{0,340},{0,98}}" />
+                <Property name="Visible" value="false" />
+                <Property name="HoverImage" value="TaharezLook/WeaponGun" />
+                <Property name="NormalImage" value="TaharezLook/WeaponGun" />
+                <Property name="PushedImage" value="TaharezLook/WeaponGun" />
+                <Property name="DisabledImage" value="TaharezLook/WeaponGun" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="WeaponShotGun" >
+                <Property name="Area" value="{{0,0},{0,0},{0,340},{0,98}}" />
+                <Property name="Visible" value="false" />
+                <Property name="HoverImage" value="TaharezLook/WeaponShotGun" />
+                <Property name="NormalImage" value="TaharezLook/WeaponShotGun" />
+                <Property name="PushedImage" value="TaharezLook/WeaponShotGun" />
+                <Property name="DisabledImage" value="TaharezLook/WeaponShotGun" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

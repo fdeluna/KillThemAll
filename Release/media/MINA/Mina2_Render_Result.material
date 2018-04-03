@@ -1,0 +1,35 @@
+// Mina2_Render_Result genrated by blender2ogre 0.6.0
+
+material Mina2_Render_Result 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass Mina2_Render_Result
+        {
+            ambient 0.42922526597976685 0.34149083495140076 0.2294955849647522 1.0
+            diffuse 0.42922526597976685 0.34149083495140076 0.2294955849647522 1.0
+            specular 0.5 0.5 0.5 1.0 12.25
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}

@@ -1,0 +1,217 @@
+﻿  SoundFX.cpp
+  Track.cpp
+src\audio\Track.cpp(112): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+  EnemyPathFinderComponent.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+  PlayerInputComponent.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+  RigidBodyComponent.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+src\components\RigidBodyComponent.cpp(18): warning C4316: 'OgreBulletCollisions::BoxCollisionShape' : object allocated on the heap may not be aligned 16
+src\components\RigidBodyComponent.cpp(22): warning C4316: 'OgreBulletCollisions::BoxCollisionShape' : object allocated on the heap may not be aligned 16
+src\components\RigidBodyComponent.cpp(31): warning C4316: 'OgreBulletCollisions::CapsuleCollisionShape' : object allocated on the heap may not be aligned 16
+src\components\RigidBodyComponent.cpp(35): warning C4316: 'OgreBulletCollisions::CapsuleCollisionShape' : object allocated on the heap may not be aligned 16
+src\components\RigidBodyComponent.cpp(39): warning C4316: 'OgreBulletCollisions::CapsuleCollisionShape' : object allocated on the heap may not be aligned 16
+src\components\RigidBodyComponent.cpp(43): warning C4305: 'argument' : truncation from 'double' to 'const Ogre::Real'
+src\components\RigidBodyComponent.cpp(43): warning C4316: 'OgreBulletCollisions::BoxCollisionShape' : object allocated on the heap may not be aligned 16
+src\components\RigidBodyComponent.cpp(47): warning C4316: 'OgreBulletCollisions::BoxCollisionShape' : object allocated on the heap may not be aligned 16
+src\components\RigidBodyComponent.cpp(51): warning C4316: 'OgreBulletCollisions::BoxCollisionShape' : object allocated on the heap may not be aligned 16
+src\components\RigidBodyComponent.cpp(57): warning C4305: 'argument' : truncation from 'double' to 'const float'
+src\components\RigidBodyComponent.cpp(61): warning C4305: 'argument' : truncation from 'double' to 'const float'
+  SceneNodeComponent.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+  Bullet.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+c:\users\fdeluna\desktop\cedv projects\killthemall\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Bullet.h(31): warning C4305: 'initializing' : truncation from 'double' to 'float'
+src\gameobjects\Bullet.cpp(12): warning C4305: 'argument' : truncation from 'double' to 'Ogre::Real'
+  Enemy.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+c:\users\fdeluna\desktop\cedv projects\killthemall\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+src\gameobjects\Enemy.cpp(6): warning C4305: 'argument' : truncation from 'double' to 'const Ogre::Real'
+src\gameobjects\Enemy.cpp(20): warning C4305: 'argument' : truncation from 'double' to 'Ogre::Real'
+  EnemyFighter.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+c:\users\fdeluna\desktop\cedv projects\killthemall\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+src\gameobjects\EnemyFighter.cpp(8): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+  EnemyMiner.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+c:\users\fdeluna\desktop\cedv projects\killthemall\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+  GameObject.cpp
+  Gun.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+c:\users\fdeluna\desktop\cedv projects\killthemall\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+c:\users\fdeluna\desktop\cedv projects\killthemall\include\gameobjects\Bullet.h(31): warning C4305: 'initializing' : truncation from 'double' to 'float'
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(51): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(54): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(57): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(60): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Gun.h(54): warning C4305: 'initializing' : truncation from 'double' to 'float'
+src\gameobjects\Gun.cpp(16): warning C4305: 'argument' : truncation from 'double' to 'Ogre::Real'
+src\gameobjects\Gun.cpp(32): warning C4018: '<' : signed/unsigned mismatch
+src\gameobjects\Gun.cpp(56): warning C4018: '<' : signed/unsigned mismatch
+src\gameobjects\Gun.cpp(98): warning C4305: 'argument' : truncation from 'double' to 'const Ogre::Real'
+src\gameobjects\Gun.cpp(104): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+  Mine.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+c:\users\fdeluna\desktop\cedv projects\killthemall\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+src\gameobjects\Mine.cpp(7): warning C4305: 'argument' : truncation from 'double' to 'const Ogre::Real'
+src\gameobjects\Mine.cpp(13): warning C4305: 'argument' : truncation from 'double' to 'Ogre::Real'
+src\gameobjects\Mine.cpp(36): warning C4244: 'argument' : conversion from 'double' to 'Ogre::Real', possible loss of data
+  Player.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+src\gameobjects\Player.cpp(5): warning C4305: 'argument' : truncation from 'double' to 'const Ogre::Real'
+  main.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+c:\users\fdeluna\desktop\cedv projects\killthemall\include\states\GameOverState.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Bullet.h(31): warning C4305: 'initializing' : truncation from 'double' to 'float'
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(51): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(54): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(57): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(60): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Gun.h(54): warning C4305: 'initializing' : truncation from 'double' to 'float'
+  AudioManager.cpp
+  GameManager.cpp
+  InputManager.cpp
+  PhysicsManager.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+src\managers\PhysicsManager.cpp(45): warning C4172: returning address of local variable or temporary
+  SoundFXManager.cpp
+  Compiling...
+  TrackManager.cpp
+  WaveManager.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(51): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(54): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(57): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(60): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+src\managers\WaveManager.cpp(32): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+src\managers\WaveManager.cpp(39): warning C4018: '<' : signed/unsigned mismatch
+src\managers\WaveManager.cpp(51): warning C4018: '<' : signed/unsigned mismatch
+src\managers\WaveManager.cpp(58): warning C4305: 'argument' : truncation from 'double' to 'const Ogre::Real'
+src\managers\WaveManager.cpp(61): warning C4305: 'argument' : truncation from 'double' to 'const Ogre::Real'
+src\managers\WaveManager.cpp(67): warning C4018: '<' : signed/unsigned mismatch
+src\managers\WaveManager.cpp(86): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+  Map.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+src\map\Map.cpp(4): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+src\map\Map.cpp(7): warning C4244: 'argument' : conversion from 'int' to 'const Ogre::Real', possible loss of data
+src\map\Map.cpp(9): warning C4244: 'argument' : conversion from 'int' to 'const Ogre::Real', possible loss of data
+src\map\Map.cpp(11): warning C4244: 'argument' : conversion from 'double' to 'const Ogre::Real', possible loss of data
+src\map\Map.cpp(17): warning C4244: 'argument' : conversion from 'double' to 'Ogre::Real', possible loss of data
+src\map\Map.cpp(18): warning C4244: 'argument' : conversion from 'double' to 'const Ogre::Real', possible loss of data
+src\map\Map.cpp(21): warning C4244: 'argument' : conversion from 'double' to 'const Ogre::Real', possible loss of data
+src\map\Map.cpp(27): warning C4244: 'argument' : conversion from 'int' to 'const Ogre::Real', possible loss of data
+src\map\Map.cpp(40): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+src\map\Map.cpp(41): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+src\map\Map.cpp(66): warning C4244: 'argument' : conversion from 'Ogre::Real' to 'unsigned int', possible loss of data
+src\map\Map.cpp(77): warning C4018: '<' : signed/unsigned mismatch
+src\map\Map.cpp(78): warning C4018: '<' : signed/unsigned mismatch
+src\map\Map.cpp(96): warning C4018: '<' : signed/unsigned mismatch
+src\map\Map.cpp(97): warning C4018: '<' : signed/unsigned mismatch
+src\map\Map.cpp(148): warning C4244: 'initializing' : conversion from 'Ogre::Real' to 'int', possible loss of data
+src\map\Map.cpp(149): warning C4244: 'initializing' : conversion from 'Ogre::Real' to 'int', possible loss of data
+src\map\Map.cpp(154): warning C4244: 'argument' : conversion from 'int' to 'const Ogre::Real', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(12): warning C4018: '<' : signed/unsigned mismatch
+          src\map\Map.cpp(44) : see reference to function template instantiation 'void initBidimensionalVector<bool>(std::vector<std::vector<bool,std::allocator<_Ty>>,std::allocator<std::vector<_Ty,std::allocator<_Ty>>>> &,int,int)' being compiled
+          with
+          [
+              _Ty=bool
+          ]
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(19): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+          src\map\Map.cpp(45) : see reference to function template instantiation 'void shuffleArray<MapNode*>(std::vector<std::vector<MapNode *,std::allocator<_Ty>>,std::allocator<std::vector<_Ty,std::allocator<_Ty>>>> &)' being compiled
+          with
+          [
+              _Ty=MapNode *
+          ]
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(21): warning C4018: '<' : signed/unsigned mismatch
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(22): warning C4018: '<' : signed/unsigned mismatch
+  MapNode.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+src\map\MapNode.cpp(5): warning C4305: 'argument' : truncation from 'double' to 'const Ogre::Real'
+  PathFinder.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+src\map\PathFinder.cpp(58): warning C4244: 'argument' : conversion from 'int' to 'Ogre::Real', possible loss of data
+src\map\PathFinder.cpp(58): warning C4244: 'initializing' : conversion from 'Ogre::Real' to 'int', possible loss of data
+src\map\PathFinder.cpp(59): warning C4244: 'argument' : conversion from 'int' to 'Ogre::Real', possible loss of data
+src\map\PathFinder.cpp(59): warning C4244: 'initializing' : conversion from 'Ogre::Real' to 'int', possible loss of data
+  GameOverState.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\states\GameOverState.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+src\states\GameOverState.cpp(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Bullet.h(31): warning C4305: 'initializing' : truncation from 'double' to 'float'
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(51): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(54): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(57): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(60): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Gun.h(54): warning C4305: 'initializing' : truncation from 'double' to 'float'
+src\states\GameOverState.cpp(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+src\states\GameOverState.cpp(53): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+src\states\GameOverState.cpp(235): warning C4305: 'argument' : truncation from 'double' to 'float'
+src\states\GameOverState.cpp(236): warning C4305: 'argument' : truncation from 'double' to 'float'
+src\states\GameOverState.cpp(247): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+src\states\GameOverState.cpp(249): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+  IntroState.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+c:\users\fdeluna\desktop\cedv projects\killthemall\include\states\GameOverState.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Bullet.h(31): warning C4305: 'initializing' : truncation from 'double' to 'float'
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(51): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(54): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(57): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(60): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Gun.h(54): warning C4305: 'initializing' : truncation from 'double' to 'float'
+src\states\IntroState.cpp(31): warning C4305: 'argument' : truncation from 'double' to 'float'
+src\states\IntroState.cpp(34): warning C4244: 'argument' : conversion from 'double' to 'Ogre::Real', possible loss of data
+src\states\IntroState.cpp(53): warning C4305: 'argument' : truncation from 'double' to 'Ogre::Real'
+src\states\IntroState.cpp(63): warning C4305: 'argument' : truncation from 'double' to 'Ogre::Real'
+src\states\IntroState.cpp(159): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+  PlayState.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+c:\users\fdeluna\desktop\cedv projects\killthemall\include\states\GameOverState.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Bullet.h(31): warning C4305: 'initializing' : truncation from 'double' to 'float'
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(51): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(54): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(57): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(60): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Gun.h(54): warning C4305: 'initializing' : truncation from 'double' to 'float'
+src\states\PlayState.cpp(56): warning C4305: 'argument' : truncation from 'double' to 'float'
+src\states\PlayState.cpp(59): warning C4244: 'argument' : conversion from 'double' to 'Ogre::Real', possible loss of data
+src\states\PlayState.cpp(72): warning C4305: 'argument' : truncation from 'double' to 'Ogre::Real'
+src\states\PlayState.cpp(80): warning C4305: 'argument' : truncation from 'double' to 'Ogre::Real'
+src\states\PlayState.cpp(89): warning C4305: 'argument' : truncation from 'double' to 'Ogre::Real'
+src\states\PlayState.cpp(185): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+src\states\PlayState.cpp(186): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+src\states\PlayState.cpp(187): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+src\states\PlayState.cpp(222): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+src\states\PlayState.cpp(593): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+src\states\PlayState.cpp(595): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+  WaveCompleteState.cpp
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\utils\Utils.h(40): warning C4172: returning address of local variable or temporary
+src\states\WaveCompleteState.cpp(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\fdeluna\desktop\cedv projects\killthemall\include\states\GameOverState.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Player.h(35): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Bullet.h(31): warning C4305: 'initializing' : truncation from 'double' to 'float'
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(51): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(54): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(57): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\managers\WaveManager.h(60): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\include\gameobjects\Gun.h(54): warning C4305: 'initializing' : truncation from 'double' to 'float'
+src\states\WaveCompleteState.cpp(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+src\states\WaveCompleteState.cpp(51): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+src\states\WaveCompleteState.cpp(303): warning C4305: 'argument' : truncation from 'double' to 'float'
+src\states\WaveCompleteState.cpp(304): warning C4305: 'argument' : truncation from 'double' to 'float'
+src\states\WaveCompleteState.cpp(306): warning C4305: 'argument' : truncation from 'double' to 'float'
+src\states\WaveCompleteState.cpp(307): warning C4305: 'argument' : truncation from 'double' to 'float'
+src\states\WaveCompleteState.cpp(315): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+src\states\WaveCompleteState.cpp(317): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     Creating library C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\Release\KillThemAll.lib and object C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\Release\KillThemAll.exp
+  Generating code
+  Finished generating code
+  KillThemAll.vcxproj -> C:\Users\fdeluna\Desktop\CEDV Projects\KillThemAll\Release\KillThemAll.exe

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="DefaultWindow" >
+        <Property name="Area" value="{{0,3},{0,2},{1,3},{1,2}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+        <Property name="RiseOnClickEnabled" value="false" />
+        <Window type="TaharezLook/ImageButton" name="HUD" >
+            <Property name="Area" value="{{0,-2},{0,0},{0,472},{0,184}}" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            <Property name="RiseOnClickEnabled" value="false" />
+            <Window type="TaharezLook/ImageButton" name="HUDFULL" >
+                <Property name="Area" value="{{0,15},{0,8},{0,454},{0,140}}" />
+                <Property name="HoverImage" value="TaharezLook/HUDVIDAFINISH" />
+                <Property name="NormalImage" value="TaharezLook/HUDVIDAFINISH" />
+                <Property name="PushedImage" value="TaharezLook/HUDVIDAFULL" />
+                <Property name="DisabledImage" value="TaharezLook/HUDVIDAFINISH" />
+                <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+                <Property name="RiseOnClickEnabled" value="false" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida2" >
+                <Property name="Area" value="{{0,198},{0,18},{0,226},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida5" >
+                <Property name="Area" value="{{0,282},{0,18},{0,310},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida6" >
+                <Property name="Area" value="{{0,310},{0,18},{0,338},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida7" >
+                <Property name="Area" value="{{0,338},{0,18},{0,366},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida8" >
+                <Property name="Area" value="{{0,366},{0,18},{0,395},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida4" >
+                <Property name="Area" value="{{0,254},{0,18},{0,282},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida3" >
+                <Property name="Area" value="{{0,226},{0,18},{0,254},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="Vida1" >
+                <Property name="Area" value="{{0,170},{0,18},{0,198},{0,47}}" />
+                <Property name="HoverImage" value="TaharezLook/CapsulaVida" />
+                <Property name="NormalImage" value="TaharezLook/CapsulaVida" />
+                <Property name="PushedImage" value="TaharezLook/CapsulaVida" />
+                <Property name="DisabledImage" value="TaharezLook/CapsulaVida" />
+            </Window>
+        </Window>
+        <Window type="TaharezLook/ImageButton" name="Weapons" >
+            <Property name="Area" value="{{0,350},{0,648},{0,694},{0,749}}" />
+            <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+            <Property name="RiseOnClickEnabled" value="false" />
+            <Window type="TaharezLook/ImageButton" name="WeaponClub" >
+                <Property name="Area" value="{{0,0},{0,0},{0,340},{0,98}}" />
+                <Property name="HoverImage" value="TaharezLook/WeaponClub" />
+                <Property name="NormalImage" value="TaharezLook/WeaponClub" />
+                <Property name="PushedImage" value="TaharezLook/WeaponClub" />
+                <Property name="DisabledImage" value="TaharezLook/WeaponClub" />
+                <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+                <Property name="RiseOnClickEnabled" value="false" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="WeaponGun" >
+                <Property name="Area" value="{{0,0},{0,0},{0,340},{0,98}}" />
+                <Property name="Visible" value="false" />
+                <Property name="HoverImage" value="TaharezLook/WeaponGun" />
+                <Property name="NormalImage" value="TaharezLook/WeaponGun" />
+                <Property name="PushedImage" value="TaharezLook/WeaponGun" />
+                <Property name="DisabledImage" value="TaharezLook/WeaponGun" />
+                <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+                <Property name="RiseOnClickEnabled" value="false" />
+            </Window>
+            <Window type="TaharezLook/ImageButton" name="WeaponShotGun" >
+                <Property name="Area" value="{{0,0},{0,0},{0,340},{0,98}}" />
+                <Property name="Visible" value="false" />
+                <Property name="HoverImage" value="TaharezLook/WeaponShotGun" />
+                <Property name="NormalImage" value="TaharezLook/WeaponShotGun" />
+                <Property name="PushedImage" value="TaharezLook/WeaponShotGun" />
+                <Property name="DisabledImage" value="TaharezLook/WeaponShotGun" />
+                <Property name="MouseCursorImage" value="TaharezLook/Cursor" />
+                <Property name="RiseOnClickEnabled" value="false" />
+            </Window>
+        </Window>
+        <Window type="TaharezLook/Label" name="CENTRALTEXT" >
+            <Property name="Area" value="{{0,336},{0,408},{0,694},{0,482}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="NormalTextColour" value="FF000000" />
+            <Property name="RiseOnClickEnabled" value="false" />
+        </Window>
+        <Window type="TaharezLook/Label" name="WAVE" >
+            <Property name="Area" value="{{0,457},{0,11},{0,664},{0,72}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="NormalTextColour" value="FF000000" />
+        </Window>
+        <Window type="TaharezLook/Label" name="ENEMIES" >
+            <Property name="Area" value="{{0,458},{0,48},{0,666},{0,115}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="NormalTextColour" value="FF000000" />
+        </Window>
+        <Window type="TaharezLook/Label" name="TEXTSLOT2" >
+            <Property name="Area" value="{{0,391},{0,659},{0,415},{0,682}}" />
+            <Property name="Text" value="0" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        </Window>
+        <Window type="TaharezLook/Label" name="TEXTSLOT1" >
+            <Property name="Area" value="{{0,487},{0,659},{0,511},{0,682}}" />
+            <Property name="Text" value="0" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        </Window>
+        <Window type="TaharezLook/Label" name="TEXTSLOT3" >
+            <Property name="Area" value="{{0,582},{0,656},{0,606},{0,679}}" />
+            <Property name="Text" value="0" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        </Window>
+        <Window type="TaharezLook/Label" name="CENTRALTEXT2" >
+            <Property name="Area" value="{{0,50},{0,45},{0,95},{0,100}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="RiseOnClickEnabled" value="false" />
+        </Window>
+        <Window type="TaharezLook/Label" name="CENTRALTEXT3" >
+            <Property name="Area" value="{{0,187},{0,63},{0,400},{0,111}}" />
+            <Property name="Text" value="WARNING!!" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="NormalTextColour" value="FFFF0000" />
+            <Property name="DisabledTextColour" value="FFDD0000" />
+            <Property name="RiseOnClickEnabled" value="false" />
+        </Window>
+    </Window>
+</GUILayout>

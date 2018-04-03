@@ -1,0 +1,32 @@
+material Ground
+{
+	receive_shadows on
+	technique
+	{
+		pass
+		{
+			ambient 0.75 0.75 0.75			
+						
+			texture_unit
+			{
+				texture wood.png
+			}
+		}
+	}
+}
+
+material Floor
+  {
+    technique
+    {
+      pass
+      {
+		 ambient 0.75 0.75 0.75			
+
+        texture_unit
+        {
+          texture floor.jpg		  
+        }
+      } 
+    }
+  }

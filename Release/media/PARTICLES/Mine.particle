@@ -1,0 +1,85 @@
+particle_system Mine
+{
+	material Fireball.001
+	particle_width 100.0
+	particle_height 100.0
+	quota 2000
+	cull_each false
+	sorted false
+	local_space true
+	iteration_interval 0.0
+	nonvisible_update_timeout 0.0
+	billboard_type point
+	billboard_origin center
+	billboard_rotation_type vertex
+	point_rendering false
+	accurate_facing false
+
+
+
+
+
+	
+
+	emitter HollowEllipsoid
+	{
+		position -0.0 -400.0 -0.0
+		direction 0.0 0.0 1.0
+		angle 180
+		width 3000
+		height 1000
+		depth 3000
+		inner_width 0.91
+		inner_height 0.9
+		inner_depth 0.9
+		emission_rate 500
+		velocity_min 1
+		velocity_max 1
+		time_to_live_min 5
+		time_to_live_max 5
+		duration_min 0
+		duration_max 0
+		repeat_delay_min 0
+		repeat_delay_max 0
+		colour_range_start 1 1 1 1
+		colour_range_end 1 1 1 1
+	}
+
+
+
+	affector DirectionRandomiser
+	{
+		randomness 40
+		scope 100
+		keep_velocity false
+	}
+
+	affector Scaler
+	{
+		rate 37.65
+	}
+
+	affector Rotator
+	{
+		rotation_speed_range_start 20
+		rotation_speed_range_end 100
+		rotation_range_start 0
+		rotation_range_end 180
+	}
+
+	affector ColourInterpolator
+	{
+		time0 1
+		colour0 1 0.376471 0.25098 1
+		time1 1
+		colour1 0.513726 0.207843 0.113725 1
+		time2 1
+		colour2 1 0.627451 0.254902 1
+		time3 1
+		colour3 1 0.517647 0.278431 1
+		time4 1
+		colour4 0.560784 0.313726 0.231373 1
+		time5 1
+		colour5 1 0.113725 0.113725 1
+	}
+}

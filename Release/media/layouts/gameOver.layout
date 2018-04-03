@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="DefaultWindow" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,-1}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="TaharezLook/ImageButton" name="VentanaGameOver" >
+            <Property name="Area" value="{{0,255},{0,132},{0,735},{0,534}}" />
+            <Property name="HoverImage" value="TaharezLook/Ventana" />
+            <Property name="NormalImage" value="TaharezLook/Ventana" />
+            <Property name="PushedImage" value="TaharezLook/Ventana" />
+            <Property name="DisabledImage" value="TaharezLook/Ventana" />
+            <Window type="TaharezLook/Button" name="Exit" >
+                <Property name="Area" value="{{0,200},{0,326},{0,296},{0,358}}" />
+                <Property name="Text" value="EXIT" />
+                <Property name="HoverImage" value="TaharezLook/BotonHover" />
+                <Property name="NormalImage" value="TaharezLook/Boton" />
+                <Property name="PushedImage" value="TaharezLook/BotonPulsado" />
+                <Property name="DisabledImage" value="TaharezLook/Boton" />
+            </Window>
+            <Window type="TaharezLook/Label" name="TiempoText" >
+                <Property name="Area" value="{{0,44},{0,43},{0,408},{0,92}}" />
+                <Property name="Text" value="TIME. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ." />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="Tiempo" >
+                <Property name="Area" value="{{0,411},{0,44},{0,443},{0,92}}" />
+                <Property name="Text" value="0" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="NivelText" >
+                <Property name="Area" value="{{0,43},{0,94},{0,408},{0,139}}" />
+                <Property name="Text" value="LEVEL. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="Nivel" >
+                <Property name="Area" value="{{0,410},{0,95},{0,439},{0,138}}" />
+                <Property name="Text" value="0" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="EnemigosText" >
+                <Property name="Area" value="{{0,43},{0,139},{0,408},{0,183}}" />
+                <Property name="Text" value="ENEMIES. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ." />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="Enemigos" >
+                <Property name="Area" value="{{0,410},{0,140},{0,442},{0,183}}" />
+                <Property name="Text" value="0" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="BossText" >
+                <Property name="Area" value="{{0,42},{0,184},{0,409},{0,228}}" />
+                <Property name="Text" value="MINES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ." />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="Boss" >
+                <Property name="Area" value="{{0,410},{0,185},{0,440},{0,228}}" />
+                <Property name="Text" value="0" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="BalasText" >
+                <Property name="Area" value="{{0,42},{0,229},{0,409},{0,273}}" />
+                <Property name="Text" value="BULLETS. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ." />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="Balas" >
+                <Property name="Area" value="{{0,410},{0,230},{0,440},{0,273}}" />
+                <Property name="Text" value="0" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="PocionesText" >
+                <Property name="Area" value="{{0,42},{0,275},{0,409},{0,319}}" />
+                <Property name="Text" value="POTS. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ." />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+            </Window>
+            <Window type="TaharezLook/Label" name="Pociones" >
+                <Property name="Area" value="{{0,411},{0,275},{0,441},{0,318}}" />
+                <Property name="Text" value="0" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorzFormatting" value="LeftAligned" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>
